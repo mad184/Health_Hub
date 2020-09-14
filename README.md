@@ -2,8 +2,8 @@
 
 Thursday Tutorial
 
-Brody Zak
-Justyn Pollard
-Remington Rohel
-Marcos Da Silva
-Dustin Crosson
+Brody Zak  
+Justyn Pollard  
+Remington Rohel  
+Marcos Da Silva  
+Dustin Crosson  
