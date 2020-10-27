@@ -18,6 +18,7 @@ public interface ClientInterface {
     void setComment(String[] comment);
     //void controller(Controller);
 
+
     //getters for client
     String getName();
     int getId();

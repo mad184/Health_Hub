@@ -92,7 +92,6 @@ public class Client implements ClientInterface {
     }
 
 
-
     //getters
     @Override
     public String getName() {
