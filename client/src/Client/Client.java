@@ -1,13 +1,39 @@
+package Client;
+
 public class Client implements ClientInterface {
-    private String name, email, instructor, organization;
-    private int id, age, height, weight, phoneNumber;
+    private String name, email, instructor, organization, phoneNumber;
+    private int id, age, height, weight;
     private Double goal, calories;
     private String[] allergies, comment;
+
+
+    public Client(String name, String email, String instructor, String organization, int id, int age, int height, int
+                  weight, String phoneNumber, double goal, double calories, String[] allergies, String[] comment){
+        this.name = name;
+        this.email = email;
+        this.instructor = instructor;
+        this.organization = organization;
+        this.id = id;
+        this.age = age;
+        this.height = height;
+        this.weight = weight;
+        this.phoneNumber = phoneNumber;
+        this.goal = goal;
+        this.calories = calories;
+        this.allergies = allergies;
+        this.comment = comment;
+    }
+
 
     //setters
     @Override
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public void setAge(int age) {
+        this.age = age;
     }
 
     @Override
@@ -21,7 +47,7 @@ public class Client implements ClientInterface {
     }
 
     @Override
-    public void setPhoneNum(int phoneNumber) {
+    public void setPhoneNum(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -60,16 +86,22 @@ public class Client implements ClientInterface {
         this.organization = organization;
     }
 
-
     @Override
     public void setComment(String[] comment) {
         this.comment = comment;
     }
 
+
+
     //getters
     @Override
     public String getName() {
         return this.name;
+    }
+
+    @Override
+    public int getAge() {
+        return this.age;
     }
 
     @Override
@@ -83,7 +115,7 @@ public class Client implements ClientInterface {
     }
 
     @Override
-    public int getPhoneNum() {
+    public String getPhoneNum() {
         return this.phoneNumber;
     }
 

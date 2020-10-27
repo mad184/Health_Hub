@@ -1,10 +1,13 @@
+package Client;
+
 public interface ClientInterface {
 
     //setters for client attributes
     void setName(String name);
+    void setAge(int age);
     void setId(int id);
     void setEmail(String email);
-    void setPhoneNum(int phoneNumber);
+    void setPhoneNum(String phoneNumber);
     void setHeight(int height);
     void setWeight(int weight);
     void setGoal(double goal);
@@ -18,8 +21,9 @@ public interface ClientInterface {
     //getters for client
     String getName();
     int getId();
+    int getAge();
     String getEmail();
-    int getPhoneNum();
+    String getPhoneNum();
     int getHeight();
     int getWeight();
     double getGoal();
