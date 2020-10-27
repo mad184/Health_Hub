@@ -4,23 +4,23 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ClientTest {
+  Client client1 =
+          new Client(
+                  "dustin",
+                  "dcr518@usask.ca",
+                  "Rick",
+                  "Golds",
+                  1,
+                  29,
+                  177,
+                  182,
+                  "306-111-1111",
+                  3000.0,
+                  2000.0,
+                  null,
+                  null);
   @Test
   void testObjectCreate() {
-    Client client1 =
-        new Client(
-            "dustin",
-            "dcr518@usask.ca",
-            "Rick",
-            "Golds",
-            1,
-            29,
-            177,
-            182,
-            "306-111-1111",
-            3000.0,
-            2000.0,
-            null,
-            null);
     assertEquals("dustin", client1.getName());
     assertEquals("dcr518@usask.ca", client1.getEmail());
     assertEquals("Rick", client1.getInstructor());
@@ -34,5 +34,16 @@ class ClientTest {
     assertEquals(2000.0, client1.getCalories(), 0.001); // delta means accurracy
     assertNull(client1.getAllergies());
     assertNull(client1.getComment());
+  }
+
+  @Test
+  void changeName(){
+    client1.setName("John");
+    assertEquals("John", client1.getName());
+  }
+
+  void changeAge(){
+    client1.setAge(13);
+    assertEquals(13, client1.getAge());
   }
 }
