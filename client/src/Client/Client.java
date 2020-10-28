@@ -15,7 +15,7 @@ public class Client implements ClientInterface {
       int age,
       int height,
       int weight,
-      String phoneNumber,
+      String phoneNumber, //we have this listed as a int, kept throwing errors for being to long, even as a long for some reason
       double goal,
       double calories,
       String[] allergies,
