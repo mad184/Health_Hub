@@ -18,10 +18,10 @@ Using Intellij IDEA:
 3. Add the Files following files to a package name Clinet: Client.java, ClientInterface.java, ClientTest.java to client package
 4. open file ClientTest.java
 5. File -> Project Structure -> Libraries -> New Project Library (+ button) -> from Maven
-6. add: junit:junit:4.12
+6. junit:junit:4.12 (add to textbox)
 7. apply
 8. New Project Library (+ button)-> from Maven
-9. add: org.junit.jupiter:junit-jupiter:5.4.2
+9. org.junit.jupiter:junit-jupiter:5.4.2 (add to textbox)
 10. okay
 11. press run button
 12. Look for output in terminal
