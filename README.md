@@ -6,12 +6,12 @@ Brody Zak
 Justyn Pollard  
 Remington Rohel  
 Marcos Da Silva  
-Dustin Crosson 
+Dustin Crosson  
 Kenneth Andal 
 
 
 
-Run Test Cases for MileStone 3 testing the Client Package with JUnit:
+Run Test Cases for MileStone 3 testing the Client Package with JUnit:  
 Using Intellij IDEA:
 1. download files from Client Branch in git lab (Client.java, ClientInterface.java, ClientTest.java)
 2. open a plain java project
