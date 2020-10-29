@@ -8,16 +8,16 @@ public class HealthHubModel {
   private HealthHubController controller;
   private Dbms database;
 
-  private void addClient(int uniqueCid,JSONObject newClient) {
-    database.addClient(uniqueCid,newClient);
+  private void addClient(int uniqueCid, JSONObject newClient) {
+    database.addClient(uniqueCid, newClient);
   }
 
-  private void addInstructor(Instructor newInstructor) {
-    // db_writer.createInstructor(newInstructor);
+  private void addInstructor(int uniqueIid, JSONObject newInstructor) {
+    database.addInstructor(uniqueIid, newInstructor);
   }
 
-  private void addManager(Manager newManager) {
-    // db_writer.createManager(newManager);
+  private void addManager(int uniqueMid, JSONObject newManager) {
+    database.addManager(uniqueMid, newManager);
   }
 
   private void addOwner(Owner newOwner) {
