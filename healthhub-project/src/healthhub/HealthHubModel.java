@@ -1,15 +1,15 @@
 package healthhub;
 
 import database.Dbms;
-
+import org.json.JSONObject;
 
 public class HealthHubModel {
 
   private HealthHubController controller;
   private Dbms database;
 
-  private void addClient(Client newClient) {
-    // db_writer.createClient(newClient);
+  private void addClient(int uniqueCid,JSONObject newClient) {
+    database.addClient(uniqueCid,newClient);
   }
 
   private void addInstructor(Instructor newInstructor) {
