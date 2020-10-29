@@ -17,5 +17,8 @@
         <jarDirectory url="file://$MODULE_DIR$/lib" recursive="false" />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="org.mongodb:mongodb-driver-async:3.12.7" level="project" />
+    <orderEntry type="library" name="org.mongodb:mongodb-driver-reactivestreams:1.13.1" level="project" />
+    <orderEntry type="library" name="org.reactivestreams:reactive-streams:1.0.3" level="project" />
   </component>
 </module>
