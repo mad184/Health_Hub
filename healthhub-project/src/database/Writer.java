@@ -8,6 +8,9 @@ import com.mongodb.client.MongoDatabase;
 import org.json.JSONObject;
 import org.bson.Document;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import static com.mongodb.client.model.Filters.eq;
 
 public class Writer {
@@ -40,7 +43,8 @@ public class Writer {
    * @param tableName: Name of the collection/table to connect to
    */
   Writer(String uriString, String dbName, String tableName) {
-
+    Logger mongoLogger = Logger.getLogger("org.mongodb.driver");
+    mongoLogger.setLevel(Level.SEVERE); // set logging to only severe conditions
     SERVER = MongoClients.create(uriString);
     mongoDb = SERVER.getDatabase(dbName);
     collectionTable = mongoDb.getCollection(tableName);
