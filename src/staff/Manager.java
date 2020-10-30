@@ -7,12 +7,12 @@ import java.util.ArrayList;
  */
 public class Manager implements ManagerInterface{
 
-    // Attributes for a Manager
-    String name, email, instructor, organization, phoneNumber;
+    // Attributes for a Manager organized by their type -> String, int, doubles String[] and ArrayList
+    String name, email, instructor, organization, phoneNumber, permission;
     int age, id;
     double weight, height, goal, calories;
     String[] comment;
-    ArrayList<InstructorInterface> instructorsList;
+    ArrayList<InstructorInterface> employeeList;
 
     /**
      * Create a new manager
@@ -35,6 +35,7 @@ public class Manager implements ManagerInterface{
             String instructor,
             String organization,
             String phoneNumber,
+            String permission,
             int age,
             int id,
             double weight,
@@ -47,6 +48,7 @@ public class Manager implements ManagerInterface{
         this.email = email;
         this.instructor = instructor;
         this.organization = organization;
+        this.permission = permission;
         this.age = age;
         this.id = id;
         this.phoneNumber = phoneNumber;
@@ -55,7 +57,7 @@ public class Manager implements ManagerInterface{
         this.goal = goal;
         this.calories = calories;
         this.comment = comment;
-        instructorsList = new ArrayList<>();
+        employeeList = new ArrayList<>();
     }
 
     /**
@@ -179,13 +181,23 @@ public class Manager implements ManagerInterface{
     }
 
     /**
+     * Set a permission for the Manager
+     * @param permission manager's permission
+     */
+    @Override
+    public void setPermission(String permission) {
+
+        this.permission = permission;
+    }
+
+    /**
      * Add an employee under manager
      * @param employee employee to be added
      */
     @Override
     public void addEmployee(InstructorInterface employee) {
 
-        this.instructorsList.add(employee);
+        this.employeeList.add(employee);
     }
 
     /**
@@ -195,8 +207,8 @@ public class Manager implements ManagerInterface{
     @Override
     public void removeEmployee(InstructorInterface employee) {
 
-        if (!instructorsList.isEmpty()){
-            instructorsList.removeIf(emp -> emp.equals(employee));
+        if (!employeeList.isEmpty()){
+            employeeList.removeIf(emp -> emp.equals(employee));
         }
     }
 
@@ -307,6 +319,38 @@ public class Manager implements ManagerInterface{
     public String getInstructor() {
 
         return this.instructor;
+    }
+
+    /**
+     * Getter for manager's permission
+     * @return manager's permission
+     */
+    @Override
+    public String getPermission() {
+
+        return this.permission;
+    }
+
+    /**
+     * Getter for a list of employees under the manager
+     * @return List of instructors (classes that implement Instructor interface)
+     */
+    @Override
+    public ArrayList<InstructorInterface> getEmployeeList() {
+
+        return this.employeeList;
+    }
+
+    /**
+     * Getter for a single employee under manager - need to be fixed, it depends on other cold -
+     * @param employeeName The employee name
+     * @return the employee object
+     */
+    @Override
+    public InstructorInterface getEmployee(String employeeName) {
+        
+        /*TO BE IMPLEMENTED*/
+        return null;
     }
 
     /**

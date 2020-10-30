@@ -1,5 +1,7 @@
 package staff;
 
+import java.util.ArrayList;
+
 /**
  * An interface for Manager class
  */
@@ -30,6 +32,8 @@ public interface ManagerInterface {
 
     void setComment(String[] comment);
 
+    void setPermission(String permission);
+
     void addEmployee(InstructorInterface employee);
 
     void removeEmployee(InstructorInterface employee);
@@ -56,6 +60,12 @@ public interface ManagerInterface {
     double getCalories();
 
     String getInstructor();
+
+    String getPermission();
+
+    ArrayList<InstructorInterface> getEmployeeList();
+
+    InstructorInterface getEmployee(String employeeName);
 
     String getOrganization();
 
