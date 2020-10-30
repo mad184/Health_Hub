@@ -30,7 +30,7 @@ public interface ManagerInterface {
 
     void setOrganization(String organization);
 
-    void setComment(String[] comment);
+    void setComment(String comment);
 
     void setPermission(String permission);
 
@@ -69,5 +69,5 @@ public interface ManagerInterface {
 
     String getOrganization();
 
-    String[] getComment();
+    String getComment();
 }

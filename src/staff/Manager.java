@@ -8,10 +8,9 @@ import java.util.ArrayList;
 public class Manager implements ManagerInterface{
 
     // Attributes for a Manager organized by their type -> String, int, doubles String[] and ArrayList
-    String name, email, instructor, organization, phoneNumber, permission;
-    int age, id;
-    double weight, height, goal, calories;
-    String[] comment;
+    private String name, email, instructor, organization, phoneNumber, permission, comment;
+    private int age, id;
+    private double weight, height, goal, calories;
     ArrayList<InstructorInterface> employeeList;
 
     /**
@@ -42,7 +41,7 @@ public class Manager implements ManagerInterface{
             double height,
             double goal,
             double calories,
-            String[] comment) {
+            String comment) {
 
         this.name = name;
         this.email = email;
@@ -175,7 +174,7 @@ public class Manager implements ManagerInterface{
      * @param comment manager's comment
      */
     @Override
-    public void setComment(String[] comment) {
+    public void setComment(String comment) {
 
         this.comment = comment;
     }
@@ -348,7 +347,7 @@ public class Manager implements ManagerInterface{
      */
     @Override
     public InstructorInterface getEmployee(String employeeName) {
-        
+
         /*TO BE IMPLEMENTED*/
         return null;
     }
@@ -368,7 +367,7 @@ public class Manager implements ManagerInterface{
      * @return manager's comment
      */
     @Override
-    public String[] getComment() {
+    public String getComment() {
 
         return this.comment;
     }
