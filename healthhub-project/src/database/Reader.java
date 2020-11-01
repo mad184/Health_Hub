@@ -119,15 +119,34 @@ public class Reader implements ReadWriteInterface {
     JSONArray allClientArr = new JSONArray();
     FindIterable<Document> allClientDoc = collectionTable.find();
 
-    allClientDoc.forEach(
-        (Consumer<Document>)
-                allClientArr::put);
+    for (Document eachClient : allClientDoc) {
+      allClientArr.put(eachClient);
+    }
     setCollectionTable(previousCollection);
 
     if (allClientArr.isEmpty()) {
       return null;
     } else {
       return allClientArr;
+    }
+  }
+
+  public JSONArray getAllInstructors() {
+    MongoCollection<Document> previousCollection = getCollectionTable();
+    setCollectionTable("InstructorCollection");
+
+    JSONArray allInstructorArr = new JSONArray();
+    FindIterable<Document> allInstructorDoc = collectionTable.find();
+
+    for (Document eachInstructor : allInstructorDoc) {
+      allInstructorArr.put(eachInstructor);
+    }
+    setCollectionTable(previousCollection);
+
+    if (allInstructorArr.isEmpty()) {
+      return null;
+    } else {
+      return allInstructorArr;
     }
   }
 
