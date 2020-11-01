@@ -136,7 +136,7 @@ public class Writer {
 
   /**
    * Update Client Information inside the Client Collection
-   *
+   * If the client does not exist, the function does nothing
    * @param uniqueCid: Unique Client Id
    * @param updatedData: Updated data to use in replacing
    */
@@ -151,7 +151,7 @@ public class Writer {
 
   /**
    * Update Instructor Information inside the Instructor Collection
-   *
+   * If the Instructor does not exist, the function does nothing
    * @param uniqueIid: Unique id for instructors
    * @param updatedData: New updated data
    */
@@ -166,7 +166,7 @@ public class Writer {
 
   /**
    * Update Manager data inside the Manager Collection
-   *
+   * If the Manager does not exist, the function does nothing
    * @param uniqueMid: unique manager id to find
    * @param updatedData: updated data to store
    */
