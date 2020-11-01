@@ -42,7 +42,7 @@ public class Writer {
    * @param dbName: Name of the database to connect to
    * @param tableName: Name of the collection/table to connect to
    */
-  Writer(String uriString, String dbName, String tableName) {
+  public Writer(String uriString, String dbName, String tableName) {
     Logger mongoLogger = Logger.getLogger("org.mongodb.driver");
     mongoLogger.setLevel(Level.SEVERE); // set logging to only severe conditions
     SERVER = MongoClients.create(uriString);
@@ -50,19 +50,19 @@ public class Writer {
     collectionTable = mongoDb.getCollection(tableName);
   }
 
-  protected MongoClient getServerObj() {
+  public MongoClient getServerObj() {
     return SERVER;
   }
 
-  protected MongoDatabase getDbObject() {
+  public MongoDatabase getDbObject() {
     return mongoDb;
   }
 
-  protected MongoCollection<Document> getCollectionTable() {
+  public MongoCollection<Document> getCollectionTable() {
     return collectionTable;
   }
 
-  private void setDbObject(String dbName) {
+  public void setDbObject(String dbName) {
     mongoDb = SERVER.getDatabase(dbName);
   }
 
@@ -72,7 +72,7 @@ public class Writer {
    *
    * @param newTable new collection table to create
    */
-  private void setCollectionTable(String newTable) {
+  public void setCollectionTable(String newTable) {
     collectionTable = mongoDb.getCollection(newTable);
   }
 
@@ -82,7 +82,7 @@ public class Writer {
    *
    * @param newMongoCollection Mongo Collection that we need to set
    */
-  private void setCollectionTable(MongoCollection<Document> newMongoCollection) {
+  public void setCollectionTable(MongoCollection<Document> newMongoCollection) {
     collectionTable = newMongoCollection;
   }
 
@@ -92,7 +92,7 @@ public class Writer {
    * @param uniqueCid unique client id
    * @param value JSON data that refers to the specific client id
    */
-  protected void createClient(int uniqueCid, JSONObject value) {
+  public void createClient(int uniqueCid, JSONObject value) {
 
     MongoCollection<Document> previousCollection = getCollectionTable();
     setCollectionTable("ClientCollection");
@@ -108,7 +108,7 @@ public class Writer {
    * @param uniqueIid unique instructor id
    * @param value JSON data that refers to the specific Instructor id
    */
-  protected void createInstructor(int uniqueIid, JSONObject value) {
+  public void createInstructor(int uniqueIid, JSONObject value) {
 
     MongoCollection<Document> previousCollection = getCollectionTable();
     setCollectionTable("InstructorCollection");
@@ -124,7 +124,7 @@ public class Writer {
    * @param uniqueMid unique manager id
    * @param value JSON data that refers to the specific Manager id
    */
-  protected void createManager(int uniqueMid, JSONObject value) {
+  public void createManager(int uniqueMid, JSONObject value) {
 
     MongoCollection<Document> previousCollection = getCollectionTable();
     setCollectionTable("ManagerCollection");
@@ -140,7 +140,7 @@ public class Writer {
    * @param uniqueCid: Unique Client Id
    * @param updatedData: Updated data to use in replacing
    */
-  protected void updateClient(int uniqueCid, JSONObject updatedData) {
+  public void updateClient(int uniqueCid, JSONObject updatedData) {
     MongoCollection<Document> previousCollection = getCollectionTable();
     setCollectionTable("ClientCollection");
     Document findData = new Document("_id", uniqueCid);
@@ -155,7 +155,7 @@ public class Writer {
    * @param uniqueIid: Unique id for instructors
    * @param updatedData: New updated data
    */
-  protected void updateInstructor(int uniqueIid, JSONObject updatedData) {
+  public void updateInstructor(int uniqueIid, JSONObject updatedData) {
     MongoCollection<Document> previousCollection = getCollectionTable();
     setCollectionTable("InstructorCollection");
     Document findData = new Document("_id", uniqueIid);
@@ -170,7 +170,7 @@ public class Writer {
    * @param uniqueMid: unique manager id to find
    * @param updatedData: updated data to store
    */
-  protected void updateManager(int uniqueMid, JSONObject updatedData) {
+  public void updateManager(int uniqueMid, JSONObject updatedData) {
     MongoCollection<Document> previousCollection = getCollectionTable();
     setCollectionTable("ManagerCollection");
     Document findData = new Document("_id", uniqueMid);
@@ -184,7 +184,7 @@ public class Writer {
    *
    * @param uniqueCid: Unique Client Id to remove
    */
-  protected void removeClient(int uniqueCid) {
+  public void removeClient(int uniqueCid) {
     MongoCollection<Document> previousCollection = getCollectionTable();
     setCollectionTable("ClientCollection");
     collectionTable.deleteOne(eq("_id", uniqueCid));
@@ -196,7 +196,7 @@ public class Writer {
    *
    * @param uniqueIid: unique instructor id to remove
    */
-  protected void removeInstructor(int uniqueIid) {
+  public void removeInstructor(int uniqueIid) {
     MongoCollection<Document> previousCollection = getCollectionTable();
     setCollectionTable("InstructorCollection");
     collectionTable.deleteOne(eq("_id", uniqueIid));
@@ -208,68 +208,10 @@ public class Writer {
    *
    * @param uniqueMid: unique manager id to remove
    */
-  protected void removeManager(int uniqueMid) {
+  public void removeManager(int uniqueMid) {
     MongoCollection<Document> previousCollection = getCollectionTable();
     setCollectionTable("ManagerCollection");
     collectionTable.deleteOne(eq("_id", uniqueMid));
     setCollectionTable(previousCollection);
-  }
-
-  public static void main(String[] args) {
-
-    // do not change this. This is the cloud connection. Not Secure as username and password is
-    // seen. Need Authentication
-    // database chosen. See me if you interested on creating your own database
-    String userName = "test-user";
-    String passWord = "healthhub1";
-    String dbName = "Dev-General-Database";
-    String tableName = "testCollection";
-
-    String uriString =
-        "mongodb+srv://"
-            + userName
-            + ":"
-            + passWord
-            + "@healthhub-cluster.7y7j0.mongodb.net/"
-            + dbName
-            + "?retryWrites=true&w=majority";
-
-    // Instantiation of all JSON objects to play around
-    Writer testWriter = new Writer(uriString, dbName, tableName);
-    JSONObject newClient = new JSONObject();
-    newClient.append("Name", "Shrimp");
-    JSONObject newInstructor = new JSONObject();
-    newInstructor.append("Name", "GawrGura");
-    JSONObject newManager = new JSONObject();
-    newManager.append("Name", "Yagoo");
-
-    // This remove test removes specified id within the cloud database
-    testWriter.removeClient(1);
-    System.out.println("Succesfully deleted Client");
-    testWriter.removeInstructor(1);
-    System.out.println("Succesfully deleted Instructor");
-    testWriter.removeManager(1);
-    System.out.println("Succesfully deleted Manager");
-
-    // This creation test is meant for you to test whether you can write into the Cloud. Cid, Iid
-    // and Mid has to be unique.
-    testWriter.createClient(1, newClient);
-    System.out.println("Succesfully created Client");
-    testWriter.createInstructor(1, newInstructor);
-    System.out.println("Succesfully created Instructor");
-    testWriter.createManager(1, newManager);
-    System.out.println("Succesfully created Manager");
-
-    // This update test is meant to test whether updating will work within the cloud
-    newClient.append("Name", "Kiara");
-    newInstructor.append("Name", "Coco");
-    newManager.append("Name", "Coco");
-
-    testWriter.updateClient(1, newClient);
-    System.out.println("Succesfully updated Client");
-    testWriter.updateInstructor(1, newInstructor);
-    System.out.println("Succesfully updated Instructor");
-    testWriter.updateManager(1, newManager);
-    System.out.println("Succesfully updated Manager");
   }
 }
