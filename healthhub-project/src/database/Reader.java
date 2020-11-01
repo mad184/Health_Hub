@@ -1,12 +1,11 @@
 package database;
 
-import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.FindIterable;
-import org.json.JSONObject;
+import org.json.JSONArray;
 import org.bson.Document;
 
 import java.util.function.Consumer;
@@ -113,6 +112,25 @@ public class Reader implements ReadWriteInterface {
     }
   }
 
+  public JSONArray getAllClients() {
+    MongoCollection<Document> previousCollection = getCollectionTable();
+    setCollectionTable("ClientCollection");
+
+    JSONArray allClientArr = new JSONArray();
+    FindIterable<Document> allClientDoc = collectionTable.find();
+
+    allClientDoc.forEach(
+        (Consumer<Document>)
+                allClientArr::put);
+    setCollectionTable(previousCollection);
+
+    if (allClientArr.isEmpty()) {
+      return null;
+    } else {
+      return allClientArr;
+    }
+  }
+
   public static void main(String[] args) {
     final String realUserName = "test-user";
     final String realPassWord = "healthhub1";
@@ -129,6 +147,7 @@ public class Reader implements ReadWriteInterface {
             + "?retryWrites=true&w=majority";
 
     Reader newReader = new Reader(realUriString, dbName, tableName);
-    System.out.println(newReader.readClientData(1));
+    // System.out.println(newReader.readClientData(1));
+    System.out.println(newReader.getAllClients().toString());
   }
 }
