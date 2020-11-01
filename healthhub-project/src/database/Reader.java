@@ -150,6 +150,25 @@ public class Reader implements ReadWriteInterface {
     }
   }
 
+  public JSONArray getAllManagers() {
+    MongoCollection<Document> previousCollection = getCollectionTable();
+    setCollectionTable("ManagerCollection");
+
+    JSONArray allManagerArr = new JSONArray();
+    FindIterable<Document> allManagerDoc = collectionTable.find();
+
+    for (Document eachManager : allManagerDoc) {
+      allManagerArr.put(eachManager);
+    }
+    setCollectionTable(previousCollection);
+
+    if (allManagerArr.isEmpty()) {
+      return null;
+    } else {
+      return allManagerArr;
+    }
+  }
+
   public static void main(String[] args) {
     final String realUserName = "test-user";
     final String realPassWord = "healthhub1";
