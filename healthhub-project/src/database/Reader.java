@@ -168,24 +168,4 @@ public class Reader implements ReadWriteInterface {
       return allManagerArr;
     }
   }
-
-  public static void main(String[] args) {
-    final String realUserName = "test-user";
-    final String realPassWord = "healthhub1";
-    final String dbName = "Dev-General-Database";
-    final String tableName = "testCollection";
-
-    String realUriString =
-        "mongodb+srv://"
-            + realUserName
-            + ":"
-            + realPassWord
-            + "@healthhub-cluster.7y7j0.mongodb.net/"
-            + dbName
-            + "?retryWrites=true&w=majority";
-
-    Reader newReader = new Reader(realUriString, dbName, tableName);
-    // System.out.println(newReader.readClientData(1));
-    System.out.println(newReader.getAllClients().toString());
-  }
 }
