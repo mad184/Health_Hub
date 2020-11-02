@@ -2,6 +2,7 @@ package database.test;
 
 import com.mongodb.MongoSecurityException;
 import com.mongodb.MongoWriteException;
+import database.EmptyQueryException;
 import database.JsonObjectException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Assertions;
@@ -99,7 +100,6 @@ public class WriterUnitTest {
   void testCreation() {
     JSONObject testAdd = new JSONObject();
     testAdd.append("Data", "Client/Manager/Instructor Data");
-
     // Test Creation of data
     Assertions.assertDoesNotThrow(
         () -> {
@@ -153,6 +153,22 @@ public class WriterUnitTest {
 
   @Test
   @Order(8)
+  void testDneUpdate() {
+    JSONObject testUpdate = new JSONObject();
+    testUpdate.append("Another Data", "Another Client/Manager/Instructor Data");
+
+    // Test of updating a client that does not exist
+    Assertions.assertThrows(
+        EmptyQueryException.class,
+        () -> {
+          realCon.updateClient(50, testUpdate);
+          realCon.updateManager(51, testUpdate);
+          realCon.updateInstructor(52, testUpdate);
+        });
+  }
+
+  @Test
+  @Order(9)
   void testUpdate() {
     JSONObject testUpdate = new JSONObject();
     testUpdate.append("Another Data", "Another Client/Manager/Instructor Data");
