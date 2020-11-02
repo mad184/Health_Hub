@@ -8,7 +8,6 @@ import com.mongodb.client.FindIterable;
 import org.json.JSONArray;
 import org.bson.Document;
 
-import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -66,6 +65,14 @@ public class Reader implements ReadWriteInterface {
     collectionTable = newMongoCollection;
   }
 
+  /**
+   * Reads the client data for the specified unique client id This function iterates over the
+   * Clients tables but only take the first result It is expected that every client will have unique
+   * id so only first result is outputted
+   *
+   * @param uniqueCid: unique client id to read
+   * @return returns JSON string of the client data, If no data found, returns null
+   */
   public String readClientData(int uniqueCid) {
     MongoCollection<Document> previousCollection = getCollectionTable();
     setCollectionTable("ClientCollection");
@@ -81,6 +88,14 @@ public class Reader implements ReadWriteInterface {
     }
   }
 
+  /**
+   * Reads the instructor data for the specified unique instructor id This function iterates over
+   * the Instructor tables but only take the first result It is expected that every instructor will
+   * have unique id so only first result is outputted
+   *
+   * @param uniqueIid: unique instructor id to read
+   * @return returns JSON string of the instructor data, If no data found, returns null
+   */
   public String readInstructorData(int uniqueIid) {
     MongoCollection<Document> previousCollection = getCollectionTable();
     setCollectionTable("InstructorCollection");
@@ -96,6 +111,14 @@ public class Reader implements ReadWriteInterface {
     }
   }
 
+  /**
+   * Reads the Manager data for the specified unique manager id This function iterates over the
+   * Manager tables but only take the first result It is expected that every manager will have
+   * unique id so only first result is outputted
+   *
+   * @param uniqueMid: unique manager id to read
+   * @return returns JSON string of the manager data. If no data found, returns null
+   */
   public String readManagerData(int uniqueMid) {
     MongoCollection<Document> previousCollection = getCollectionTable();
     setCollectionTable("ManagerCollection");
@@ -112,6 +135,11 @@ public class Reader implements ReadWriteInterface {
     }
   }
 
+  /**
+   * Gets all the clients available in the client table
+   *
+   * @return returns a JSONArray of all the clients and their data, null if no data
+   */
   public JSONArray getAllClients() {
     MongoCollection<Document> previousCollection = getCollectionTable();
     setCollectionTable("ClientCollection");
@@ -131,6 +159,11 @@ public class Reader implements ReadWriteInterface {
     }
   }
 
+  /**
+   * Gets all the instructors available in the instructor table
+   *
+   * @return returns a JSONarray of all the instructors and their data, null if no data
+   */
   public JSONArray getAllInstructors() {
     MongoCollection<Document> previousCollection = getCollectionTable();
     setCollectionTable("InstructorCollection");
@@ -150,6 +183,11 @@ public class Reader implements ReadWriteInterface {
     }
   }
 
+  /**
+   * Gets all the Managers available in the manager table
+   *
+   * @return returns a JSONarray of all the managers and their data, null if no data
+   */
   public JSONArray getAllManagers() {
     MongoCollection<Document> previousCollection = getCollectionTable();
     setCollectionTable("ManagerCollection");
