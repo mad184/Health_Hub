@@ -1,10 +1,12 @@
 package Client;
 
+import Client.ClientView.ClientViewUpdate;
+
 public class ClientController {
     private Client model;
-    private ClientView view;
+    private ClientViewUpdate view;
 
-    public ClientController(Client model, ClientView view) {
+    public ClientController(Client model, ClientViewUpdate view) {
         this.model = model;
         this.view = view;
     }
