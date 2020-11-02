@@ -2,6 +2,7 @@ package database.test;
 
 import com.mongodb.MongoSecurityException;
 import com.mongodb.MongoWriteException;
+import database.JsonObjectException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Order;
@@ -58,8 +59,6 @@ public class WriterUnitTest {
   @RepeatedTest(3)
   @Order(2)
   void testDeletion() {
-    JSONObject test_add = new JSONObject();
-    test_add.append("Data", "Client/Manager/Instructor Data");
 
     // Test deletion of data
     Assertions.assertDoesNotThrow(
@@ -70,31 +69,32 @@ public class WriterUnitTest {
         });
   }
 
-    @Test
-    @Order(3)
-    void testCreationNull() {
+  @Test
+  @Order(3)
+  void testCreationNull() {
 
-        // Test Creation of data with nulls
-        Assertions.assertThrows(NullPointerException.class,
-                () -> {
-                    realCon.createClient(1, null);
-                    realCon.createManager(1, null);
-                    realCon.createInstructor(1, null);
-                });
-    }
+    // Test Creation of data with nulls
+    Assertions.assertThrows(
+        NullPointerException.class,
+        () -> {
+          realCon.createClient(1, null);
+          realCon.createManager(1, null);
+          realCon.createInstructor(1, null);
+        });
+  }
 
   @Test
   @Order(4)
   void testCreation() {
-    JSONObject test_add = new JSONObject();
-    test_add.append("Data", "Client/Manager/Instructor Data");
+    JSONObject testAdd = new JSONObject();
+    testAdd.append("Data", "Client/Manager/Instructor Data");
 
     // Test Creation of data
     Assertions.assertDoesNotThrow(
         () -> {
-          realCon.createClient(1, test_add);
-          realCon.createManager(1, test_add);
-          realCon.createInstructor(1, test_add);
+          realCon.createClient(1, testAdd);
+          realCon.createManager(1, testAdd);
+          realCon.createInstructor(1, testAdd);
         });
   }
 
@@ -112,29 +112,46 @@ public class WriterUnitTest {
 
   @Test
   @Order(6)
+  void testUpdateNull() {
+
+    // Test of updating a client with null updated data
+    Assertions.assertThrows(
+        NullPointerException.class,
+        () -> {
+          realCon.updateClient(1, null);
+          realCon.updateManager(1, null);
+          realCon.updateInstructor(1, null);
+        });
+  }
+
+  @Test
+  @Order(8)
+  void testUpdateEmpty() {
+
+    JSONObject emptyUpdate = new JSONObject();
+
+    // Test of updating a client with null updated data
+    Assertions.assertThrows(
+        JsonObjectException.class,
+        () -> {
+          realCon.updateClient(1, emptyUpdate);
+          realCon.updateManager(1, emptyUpdate);
+          realCon.updateInstructor(1, emptyUpdate);
+        });
+  }
+
+  @Test
+  @Order(8)
   void testUpdate() {
-    JSONObject test_update = new JSONObject();
-    test_update.append("Another Data", "Another Client/Manager/Instructor Data");
+    JSONObject testUpdate = new JSONObject();
+    testUpdate.append("Another Data", "Another Client/Manager/Instructor Data");
 
     // Test update of already created data
     Assertions.assertDoesNotThrow(
         () -> {
-          realCon.updateClient(1, test_update);
-          realCon.updateManager(1, test_update);
-          realCon.updateInstructor(1, test_update);
+          realCon.updateClient(1, testUpdate);
+          realCon.updateManager(1, testUpdate);
+          realCon.updateInstructor(1, testUpdate);
         });
   }
-
-    @Test
-    @Order(7)
-    void testUpdateNull() {
-
-        // Test of updating a client with null updated data
-        Assertions.assertThrows(NullPointerException.class,
-                () -> {
-                    realCon.updateClient(1, null);
-                    realCon.updateManager(1, null);
-                    realCon.updateInstructor(1, null);
-                });
-    }
 }
