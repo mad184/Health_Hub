@@ -85,11 +85,19 @@ public class Writer implements ReadWriteInterface {
     collectionTable = newMongoCollection;
   }
 
-  private Document createDocumentData(int uniqueId,JSONObject documentData){
-    Document newDocument = new Document("_id", uniqueId);
+  /**
+   * This function creates a document from the JsonData inputted. This acts similar to conversion
+   * from JSONObject to Document type Enables the database to parse the JSONObject into parseable
+   * Document
+   *
+   * @param JsonData: JSONObject data to convert
+   * @param newDocument: Document object to append to
+   * @return document version of the JSonData JSONObject
+   */
+  private Document createDocumentData(JSONObject JsonData, Document newDocument) {
 
-    for (String eachKey:documentData.keySet()){
-      newDocument.append(eachKey,documentData.get(eachKey));
+    for (String eachKey : JsonData.keySet()) {
+      newDocument.append(eachKey, JsonData.get(eachKey));
     }
 
     return newDocument;
@@ -106,7 +114,8 @@ public class Writer implements ReadWriteInterface {
 
     MongoCollection<Document> previousCollection = getCollectionTable();
     setCollectionTable("ClientCollection");
-    Document clientData = createDocumentData(uniqueCid,value);
+    Document clientDocument = new Document("_id", uniqueCid);
+    Document clientData = createDocumentData(value, clientDocument);
     collectionTable.insertOne(clientData);
     setCollectionTable(previousCollection);
   }
@@ -122,7 +131,8 @@ public class Writer implements ReadWriteInterface {
 
     MongoCollection<Document> previousCollection = getCollectionTable();
     setCollectionTable("InstructorCollection");
-    Document InstructorData = createDocumentData(uniqueIid,value);
+    Document instructorDocument = new Document("_id", uniqueIid);
+    Document InstructorData = createDocumentData(value, instructorDocument);
     collectionTable.insertOne(InstructorData);
     setCollectionTable(previousCollection);
   }
@@ -138,7 +148,8 @@ public class Writer implements ReadWriteInterface {
 
     MongoCollection<Document> previousCollection = getCollectionTable();
     setCollectionTable("ManagerCollection");
-    Document ManagerData = createDocumentData(uniqueMid,value);
+    Document ManagerDocument = new Document("_id", uniqueMid);
+    Document ManagerData = createDocumentData(value, ManagerDocument);
     collectionTable.insertOne(ManagerData);
     setCollectionTable(previousCollection);
   }
@@ -154,7 +165,7 @@ public class Writer implements ReadWriteInterface {
    *     thrown to prevent users from updating empty data to Clients
    */
   public void updateClient(int uniqueCid, JSONObject updatedData)
-      throws NullPointerException, JsonObjectException {
+      throws NullPointerException, JsonObjectException, EmptyQueryException {
 
     if (updatedData.isEmpty()) {
       throw new JsonObjectException();
@@ -162,9 +173,18 @@ public class Writer implements ReadWriteInterface {
 
     MongoCollection<Document> previousCollection = getCollectionTable();
     setCollectionTable("ClientCollection");
-    Document findData = new Document("_id", uniqueCid);
-    collectionTable.findOneAndReplace(findData, new Document("ClientData", updatedData.toString()));
-    setCollectionTable(previousCollection);
+    Document updatedDocument = new Document();
+    Document updatedClientDoc = createDocumentData(updatedData, updatedDocument);
+
+    try {
+      Document checkResult =
+          collectionTable.findOneAndReplace(eq("_id", uniqueCid), updatedClientDoc);
+      assert checkResult != null;
+    } catch (AssertionError ae) {
+      throw new EmptyQueryException();
+    } finally {
+      setCollectionTable(previousCollection);
+    }
   }
 
   /**
@@ -186,9 +206,9 @@ public class Writer implements ReadWriteInterface {
 
     MongoCollection<Document> previousCollection = getCollectionTable();
     setCollectionTable("InstructorCollection");
-    Document findData = new Document("_id", uniqueIid);
-    collectionTable.findOneAndReplace(
-        findData, new Document("InstructorData", updatedData.toString()));
+    Document updatedDocument = new Document();
+    Document updatedInstrDoc = createDocumentData(updatedData, updatedDocument);
+    collectionTable.findOneAndReplace(eq("_id", uniqueIid), updatedInstrDoc);
     setCollectionTable(previousCollection);
   }
 
@@ -211,9 +231,9 @@ public class Writer implements ReadWriteInterface {
 
     MongoCollection<Document> previousCollection = getCollectionTable();
     setCollectionTable("ManagerCollection");
-    Document findData = new Document("_id", uniqueMid);
-    collectionTable.findOneAndReplace(
-        findData, new Document("ManagerData", updatedData.toString()));
+    Document updatedDocument = new Document();
+    Document updatedManagerDoc = createDocumentData(updatedData, updatedDocument);
+    collectionTable.findOneAndReplace(eq("_id", uniqueMid), updatedManagerDoc);
     setCollectionTable(previousCollection);
   }
 
