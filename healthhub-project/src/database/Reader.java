@@ -7,6 +7,7 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.FindIterable;
 import org.json.JSONArray;
 import org.bson.Document;
+import org.json.JSONObject;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -66,23 +67,44 @@ public class Reader implements ReadWriteInterface {
   }
 
   /**
+   * This function creates a JSONObject from the Document inputted. This acts similar to conversion
+   * from Document to JSONObject type. This should enable developers to parse JSONObject it returned
+   *
+   * @param newJson: JSONObject to append to
+   * @param documentData: document object used to convert to JSONObject
+   * @return JSONObject version of the documentData
+   */
+  private JSONObject createJsonData(JSONObject newJson, Document documentData) {
+
+    for (String eachKey : documentData.keySet()) {
+      newJson.put(eachKey, documentData.get(eachKey));
+    }
+
+    return newJson;
+  }
+
+  /**
    * Reads the client data for the specified unique client id This function iterates over the
    * Clients tables but only take the first result It is expected that every client will have unique
    * id so only first result is outputted
    *
    * @param uniqueCid: unique client id to read
-   * @return returns JSON string of the client data, If no data found, returns null
+   * @return JSONObject of the client data.
+   * @throws EmptyQueryException when the user attempts to read data from nonexisting client, this
+   *     exception is thrown
    */
-  public String readClientData(int uniqueCid) {
+  public JSONObject readClientData(int uniqueCid) throws EmptyQueryException {
     MongoCollection<Document> previousCollection = getCollectionTable();
     setCollectionTable("ClientCollection");
 
+    JSONObject clientData = new JSONObject();
     try {
-      Document clientData = collectionTable.find(eq("_id", uniqueCid)).first();
-      assert clientData != null;
-      return clientData.toJson();
-    } catch (AssertionError npe) {
-      return null;
+      Document searchClient = collectionTable.find(eq("_id", uniqueCid)).first();
+      assert searchClient != null;
+      return createJsonData(clientData, searchClient);
+
+    } catch (AssertionError eqe) {
+      throw new EmptyQueryException();
     } finally {
       setCollectionTable(previousCollection);
     }
