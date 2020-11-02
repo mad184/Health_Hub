@@ -98,7 +98,7 @@ public class Writer implements ReadWriteInterface {
     MongoCollection<Document> previousCollection = getCollectionTable();
     setCollectionTable("ClientCollection");
     Document newClient = new Document("_id", uniqueCid);
-    newClient.append("data", BasicDBObject.parse(value.toString()));
+    newClient.append("ClientData", BasicDBObject.parse(value.toString()));
     collectionTable.insertOne(newClient);
     setCollectionTable(previousCollection);
   }
@@ -115,7 +115,7 @@ public class Writer implements ReadWriteInterface {
     MongoCollection<Document> previousCollection = getCollectionTable();
     setCollectionTable("InstructorCollection");
     Document newInstructor = new Document("_id", uniqueIid);
-    newInstructor.append("data", BasicDBObject.parse(value.toString()));
+    newInstructor.append("InstructorData", BasicDBObject.parse(value.toString()));
     collectionTable.insertOne(newInstructor);
     setCollectionTable(previousCollection);
   }
@@ -132,7 +132,7 @@ public class Writer implements ReadWriteInterface {
     MongoCollection<Document> previousCollection = getCollectionTable();
     setCollectionTable("ManagerCollection");
     Document newManager = new Document("_id", uniqueMid);
-    newManager.append("data", BasicDBObject.parse(value.toString()));
+    newManager.append("ManagerData", BasicDBObject.parse(value.toString()));
     collectionTable.insertOne(newManager);
     setCollectionTable(previousCollection);
   }
@@ -158,7 +158,7 @@ public class Writer implements ReadWriteInterface {
     setCollectionTable("ClientCollection");
     Document findData = new Document("_id", uniqueCid);
     collectionTable.findOneAndReplace(
-        findData, new Document("data", BasicDBObject.parse(updatedData.toString())));
+        findData, new Document("ClientData", BasicDBObject.parse(updatedData.toString())));
     setCollectionTable(previousCollection);
   }
 
@@ -183,7 +183,7 @@ public class Writer implements ReadWriteInterface {
     setCollectionTable("InstructorCollection");
     Document findData = new Document("_id", uniqueIid);
     collectionTable.findOneAndReplace(
-        findData, new Document("data", BasicDBObject.parse(updatedData.toString())));
+        findData, new Document("InstructorData", BasicDBObject.parse(updatedData.toString())));
     setCollectionTable(previousCollection);
   }
 
@@ -208,7 +208,7 @@ public class Writer implements ReadWriteInterface {
     setCollectionTable("ManagerCollection");
     Document findData = new Document("_id", uniqueMid);
     collectionTable.findOneAndReplace(
-        findData, new Document("data", BasicDBObject.parse(updatedData.toString())));
+        findData, new Document("ManagerData", BasicDBObject.parse(updatedData.toString())));
     setCollectionTable(previousCollection);
   }
 
