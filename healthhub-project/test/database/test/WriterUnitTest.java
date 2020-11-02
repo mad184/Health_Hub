@@ -1,12 +1,14 @@
 package database.test;
 
 import com.mongodb.MongoSecurityException;
+import com.mongodb.MongoWriteException;
 import org.json.JSONObject;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+
 import database.Writer;
 
-/** Note the order of test call should be Credentials > Deletion > Creation > Update */
+@TestMethodOrder(OrderAnnotation.class)
 public class WriterUnitTest {
 
   final String realUserName = "test-user";
@@ -26,6 +28,7 @@ public class WriterUnitTest {
   Writer realCon = new Writer(realUriString, dbName, tableName);
 
   @Test
+  @Order(1)
   void testCredentials() {
 
     String fakeUserName = "fakeUdesu";
@@ -48,11 +51,13 @@ public class WriterUnitTest {
     Assertions.assertDoesNotThrow(() -> realCon.removeClient(1));
   }
 
-  @Test
+  @RepeatedTest(3)
+  @Order(2)
   void testDeletion() {
     JSONObject test_add = new JSONObject();
     test_add.append("Data", "Client/Manager/Instructor Data");
 
+    // Test deletion of data
     Assertions.assertDoesNotThrow(
         () -> {
           realCon.removeClient(1);
@@ -62,10 +67,12 @@ public class WriterUnitTest {
   }
 
   @Test
+  @Order(3)
   void testCreation() {
     JSONObject test_add = new JSONObject();
     test_add.append("Data", "Client/Manager/Instructor Data");
 
+    // Test Creation of data
     Assertions.assertDoesNotThrow(
         () -> {
           realCon.createClient(1, test_add);
@@ -75,6 +82,31 @@ public class WriterUnitTest {
   }
 
   @Test
+  @Order(4)
+  void testCreationDuplicate() {
+    JSONObject test_add = new JSONObject();
+    test_add.append("Data", "Client/Manager/Instructor Data");
+
+    // Test Creation of duplicated data
+    Assertions.assertThrows(
+        MongoWriteException.class,
+        () -> {
+          realCon.createClient(1, test_add);
+        });
+    Assertions.assertThrows(
+        MongoWriteException.class,
+        () -> {
+          realCon.createManager(1, test_add);
+        });
+    Assertions.assertThrows(
+        MongoWriteException.class,
+        () -> {
+          realCon.createInstructor(1, test_add);
+        });
+  }
+
+  @Test
+  @Order(5)
   void testUpdate() {
     JSONObject test_update = new JSONObject();
     test_update.append("Another Data", "Another Client/Manager/Instructor Data");
