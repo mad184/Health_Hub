@@ -88,21 +88,9 @@ public class WriterUnitTest {
     test_add.append("Data", "Client/Manager/Instructor Data");
 
     // Test Creation of duplicated data
-    Assertions.assertThrows(
-        MongoWriteException.class,
-        () -> {
-          realCon.createClient(1, test_add);
-        });
-    Assertions.assertThrows(
-        MongoWriteException.class,
-        () -> {
-          realCon.createManager(1, test_add);
-        });
-    Assertions.assertThrows(
-        MongoWriteException.class,
-        () -> {
-          realCon.createInstructor(1, test_add);
-        });
+    Assertions.assertThrows(MongoWriteException.class, () -> realCon.createClient(1, test_add));
+    Assertions.assertThrows(MongoWriteException.class, () -> realCon.createManager(1, test_add));
+    Assertions.assertThrows(MongoWriteException.class, () -> realCon.createInstructor(1, test_add));
   }
 
   @Test
