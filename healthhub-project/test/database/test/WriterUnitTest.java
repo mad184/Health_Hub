@@ -5,6 +5,8 @@ import com.mongodb.MongoWriteException;
 import database.JsonObjectException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -16,12 +18,11 @@ import database.Writer;
 @TestMethodOrder(OrderAnnotation.class)
 public class WriterUnitTest {
 
-  final String realUserName = "test-user";
-  final String realPassWord = "healthhub1";
-  final String dbName = "Test-General-Database";
-  final String tableName = "testCollection";
-
-  String realUriString =
+  private static final String realUserName = "test-user";
+  private static final String realPassWord = "healthhub1";
+  private static final String dbName = "Test-General-Database";
+  private static final String tableName = "testCollection";
+  private static final String realUriString =
       "mongodb+srv://"
           + realUserName
           + ":"
@@ -30,7 +31,17 @@ public class WriterUnitTest {
           + dbName
           + "?retryWrites=true&w=majority";
 
-  Writer realCon = new Writer(realUriString, dbName, tableName);
+  static Writer realCon = new Writer(realUriString, dbName, tableName);
+
+  @BeforeAll
+  static void preDelete() {
+    Assertions.assertDoesNotThrow(
+        () -> {
+          realCon.removeClient(1);
+          realCon.removeManager(1);
+          realCon.removeInstructor(1);
+        });
+  }
 
   @Test
   @Order(1)
@@ -125,7 +136,7 @@ public class WriterUnitTest {
   }
 
   @Test
-  @Order(8)
+  @Order(7)
   void testUpdateEmpty() {
 
     JSONObject emptyUpdate = new JSONObject();
@@ -152,6 +163,16 @@ public class WriterUnitTest {
           realCon.updateClient(1, testUpdate);
           realCon.updateManager(1, testUpdate);
           realCon.updateInstructor(1, testUpdate);
+        });
+  }
+
+  @AfterAll
+  static void postDelete() {
+    Assertions.assertDoesNotThrow(
+        () -> {
+          realCon.removeClient(1);
+          realCon.removeManager(1);
+          realCon.removeInstructor(1);
         });
   }
 }
