@@ -155,14 +155,16 @@ public class Writer implements ReadWriteInterface {
   }
 
   /**
-   * Update Client Information inside the Client Collection If the client id does not exist within
-   * the database, the function will not update the database
+   * Update Client Information inside the Client Collection
+   * Does not allow updates for non-existing clients within the database
    *
    * @param uniqueCid: Unique Client Id
    * @param updatedData: Updated data to use in replacing
    * @throws NullPointerException when value is null ( not empty ), this exception will be thrown
    * @throws JsonObjectException when the updatedData is empty ( not null ), this exception will be
    *     thrown to prevent users from updating empty data to Clients
+   * @throws EmptyQueryException when the unique Client Id does not exist within the list of clients
+   *     this exception will be thrown
    */
   public void updateClient(int uniqueCid, JSONObject updatedData)
       throws NullPointerException, JsonObjectException, EmptyQueryException {
