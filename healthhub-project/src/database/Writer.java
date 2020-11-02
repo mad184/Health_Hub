@@ -155,8 +155,8 @@ public class Writer implements ReadWriteInterface {
   }
 
   /**
-   * Update Client Information inside the Client Collection
-   * Does not allow updates for non-existing clients within the database
+   * Update Client Information inside the Client Collection Does not allow updates for non-existing
+   * clients within the database
    *
    * @param uniqueCid: Unique Client Id
    * @param updatedData: Updated data to use in replacing
@@ -190,16 +190,16 @@ public class Writer implements ReadWriteInterface {
   }
 
   /**
-   * Update Instructor Information inside the Instructor Collection
-   * Does not allow updates for non-existing instructors within the database
+   * Update Instructor Information inside the Instructor Collection Does not allow updates for
+   * non-existing instructors within the database
    *
    * @param uniqueIid: Unique id for instructors
    * @param updatedData: New updated data
    * @throws NullPointerException when value is null ( not empty ), this exception will be thrown
    * @throws JsonObjectException when the updatedData is empty ( not null ), this exception will be
    *     thrown to prevent users from updating empty data to Instructor
-   * @throws EmptyQueryException when the unique Instructor Id does not exist within the list of instructors
-   *     this exception will be thrown
+   * @throws EmptyQueryException when the unique Instructor Id does not exist within the list of
+   *     instructors this exception will be thrown
    */
   public void updateInstructor(int uniqueIid, JSONObject updatedData)
       throws NullPointerException, JsonObjectException, EmptyQueryException {
@@ -213,31 +213,31 @@ public class Writer implements ReadWriteInterface {
     Document updatedDocument = new Document();
     Document updatedInstrDoc = createDocumentData(updatedData, updatedDocument);
 
-    try{
-      Document checkResult = collectionTable.findOneAndReplace(eq("_id", uniqueIid), updatedInstrDoc);
+    try {
+      Document checkResult =
+          collectionTable.findOneAndReplace(eq("_id", uniqueIid), updatedInstrDoc);
       assert checkResult != null;
-    }
-    catch(AssertionError ae){
+    } catch (AssertionError ae) {
       throw new EmptyQueryException();
-    }
-    finally{
+    } finally {
       setCollectionTable(previousCollection);
     }
-
   }
 
   /**
-   * Update Manager data inside the Manager Collection If the Manager id does not exist within the
-   * database, the function will not update the database
+   * Update Manager data inside the Manager Collection Does not allow updates for non-existing
+   * instructors within the database
    *
    * @param uniqueMid: unique manager id to find
    * @param updatedData: updated data to store
    * @throws NullPointerException when value is null ( not empty ), this exception will be thrown
    * @throws JsonObjectException when the updatedData is empty ( not null ), this exception will be
    *     thrown to prevent users from updating empty data to Manager
+   * @throws EmptyQueryException when the unique Manager Id does not exist within the list of
+   *     instructors this exception will be thrown
    */
   public void updateManager(int uniqueMid, JSONObject updatedData)
-      throws NullPointerException, JsonObjectException {
+      throws NullPointerException, JsonObjectException, EmptyQueryException {
 
     if (updatedData.isEmpty()) {
       throw new JsonObjectException();
@@ -247,8 +247,15 @@ public class Writer implements ReadWriteInterface {
     setCollectionTable("ManagerCollection");
     Document updatedDocument = new Document();
     Document updatedManagerDoc = createDocumentData(updatedData, updatedDocument);
-    collectionTable.findOneAndReplace(eq("_id", uniqueMid), updatedManagerDoc);
-    setCollectionTable(previousCollection);
+    try {
+      Document checkResult =
+          collectionTable.findOneAndReplace(eq("_id", uniqueMid), updatedManagerDoc);
+      assert checkResult != null;
+    } catch (AssertionError ae) {
+      throw new EmptyQueryException();
+    } finally {
+      setCollectionTable(previousCollection);
+    }
   }
 
   /**
