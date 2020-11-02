@@ -91,8 +91,9 @@ public class Writer implements ReadWriteInterface {
    *
    * @param uniqueCid unique client id
    * @param value JSON data that refers to the specific client id
+   * @throws NullPointerException when value is null ( not empty ), this exception will be thrown
    */
-  public void createClient(int uniqueCid, JSONObject value) {
+  public void createClient(int uniqueCid, JSONObject value) throws NullPointerException {
 
     MongoCollection<Document> previousCollection = getCollectionTable();
     setCollectionTable("ClientCollection");
@@ -107,8 +108,9 @@ public class Writer implements ReadWriteInterface {
    *
    * @param uniqueIid unique instructor id
    * @param value JSON data that refers to the specific Instructor id
+   * @throws NullPointerException when value is null ( not empty ), this exception will be thrown
    */
-  public void createInstructor(int uniqueIid, JSONObject value) {
+  public void createInstructor(int uniqueIid, JSONObject value) throws NullPointerException {
 
     MongoCollection<Document> previousCollection = getCollectionTable();
     setCollectionTable("InstructorCollection");
@@ -123,8 +125,9 @@ public class Writer implements ReadWriteInterface {
    *
    * @param uniqueMid unique manager id
    * @param value JSON data that refers to the specific Manager id
+   * @throws NullPointerException when value is null ( not empty ), this exception will be thrown
    */
-  public void createManager(int uniqueMid, JSONObject value) {
+  public void createManager(int uniqueMid, JSONObject value) throws NullPointerException {
 
     MongoCollection<Document> previousCollection = getCollectionTable();
     setCollectionTable("ManagerCollection");
@@ -135,13 +138,22 @@ public class Writer implements ReadWriteInterface {
   }
 
   /**
-   * Update Client Information inside the Client Collection If the client does not exist, the
-   * function does nothing
+   * Update Client Information inside the Client Collection If the client id does not exist within
+   * the database, the function will not update the database
    *
    * @param uniqueCid: Unique Client Id
    * @param updatedData: Updated data to use in replacing
+   * @throws NullPointerException when value is null ( not empty ), this exception will be thrown
+   * @throws JsonObjectException when the updatedData is empty ( not null ), this exception will be
+   *     thrown to prevent users from updating empty data to Clients
    */
-  public void updateClient(int uniqueCid, JSONObject updatedData) {
+  public void updateClient(int uniqueCid, JSONObject updatedData)
+      throws NullPointerException, JsonObjectException {
+
+    if (updatedData.isEmpty()) {
+      throw new JsonObjectException();
+    }
+
     MongoCollection<Document> previousCollection = getCollectionTable();
     setCollectionTable("ClientCollection");
     Document findData = new Document("_id", uniqueCid);
@@ -151,13 +163,22 @@ public class Writer implements ReadWriteInterface {
   }
 
   /**
-   * Update Instructor Information inside the Instructor Collection If the Instructor does not
-   * exist, the function does nothing
+   * Update Instructor Information inside the Instructor Collection If the Instructor id does not
+   * exist in the database, the function will not update the database
    *
    * @param uniqueIid: Unique id for instructors
    * @param updatedData: New updated data
+   * @throws NullPointerException when value is null ( not empty ), this exception will be thrown
+   * @throws JsonObjectException when the updatedData is empty ( not null ), this exception will be
+   *     thrown to prevent users from updating empty data to Instructor
    */
-  public void updateInstructor(int uniqueIid, JSONObject updatedData) {
+  public void updateInstructor(int uniqueIid, JSONObject updatedData)
+      throws NullPointerException, JsonObjectException {
+
+    if (updatedData.isEmpty()) {
+      throw new JsonObjectException();
+    }
+
     MongoCollection<Document> previousCollection = getCollectionTable();
     setCollectionTable("InstructorCollection");
     Document findData = new Document("_id", uniqueIid);
@@ -167,13 +188,22 @@ public class Writer implements ReadWriteInterface {
   }
 
   /**
-   * Update Manager data inside the Manager Collection If the Manager does not exist, the function
-   * does nothing
+   * Update Manager data inside the Manager Collection If the Manager id does not exist within the
+   * database, the function will not update the database
    *
    * @param uniqueMid: unique manager id to find
    * @param updatedData: updated data to store
+   * @throws NullPointerException when value is null ( not empty ), this exception will be thrown
+   * @throws JsonObjectException when the updatedData is empty ( not null ), this exception will be
+   *     thrown to prevent users from updating empty data to Manager
    */
-  public void updateManager(int uniqueMid, JSONObject updatedData) {
+  public void updateManager(int uniqueMid, JSONObject updatedData)
+      throws NullPointerException, JsonObjectException {
+
+    if (updatedData.isEmpty()) {
+      throw new JsonObjectException();
+    }
+
     MongoCollection<Document> previousCollection = getCollectionTable();
     setCollectionTable("ManagerCollection");
     Document findData = new Document("_id", uniqueMid);
@@ -183,7 +213,8 @@ public class Writer implements ReadWriteInterface {
   }
 
   /**
-   * Removes Client Information inside the Client Collection
+   * Removes Client Information inside the Client Collection If the client id does not exist within
+   * the database, no update will be performed on the database
    *
    * @param uniqueCid: Unique Client Id to remove
    */
@@ -195,7 +226,8 @@ public class Writer implements ReadWriteInterface {
   }
 
   /**
-   * Removes Instructor Information inside the Instructor Collection
+   * Removes Instructor Information inside the Instructor Collection If the instructor id does not
+   * exist within the database, no update will be performed on the database
    *
    * @param uniqueIid: unique instructor id to remove
    */
@@ -207,7 +239,8 @@ public class Writer implements ReadWriteInterface {
   }
 
   /**
-   * Removes Manager Information inside the Manager Collection
+   * Removes Manager Information inside the Manager Collection If the manager id does not exist
+   * within the database, no update will be performed on the database
    *
    * @param uniqueMid: unique manager id to remove
    */
