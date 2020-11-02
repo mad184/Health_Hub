@@ -81,7 +81,7 @@ public class Reader implements ReadWriteInterface {
       Document clientData = collectionTable.find(eq("_id", uniqueCid)).first();
       assert clientData != null;
       return clientData.toJson();
-    } catch (NullPointerException npe) {
+    } catch (AssertionError npe) {
       return null;
     } finally {
       setCollectionTable(previousCollection);
@@ -104,7 +104,7 @@ public class Reader implements ReadWriteInterface {
       Document instructorData = collectionTable.find(eq("_id", uniqueIid)).first();
       assert instructorData != null;
       return instructorData.toJson();
-    } catch (NullPointerException npe) {
+    } catch (AssertionError npe) {
       return null;
     } finally {
       setCollectionTable(previousCollection);
@@ -128,7 +128,7 @@ public class Reader implements ReadWriteInterface {
       assert managerData != null;
       return managerData.toJson();
 
-    } catch (NullPointerException npe) {
+    } catch (AssertionError npe) {
       return null;
     } finally {
       setCollectionTable(previousCollection);
