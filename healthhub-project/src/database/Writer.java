@@ -1,6 +1,5 @@
 package database;
 
-import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
@@ -86,6 +85,16 @@ public class Writer implements ReadWriteInterface {
     collectionTable = newMongoCollection;
   }
 
+  private Document createDocumentData(int uniqueId,JSONObject documentData){
+    Document newDocument = new Document("_id", uniqueId);
+
+    for (String eachKey:documentData.keySet()){
+      newDocument.append(eachKey,documentData.get(eachKey));
+    }
+
+    return newDocument;
+  }
+
   /**
    * Create a client data within the client collection
    *
@@ -97,9 +106,8 @@ public class Writer implements ReadWriteInterface {
 
     MongoCollection<Document> previousCollection = getCollectionTable();
     setCollectionTable("ClientCollection");
-    Document newClient = new Document("_id", uniqueCid);
-    newClient.append("ClientData", value.toString());
-    collectionTable.insertOne(newClient);
+    Document clientData = createDocumentData(uniqueCid,value);
+    collectionTable.insertOne(clientData);
     setCollectionTable(previousCollection);
   }
 
@@ -114,9 +122,8 @@ public class Writer implements ReadWriteInterface {
 
     MongoCollection<Document> previousCollection = getCollectionTable();
     setCollectionTable("InstructorCollection");
-    Document newInstructor = new Document("_id", uniqueIid);
-    newInstructor.append("InstructorData", value.toString());
-    collectionTable.insertOne(newInstructor);
+    Document InstructorData = createDocumentData(uniqueIid,value);
+    collectionTable.insertOne(InstructorData);
     setCollectionTable(previousCollection);
   }
 
@@ -131,9 +138,8 @@ public class Writer implements ReadWriteInterface {
 
     MongoCollection<Document> previousCollection = getCollectionTable();
     setCollectionTable("ManagerCollection");
-    Document newManager = new Document("_id", uniqueMid);
-    newManager.append("ManagerData", value.toString());
-    collectionTable.insertOne(newManager);
+    Document ManagerData = createDocumentData(uniqueMid,value);
+    collectionTable.insertOne(ManagerData);
     setCollectionTable(previousCollection);
   }
 
