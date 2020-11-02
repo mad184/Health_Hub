@@ -190,17 +190,19 @@ public class Writer implements ReadWriteInterface {
   }
 
   /**
-   * Update Instructor Information inside the Instructor Collection If the Instructor id does not
-   * exist in the database, the function will not update the database
+   * Update Instructor Information inside the Instructor Collection
+   * Does not allow updates for non-existing instructors within the database
    *
    * @param uniqueIid: Unique id for instructors
    * @param updatedData: New updated data
    * @throws NullPointerException when value is null ( not empty ), this exception will be thrown
    * @throws JsonObjectException when the updatedData is empty ( not null ), this exception will be
    *     thrown to prevent users from updating empty data to Instructor
+   * @throws EmptyQueryException when the unique Instructor Id does not exist within the list of instructors
+   *     this exception will be thrown
    */
   public void updateInstructor(int uniqueIid, JSONObject updatedData)
-      throws NullPointerException, JsonObjectException {
+      throws NullPointerException, JsonObjectException, EmptyQueryException {
 
     if (updatedData.isEmpty()) {
       throw new JsonObjectException();
@@ -210,8 +212,18 @@ public class Writer implements ReadWriteInterface {
     setCollectionTable("InstructorCollection");
     Document updatedDocument = new Document();
     Document updatedInstrDoc = createDocumentData(updatedData, updatedDocument);
-    collectionTable.findOneAndReplace(eq("_id", uniqueIid), updatedInstrDoc);
-    setCollectionTable(previousCollection);
+
+    try{
+      Document checkResult = collectionTable.findOneAndReplace(eq("_id", uniqueIid), updatedInstrDoc);
+      assert checkResult != null;
+    }
+    catch(AssertionError ae){
+      throw new EmptyQueryException();
+    }
+    finally{
+      setCollectionTable(previousCollection);
+    }
+
   }
 
   /**
