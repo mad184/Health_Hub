@@ -1,4 +1,4 @@
-package Client.ClientView;
+package Client.ClientView.resources;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +12,7 @@ public class ClientMainView extends Application{
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("resources/clientMainView.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("clientMainView.fxml"));
 
         stage.setTitle("Client View");
         stage.setScene(new Scene(root, 600, 400));

@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class clientExerciseViewController implements Initializable {
+public class clientNutrientViewController implements Initializable {
 
     public void onBackButtonPressed(ActionEvent event) throws IOException {
         Parent mainViewParent = FXMLLoader.load(getClass().getResource("clientMainView.fxml"));
