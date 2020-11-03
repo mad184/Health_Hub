@@ -47,22 +47,27 @@ public class clientMainViewController implements Initializable {
         window.show();
     }
 
+    //Changes to exercise scene when exercise button is pushed
     public void onExerciseButtonPushed(ActionEvent event) throws IOException {
         changeSceneButtonAction(event, "clientExerciseView.fxml");
     }
 
+    //Changes to progress scene when progress button is pushed
     public void onProgressButtonPushed(ActionEvent event) throws IOException {
         changeSceneButtonAction(event, "clientProgressView.fxml");
     }
 
+    //Changes to nutrient scene when nutrient button is pushed
     public void onNutrientButtonPushed(ActionEvent event) throws IOException {
         changeSceneButtonAction(event, "clientNutrientView.fxml");
     }
 
+    //Changes to profile scene when profile button is pushed
     public void onProfileButtonPushed(ActionEvent event) throws IOException {
         changeSceneButtonAction(event, "clientProfileView.fxml");
     }
 
+    //Changes to settings scheen when settings button is pushed
     public void onSettingsButtonPushed(ActionEvent event) throws IOException {
         changeSceneButtonAction(event, "clientSettingsView.fxml");
     }
