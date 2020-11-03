@@ -255,7 +255,7 @@ public class Writer implements ServerInterface, WriteInterface {
    * @throws JsonObjectException when the updatedData is empty ( not null ), this exception will be
    *     thrown to prevent users from updating empty data to Manager
    * @throws EmptyQueryException when the unique Manager Id does not exist within the list of
-   *     instructors this exception will be thrown
+   *     managers this exception will be thrown
    */
   public void updateManager(int uniqueMid, JSONObject updatedData)
       throws NullPointerException, JsonObjectException, EmptyQueryException {
