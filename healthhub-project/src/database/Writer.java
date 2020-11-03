@@ -123,6 +123,58 @@ public class Writer implements ReadWriteInterface {
   }
 
   /**
+   * Updates data based on the unique id within the specified collection. It takes a JSONObject
+   * value which it writes as an updated data for the specified unique id It will throw an exception
+   * if unique id does not exist
+   *
+   * @param uniqueId unique id to update
+   * @param collectionUpdate collection where the unique id is located
+   * @param updatedData replace the old data with this updated data within the specified unique id
+   *     data
+   * @throws NullPointerException when updatedData is null ( not empty ), this exception will be
+   *     thrown
+   * @throws JsonObjectException when the updatedData is empty ( not null ), this exception will be
+   *     thrown to prevent users from updating empty data to Manager
+   * @throws EmptyQueryException when the unique Id does not exist within the list of instructors
+   *     this exception will be thrown
+   */
+  private void updateData(int uniqueId, String collectionUpdate, JSONObject updatedData)
+      throws JsonObjectException, EmptyQueryException, NullPointerException {
+    if (updatedData.isEmpty()) {
+      throw new JsonObjectException();
+    }
+    MongoCollection<Document> previousCollection = getCollectionTable();
+    setCollectionTable(collectionUpdate);
+
+    Document updatedDocument = new Document();
+    Document updatedDoc = createDocumentData(updatedData, updatedDocument);
+
+    try {
+      Document checkResult = collectionTable.findOneAndReplace(eq("_id", uniqueId), updatedDoc);
+      assert checkResult != null;
+    } catch (AssertionError ae) {
+      throw new EmptyQueryException();
+    } finally {
+      setCollectionTable(previousCollection);
+    }
+  }
+
+  /**
+   * deletes everything ( including the unique id ) of the the specified unique id within a
+   * collection. If the unique id does not exist within the database, no update will be performed on
+   * the database
+   *
+   * @param uniqueId unique id to delete
+   * @param collectionDelete collection to where the unique id exist
+   */
+  private void deleteData(int uniqueId, String collectionDelete) {
+    MongoCollection<Document> previousCollection = getCollectionTable();
+    setCollectionTable(collectionDelete);
+    collectionTable.deleteOne(eq("_id", uniqueId));
+    setCollectionTable(previousCollection);
+  }
+
+  /**
    * Create a client data within the client collection
    *
    * @param uniqueCid unique client id
@@ -172,24 +224,7 @@ public class Writer implements ReadWriteInterface {
   public void updateClient(int uniqueCid, JSONObject updatedData)
       throws NullPointerException, JsonObjectException, EmptyQueryException {
 
-    if (updatedData.isEmpty()) {
-      throw new JsonObjectException();
-    }
-
-    MongoCollection<Document> previousCollection = getCollectionTable();
-    setCollectionTable("ClientCollection");
-    Document updatedDocument = new Document();
-    Document updatedClientDoc = createDocumentData(updatedData, updatedDocument);
-
-    try {
-      Document checkResult =
-          collectionTable.findOneAndReplace(eq("_id", uniqueCid), updatedClientDoc);
-      assert checkResult != null;
-    } catch (AssertionError ae) {
-      throw new EmptyQueryException();
-    } finally {
-      setCollectionTable(previousCollection);
-    }
+    updateData(uniqueCid, "ClientCollection", updatedData);
   }
 
   /**
@@ -207,24 +242,7 @@ public class Writer implements ReadWriteInterface {
   public void updateInstructor(int uniqueIid, JSONObject updatedData)
       throws NullPointerException, JsonObjectException, EmptyQueryException {
 
-    if (updatedData.isEmpty()) {
-      throw new JsonObjectException();
-    }
-
-    MongoCollection<Document> previousCollection = getCollectionTable();
-    setCollectionTable("InstructorCollection");
-    Document updatedDocument = new Document();
-    Document updatedInstrDoc = createDocumentData(updatedData, updatedDocument);
-
-    try {
-      Document checkResult =
-          collectionTable.findOneAndReplace(eq("_id", uniqueIid), updatedInstrDoc);
-      assert checkResult != null;
-    } catch (AssertionError ae) {
-      throw new EmptyQueryException();
-    } finally {
-      setCollectionTable(previousCollection);
-    }
+    updateData(uniqueIid, "InstructorCollection", updatedData);
   }
 
   /**
@@ -241,24 +259,7 @@ public class Writer implements ReadWriteInterface {
    */
   public void updateManager(int uniqueMid, JSONObject updatedData)
       throws NullPointerException, JsonObjectException, EmptyQueryException {
-
-    if (updatedData.isEmpty()) {
-      throw new JsonObjectException();
-    }
-
-    MongoCollection<Document> previousCollection = getCollectionTable();
-    setCollectionTable("ManagerCollection");
-    Document updatedDocument = new Document();
-    Document updatedManagerDoc = createDocumentData(updatedData, updatedDocument);
-    try {
-      Document checkResult =
-          collectionTable.findOneAndReplace(eq("_id", uniqueMid), updatedManagerDoc);
-      assert checkResult != null;
-    } catch (AssertionError ae) {
-      throw new EmptyQueryException();
-    } finally {
-      setCollectionTable(previousCollection);
-    }
+    updateData(uniqueMid, "ManagerCollection", updatedData);
   }
 
   /**
@@ -268,10 +269,7 @@ public class Writer implements ReadWriteInterface {
    * @param uniqueCid: Unique Client Id to remove
    */
   public void removeClient(int uniqueCid) {
-    MongoCollection<Document> previousCollection = getCollectionTable();
-    setCollectionTable("ClientCollection");
-    collectionTable.deleteOne(eq("_id", uniqueCid));
-    setCollectionTable(previousCollection);
+    deleteData(uniqueCid, "ClientCollection");
   }
 
   /**
@@ -281,10 +279,7 @@ public class Writer implements ReadWriteInterface {
    * @param uniqueIid: unique instructor id to remove
    */
   public void removeInstructor(int uniqueIid) {
-    MongoCollection<Document> previousCollection = getCollectionTable();
-    setCollectionTable("InstructorCollection");
-    collectionTable.deleteOne(eq("_id", uniqueIid));
-    setCollectionTable(previousCollection);
+    deleteData(uniqueIid, "InstructorCollection");
   }
 
   /**
@@ -294,9 +289,6 @@ public class Writer implements ReadWriteInterface {
    * @param uniqueMid: unique manager id to remove
    */
   public void removeManager(int uniqueMid) {
-    MongoCollection<Document> previousCollection = getCollectionTable();
-    setCollectionTable("ManagerCollection");
-    collectionTable.deleteOne(eq("_id", uniqueMid));
-    setCollectionTable(previousCollection);
+    deleteData(uniqueMid, "ManagerCollection");
   }
 }
