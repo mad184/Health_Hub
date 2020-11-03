@@ -69,7 +69,16 @@ public class clientMainViewController implements Initializable {
         window.show();
     }
 
-    
+    public void onProfileButtonPushed(ActionEvent event) throws IOException {
+        Parent profileViewParent = FXMLLoader.load(getClass().getResource("clientProfileView.fxml"));
+        Scene profileViewScene = new Scene(profileViewParent);
+
+        //Gets stage information
+        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+
+        window.setScene(profileViewScene);
+        window.show();
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
