@@ -97,7 +97,7 @@ public class Writer implements ReadWriteInterface {
   private Document createDocumentData(JSONObject JsonData, Document newDocument) {
 
     for (String eachKey : JsonData.keySet()) {
-      newDocument.append(eachKey, JsonData.get(eachKey));
+      newDocument.put(eachKey, JsonData.get(eachKey));
     }
 
     return newDocument;
