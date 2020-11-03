@@ -16,7 +16,7 @@ public class Dbms implements WriteInterface, ReadInterface {
    * @param dbName: cloud database to connect. Need to exist
    * @param tableName: table inside the cloud database to connect
    */
-  Dbms(String userName, String passWord, String dbName, String tableName) {
+  public Dbms(String userName, String passWord, String dbName, String tableName) {
     String uriString =
         "mongodb+srv://"
             + userName
