@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 
 import static com.mongodb.client.model.Filters.eq;
 
-public class Reader implements ReadWriteInterface {
+public class Reader implements ServerInterface, ReadInterface {
 
   private final MongoClient SERVER; // server initiation
   private MongoDatabase mongoDb; // database initiation
