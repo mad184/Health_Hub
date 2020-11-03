@@ -1,14 +1,11 @@
 package Client;
 
-import Client.ClientView.ClientViewUpdate;
-
 public class ClientController {
     private Client model;
-    private ClientViewUpdate view;
 
-    public ClientController(Client model, ClientViewUpdate view) {
+
+    public ClientController(Client model) {
         this.model = model;
-        this.view = view;
     }
 
     public void setClientName(String name){
