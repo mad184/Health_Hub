@@ -80,6 +80,17 @@ public class clientMainViewController implements Initializable {
         window.show();
     }
 
+    public void onSettingsButtonPushed(ActionEvent event) throws IOException {
+        Parent settingsViewParent = FXMLLoader.load(getClass().getResource("clientSettingsView.fxml"));
+        Scene settingsViewScene = new Scene(settingsViewParent);
+
+        //Gets stage information
+        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+
+        window.setScene(settingsViewScene);
+        window.show();
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         nameLabel.setText(client1.getName());

@@ -7,14 +7,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.ClientView.resources.clientMainViewController">
    <children>
-      <Pane layoutX="14.0" layoutY="14.0" prefWidth="70.0">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2a0033" height="400.0" stroke="BLACK" strokeType="INSIDE" width="600.0" />
+      <Pane layoutX="14.0" layoutY="14.0" style="-fx-border-color: #9643A9 #9643A9 #9643A9 #9643A9 #9643A9 #9643A9 #9643A9 ##9643A9;">
          <children>
-            <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="80.0" stroke="#9643a9" strokeType="INSIDE" width="80.0" />
+            <ImageView fitHeight="70.0" fitWidth="70.0" layoutX="5.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Assets/add-user.png" />
                </image>
@@ -22,24 +24,32 @@
          </children></Pane>
       <HBox spacing="10.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="175.0">
          <children>
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#onProgressButtonPushed" prefHeight="90.0" prefWidth="160.0" styleClass="blue-grey-800" stylesheets="@Assets/jfoenix-design.css" text="Progress">
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#onProgressButtonPushed" prefHeight="90.0" prefWidth="160.0" style="-fx-background-color: #2A0033; -fx-border-color: #9643A9; -fx-border-radius: 10;" text="Progress" textFill="#ddd9d9">
                <font>
-                  <Font name="Raanana" size="23.0" />
+                  <Font size="16.0" />
                </font>
             </Button>
-            <Button alignment="CENTER" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onExerciseButtonPushed" prefHeight="90.0" prefWidth="160.0" styleClass="blue-grey-800" stylesheets="@Assets/jfoenix-design.css" text="Exercises">
+            <Button alignment="CENTER" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onExerciseButtonPushed" prefHeight="90.0" prefWidth="160.0" style="-fx-background-color: #2A0033 #2A0033; -fx-border-color: #9643A9 #9643A9; -fx-border-radius: 10;" text="Exercises" textFill="#ddd9d9">
                <font>
-                  <Font name="Raanana" size="23.0" />
+                  <Font size="16.0" />
                </font>
             </Button>
-            <Button alignment="CENTER" layoutX="180.0" layoutY="10.0" mnemonicParsing="false" onAction="#onNutrientButtonPushed" prefHeight="90.0" prefWidth="160.0" styleClass="blue-grey-800" stylesheets="@Assets/jfoenix-design.css" text="Nutrients">
+            <Button alignment="CENTER" layoutX="180.0" layoutY="10.0" mnemonicParsing="false" onAction="#onNutrientButtonPushed" prefHeight="90.0" prefWidth="160.0" style="-fx-background-color: #2A0033 #2A0033 #2A0033 #2A0033; -fx-border-color: #9643A9 #9643A9 #9643A9 #9643A9; -fx-border-radius: 10;" text="Nutrients" textFill="#ddd9d9">
                <font>
-                  <Font name="Raanana" size="23.0" />
+                  <Font size="16.0" />
                </font>
             </Button>
          </children>
       </HBox>
-      <Label fx:id="nameLabel" layoutX="84.0" layoutY="14.0" text="Client Name" />
-      <Text layoutX="106.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+      <Label fx:id="nameLabel" layoutX="98.0" layoutY="25.0" text="Client Name" textFill="#ddd9d9">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Label>
+      <Button layoutX="94.0" layoutY="41.0" mnemonicParsing="false" onAction="#onProfileButtonPushed" prefHeight="27.0" prefWidth="54.0" style="-fx-background-color: #2A0033 #2A0033 #2A0033 #2A0033 #2A0033 #2A0033 #2A0033 #2A0033;" text="Profile" textFill="#ddd9d9">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
