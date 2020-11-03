@@ -25,6 +25,28 @@ public class clientMainViewController implements Initializable {
         window.show();
     }
 
+    public void onProgressButtonPushed(ActionEvent event) throws IOException {
+        Parent progressViewParent = FXMLLoader.load(getClass().getResource("clientProgressView.fxml"));
+        Scene progressViewScene = new Scene(progressViewParent);
+
+        //Gets stage information
+        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+
+        window.setScene(progressViewScene);
+        window.show();
+    }
+
+    public void onNutrientButtonPushed(ActionEvent event) throws IOException {
+        Parent nutrientViewParent = FXMLLoader.load(getClass().getResource("clientNutrientView.fxml"));
+        Scene nutrientViewScene = new Scene(nutrientViewParent);
+
+        //Gets stage information
+        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+
+        window.setScene(nutrientViewScene);
+        window.show();
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

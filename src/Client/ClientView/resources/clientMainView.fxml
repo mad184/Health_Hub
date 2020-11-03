@@ -20,7 +20,7 @@
          </children></Pane>
       <HBox spacing="10.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="175.0">
          <children>
-            <Button alignment="CENTER" mnemonicParsing="false" prefHeight="90.0" prefWidth="160.0" styleClass="blue-grey-800" stylesheets="@Assets/jfoenix-design.css" text="Progress">
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#onProgressButtonPushed" prefHeight="90.0" prefWidth="160.0" styleClass="blue-grey-800" stylesheets="@Assets/jfoenix-design.css" text="Progress">
                <font>
                   <Font name="Raanana" size="23.0" />
                </font>
@@ -30,7 +30,7 @@
                   <Font name="Raanana" size="23.0" />
                </font>
             </Button>
-            <Button alignment="CENTER" layoutX="180.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="160.0" styleClass="blue-grey-800" stylesheets="@Assets/jfoenix-design.css" text="Nutrients">
+            <Button alignment="CENTER" layoutX="180.0" layoutY="10.0" mnemonicParsing="false" onAction="#onNutrientButtonPushed" prefHeight="90.0" prefWidth="160.0" styleClass="blue-grey-800" stylesheets="@Assets/jfoenix-design.css" text="Nutrients">
                <font>
                   <Font name="Raanana" size="23.0" />
                </font>
