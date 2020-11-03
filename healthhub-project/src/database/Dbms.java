@@ -1,10 +1,11 @@
 package database;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class Dbms {
-  private final Writer db_writer;
-  private Reader db_reader;
+public class Dbms implements WriteInterface, ReadInterface {
+  private final Writer dbWriter;
+  private final Reader dbReader;
 
   /**
    * Initializes the cloud database to be used for the healthhub application. if db does not exist,
@@ -24,8 +25,8 @@ public class Dbms {
             + "@healthhub-cluster.7y7j0.mongodb.net/"
             + dbName
             + "?retryWrites=true&w=majority";
-    db_writer = new Writer(uriString, dbName, tableName);
-    // Insert Reader instance here
+    dbWriter = new Writer(uriString, dbName, tableName);
+    dbReader = new Reader(uriString, dbName, tableName);
   }
 
   /**
@@ -35,8 +36,8 @@ public class Dbms {
    * @param uniqueCid: unique client id to create
    * @param newClientInfo: new client information to create
    */
-  public void addClient(int uniqueCid, JSONObject newClientInfo) {
-    db_writer.createClient(uniqueCid, newClientInfo);
+  public void createClient(int uniqueCid, JSONObject newClientInfo) {
+    dbWriter.createClient(uniqueCid, newClientInfo);
   }
 
   /**
@@ -46,8 +47,8 @@ public class Dbms {
    * @param uniqueIid: unique instructor id to create
    * @param newInstructorInfo: new instructor information to create
    */
-  public void addInstructor(int uniqueIid, JSONObject newInstructorInfo) {
-    db_writer.createInstructor(uniqueIid, newInstructorInfo);
+  public void createInstructor(int uniqueIid, JSONObject newInstructorInfo) {
+    dbWriter.createInstructor(uniqueIid, newInstructorInfo);
   }
 
   /**
@@ -57,28 +58,41 @@ public class Dbms {
    * @param uniqueMid: unique manager id to create
    * @param newManagerInfo: new manager information to create
    */
-  public void addManager(int uniqueMid, JSONObject newManagerInfo) {
-    db_writer.createManager(uniqueMid, newManagerInfo);
+  public void createManager(int uniqueMid, JSONObject newManagerInfo) {
+    dbWriter.createManager(uniqueMid, newManagerInfo);
   }
 
   /**
    * Calls the removeClient from the writer initialization. This should be called when removing a
-   * client from the healthhub application
+   * client from the healthhub application. Take note that no deletion will be made if the client
+   * does not exist
    *
    * @param uniqueCid: unique client id to remove
    */
   public void removeClient(int uniqueCid) {
-    db_writer.removeClient(uniqueCid);
+    dbWriter.removeClient(uniqueCid);
   }
 
   /**
    * Calls the removeInstructor from the writer initialization This should be called when removing
-   * an instructor from the healthhub application
+   * an instructor from the healthhub application. Take note that no deletion will be made if the
+   * instructor does not exist
    *
    * @param uniqueIid: unique instructor id to remove
    */
   public void removeInstructor(int uniqueIid) {
-    db_writer.removeInstructor(uniqueIid);
+    dbWriter.removeInstructor(uniqueIid);
+  }
+
+  /**
+   * Calls the removeInstructor from the writer initialiozation. This method should be called when
+   * removing a Manager from the healthhub-application Take note that no deletion will be made if
+   * the manager does not exist
+   *
+   * @param uniqueMid: unique Manager id to remove
+   */
+  public void removeManager(int uniqueMid) {
+    dbWriter.removeManager(uniqueMid);
   }
 
   /**
@@ -87,9 +101,15 @@ public class Dbms {
    *
    * @param uniqueCid: Unique Client Id
    * @param clientUpdatedData: client updated data to use in replacing
+   * @throws NullPointerException when value is null ( not empty ), this exception will be thrown
+   * @throws JsonObjectException when the clientUpdatedData is empty ( not null ), this exception
+   *     will be thrown to prevent users from updating empty data to Client
+   * @throws EmptyQueryException when the unique Client Id does not exist within the list of clients
+   *     this exception will be thrown
    */
-  public void updateClient(int uniqueCid, JSONObject clientUpdatedData) {
-    db_writer.updateClient(uniqueCid, clientUpdatedData);
+  public void updateClient(int uniqueCid, JSONObject clientUpdatedData)
+      throws JsonObjectException, EmptyQueryException, NullPointerException {
+    dbWriter.updateClient(uniqueCid, clientUpdatedData);
   }
 
   /**
@@ -98,9 +118,15 @@ public class Dbms {
    *
    * @param uniqueIid: Unique id for instructors
    * @param instrUpdatedData: Instructor updated to be use in replacing
+   * @throws NullPointerException when value is null ( not empty ), this exception will be thrown
+   * @throws JsonObjectException when the instrUpdatedData is empty ( not null ), this exception
+   *     will be thrown to prevent users from updating empty data to Instructor
+   * @throws EmptyQueryException when the unique Instructor Id does not exist within the list of
+   *     instructors this exception will be thrown
    */
-  protected void updateInstructor(int uniqueIid, JSONObject instrUpdatedData) {
-    db_writer.updateInstructor(uniqueIid, instrUpdatedData);
+  public void updateInstructor(int uniqueIid, JSONObject instrUpdatedData)
+      throws JsonObjectException, EmptyQueryException, NullPointerException {
+    dbWriter.updateInstructor(uniqueIid, instrUpdatedData);
   }
 
   /**
@@ -109,8 +135,80 @@ public class Dbms {
    *
    * @param uniqueMid: unique manager id to find
    * @param managerUpdatedData: Manager updated data to store
+   * @throws NullPointerException when value is null ( not empty ), this exception will be thrown
+   * @throws JsonObjectException when the managerUpdatedData is empty ( not null ), this exception
+   *     will be thrown to prevent users from updating empty data to Manager
+   * @throws EmptyQueryException when the unique Manager Id does not exist within the list of
+   *     managers this exception will be thrown
    */
-  protected void updateManager(int uniqueMid, JSONObject managerUpdatedData) {
-    db_writer.updateManager(uniqueMid, managerUpdatedData);
+  public void updateManager(int uniqueMid, JSONObject managerUpdatedData)
+      throws JsonObjectException, EmptyQueryException, NullPointerException {
+    dbWriter.updateManager(uniqueMid, managerUpdatedData);
+  }
+
+  /**
+   * calls the readClientData from the reader initialization. This should be called when reading
+   * client data of specified unique client id
+   *
+   * @param uniqueCid: unique client it to read
+   * @return JSONObject of the client data.
+   * @throws EmptyQueryException when the unique client id does not exist within the list of
+   *     clients, this exception is thrown
+   */
+  public JSONObject readClientData(int uniqueCid) throws EmptyQueryException {
+    return dbReader.readClientData(uniqueCid);
+  }
+
+  /**
+   * calls the readInstructorData from the reader initialization. This should be called when reading
+   * instructor data of specified unique instructor id
+   *
+   * @param uniqueIid Unique instructor id to read
+   * @return JSONObject of the instructor data
+   * @throws EmptyQueryException when the unique instructor id does not exist within the list of
+   *     instructors, this exception is thrown
+   */
+  public JSONObject readInstructorData(int uniqueIid) throws EmptyQueryException {
+    return dbReader.readInstructorData(uniqueIid);
+  }
+
+  /**
+   * calls the readManagerData from the reader initialization. This should be called when reading
+   * manager data of specified unique manager id
+   *
+   * @param uniqueMid Unique manager id to read
+   * @return JSONObject of the manager data
+   * @throws EmptyQueryException when the unique manager id does not exist within the list of
+   *     managers, this exception is thrown
+   */
+  public JSONObject readManagerData(int uniqueMid) throws EmptyQueryException {
+    return dbReader.readManagerData(uniqueMid);
+  }
+
+  /**
+   * Gets all the clients available in the client collection
+   *
+   * @return returns a JSONArray of all the clients and their data, null if no data
+   */
+  public JSONArray getAllClients() {
+    return dbReader.getAllClients();
+  }
+
+  /**
+   * Gets all the instructors available in the instructor collection
+   *
+   * @return returns a JSONArray of all the instructor and their data, null if no data
+   */
+  public JSONArray getAllInstructors() {
+    return dbReader.getAllInstructors();
+  }
+
+  /**
+   * Gets all the managers available in the manager collection
+   *
+   * @return returns a JSONArray of all the manager and their data, null if no data
+   */
+  public JSONArray getAllManagers() {
+    return dbReader.getAllManagers();
   }
 }
