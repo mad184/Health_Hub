@@ -1,6 +1,9 @@
 package Client.ClientView.resources;
 
+import Client.Client;
 import javafx.application.Application;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -22,8 +25,4 @@ public class ClientMainView extends Application{
     public static void main(String[] args) {
         launch(args);
     }
-
-
-
-
 }

@@ -1,10 +1,14 @@
 package Client.ClientView.resources;
 
+import Client.Client;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import javafx.event.ActionEvent;
@@ -13,6 +17,24 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class clientMainViewController implements Initializable {
+
+    Client client1 = new Client(
+            "Justyn Pollard",
+            "Justynpollard12@hotmail.com",
+            "Pete",
+            "Gym1",
+            1,
+            20,
+            180,
+            180,
+            "3068500727",
+            170,
+            1000,
+            null,
+            null);
+
+    @FXML
+    private Label nameLabel = new Label();
 
     public void onExerciseButtonPushed(ActionEvent event) throws IOException {
         Parent exerciseViewParent = FXMLLoader.load(getClass().getResource("clientExerciseView.fxml"));
@@ -47,8 +69,10 @@ public class clientMainViewController implements Initializable {
         window.show();
     }
 
+    
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        nameLabel.setText(client1.getName());
     }
 }
