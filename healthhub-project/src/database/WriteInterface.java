@@ -17,7 +17,7 @@ public interface WriteInterface {
       throws NullPointerException, JsonObjectException, EmptyQueryException;
 
   void updateManager(int uniqueMid, JSONObject updatedData)
-      throws JsonObjectException, EmptyQueryException;
+      throws JsonObjectException, NullPointerException, EmptyQueryException;
 
   void removeClient(int uniqueCid);
 
