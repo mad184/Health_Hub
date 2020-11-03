@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 
 import static com.mongodb.client.model.Filters.eq;
 
-public class Writer implements ReadWriteInterface {
+public class Writer implements ServerInterface, WriteInterface {
 
   private final MongoClient SERVER; // server initiation
   private MongoDatabase mongoDb; // database initiation
