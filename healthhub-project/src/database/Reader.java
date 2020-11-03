@@ -84,25 +84,22 @@ public class Reader implements ReadWriteInterface {
   }
 
   /**
-   * Reads the client data for the specified unique client id This function iterates over the
-   * Clients tables but only take the first result It is expected that every client will have unique
-   * id so only first result is outputted
+   * Looks for the unique Id within the specified Collection inside the database. The iteration will
+   * only return the first result as ID are suppose to be unique within Collections
    *
-   * @param uniqueCid: unique client id to read
-   * @return JSONObject of the client data.
-   * @throws EmptyQueryException when the user attempts to read data from nonexisting client, this
+   * @param uniqueId unique id to search/read
+   * @param readCollection collection to find the unique id data
+   * @return Document object that corresponds to the specified unique id
+   * @throws EmptyQueryException when the unique id does not exist within the collection, this
    *     exception is thrown
    */
-  public JSONObject readClientData(int uniqueCid) throws EmptyQueryException {
+  private Document readData(int uniqueId, String readCollection) throws EmptyQueryException {
     MongoCollection<Document> previousCollection = getCollectionTable();
-    setCollectionTable("ClientCollection");
-
-    JSONObject clientData = new JSONObject();
+    setCollectionTable(readCollection);
     try {
-      Document searchClient = collectionTable.find(eq("_id", uniqueCid)).first();
-      assert searchClient != null;
-      return createJsonData(clientData, searchClient);
-
+      Document readResult = collectionTable.find(eq("_id", uniqueId)).first();
+      assert readResult != null;
+      return readResult;
     } catch (AssertionError eqe) {
       throw new EmptyQueryException();
     } finally {
@@ -111,50 +108,36 @@ public class Reader implements ReadWriteInterface {
   }
 
   /**
-   * Reads the instructor data for the specified unique instructor id This function iterates over
-   * the Instructor tables but only take the first result It is expected that every instructor will
-   * have unique id so only first result is outputted
+   * Reads the client data for the specified unique client id
    *
-   * @param uniqueIid: unique instructor id to read
-   * @return returns JSON string of the instructor data, If no data found, returns null
+   * @param uniqueCid: unique client id to read
+   * @return JSONObject of the client data.
+   * @throws EmptyQueryException when the user attempts to read data from nonexisting client, this
+   *     exception is thrown
    */
-  public String readInstructorData(int uniqueIid) {
-    MongoCollection<Document> previousCollection = getCollectionTable();
-    setCollectionTable("InstructorCollection");
+  public JSONObject readClientData(int uniqueCid) throws EmptyQueryException {
 
-    try {
-      Document instructorData = collectionTable.find(eq("_id", uniqueIid)).first();
-      assert instructorData != null;
-      return instructorData.toJson();
-    } catch (AssertionError npe) {
-      return null;
-    } finally {
-      setCollectionTable(previousCollection);
-    }
+    return createJsonData(new JSONObject(), readData(uniqueCid, "ClientCollection"));
   }
 
   /**
-   * Reads the Manager data for the specified unique manager id This function iterates over the
-   * Manager tables but only take the first result It is expected that every manager will have
-   * unique id so only first result is outputted
+   * Reads the instructor data for the specified unique instructor id
+   *
+   * @param uniqueIid : unique instructor id to read
+   * @return JSONObject of the Instructor data.
+   */
+  public JSONObject readInstructorData(int uniqueIid) throws EmptyQueryException {
+    return createJsonData(new JSONObject(), readData(uniqueIid, "InstructorCollection"));
+  }
+
+  /**
+   * Reads the Manager data for the specified unique manager id
    *
    * @param uniqueMid: unique manager id to read
-   * @return returns JSON string of the manager data. If no data found, returns null
+   * @return JSONObject of the Manager data.
    */
-  public String readManagerData(int uniqueMid) {
-    MongoCollection<Document> previousCollection = getCollectionTable();
-    setCollectionTable("ManagerCollection");
-
-    try {
-      Document managerData = collectionTable.find(eq("_id", uniqueMid)).first();
-      assert managerData != null;
-      return managerData.toJson();
-
-    } catch (AssertionError npe) {
-      return null;
-    } finally {
-      setCollectionTable(previousCollection);
-    }
+  public JSONObject readManagerData(int uniqueMid) throws EmptyQueryException {
+    return createJsonData(new JSONObject(), readData(uniqueMid, "ManagerCollection"));
   }
 
   /**
