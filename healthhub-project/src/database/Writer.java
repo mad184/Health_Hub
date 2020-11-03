@@ -104,6 +104,25 @@ public class Writer implements ReadWriteInterface {
   }
 
   /**
+   * Creates data based on the unique id within the specified collection It takes a JSONObject value
+   * which it uses to create data
+   *
+   * @param uniqueId unique id within a collection
+   * @param collectionInsert collection to create/insert new data
+   * @param dataValue JSONObject value that will be stored within the document
+   * @throws NullPointerException when dataValue is null, it will throw this exception
+   */
+  private void createData(int uniqueId, String collectionInsert, JSONObject dataValue)
+      throws NullPointerException {
+    MongoCollection<Document> previousCollection = getCollectionTable();
+    setCollectionTable(collectionInsert);
+    Document newDocument = new Document("_id", uniqueId);
+    Document newData = createDocumentData(dataValue, newDocument);
+    collectionTable.insertOne(newData);
+    setCollectionTable(previousCollection);
+  }
+
+  /**
    * Create a client data within the client collection
    *
    * @param uniqueCid unique client id
@@ -111,13 +130,7 @@ public class Writer implements ReadWriteInterface {
    * @throws NullPointerException when value is null ( not empty ), this exception will be thrown
    */
   public void createClient(int uniqueCid, JSONObject value) throws NullPointerException {
-
-    MongoCollection<Document> previousCollection = getCollectionTable();
-    setCollectionTable("ClientCollection");
-    Document clientDocument = new Document("_id", uniqueCid);
-    Document clientData = createDocumentData(value, clientDocument);
-    collectionTable.insertOne(clientData);
-    setCollectionTable(previousCollection);
+    createData(uniqueCid, "ClientCollection", value);
   }
 
   /**
@@ -129,12 +142,7 @@ public class Writer implements ReadWriteInterface {
    */
   public void createInstructor(int uniqueIid, JSONObject value) throws NullPointerException {
 
-    MongoCollection<Document> previousCollection = getCollectionTable();
-    setCollectionTable("InstructorCollection");
-    Document instructorDocument = new Document("_id", uniqueIid);
-    Document InstructorData = createDocumentData(value, instructorDocument);
-    collectionTable.insertOne(InstructorData);
-    setCollectionTable(previousCollection);
+    createData(uniqueIid, "InstructorCollection", value);
   }
 
   /**
@@ -146,12 +154,7 @@ public class Writer implements ReadWriteInterface {
    */
   public void createManager(int uniqueMid, JSONObject value) throws NullPointerException {
 
-    MongoCollection<Document> previousCollection = getCollectionTable();
-    setCollectionTable("ManagerCollection");
-    Document ManagerDocument = new Document("_id", uniqueMid);
-    Document ManagerData = createDocumentData(value, ManagerDocument);
-    collectionTable.insertOne(ManagerData);
-    setCollectionTable(previousCollection);
+    createData(uniqueMid, "ManagerCollection", value);
   }
 
   /**
