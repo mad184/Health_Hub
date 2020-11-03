@@ -41,12 +41,17 @@
             </Button>
          </children>
       </HBox>
-      <Label fx:id="nameLabel" layoutX="98.0" layoutY="25.0" text="Client Name" textFill="#ddd9d9">
+      <Label fx:id="nameLabel" layoutX="106.0" layoutY="25.0" text="Client Name" textFill="#ddd9d9">
          <font>
             <Font size="12.0" />
          </font>
       </Label>
       <Button layoutX="94.0" layoutY="41.0" mnemonicParsing="false" onAction="#onProfileButtonPushed" prefHeight="27.0" prefWidth="54.0" style="-fx-background-color: #2A0033 #2A0033 #2A0033 #2A0033 #2A0033 #2A0033 #2A0033 #2A0033;" text="Profile" textFill="#ddd9d9">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Button>
+      <Button layoutX="538.0" layoutY="19.0" mnemonicParsing="false" onAction="#onSettingsButtonPushed" prefHeight="27.0" prefWidth="62.0" style="-fx-background-color: #2A0033 #2A0033 #2A0033 #2A0033 #2A0033 #2A0033 #2A0033 #2A0033;" text="Settings" textFill="#ddd9d9">
          <font>
             <Font size="12.0" />
          </font>

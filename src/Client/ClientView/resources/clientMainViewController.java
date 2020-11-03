@@ -35,6 +35,7 @@ public class clientMainViewController implements Initializable {
 
     @FXML
     private Label nameLabel = new Label();
+    
 
     public void onExerciseButtonPushed(ActionEvent event) throws IOException {
         Parent exerciseViewParent = FXMLLoader.load(getClass().getResource("clientExerciseView.fxml"));
