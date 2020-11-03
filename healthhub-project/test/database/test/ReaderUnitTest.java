@@ -46,7 +46,6 @@ public class ReaderUnitTest {
     testArray.put("Ina");
     testArray.put("Amelia");
     testAdd.put("Hololive Friends", testArray);
-    System.out.println(testAdd.toString());
 
     // PreWrite of data
     Assertions.assertDoesNotThrow(
@@ -112,6 +111,53 @@ public class ReaderUnitTest {
     Assertions.assertEquals(ManagerData.get("Age"), 7);
     Assertions.assertEquals(ManagerData.get("Name"), "Gawr Gura");
     Assertions.assertEquals(ManagerData.get("Hololive Friends"), testArray);
+  }
+
+  JSONObject createTestElement() {
+    JSONObject testAdd = new JSONObject();
+    testAdd.put("_id", "1");
+    testAdd.put("Name", "Gawr Gura");
+    testAdd.put("Age", 7);
+
+    JSONArray testArray = new JSONArray();
+    testArray.put("Kiara");
+    testArray.put("Ina");
+    testArray.put("Amelia");
+    testAdd.put("Hololive Friends", testArray);
+
+    return testAdd;
+  }
+
+  @Test
+  @Order(4)
+  void testGetAllCIM() {
+    Assertions.assertDoesNotThrow(() -> realCon.getAllClients());
+
+    JSONArray testClient = realCon.getAllClients();
+    JSONArray testInstructors = realCon.getAllInstructors();
+    JSONArray testManagers = realCon.getAllManagers();
+    JSONObject actualClientData = testClient.getJSONObject(0);
+    JSONObject actualInstructorsData = testInstructors.getJSONObject(0);
+    JSONObject actualManagerData = testManagers.getJSONObject(0);
+    JSONObject expectedData = createTestElement();
+
+    Assertions.assertEquals(actualClientData.get("Age"), expectedData.get("Age"));
+    Assertions.assertEquals(actualClientData.get("Name"), expectedData.get("Name"));
+    Assertions.assertEquals(
+        actualClientData.get("Hololive Friends").toString(),
+        expectedData.get("Hololive Friends").toString());
+
+    Assertions.assertEquals(actualInstructorsData.get("Age"), expectedData.get("Age"));
+    Assertions.assertEquals(actualInstructorsData.get("Name"), expectedData.get("Name"));
+    Assertions.assertEquals(
+        actualInstructorsData.get("Hololive Friends").toString(),
+        expectedData.get("Hololive Friends").toString());
+
+    Assertions.assertEquals(actualManagerData.get("Age"), expectedData.get("Age"));
+    Assertions.assertEquals(actualManagerData.get("Name"), expectedData.get("Name"));
+    Assertions.assertEquals(
+        actualManagerData.get("Hololive Friends").toString(),
+        expectedData.get("Hololive Friends").toString());
   }
 
   @AfterAll
