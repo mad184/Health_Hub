@@ -18,6 +18,9 @@ import java.util.ResourceBundle;
 
 public class clientMainViewController implements Initializable {
 
+    @FXML
+    private Label nameLabel = new Label();
+
     Client client1 = new Client(
             "Justyn Pollard",
             "Justynpollard12@hotmail.com",
@@ -33,63 +36,35 @@ public class clientMainViewController implements Initializable {
             null,
             null);
 
-    @FXML
-    private Label nameLabel = new Label();
-    
-
-    public void onExerciseButtonPushed(ActionEvent event) throws IOException {
-        Parent exerciseViewParent = FXMLLoader.load(getClass().getResource("clientExerciseView.fxml"));
-        Scene exerciseViewScene = new Scene(exerciseViewParent);
+    public void changeSceneButtonAction(ActionEvent event, String viewFXML) throws IOException{
+        Parent viewParent = FXMLLoader.load(getClass().getResource(viewFXML));
+        Scene viewScene = new Scene(viewParent);
 
         //Gets stage information
         Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
 
-        window.setScene(exerciseViewScene);
+        window.setScene(viewScene);
         window.show();
+    }
+
+    public void onExerciseButtonPushed(ActionEvent event) throws IOException {
+        changeSceneButtonAction(event, "clientExerciseView.fxml");
     }
 
     public void onProgressButtonPushed(ActionEvent event) throws IOException {
-        Parent progressViewParent = FXMLLoader.load(getClass().getResource("clientProgressView.fxml"));
-        Scene progressViewScene = new Scene(progressViewParent);
-
-        //Gets stage information
-        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-
-        window.setScene(progressViewScene);
-        window.show();
+        changeSceneButtonAction(event, "clientProgressView.fxml");
     }
 
     public void onNutrientButtonPushed(ActionEvent event) throws IOException {
-        Parent nutrientViewParent = FXMLLoader.load(getClass().getResource("clientNutrientView.fxml"));
-        Scene nutrientViewScene = new Scene(nutrientViewParent);
-
-        //Gets stage information
-        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-
-        window.setScene(nutrientViewScene);
-        window.show();
+        changeSceneButtonAction(event, "clientNutrientView.fxml");
     }
 
     public void onProfileButtonPushed(ActionEvent event) throws IOException {
-        Parent profileViewParent = FXMLLoader.load(getClass().getResource("clientProfileView.fxml"));
-        Scene profileViewScene = new Scene(profileViewParent);
-
-        //Gets stage information
-        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-
-        window.setScene(profileViewScene);
-        window.show();
+        changeSceneButtonAction(event, "clientProfileView.fxml");
     }
 
     public void onSettingsButtonPushed(ActionEvent event) throws IOException {
-        Parent settingsViewParent = FXMLLoader.load(getClass().getResource("clientSettingsView.fxml"));
-        Scene settingsViewScene = new Scene(settingsViewParent);
-
-        //Gets stage information
-        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-
-        window.setScene(settingsViewScene);
-        window.show();
+        changeSceneButtonAction(event, "clientSettingsView.fxml");
     }
 
     @Override
