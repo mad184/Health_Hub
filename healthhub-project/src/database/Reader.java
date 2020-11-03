@@ -108,6 +108,31 @@ public class Reader implements ReadWriteInterface {
   }
 
   /**
+   * Retrieve all data within the collection
+   *
+   * @param collectionRetrieve: collection where we retrieve all data
+   * @return JSONArray of JSONObjects within the collection
+   */
+  private JSONArray retrieveAllData(String collectionRetrieve) {
+    MongoCollection<Document> previousCollection = getCollectionTable();
+    setCollectionTable(collectionRetrieve);
+
+    JSONArray allDataArray = new JSONArray();
+    FindIterable<Document> allCollectionData = collectionTable.find();
+
+    for (Document eachData : allCollectionData) {
+      allDataArray.put(eachData);
+    }
+    setCollectionTable(previousCollection);
+
+    if (allDataArray.isEmpty()) {
+      return null;
+    } else {
+      return allDataArray;
+    }
+  }
+
+  /**
    * Reads the client data for the specified unique client id
    *
    * @param uniqueCid: unique client id to read
@@ -146,22 +171,7 @@ public class Reader implements ReadWriteInterface {
    * @return returns a JSONArray of all the clients and their data, null if no data
    */
   public JSONArray getAllClients() {
-    MongoCollection<Document> previousCollection = getCollectionTable();
-    setCollectionTable("ClientCollection");
-
-    JSONArray allClientArr = new JSONArray();
-    FindIterable<Document> allClientDoc = collectionTable.find();
-
-    for (Document eachClient : allClientDoc) {
-      allClientArr.put(eachClient);
-    }
-    setCollectionTable(previousCollection);
-
-    if (allClientArr.isEmpty()) {
-      return null;
-    } else {
-      return allClientArr;
-    }
+    return retrieveAllData("ClientCollection");
   }
 
   /**
@@ -170,22 +180,7 @@ public class Reader implements ReadWriteInterface {
    * @return returns a JSONarray of all the instructors and their data, null if no data
    */
   public JSONArray getAllInstructors() {
-    MongoCollection<Document> previousCollection = getCollectionTable();
-    setCollectionTable("InstructorCollection");
-
-    JSONArray allInstructorArr = new JSONArray();
-    FindIterable<Document> allInstructorDoc = collectionTable.find();
-
-    for (Document eachInstructor : allInstructorDoc) {
-      allInstructorArr.put(eachInstructor);
-    }
-    setCollectionTable(previousCollection);
-
-    if (allInstructorArr.isEmpty()) {
-      return null;
-    } else {
-      return allInstructorArr;
-    }
+    return retrieveAllData("InstructorCollection");
   }
 
   /**
@@ -194,21 +189,6 @@ public class Reader implements ReadWriteInterface {
    * @return returns a JSONarray of all the managers and their data, null if no data
    */
   public JSONArray getAllManagers() {
-    MongoCollection<Document> previousCollection = getCollectionTable();
-    setCollectionTable("ManagerCollection");
-
-    JSONArray allManagerArr = new JSONArray();
-    FindIterable<Document> allManagerDoc = collectionTable.find();
-
-    for (Document eachManager : allManagerDoc) {
-      allManagerArr.put(eachManager);
-    }
-    setCollectionTable(previousCollection);
-
-    if (allManagerArr.isEmpty()) {
-      return null;
-    } else {
-      return allManagerArr;
-    }
+    return retrieveAllData("ManagerCollection");
   }
 }
