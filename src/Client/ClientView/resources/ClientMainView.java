@@ -13,10 +13,10 @@ import javafx.stage.Stage;
 
 public class ClientMainView extends Application{
 
+    //Loads main scene for client, starts stage
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("clientMainView.fxml"));
-
         stage.setTitle("Client View");
         stage.setScene(new Scene(root, 600, 400));
         stage.show();

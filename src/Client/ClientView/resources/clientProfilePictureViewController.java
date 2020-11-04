@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class clientNutrientViewController implements Initializable {
+public class clientProfilePictureViewController implements Initializable {
 
     //Goes to main view scene when back button is pushed
     public void onBackButtonPressed(ActionEvent event) throws IOException {

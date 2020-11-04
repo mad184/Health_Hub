@@ -18,9 +18,11 @@ import java.util.ResourceBundle;
 
 public class clientMainViewController implements Initializable {
 
+    //Label for client name
     @FXML
     private Label nameLabel = new Label();
 
+    //test client for gui testing purposes
     Client client1 = new Client(
             "Justyn Pollard",
             "Justynpollard12@hotmail.com",
@@ -36,6 +38,7 @@ public class clientMainViewController implements Initializable {
             null,
             null);
 
+    //Changes scene to specific inputted scene.
     public void changeSceneButtonAction(ActionEvent event, String viewFXML) throws IOException{
         Parent viewParent = FXMLLoader.load(getClass().getResource(viewFXML));
         Scene viewScene = new Scene(viewParent);
@@ -67,13 +70,18 @@ public class clientMainViewController implements Initializable {
         changeSceneButtonAction(event, "clientProfileView.fxml");
     }
 
-    //Changes to settings scheen when settings button is pushed
+    //Changes to settings scene when settings button is pushed
     public void onSettingsButtonPushed(ActionEvent event) throws IOException {
         changeSceneButtonAction(event, "clientSettingsView.fxml");
     }
 
+    //Changes to settings scene when settings button is pushed
+    public void onProfilePictureButtonPushed(ActionEvent event) throws IOException {
+        changeSceneButtonAction(event, "clientProfilePictureView.fxml");
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        nameLabel.setText(client1.getName());
+        nameLabel.setText(client1.getName()); //Changes name label to clients name
     }
 }

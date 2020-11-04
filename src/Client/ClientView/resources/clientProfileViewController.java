@@ -15,6 +15,7 @@ import java.util.ResourceBundle;
 
 public class clientProfileViewController implements Initializable {
 
+    //Goes to main view scene when back button is pushed
     public void onBackButtonPressed(ActionEvent event) throws IOException {
         Parent mainViewParent = FXMLLoader.load(getClass().getResource("clientMainView.fxml"));
         Scene mainViewScene = new Scene(mainViewParent);
