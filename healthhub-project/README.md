@@ -1,27 +1,24 @@
-# Group 1
+# Database Readme file
 
-Thursday Tutorial
+## Summary
+This branch has 3 main components: Reader, Writer and Dbms. Dbms is what SHOULD be
+use to contact anything outside the package
+These components exist within the src folder
 
-Brody Zak  
-Justyn Pollard  
-Remington Rohel  
-Marcos Da Silva  
-Dustin Crosson  
-Kenneth Andal 
+## Testing
 
+Unit and Integration testing has been done to this branch. They are inside the
+test folder and within database.test package
 
+## Libraries you need for database
+* jdk 14-0.2.12
+* org.jmock:jmock-junit5:2.12.0
+* org.json:json:20200518
+* org.junit.jupiter:junit-jupiter:5.7.0
+* org.mongodb:bson:3.12.7
+* org.mongodb:mongodb-driver-core:3.12.7
+* org.mongodb:mongodb-driver:3.12.7
 
-Run Test Cases for MileStone 3 testing the Client Package with JUnit:  
-Using Intellij IDEA:
-1. download files from Client Branch in git lab (Client.java, ClientInterface.java, ClientTest.java)
-2. open a plain java project
-3. Add the Files following files to a package name Clinet: Client.java, ClientInterface.java, ClientTest.java to client package
-4. open file ClientTest.java
-5. File -> Project Structure -> Libraries -> New Project Library (+ button) -> from Maven
-6. junit:junit:4.12 (add to textbox)
-7. apply
-8. New Project Library (+ button)-> from Maven
-9. org.junit.jupiter:junit-jupiter:5.4.2 (add to textbox)
-10. okay
-11. press run button
-12. Look for output in terminal
+Note: If you need to, you can add these libraries through the 
+File > Project Structure > Libraries > From Maven > Search the library > 
+Download > Add to your project
