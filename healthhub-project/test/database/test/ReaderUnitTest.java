@@ -82,6 +82,7 @@ public class ReaderUnitTest {
     Assertions.assertDoesNotThrow(() -> realCon.readClientData(1));
   }
 
+  // Tests that EmptyQueryException thrown when reading non-existing unique id
   @Test
   @Order(2)
   void testDnExistReads() {
@@ -90,6 +91,7 @@ public class ReaderUnitTest {
     Assertions.assertThrows(EmptyQueryException.class, () -> realCon.readManagerData(2));
   }
 
+  // Tests the actual reading by comparing to pre-created data for client, manager and instructor
   @Test
   @Order(3)
   void testCIMDataReading() throws EmptyQueryException {
@@ -99,6 +101,7 @@ public class ReaderUnitTest {
       realCon.readManagerData(1);
     });
 
+    // Checking the expected and actual data created in precondition
     JSONObject clientData = realCon.readClientData(1);
     JSONObject InstructorData = realCon.readInstructorData(1);
     JSONObject ManagerData = realCon.readManagerData(1);
@@ -119,6 +122,7 @@ public class ReaderUnitTest {
     Assertions.assertEquals(ManagerData.get("Hololive Friends"), testArray);
   }
 
+  // function that createsTestElement used for the next case
   JSONObject createTestElement() {
     JSONObject testAdd = new JSONObject();
     testAdd.put("_id", "1");
@@ -134,6 +138,7 @@ public class ReaderUnitTest {
     return testAdd;
   }
 
+  // Tests the get all methods and compare with pre-created data
   @Test
   @Order(4)
   void testGetAllCIM() {
@@ -166,6 +171,7 @@ public class ReaderUnitTest {
         expectedData.get("Hololive Friends").toString());
   }
 
+  // Delete everything
   @AfterAll
   static void postDelete() {
 
