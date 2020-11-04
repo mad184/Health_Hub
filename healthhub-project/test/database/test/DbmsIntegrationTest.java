@@ -159,27 +159,45 @@ public class DbmsIntegrationTest {
 
   @Order(6)
   @Test
-  void testClientDataRead() throws EmptyQueryException {
+  void testDataRead() throws EmptyQueryException {
 
     for (int uniqueId = 0; uniqueId < 19; uniqueId++) {
 
       JSONObject expectedData = expectedFullData.getJSONObject(uniqueId);
-      JSONObject actualData = realDbms.readClientData(uniqueId);
-      Assertions.assertEquals(expectedData.get("Name"), actualData.get("Name"));
-      Assertions.assertEquals(expectedData.get("Age"), actualData.get("Age"));
-      Assertions.assertEquals(expectedData.get("Manager"), actualData.get("Manager"));
-      Assertions.assertEquals(expectedData.get("Active"), actualData.get("Active"));
-      Assertions.assertEquals(expectedData.get("Retired"), actualData.get("Retired"));
+      JSONObject actualClientData = realDbms.readClientData(uniqueId);
+      JSONObject actualInstrData = realDbms.readInstructorData(uniqueId);
+      JSONObject actualManagerData = realDbms.readManagerData(uniqueId);
+
+      // Checking the client data
+      Assertions.assertEquals(expectedData.get("Name"), actualClientData.get("Name"));
+      Assertions.assertEquals(expectedData.get("Age"), actualClientData.get("Age"));
+      Assertions.assertEquals(expectedData.get("Manager"), actualClientData.get("Manager"));
+      Assertions.assertEquals(expectedData.get("Active"), actualClientData.get("Active"));
+      Assertions.assertEquals(expectedData.get("Retired"), actualClientData.get("Retired"));
+
+      // Checking the instructor data
+      Assertions.assertEquals(expectedData.get("Name"), actualInstrData.get("Name"));
+      Assertions.assertEquals(expectedData.get("Age"), actualInstrData.get("Age"));
+      Assertions.assertEquals(expectedData.get("Manager"), actualInstrData.get("Manager"));
+      Assertions.assertEquals(expectedData.get("Active"), actualInstrData.get("Active"));
+      Assertions.assertEquals(expectedData.get("Retired"), actualInstrData.get("Retired"));
+
+      // Checking the Manager Data
+      Assertions.assertEquals(expectedData.get("Name"), actualManagerData.get("Name"));
+      Assertions.assertEquals(expectedData.get("Age"), actualManagerData.get("Age"));
+      Assertions.assertEquals(expectedData.get("Manager"), actualManagerData.get("Manager"));
+      Assertions.assertEquals(expectedData.get("Active"), actualManagerData.get("Active"));
+      Assertions.assertEquals(expectedData.get("Retired"), actualManagerData.get("Retired"));
 
       // Testing the array within array. I recommend using JSONArrays for arrays
       if (((JSONArray) expectedData.get("Nicknames")).isEmpty()) {
         Assertions.assertEquals(
-            expectedData.get("Nicknames").toString(), actualData.get("Nicknames").toString());
+            expectedData.get("Nicknames").toString(), actualClientData.get("Nicknames").toString());
       } else {
         for (int each = 0; each < ((JSONArray) expectedData.get("Nicknames")).length(); each++) {
           Assertions.assertEquals(
               ((JSONArray) expectedData.get("Nicknames")).get(each),
-              ((List<String>) actualData.get("Nicknames")).get(each));
+              ((List<String>) actualClientData.get("Nicknames")).get(each));
         }
       }
     }
