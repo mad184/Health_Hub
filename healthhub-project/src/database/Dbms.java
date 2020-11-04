@@ -4,8 +4,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class Dbms implements WriteInterface, ReadInterface {
-  private final Writer DBWRITER;
-  private final Reader DBREADER;
+  private final Writer DBWRITER; // Writer initialization
+  private final Reader DBREADER; // Reader initialization
 
   /**
    * Initializes the cloud database to be used for the healthhub application. if db does not exist,
