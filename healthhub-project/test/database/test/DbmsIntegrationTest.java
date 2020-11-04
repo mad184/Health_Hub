@@ -1,9 +1,11 @@
 package database.test;
 
 import com.mongodb.MongoWriteException;
-import database.EmptyQueryException;
 import database.Dbms;
+import database.EmptyQueryException;
+import database.JsonObjectException;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
@@ -219,7 +221,52 @@ public class DbmsIntegrationTest {
     }
   }
 
-  // @BeforeAll
+  @Order(7)
+  @Test
+  void testDataUpdate() throws EmptyQueryException, JsonObjectException {
+
+    JSONObject expectedUpdatedClientData = new JSONObject();
+    expectedUpdatedClientData.put("Client Contract Breached", true);
+
+    JSONObject expectedUpdatedInstrData = new JSONObject();
+    expectedUpdatedInstrData.put("Instructor Removed", true);
+
+    JSONObject expectedUpdatedManagerData = new JSONObject();
+    expectedUpdatedManagerData.put("Manager Removed", true);
+
+    realDbms.updateClient(0, expectedUpdatedClientData);
+    realDbms.updateInstructor(1, expectedUpdatedInstrData);
+    realDbms.updateManager(2, expectedUpdatedManagerData);
+
+    JSONObject actualUpdatedClientData = realDbms.readClientData(0);
+    JSONObject actualInstrData = realDbms.readInstructorData(1);
+    JSONObject actualManagerData = realDbms.readManagerData(2);
+
+    // Testing the asserted data not equal to previous value
+    Assertions.assertThrows(
+        JSONException.class,
+        () -> {
+          Assertions.assertNotEquals(
+              expectedFullData.getJSONObject(0).get("Client Contract Breached"),
+              actualUpdatedClientData);
+          Assertions.assertNotEquals(
+              expectedFullData.getJSONObject(1).get("Instructor Removed"), actualInstrData);
+          Assertions.assertNotEquals(
+              expectedFullData.getJSONObject(2).get("Manager Removed"), actualManagerData);
+        });
+
+    // Testing it that it is equal now to the updated data
+    Assertions.assertEquals(
+        expectedUpdatedClientData.get("Client Contract Breached"),
+        actualUpdatedClientData.get("Client Contract Breached"));
+    Assertions.assertEquals(
+        expectedUpdatedInstrData.get("Instructor Removed"),
+        actualInstrData.get("Instructor Removed"));
+    Assertions.assertEquals(
+        expectedUpdatedManagerData.get("Manager Removed"),
+        actualManagerData.get("Manager Removed"));
+  }
+
   @AfterAll
   static void postDataDeletion() {
     for (int uniqueId = 0; uniqueId < 19; uniqueId++) {
