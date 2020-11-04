@@ -193,11 +193,27 @@ public class DbmsIntegrationTest {
       if (((JSONArray) expectedData.get("Nicknames")).isEmpty()) {
         Assertions.assertEquals(
             expectedData.get("Nicknames").toString(), actualClientData.get("Nicknames").toString());
+
+        Assertions.assertEquals(
+            expectedData.get("Nicknames").toString(), actualInstrData.get("Nicknames").toString());
+
+        Assertions.assertEquals(
+            expectedData.get("Nicknames").toString(),
+            actualManagerData.get("Nicknames").toString());
+
       } else {
         for (int each = 0; each < ((JSONArray) expectedData.get("Nicknames")).length(); each++) {
           Assertions.assertEquals(
               ((JSONArray) expectedData.get("Nicknames")).get(each),
               ((List<String>) actualClientData.get("Nicknames")).get(each));
+
+          Assertions.assertEquals(
+              ((JSONArray) expectedData.get("Nicknames")).get(each),
+              ((List<String>) actualInstrData.get("Nicknames")).get(each));
+
+          Assertions.assertEquals(
+              ((JSONArray) expectedData.get("Nicknames")).get(each),
+              ((List<String>) actualManagerData.get("Nicknames")).get(each));
         }
       }
     }
