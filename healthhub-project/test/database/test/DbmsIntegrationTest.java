@@ -10,7 +10,6 @@ import org.json.JSONObject;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.Test;
@@ -34,9 +33,11 @@ public class DbmsIntegrationTest {
   static Dbms realDbms = new Dbms(realUserName, realPassWord, dbName, tableName);
   static Random generator = new Random();
 
+  // Initially create the complex data to use in testing
   @BeforeAll
   static void initialCreate() {
 
+    // All elements within JSONObject are arrays to iterate
     JSONArray expectedNicknames = new JSONArray();
     JSONArray expectedAges = new JSONArray();
     JSONArray expectedNames = new JSONArray();
@@ -49,6 +50,7 @@ public class DbmsIntegrationTest {
       18, 16, 9000, 50, 24, 22, 21, 20, 0, 10, 17, 15, 25, 3501, 27, 28, 29, 111, 60
     };
 
+    // Special: You can use any List<> type, but preferably JSONArray
     ArrayList<List<String>> createNicknames = new ArrayList<>();
     createNicknames.add(Arrays.asList("City Pop Shark", "Apex Predator", "Same-Chan"));
     createNicknames.add(Arrays.asList("Koronen", "Doggo", "Doog"));
@@ -77,6 +79,7 @@ public class DbmsIntegrationTest {
       expectedNicknames.put(createNicknames.get(i));
     }
 
+    // for loop to create the final expected data
     int counter = 0;
     for (Object name : expectedNames) {
       JSONObject expectedJson = new JSONObject();
@@ -91,6 +94,7 @@ public class DbmsIntegrationTest {
     }
   }
 
+  // Test for creating data within the Dbms
   @Test
   @Order(1)
   void testCIMCreate() {
@@ -99,7 +103,6 @@ public class DbmsIntegrationTest {
       int finalUniqueId = uniqueId;
       Assertions.assertDoesNotThrow(
           () -> {
-            // System.out.println(expectedFullData.getJSONObject(finalUniqueId));
             realDbms.createClient(finalUniqueId, expectedFullData.getJSONObject(finalUniqueId));
             realDbms.createInstructor(finalUniqueId, expectedFullData.getJSONObject(finalUniqueId));
             realDbms.createManager(finalUniqueId, expectedFullData.getJSONObject(finalUniqueId));
@@ -107,6 +110,7 @@ public class DbmsIntegrationTest {
     }
   }
 
+  // Tests for duplicates. Repeated tests are done as different random combination will be used
   @Order(2)
   @RepeatedTest(50)
   void testDuplicateClientCreate() {
@@ -118,6 +122,7 @@ public class DbmsIntegrationTest {
                 generator.nextInt(19), expectedFullData.getJSONObject(generator.nextInt(19))));
   }
 
+  // Tests for duplicates. Repeated tests are done as different random combination will be used
   @Order(3)
   @RepeatedTest(50)
   void testDuplicateInstrCreate() {
@@ -129,6 +134,7 @@ public class DbmsIntegrationTest {
                 generator.nextInt(19), expectedFullData.getJSONObject(generator.nextInt(19))));
   }
 
+  // Tests for duplicates. Repeated tests are done as different random combination will be used
   @Order(4)
   @RepeatedTest(50)
   void testDuplicateManagerCreate() {
@@ -140,6 +146,7 @@ public class DbmsIntegrationTest {
                 generator.nextInt(19), expectedFullData.getJSONObject(generator.nextInt(19))));
   }
 
+  // Test that reading data does not throw unnecessary exceptions
   @Order(5)
   @Test
   void testCIMRead() {
@@ -148,7 +155,6 @@ public class DbmsIntegrationTest {
       int finalUniqueId = uniqueId;
       Assertions.assertDoesNotThrow(
           () -> {
-            // System.out.println(expectedFullData.getJSONObject(finalUniqueId));
             realDbms.readClientData(finalUniqueId);
             realDbms.readInstructorData(finalUniqueId);
             realDbms.readManagerData(finalUniqueId);
@@ -156,10 +162,12 @@ public class DbmsIntegrationTest {
     }
   }
 
+  // Test data reading for Client, Instructor and Manager
   @Order(6)
   @Test
   void testDataRead() throws EmptyQueryException {
 
+    // for loop is necessary to loop through all the data pre-created
     for (int uniqueId = 0; uniqueId < 19; uniqueId++) {
 
       JSONObject expectedData = expectedFullData.getJSONObject(uniqueId);
@@ -201,6 +209,8 @@ public class DbmsIntegrationTest {
             actualManagerData.get("Nicknames").toString());
 
       } else {
+
+        // Special for loop for nicknames which is an array within an array
         for (int each = 0; each < ((JSONArray) expectedData.get("Nicknames")).length(); each++) {
           Assertions.assertEquals(
               ((JSONArray) expectedData.get("Nicknames")).get(each),
@@ -218,6 +228,7 @@ public class DbmsIntegrationTest {
     }
   }
 
+  // Tests on getting all data for clients, instructors and managers
   @Order(7)
   @Test
   void testGetAllData() {
@@ -226,12 +237,15 @@ public class DbmsIntegrationTest {
     JSONArray actualAllInstr = realDbms.getAllInstructors();
     JSONArray actualAllManagers = realDbms.getAllManagers();
 
+    // Loop through the expected data
     for (int i = 0; i < expectedFullData.length(); i++) {
 
       JSONObject expectedArrayElement = expectedFullData.getJSONObject(i);
       JSONObject actualAllClientElements = actualAllClients.getJSONObject(i);
       JSONObject actualAllInstrElements = actualAllInstr.getJSONObject(i);
       JSONObject actualAllManagerElements = actualAllManagers.getJSONObject(i);
+
+      // Compare each key value with expected data key-value
       for (String eachKey : expectedArrayElement.keySet()) {
         Assertions.assertEquals(
             expectedArrayElement.get(eachKey).toString(),
@@ -246,10 +260,12 @@ public class DbmsIntegrationTest {
     }
   }
 
+  // Testing for updating client, manager and instructor
   @Order(8)
   @Test
   void testDataUpdate() throws EmptyQueryException, JsonObjectException {
 
+    // Create the expected updated data
     JSONObject expectedUpdatedClientData = new JSONObject();
     expectedUpdatedClientData.put("Client Contract Breached", true);
 
@@ -259,10 +275,12 @@ public class DbmsIntegrationTest {
     JSONObject expectedUpdatedManagerData = new JSONObject();
     expectedUpdatedManagerData.put("Manager Removed", true);
 
+    // perform the updates
     realDbms.updateClient(0, expectedUpdatedClientData);
     realDbms.updateInstructor(1, expectedUpdatedInstrData);
     realDbms.updateManager(2, expectedUpdatedManagerData);
 
+    // read the actual data updated
     JSONObject actualUpdatedClientData = realDbms.readClientData(0);
     JSONObject actualInstrData = realDbms.readInstructorData(1);
     JSONObject actualManagerData = realDbms.readManagerData(2);
@@ -292,6 +310,7 @@ public class DbmsIntegrationTest {
         actualManagerData.get("Manager Removed"));
   }
 
+  // post delete of all the created data. This acts as test for deletion too
   @AfterAll
   static void postDataDeletion() {
     for (int uniqueId = 0; uniqueId < 19; uniqueId++) {
