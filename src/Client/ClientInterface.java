@@ -1,5 +1,7 @@
 package Client;
 
+import java.io.File;
+
 public interface ClientInterface {
 
   // setters for client attributes
@@ -28,6 +30,8 @@ public interface ClientInterface {
   void setOrganization(String organization);
 
   void setComment(String[] comment);
+
+  void setProfilePicture(File picture);
   // void controller(Controller);
 
   // getters for client
@@ -56,4 +60,6 @@ public interface ClientInterface {
   String getOrganization();
   // void controller();
   String[] getComment();
+
+  File getProfilePicture();
 }

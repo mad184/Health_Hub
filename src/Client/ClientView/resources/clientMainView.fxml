@@ -21,6 +21,7 @@
                   <Image url="@Assets/add-user.png" />
                </image>
             </ImageView>
+            <Button layoutY="-1.0" mnemonicParsing="false" onAction="#onProfilePictureButtonPushed" prefHeight="81.0" prefWidth="80.0" style="-fx-background-color: #ffffff00;" textFill="TRANSPARENT" />
          </children></Pane>
       <HBox spacing="10.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="175.0">
          <children>

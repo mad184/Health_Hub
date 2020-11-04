@@ -1,17 +1,18 @@
 package Client.ClientView.resources;
 
 import Client.Client;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import javafx.event.ActionEvent;
+
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -19,11 +20,14 @@ import java.util.ResourceBundle;
 public class clientMainViewController implements Initializable {
 
     //Label for client name
-    @FXML
     private Label nameLabel = new Label();
 
+    //File chooser for profile picture
+    private FileChooser fileChooser;
+    private File filepath;
+
     //test client for gui testing purposes
-    Client client1 = new Client(
+    private Client client1 = new Client(
             "Justyn Pollard",
             "Justynpollard12@hotmail.com",
             "Pete",
@@ -36,10 +40,11 @@ public class clientMainViewController implements Initializable {
             170,
             1000,
             null,
+            null,
             null);
 
     //Changes scene to specific inputted scene.
-    public void changeSceneButtonAction(ActionEvent event, String viewFXML) throws IOException{
+    private void changeSceneButtonAction(ActionEvent event, String viewFXML) throws IOException{
         Parent viewParent = FXMLLoader.load(getClass().getResource(viewFXML));
         Scene viewScene = new Scene(viewParent);
 
@@ -75,9 +80,9 @@ public class clientMainViewController implements Initializable {
         changeSceneButtonAction(event, "clientSettingsView.fxml");
     }
 
-    //Changes to settings scene when settings button is pushed
-    public void onProfilePictureButtonPushed(ActionEvent event) throws IOException {
-        changeSceneButtonAction(event, "clientProfilePictureView.fxml");
+    //Will allow the client to choose profile picture
+    public void onProfilePictureButtonPushed(ActionEvent event){
+
     }
 
     @Override

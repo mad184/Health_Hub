@@ -1,10 +1,13 @@
 package Client;
 
+import java.io.File;
+
 public class Client implements ClientInterface {
     private String name, email, instructor, organization, phoneNumber;
     private int id, age, height, weight;
     private Double goal, calories;
     private String[] allergies, comment;
+    private File profilePicture;
 
     public Client(
             String name,
@@ -19,7 +22,8 @@ public class Client implements ClientInterface {
             double goal,
             double calories,
             String[] allergies,
-            String[] comment) {
+            String[] comment,
+            File profilePicture) {
         this.name = name;
         this.email = email;
         this.instructor = instructor;
@@ -33,6 +37,7 @@ public class Client implements ClientInterface {
         this.calories = calories;
         this.allergies = allergies;
         this.comment = comment;
+        this.profilePicture = null;
     }
 
     // setters
@@ -97,8 +102,11 @@ public class Client implements ClientInterface {
     }
 
     @Override
-    public void setComment(String[] comment) {
-        this.comment = comment;
+    public void setComment(String[] comment) { this.comment = comment; }
+
+    @Override
+    public void setProfilePicture(File picture){
+        this.profilePicture = picture;
     }
 
     // getters
@@ -165,6 +173,11 @@ public class Client implements ClientInterface {
     @Override
     public String[] getComment() {
         return this.comment;
+    }
+
+    @Override
+    public File getProfilePicture(){
+        return this.profilePicture;
     }
 }
 
