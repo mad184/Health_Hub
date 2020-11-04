@@ -4,8 +4,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class Dbms implements WriteInterface, ReadInterface {
-  private final Writer dbWriter;
-  private final Reader dbReader;
+  private final Writer DBWRITER;
+  private final Reader DBREADER;
 
   /**
    * Initializes the cloud database to be used for the healthhub application. if db does not exist,
@@ -25,8 +25,8 @@ public class Dbms implements WriteInterface, ReadInterface {
             + "@healthhub-cluster.7y7j0.mongodb.net/"
             + dbName
             + "?retryWrites=true&w=majority";
-    dbWriter = new Writer(uriString, dbName, tableName);
-    dbReader = new Reader(uriString, dbName, tableName);
+    DBWRITER = new Writer(uriString, dbName, tableName);
+    DBREADER = new Reader(uriString, dbName, tableName);
   }
 
   /**
@@ -37,7 +37,7 @@ public class Dbms implements WriteInterface, ReadInterface {
    * @param newClientInfo: new client information to create
    */
   public void createClient(int uniqueCid, JSONObject newClientInfo) {
-    dbWriter.createClient(uniqueCid, newClientInfo);
+    DBWRITER.createClient(uniqueCid, newClientInfo);
   }
 
   /**
@@ -48,7 +48,7 @@ public class Dbms implements WriteInterface, ReadInterface {
    * @param newInstructorInfo: new instructor information to create
    */
   public void createInstructor(int uniqueIid, JSONObject newInstructorInfo) {
-    dbWriter.createInstructor(uniqueIid, newInstructorInfo);
+    DBWRITER.createInstructor(uniqueIid, newInstructorInfo);
   }
 
   /**
@@ -59,7 +59,7 @@ public class Dbms implements WriteInterface, ReadInterface {
    * @param newManagerInfo: new manager information to create
    */
   public void createManager(int uniqueMid, JSONObject newManagerInfo) {
-    dbWriter.createManager(uniqueMid, newManagerInfo);
+    DBWRITER.createManager(uniqueMid, newManagerInfo);
   }
 
   /**
@@ -70,7 +70,7 @@ public class Dbms implements WriteInterface, ReadInterface {
    * @param uniqueCid: unique client id to remove
    */
   public void removeClient(int uniqueCid) {
-    dbWriter.removeClient(uniqueCid);
+    DBWRITER.removeClient(uniqueCid);
   }
 
   /**
@@ -81,7 +81,7 @@ public class Dbms implements WriteInterface, ReadInterface {
    * @param uniqueIid: unique instructor id to remove
    */
   public void removeInstructor(int uniqueIid) {
-    dbWriter.removeInstructor(uniqueIid);
+    DBWRITER.removeInstructor(uniqueIid);
   }
 
   /**
@@ -92,7 +92,7 @@ public class Dbms implements WriteInterface, ReadInterface {
    * @param uniqueMid: unique Manager id to remove
    */
   public void removeManager(int uniqueMid) {
-    dbWriter.removeManager(uniqueMid);
+    DBWRITER.removeManager(uniqueMid);
   }
 
   /**
@@ -109,7 +109,7 @@ public class Dbms implements WriteInterface, ReadInterface {
    */
   public void updateClient(int uniqueCid, JSONObject clientUpdatedData)
       throws JsonObjectException, EmptyQueryException, NullPointerException {
-    dbWriter.updateClient(uniqueCid, clientUpdatedData);
+    DBWRITER.updateClient(uniqueCid, clientUpdatedData);
   }
 
   /**
@@ -126,7 +126,7 @@ public class Dbms implements WriteInterface, ReadInterface {
    */
   public void updateInstructor(int uniqueIid, JSONObject instrUpdatedData)
       throws JsonObjectException, EmptyQueryException, NullPointerException {
-    dbWriter.updateInstructor(uniqueIid, instrUpdatedData);
+    DBWRITER.updateInstructor(uniqueIid, instrUpdatedData);
   }
 
   /**
@@ -143,7 +143,7 @@ public class Dbms implements WriteInterface, ReadInterface {
    */
   public void updateManager(int uniqueMid, JSONObject managerUpdatedData)
       throws JsonObjectException, EmptyQueryException, NullPointerException {
-    dbWriter.updateManager(uniqueMid, managerUpdatedData);
+    DBWRITER.updateManager(uniqueMid, managerUpdatedData);
   }
 
   /**
@@ -156,7 +156,7 @@ public class Dbms implements WriteInterface, ReadInterface {
    *     clients, this exception is thrown
    */
   public JSONObject readClientData(int uniqueCid) throws EmptyQueryException {
-    return dbReader.readClientData(uniqueCid);
+    return DBREADER.readClientData(uniqueCid);
   }
 
   /**
@@ -169,7 +169,7 @@ public class Dbms implements WriteInterface, ReadInterface {
    *     instructors, this exception is thrown
    */
   public JSONObject readInstructorData(int uniqueIid) throws EmptyQueryException {
-    return dbReader.readInstructorData(uniqueIid);
+    return DBREADER.readInstructorData(uniqueIid);
   }
 
   /**
@@ -182,7 +182,7 @@ public class Dbms implements WriteInterface, ReadInterface {
    *     managers, this exception is thrown
    */
   public JSONObject readManagerData(int uniqueMid) throws EmptyQueryException {
-    return dbReader.readManagerData(uniqueMid);
+    return DBREADER.readManagerData(uniqueMid);
   }
 
   /**
@@ -191,7 +191,7 @@ public class Dbms implements WriteInterface, ReadInterface {
    * @return returns a JSONArray of all the clients and their data, null if no data
    */
   public JSONArray getAllClients() {
-    return dbReader.getAllClients();
+    return DBREADER.getAllClients();
   }
 
   /**
@@ -200,7 +200,7 @@ public class Dbms implements WriteInterface, ReadInterface {
    * @return returns a JSONArray of all the instructor and their data, null if no data
    */
   public JSONArray getAllInstructors() {
-    return dbReader.getAllInstructors();
+    return DBREADER.getAllInstructors();
   }
 
   /**
@@ -209,6 +209,6 @@ public class Dbms implements WriteInterface, ReadInterface {
    * @return returns a JSONArray of all the manager and their data, null if no data
    */
   public JSONArray getAllManagers() {
-    return dbReader.getAllManagers();
+    return DBREADER.getAllManagers();
   }
 }
