@@ -108,8 +108,7 @@ public class DbmsIntegrationTest {
   }
 
   @Order(2)
-  // @RepeatedTest(100)
-  @Disabled
+  @RepeatedTest(50)
   void testDuplicateClientCreate() {
 
     Assertions.assertThrows(
@@ -120,8 +119,7 @@ public class DbmsIntegrationTest {
   }
 
   @Order(3)
-  // @RepeatedTest(100)
-  @Disabled
+  @RepeatedTest(50)
   void testDuplicateInstrCreate() {
 
     Assertions.assertThrows(
@@ -132,8 +130,7 @@ public class DbmsIntegrationTest {
   }
 
   @Order(4)
-  // @RepeatedTest(100)
-  @Disabled
+  @RepeatedTest(50)
   void testDuplicateManagerCreate() {
 
     Assertions.assertThrows(
@@ -223,6 +220,34 @@ public class DbmsIntegrationTest {
 
   @Order(7)
   @Test
+  void testGetAllData() {
+
+    JSONArray actualAllClients = realDbms.getAllClients();
+    JSONArray actualAllInstr = realDbms.getAllInstructors();
+    JSONArray actualAllManagers = realDbms.getAllManagers();
+
+    for (int i = 0; i < expectedFullData.length(); i++) {
+
+      JSONObject expectedArrayElement = expectedFullData.getJSONObject(i);
+      JSONObject actualAllClientElements = actualAllClients.getJSONObject(i);
+      JSONObject actualAllInstrElements = actualAllInstr.getJSONObject(i);
+      JSONObject actualAllManagerElements = actualAllManagers.getJSONObject(i);
+      for (String eachKey : expectedArrayElement.keySet()) {
+        Assertions.assertEquals(
+            expectedArrayElement.get(eachKey).toString(),
+            actualAllClientElements.get(eachKey).toString());
+        Assertions.assertEquals(
+            expectedArrayElement.get(eachKey).toString(),
+            actualAllInstrElements.get(eachKey).toString());
+        Assertions.assertEquals(
+            expectedArrayElement.get(eachKey).toString(),
+            actualAllManagerElements.get(eachKey).toString());
+      }
+    }
+  }
+
+  @Order(8)
+  @Test
   void testDataUpdate() throws EmptyQueryException, JsonObjectException {
 
     JSONObject expectedUpdatedClientData = new JSONObject();
@@ -276,8 +301,17 @@ public class DbmsIntegrationTest {
             realDbms.removeClient(finalUniqueId);
             realDbms.removeInstructor(finalUniqueId);
             realDbms.removeManager(finalUniqueId);
-            // System.out.println(finalUniqueId);
-            // System.out.println((JSONObject) allClients.get(finalUniqueId));
+          });
+    }
+
+    for (int uniqueId = 0; uniqueId < 19; uniqueId++) {
+      int finalUniqueId = uniqueId;
+      Assertions.assertThrows(
+          EmptyQueryException.class,
+          () -> {
+            realDbms.readClientData(finalUniqueId);
+            realDbms.readInstructorData(finalUniqueId);
+            realDbms.readManagerData(finalUniqueId);
           });
     }
   }
