@@ -23,6 +23,7 @@ import java.util.List;
 @TestMethodOrder(OrderAnnotation.class)
 public class WriterUnitTest {
 
+    // Creadential related fields
   private static final String realUserName = "test-user";
   private static final String realPassWord = "healthhub1";
   private static final String dbName = "Test-General-Database";
@@ -36,8 +37,10 @@ public class WriterUnitTest {
           + dbName
           + "?retryWrites=true&w=majority";
 
+  // Writer initialization
   static Writer realCon = new Writer(realUriString, dbName, tableName);
 
+  // preDelete is necessary to make sure that no data exists initially in db
   @BeforeAll
   static void preDelete() {
     Assertions.assertDoesNotThrow(
@@ -68,6 +71,7 @@ public class WriterUnitTest {
         });
   }
 
+  // Tests fake and real credentials for writer
   @Test
   @Order(1)
   void testCredentials() {
@@ -92,6 +96,7 @@ public class WriterUnitTest {
     Assertions.assertDoesNotThrow(() -> realCon.removeClient(1));
   }
 
+  // Tests deletion of client, manager and instructor
   @RepeatedTest(3)
   @Order(2)
   void testDeletion() {
