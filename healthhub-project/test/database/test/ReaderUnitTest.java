@@ -93,7 +93,11 @@ public class ReaderUnitTest {
   @Test
   @Order(3)
   void testCIMDataReading() throws EmptyQueryException {
-    Assertions.assertDoesNotThrow(() -> realCon.readClientData(1));
+    Assertions.assertDoesNotThrow(() -> {
+      realCon.readClientData(1);
+      realCon.readInstructorData(1);
+      realCon.readManagerData(1);
+    });
 
     JSONObject clientData = realCon.readClientData(1);
     JSONObject InstructorData = realCon.readInstructorData(1);
