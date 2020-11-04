@@ -34,10 +34,12 @@ public class ReaderUnitTest {
 
   static Reader realCon = new Reader(realUriString, dbName, tableName);
 
+  // sets up the data we need to read
   @BeforeAll
   static void preWriteData() {
-    Writer preWriter = new Writer(realUriString, dbName, tableName);
 
+    // necessary data to write
+    Writer preWriter = new Writer(realUriString, dbName, tableName);
     JSONObject testAdd = new JSONObject();
     testAdd.put("Name", "Gawr Gura");
     testAdd.put("Age", 7);
