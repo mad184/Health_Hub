@@ -22,3 +22,5 @@ test folder and within database.test package
 Note: If you need to, you can add these libraries through the 
 File > Project Structure > Libraries > From Maven > Search the library > 
 Download > Add to your project
+
+More Information here: https://git.cs.usask.ca/CMPT370-01-2020/group1/-/wikis/About-the-Database-package
