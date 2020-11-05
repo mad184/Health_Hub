@@ -1,9 +1,9 @@
-package database.test;
+package unit;
 
 import com.mongodb.MongoSecurityException;
-import database.EmptyQueryException;
-import database.Reader;
-import database.Writer;
+import main.EmptyQueryException;
+import main.Reader;
+import main.Writer;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Assertions;

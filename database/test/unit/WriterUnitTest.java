@@ -1,10 +1,10 @@
-package database.test;
+package unit;
 
 import com.mongodb.MongoSecurityException;
 import com.mongodb.MongoWriteException;
-import database.EmptyQueryException;
-import database.JsonObjectException;
-import database.Writer;
+import main.EmptyQueryException;
+import main.JsonObjectException;
+import main.Writer;
 import org.bson.codecs.configuration.CodecConfigurationException;
 import org.json.JSONArray;
 import org.json.JSONObject;

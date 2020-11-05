@@ -1,11 +1,11 @@
-package database;
+package main;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 
-interface ReadWriteInterface {
+interface ServerInterface {
 
   MongoClient getServerObj();
 
