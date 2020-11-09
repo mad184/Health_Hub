@@ -1,10 +1,13 @@
-package Staff;
+package staff;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import java.util.ArrayList;
+import org.jmock.Mockery;
+import org.junit.Expectations;
 
 public class InstructorTest {
-    List<String> clients = new List<String>();
+    ArrayList<String> clients = new ArrayList<String>();
     Object controller = new Object;
     Instructor instructor1 = new Instructor(
             "Remington",

@@ -1,4 +1,6 @@
-package Staff;
+package staff;
+
+import java.util.List;
 
 public class Instructor implements InstructorInterface {
   private String name;
