@@ -1,11 +1,12 @@
 package healthhub;
 
-import database.main.Dbms;
-import staff.Instructor;
-import staff.Manager;
+import client.Client;
 import com.mongodb.MongoException;
+import database.main.Dbms;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import staff.Instructor;
+import staff.Manager;
 
 public class HealthHubModel {
   private final Dbms database;
