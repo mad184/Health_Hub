@@ -18,7 +18,8 @@ class ClientTest {
           3000.0,
           2000.0,
           null,
-          null);
+          null,
+              null);
 
   @Test
   void testObjectCreate() {

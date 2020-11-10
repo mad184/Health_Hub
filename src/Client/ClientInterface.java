@@ -1,5 +1,7 @@
 package Client;
 
+import javafx.scene.image.Image;
+
 import java.io.File;
 
 public interface ClientInterface {
@@ -31,7 +33,7 @@ public interface ClientInterface {
 
   void setComment(String[] comment);
 
-  void setProfilePicture(File picture);
+  void setProfilePicture(Image picture);
   // void controller(Controller);
 
   // getters for client
@@ -61,5 +63,5 @@ public interface ClientInterface {
   // void controller();
   String[] getComment();
 
-  File getProfilePicture();
+  Image getProfilePicture();
 }
