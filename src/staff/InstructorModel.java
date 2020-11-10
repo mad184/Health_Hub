@@ -14,7 +14,8 @@ public class InstructorModel {
 
     /**
      * Constructor
-     * @param database: Database for permanent storage
+     *
+     * @param database:   Database for permanent storage
      * @param controller: Controller for interfacing with the view
      */
     public InstructorModel(
@@ -33,15 +34,17 @@ public class InstructorModel {
 
     /**
      * TODO: Figure out what this is supposed to do
+     *
      * @param calories: A Calories object
      */
-    public void removeCal(Calories calories) {
+    public void removeCal(double calories) {
 
     }
 
     /**
      * Removes a client from the Instructor's client list.
-     * @param clientName: Name of the client to remove.
+     *
+     * @param clientName:     Name of the client to remove.
      * @param instructorName: Name of the Instructor who is having the client removed.
      */
     public void removeClient(String clientName, String instructorName) {
@@ -51,7 +54,8 @@ public class InstructorModel {
 
     /**
      * Adds a Client to an Instructor's list of clients.
-     * @param client: A client in the system
+     *
+     * @param client:     A client in the system
      * @param instructor: An instructor in the system
      */
     public void addClient(ClientInterface client, InstructorInterface instructor) {
@@ -60,9 +64,10 @@ public class InstructorModel {
 
     /**
      * Adds a comment to the Client's profile from the Instructor.
-     * @param client: Client receiving the comment
+     *
+     * @param client:     Client receiving the comment
      * @param instructor: Instructor sending the comment
-     * @param comment: The message itself.
+     * @param comment:    The message itself.
      */
     public void addComment(ClientInterface client, InstructorInterface instructor, String comment) {
         // TODO: Figure out how to make a JSON object of the comment
@@ -71,9 +76,10 @@ public class InstructorModel {
 
     /**
      * Remove a comment from a Client's profile.
-     * @param client: Client who has the comment
+     *
+     * @param client:     Client who has the comment
      * @param instructor: Instructor who gave the comment
-     * @param comment: The comment itself
+     * @param comment:    The comment itself
      */
     public void removeComment(ClientInterface client, InstructorInterface instructor, String comment) {
         // TODO: Figure out how to remove a comment from a client's profile
@@ -81,6 +87,7 @@ public class InstructorModel {
 
     /**
      * Gets information about a client.
+     *
      * @param client
      * @return
      */
@@ -90,6 +97,7 @@ public class InstructorModel {
 
     /**
      * Gets the information for a particular Instructor.
+     *
      * @param instructor: The instructor whose information is being accessed.
      * @return All information about the instructor.
      */
@@ -99,6 +107,7 @@ public class InstructorModel {
 
     /**
      * Gets the unique ID of an Instructor.
+     *
      * @param instructor: The Instructor
      * @return The ID of the Instructor
      */
@@ -108,10 +117,17 @@ public class InstructorModel {
 
     /**
      * Removes an Instructor from the system
+     *
      * @param instructor: Instructor to be removed.
      */
-    public void removeInstructor(InstructorInterface instructor) {
-        // TODO: Figure out how to delete instructor from database
+    public void removeInstructor(InstructorInterface instructor, ManagerInterface manager) {
+
+        if (!manager.getPermission().equals("manager")){
+            return;
+        }
+        else {
+            // TODO: Figure out how to delete instructor from database
+        }
     }
 
     /**
@@ -124,9 +140,17 @@ public class InstructorModel {
     /**
      * Removes a manager from the system.
      * @param manager: Manager to be deleted
+     * @param owner: Owner with permission to delete
      */
-    public void removeManager(ManagerInterface manager) {
-        // TODO: Remove a manager from the system
+    public void removeManager(ManagerInterface manager, ManagerInterface owner) {
+
+        if (owner.getPermission().equals("owner")){
+            //TODO: remove manager
+        }
+        else {
+            // TODO: don't remove if owner does not have permission to do so
+        }
+
     }
 
     /**
