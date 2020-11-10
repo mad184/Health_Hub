@@ -1,59 +1,67 @@
 package Client;
 
+import javafx.scene.image.Image;
+
+import java.io.File;
+
 public interface ClientInterface {
 
-    // setters for client attributes
-    void setName(String name);
+  // setters for client attributes
+  void setName(String name);
 
-    void setAge(int age);
+  void setAge(int age);
 
-    void setId(int id);
+  void setId(int id);
 
-    void setEmail(String email);
+  void setEmail(String email);
 
-    void setPhoneNum(String phoneNumber);
+  void setPhoneNum(String phoneNumber);
 
-    void setHeight(int height);
+  void setHeight(int height);
 
-    void setWeight(int weight);
+  void setWeight(int weight);
 
-    void setGoal(double goal);
+  void setGoal(double goal);
 
-    void setCalories(double calories);
+  void setCalories(double calories);
 
-    void setAllergies(String[] allergies);
+  void setAllergies(String[] allergies);
 
-    void setInstructor(String instructor);
+  void setInstructor(String instructor);
 
-    void setOrganization(String organization);
+  void setOrganization(String organization);
 
-    void setComment(String[] comment);
-    // void controller(Controller);
+  void setComment(String[] comment);
 
-    // getters for client
-    String getName();
+  void setProfilePicture(Image picture);
+  // void controller(Controller);
 
-    int getId();
+  // getters for client
+  String getName();
 
-    int getAge();
+  int getId();
 
-    String getEmail();
+  int getAge();
 
-    String getPhoneNum();
+  String getEmail();
 
-    int getHeight();
+  String getPhoneNum();
 
-    int getWeight();
+  int getHeight();
 
-    double getGoal();
+  int getWeight();
 
-    double getCalories();
+  double getGoal();
 
-    String[] getAllergies();
+  double getCalories();
 
-    String getInstructor();
+  String[] getAllergies();
 
-    String getOrganization();
-    // void controller();
-    String[] getComment();
+  String getInstructor();
+
+  String getOrganization();
+  // void controller();
+  String[] getComment();
+
+  Image getProfilePicture();
 }
