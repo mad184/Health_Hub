@@ -66,4 +66,60 @@ public class ClientController {
   public void setClientProfilePicture(Image picture) {
     model.setProfilePicture(picture);
   }
+
+  public String getClientName() {
+    return model.getName();
+  }
+
+  public String getClientOrg() {
+    return model.getOrganization();
+  }
+
+  public String getClientInstructor() {
+    return model.getInstructor();
+  }
+
+  public String getClientEmail() {
+    return model.getEmail();
+  }
+
+  public int getClientID() {
+    return model.getId();
+  }
+
+  public int getClientAge() {
+    return model.getAge();
+  }
+
+  public int getClientWeight() {
+    return model.getWeight();
+  }
+
+  public int getClientHeight() {
+    return model.getHeight();
+  }
+
+  public String getClientPhoneNum() {
+    return model.getPhoneNum();
+  }
+
+  public double getClientGoal() {
+    return model.getGoal();
+  }
+
+  public double getClientCals() {
+    return model.getCalories();
+  }
+
+  public String[] getClientAllergies() {
+    return model.getAllergies();
+  }
+
+  public String[] getClientComment() {
+    return model.getComment();
+  }
+
+  public Image getClientProfilePicture() {
+    return model.getProfilePicture();
+  }
 }

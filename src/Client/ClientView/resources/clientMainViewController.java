@@ -8,14 +8,12 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.image.WritableImage;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import javafx.event.ActionEvent;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import javafx.scene.image.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -32,7 +30,7 @@ public class clientMainViewController implements Initializable {
   private FileChooser fileChooser;
   private File filepath;
 
-  //Displayed picture for profile picture
+  // Displayed picture for profile picture
   private Image profilePicture;
 
   // test client for gui testing purposes
@@ -53,7 +51,7 @@ public class clientMainViewController implements Initializable {
           null,
           null);
 
-  // Changes scene to specific inputted scene.
+  // Changes scene to inputted fxml file scene
   private void changeSceneButtonAction(ActionEvent event, String viewFXML) throws IOException {
     Parent viewParent = FXMLLoader.load(getClass().getResource(viewFXML));
     Scene viewScene = new Scene(viewParent);
@@ -90,31 +88,35 @@ public class clientMainViewController implements Initializable {
     changeSceneButtonAction(event, "clientSettingsView.fxml");
   }
 
-  // Will allow the client to choose profile picture
+  /*
+  Will allow the client to choose profile picture
+  **THROWS ERROR**
+     - On picture upload attempt
+  */
   public void onProfilePictureButtonPushed(ActionEvent event) {
-    Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
     fileChooser = new FileChooser();
     fileChooser.setTitle("Open image");
 
-    //Go to users specific dir
+    // Go to users specific dir
     String userDirectoryString = System.getProperty("user.home");
     File userDirectory = new File(userDirectoryString);
 
-    if (!userDirectory.canRead()){
+    if (!userDirectory.canRead()) {
       userDirectory = new File("Macintosh HD");
     }
 
     fileChooser.setInitialDirectory(userDirectory);
     this.filepath = fileChooser.showOpenDialog(stage);
 
-    //Try to update image by loading new image
+    // Try to update image by loading new image
     try {
       BufferedImage bufferedImage = ImageIO.read(filepath);
       Image image = SwingFXUtils.toFXImage(bufferedImage, null);
       client1.setProfilePicture(image);
 
-    } catch (IOException e){
+    } catch (IOException e) {
       System.err.println(e.getMessage());
     }
   }

@@ -2,8 +2,6 @@ package Client;
 
 import javafx.scene.image.Image;
 
-import java.io.File;
-
 public class Client implements ClientInterface {
   private String name, email, instructor, organization, phoneNumber;
   private int id, age, height, weight;
