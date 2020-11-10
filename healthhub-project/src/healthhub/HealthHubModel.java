@@ -1,47 +1,72 @@
 package healthhub;
 
-import database.Dbms;
+import database.main.Dbms;
+import staff.Instructor;
+import staff.Manager;
+import com.mongodb.MongoException;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class HealthHubModel {
+  private final Dbms database;
 
-  private HealthHubController controller;
-  private Dbms database;
-
-  private void addClient(int uniqueCid, JSONObject newClient) {
-    database.addClient(uniqueCid, newClient);
+  public HealthHubModel() {
+    // Need to be changed in the future. This is for Development
+    database = new Dbms("test-user", "healthhub1", "Test-General-Database", "testCollection");
   }
 
-  private void addInstructor(int uniqueIid, JSONObject newInstructor) {
-    database.addInstructor(uniqueIid, newInstructor);
+  protected void addClient(Client client) {
+    database.createClient(client.getUniqueId(), client.getJSONData());
   }
 
-  private void addManager(int uniqueMid, JSONObject newManager) {
-    database.addManager(uniqueMid, newManager);
+  protected void addInstructor(Instructor instructor) {
+    database.createInstructor(instructor.getUniqueId(), instructor.getJSONData());
   }
 
-  private void addOwner(Owner newOwner) {
-    // db_writer.createOwner(newOwner);
+  protected void addManager(Manager manager) {
+    database.createManager(manager.getUniqueId(), manager.getJSONData());
   }
 
-  private int login(String userName, String passWord) {
+  private int CIMLogin(String realUserName, String realPassword, String loginSelection) {
 
-    // int authValue = db_reader.readCredentials(userName, passWord);
+    JSONArray CIMdata = new JSONArray();
 
-    //    switch (authValue) {
-    //      case 404:
-    //        return 404;
-    //        break;
-    //      case 409:
-    //        return 409;
-    //        break;
-    //      case 408:
-    //        return 408;
-    //        break;
-    //      default:
-    //        return 200;
-    //    }
-    //  }
-    return 1;
+    switch (loginSelection) {
+      case "Client":
+        CIMdata = database.getAllClients();
+        break;
+      case "Instructor":
+        CIMdata = database.getAllInstructor();
+        break;
+      case "Manager":
+        CIMdata = database.getAllManager();
+        break;
+      default: // Do nothing
+    }
+
+    for (Object eachElement : CIMdata) {
+
+      if (((JSONObject) eachElement).get("UserName").equals(realUserName)
+          && ((JSONObject) eachElement).get("PassWord").equals(realPassword)) {
+        return 200;
+      } else if (((JSONObject) eachElement).get("UserName").equals(realUserName)
+          && !((JSONObject) eachElement).get("PassWord").equals(realPassword)) {
+        return 401;
+      }
+    }
+    return 404;
+  }
+
+  protected int systemLogin(String realUserName, String realPassWord, String loginSelection) {
+
+    try {
+      return CIMLogin(realUserName, realPassWord, loginSelection);
+    }
+    // Not actual exception yet
+    catch (MongoException mse) {
+      return 500;
+    } catch (Exception ex) {
+      return -1;
+    }
   }
 }
