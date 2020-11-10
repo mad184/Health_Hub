@@ -15,10 +15,11 @@ class ClientTest {
           177,
           182,
           "306-111-1111",
-          3000.0,
-          2000.0,
+          170,
+          3000,
+          2000,
           null,
-          null,
+              null,
               null);
 
   @Test
@@ -32,7 +33,7 @@ class ClientTest {
     assertEquals(177, client1.getHeight());
     assertEquals(182, client1.getWeight());
     assertEquals("306-111-1111", client1.getPhoneNum());
-    assertEquals(3000.0, client1.getGoal(), 0.0001); // 0.0001 accuracy due to comparison of double
+    assertEquals(3000.0, client1.getWeightGoal(), 0.0001); // 0.0001 accuracy due to comparison of double
     assertEquals(2000.0, client1.getCalories(), 0.0001); // 0.0001 accuracy due to comparison of double
     assertNull(client1.getAllergies());
     assertNull(client1.getComment());
