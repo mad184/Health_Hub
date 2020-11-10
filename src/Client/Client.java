@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 public class Client implements ClientInterface {
   private String name, email, instructor, organization, phoneNumber;
   private int id, age, height, weight;
-  private Double goalWeight, goalCals, calories;
+  private int goalWeight, goalCals, calories;
   private String[] allergies, comment;
   private Image profilePicture;
 
@@ -19,9 +19,9 @@ public class Client implements ClientInterface {
       int height,
       int weight,
       String phoneNumber, // we have this listed as a int, kept throwing errors for being to long
-      double goalWeight,
-      double goalCals,
-      double calories,
+      int goalWeight,
+      int goalCals,
+      int calories,
       String[] allergies,
       String[] comment,
       Image profilePicture) {
@@ -79,15 +79,15 @@ public class Client implements ClientInterface {
   }
 
   @Override
-  public void setWeightGoal(double goal) {
+  public void setWeightGoal(int goal) {
     this.goalWeight = goal;
   }
 
   @Override
-  public void setCalGoal(double goal) { this.goalCals = goal; }
+  public void setCalGoal(int goal) { this.goalCals = goal; }
 
   @Override
-  public void setCalories(double calories) {
+  public void setCalories(int calories) {
     this.calories = calories;
   }
 
@@ -153,15 +153,15 @@ public class Client implements ClientInterface {
   }
 
   @Override
-  public double getWeightGoal() {
+  public int getWeightGoal() {
     return this.goalWeight;
   }
 
   @Override
-  public double getCalGoal(){ return this.goalCals; }
+  public int getCalGoal(){ return this.goalCals; }
 
   @Override
-  public double getCalories() {
+  public int getCalories() {
     return this.calories;
   }
 

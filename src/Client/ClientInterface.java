@@ -21,11 +21,11 @@ public interface ClientInterface {
 
   void setWeight(int weight);
 
-  void setWeightGoal(double goal);
+  void setWeightGoal(int goal);
 
-  void setCalGoal(double goal);
+  void setCalGoal(int goal);
 
-  void setCalories(double calories);
+  void setCalories(int calories);
 
   void setAllergies(String[] allergies);
 
@@ -53,11 +53,11 @@ public interface ClientInterface {
 
   int getWeight();
 
-  double getWeightGoal();
+  int getWeightGoal();
 
-  double getCalGoal();
+  int getCalGoal();
 
-  double getCalories();
+  int getCalories();
 
   String[] getAllergies();
 
