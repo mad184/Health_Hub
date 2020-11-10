@@ -1,5 +1,6 @@
 package Client.ClientView.resources;
 
+import Client.ClientController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -18,6 +19,8 @@ public class clientProfileViewController implements Initializable {
   private Label nameLabel = new Label();
   private Label ageLabel = new Label();
 
+
+
   // Goes to main view scene when back button is pushed
   public void onBackButtonPressed(ActionEvent event) throws IOException {
     Parent mainViewParent = FXMLLoader.load(getClass().getResource("clientMainView.fxml"));
@@ -32,7 +35,6 @@ public class clientProfileViewController implements Initializable {
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
-    // Changes name label to clients name
 
   }
 }
