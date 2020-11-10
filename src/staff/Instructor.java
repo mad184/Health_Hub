@@ -12,17 +12,19 @@ public class Instructor implements InstructorInterface {
   private List<String> clients;
   private String organization;
   private Controller controller;
+  private int id;
 
   public Instructor(
-      String name,
-      int age,
-      String email,
-      int phoneNumber,
-      int height,
-      int weight,
-      List<String> clients,
-      String organization,
-      Controller controller) {
+          String name,
+          int age,
+          String email,
+          int phoneNumber,
+          int height,
+          int weight,
+          List<String> clients,
+          String organization,
+          Controller controller,
+          int id) {
     this.name = name;
     this.age = age;
     this.email = email;
@@ -32,6 +34,7 @@ public class Instructor implements InstructorInterface {
     this.clients = clients;
     this.organization = organization;
     this.controller = controller;
+    this.id = id;
   }
 
   public void setName(String name) {
@@ -70,6 +73,12 @@ public class Instructor implements InstructorInterface {
     this.controller = controller;
   }
 
+  @Override
+  public void setId(int id) {
+
+    this.id = id;
+  }
+
   public String getName() {
     return this.name;
   }
@@ -104,5 +113,10 @@ public class Instructor implements InstructorInterface {
 
   public Controller getController() {
     return this.controller;
+  }
+
+  @Override
+  public int getId() {
+    return id;
   }
 }

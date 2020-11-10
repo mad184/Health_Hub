@@ -22,7 +22,8 @@ public class InstructorTest {
             78,
             clients,
             "Average Joes",
-            controller
+            controller,
+            1
         );
 
     @Test
