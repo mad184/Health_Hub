@@ -1,19 +1,23 @@
 package staff;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 import org.jmock.Mockery;
-import org.junit.Expectations;
+import org.jmock.Expectations;
 
 public class InstructorTest {
+    Mockery context = new Mockery();
+
     ArrayList<String> clients = new ArrayList<String>();
-    Object controller = new Object;
+    final Controller controller = context.mock(Controller.class);
+    //Object controller = new Object;
     Instructor instructor1 = new Instructor(
             "Remington",
             22,
             "rar129@usask.ca",
-            3065555555,
+            42,
             175,
             78,
             clients,
@@ -23,7 +27,7 @@ public class InstructorTest {
 
     @Test
     void testInstructorCreate() {
-        assertNotNull(instructor1)
+        assertNotNull(instructor1);
     }
 
     @Test
