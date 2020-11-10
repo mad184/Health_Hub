@@ -26,8 +26,13 @@ import java.util.ResourceBundle;
 public class clientMainViewController implements Initializable {
 
   // Label for client name
-  @FXML
-  private Label nameLabel = new Label();
+  @FXML private Label nameLabel = new Label();
+
+  //Label for most recent client recommendations
+  @FXML private Label reccomendationLabel = new Label();
+
+  //Label for most recent client comments
+  @FXML private Label commentLabel = new Label();
 
   // File chooser for profile picture
   private FileChooser fileChooser;
@@ -52,7 +57,7 @@ public class clientMainViewController implements Initializable {
                       170,
                       1000,
                       null,
-                      null,
+                      new String[]{"You need to exercise Lazy fuck"},
                       null));
 
   // Changes scene to inputted fxml file scene
@@ -128,5 +133,13 @@ public class clientMainViewController implements Initializable {
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
     nameLabel.setText(client1.getClientName()); // Changes name label to clients name
-  }
+    reccomendationLabel.setText("None"); // Changes recommendation label to client's recommendations
+
+    //Sets clients comments to none if there are no comments, else sets to first comment
+    if (client1.getClientComment() == null) {
+      commentLabel.setText("None");
+    } else {
+      commentLabel.setText(client1.getClientComment()[0]);
+    }
+    }
 }
