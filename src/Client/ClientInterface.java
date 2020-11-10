@@ -21,7 +21,9 @@ public interface ClientInterface {
 
   void setWeight(int weight);
 
-  void setGoal(double goal);
+  void setWeightGoal(double goal);
+
+  void setCalGoal(double goal);
 
   void setCalories(double calories);
 
@@ -51,7 +53,9 @@ public interface ClientInterface {
 
   int getWeight();
 
-  double getGoal();
+  double getWeightGoal();
+
+  double getCalGoal();
 
   double getCalories();
 

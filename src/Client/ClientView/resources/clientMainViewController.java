@@ -55,6 +55,7 @@ public class clientMainViewController implements Initializable {
                       180,
                       "3068500727",
                       170,
+                      3000,
                       1000,
                       null,
                       new String[]{"You need to exercise Lazy fuck"},

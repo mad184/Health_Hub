@@ -48,8 +48,12 @@ public class ClientController {
     model.setPhoneNum(num);
   }
 
-  public void setClientGoal(double goal) {
-    model.setGoal(goal);
+  public void setClientGoalWeight(double goal) {
+    model.setWeightGoal(goal);
+  }
+
+  public void setClientGoalCals(double goal) {
+    model.setCalGoal(goal);
   }
 
   public void setClientCals(double cals) {
@@ -106,8 +110,12 @@ public class ClientController {
     return model.getPhoneNum();
   }
 
-  public double getClientGoal() {
-    return model.getGoal();
+  public double getClientWeightGoal() {
+    return model.getWeightGoal();
+  }
+
+  public double getClientCalGoal() {
+    return model.getCalGoal();
   }
 
   public double getClientCals() {
