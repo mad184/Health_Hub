@@ -1,7 +1,9 @@
 package Client.ClientView.resources;
 
 import Client.Client;
+import Client.ClientController;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -24,6 +26,7 @@ import java.util.ResourceBundle;
 public class clientMainViewController implements Initializable {
 
   // Label for client name
+  @FXML
   private Label nameLabel = new Label();
 
   // File chooser for profile picture
@@ -34,22 +37,23 @@ public class clientMainViewController implements Initializable {
   private Image profilePicture;
 
   // test client for gui testing purposes
-  public Client client1 =
-      new Client(
-          "Justyn Pollard",
-          "Justynpollard12@hotmail.com",
-          "Pete",
-          "Gym1",
-          1,
-          20,
-          180,
-          180,
-          "3068500727",
-          170,
-          1000,
-          null,
-          null,
-          null);
+  public ClientController client1 =
+      new ClientController(
+              new Client(
+                      "Justyn Pollard",
+                      "Justynpollard12@hotmail.com",
+                      "Pete",
+                      "Gym1",
+                      1,
+                      20,
+                      180,
+                      180,
+                      "3068500727",
+                      170,
+                      1000,
+                      null,
+                      null,
+                      null));
 
   // Changes scene to inputted fxml file scene
   private void changeSceneButtonAction(ActionEvent event, String viewFXML) throws IOException {
@@ -114,7 +118,7 @@ public class clientMainViewController implements Initializable {
     try {
       BufferedImage bufferedImage = ImageIO.read(filepath);
       Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-      client1.setProfilePicture(image);
+      client1.setClientProfilePicture(image);
 
     } catch (IOException e) {
       System.err.println(e.getMessage());
@@ -123,6 +127,6 @@ public class clientMainViewController implements Initializable {
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
-    nameLabel.setText(client1.getName()); // Changes name label to clients name
+    nameLabel.setText(client1.getClientName()); // Changes name label to clients name
   }
 }

@@ -11,6 +11,7 @@ public class ClientController {
     this.model = model;
   }
 
+  //Setters
   public void setClientName(String name) {
     model.setName(name);
   }
@@ -67,6 +68,8 @@ public class ClientController {
     model.setProfilePicture(picture);
   }
 
+
+  //Getters
   public String getClientName() {
     return model.getName();
   }

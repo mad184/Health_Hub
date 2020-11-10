@@ -6,7 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class ClientMainView extends Application {
+public class ClientView extends Application {
 
   // Loads window/stage for client view, then loads main scene
   @Override
