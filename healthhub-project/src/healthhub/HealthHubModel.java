@@ -52,8 +52,11 @@ public class HealthHubModel {
    * @param loginSelection: Can be client, manager, or instructor. Use to determine who are you
    *     logging in as
    * @return: 200 for successful found. 401 for incorrect password. 404 for not found
+   * @throws IllegalArgumentException: when the loginSelection is invalid. It needs to be Client,
+   *     Manager or Instructor
    */
-  private int CIMLogin(String realUserName, String realPassword, String loginSelection) {
+  private int CIMLogin(String realUserName, String realPassword, String loginSelection)
+      throws IllegalArgumentException {
 
     JSONArray CIMdata = new JSONArray();
 
@@ -67,7 +70,8 @@ public class HealthHubModel {
       case "Manager":
         CIMdata = database.getAllManager();
         break;
-      default: // Do nothing
+      default:
+        throw new IllegalArgumentException();
     }
 
     for (Object eachElement : CIMdata) {
