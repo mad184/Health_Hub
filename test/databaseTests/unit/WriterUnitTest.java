@@ -2,8 +2,8 @@ package databaseTests.unit;
 
 import com.mongodb.MongoSecurityException;
 import com.mongodb.MongoWriteException;
-import database.EmptyQueryException;
 import database.JsonObjectException;
+import database.EmptyQueryException;
 import database.Writer;
 import org.bson.codecs.configuration.CodecConfigurationException;
 import org.json.JSONArray;
