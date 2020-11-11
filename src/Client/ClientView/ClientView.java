@@ -1,4 +1,4 @@
-package Client.ClientView.resources;
+package Client.ClientView;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

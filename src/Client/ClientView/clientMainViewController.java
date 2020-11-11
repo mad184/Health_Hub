@@ -1,4 +1,4 @@
-package Client.ClientView.resources;
+package Client.ClientView;
 
 import Client.Client;
 import Client.ClientController;

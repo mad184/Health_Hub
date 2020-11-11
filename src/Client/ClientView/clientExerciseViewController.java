@@ -1,4 +1,4 @@
-package Client.ClientView.resources;
+package Client.ClientView;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class clientSettingsViewController implements Initializable {
+public class clientExerciseViewController implements Initializable {
 
   // Goes to main view scene when back button is pushed
   public void onBackButtonPressed(ActionEvent event) throws IOException {
