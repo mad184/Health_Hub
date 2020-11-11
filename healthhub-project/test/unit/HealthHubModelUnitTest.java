@@ -2,8 +2,11 @@ package unit;
 
 import client.Client;
 import healthhub.HealthHubModel;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import staff.Instructor;
 import staff.Manager;
 
@@ -44,66 +47,85 @@ public class HealthHubModelUnitTest {
         });
   }
 
-    @Test
-    @Order(4)
-    void testLoginRunning() {
-        Assertions.assertDoesNotThrow(
-                () -> {
-                    testHHM.systemLogin("usertest","userpw","Client");
-                    testHHM.systemLogin("usertest","userpw","Instructor");
-                    testHHM.systemLogin("usertest","userpw","Manager");
-                });
-    }
+  @Test
+  @Order(4)
+  void testLoginRunning() {
+    Assertions.assertDoesNotThrow(
+        () -> {
+          testHHM.systemLogin("usertest", "userpw", "Client");
+          testHHM.systemLogin("usertest", "userpw", "Instructor");
+          testHHM.systemLogin("usertest", "userpw", "Manager");
+        });
+  }
 
-    @Test
-    //@Disabled
-    @Order(5)
-    void testLoginValidCredentials(){
-        int returnedClientCode = testHHM.systemLogin("validLogin","validPassword","Client");
-        int returnedInstrCode = testHHM.systemLogin("validLogin","validPassword","Instructor");
-        int returnedManagerCode = testHHM.systemLogin("validLogin","validPassword","Manager");
+  @Test
+  // @Disabled
+  @Order(5)
+  void testLoginValidCredentials() {
+    System.out.println("Expected Error if no database connected");
+    int returnedClientCode = testHHM.systemLogin("validLogin", "validPassword", "Client");
+    int returnedInstrCode = testHHM.systemLogin("validLogin", "validPassword", "Instructor");
+    int returnedManagerCode = testHHM.systemLogin("validLogin", "validPassword", "Manager");
 
-        Assertions.assertEquals(returnedClientCode,200);
-        Assertions.assertEquals(returnedInstrCode,200);
-        Assertions.assertEquals(returnedManagerCode,200);
-    }
+    Assertions.assertEquals(200, returnedClientCode);
+    Assertions.assertEquals(200, returnedInstrCode);
+    Assertions.assertEquals(200, returnedManagerCode);
+  }
 
-    @Test
-    //@Disabled
-    @Order(6)
-    void testLoginInvalidCredentials(){
-        int returnedClientCode = testHHM.systemLogin("InvalidLogin","InvalidPassword","Client");
-        int returnedInstrCode = testHHM.systemLogin("InvalidLogin","InvalidPassword","Instructor");
-        int returnedManagerCode = testHHM.systemLogin("InvalidLogin","InvalidPassword","Manager");
+  @Test
+  // @Disabled
+  @Order(6)
+  void testLoginInvalidCredentials() {
+    System.out.println("Expected Error if no database connected");
+    int returnedClientCode = testHHM.systemLogin("InvalidLogin", "InvalidPassword", "Client");
+    int returnedInstrCode = testHHM.systemLogin("InvalidLogin", "InvalidPassword", "Instructor");
+    int returnedManagerCode = testHHM.systemLogin("InvalidLogin", "InvalidPassword", "Manager");
 
-        Assertions.assertEquals(returnedClientCode,401);
-        Assertions.assertEquals(returnedInstrCode,401);
-        Assertions.assertEquals(returnedManagerCode,401);
-    }
+    Assertions.assertEquals(401, returnedClientCode);
+    Assertions.assertEquals(401, returnedInstrCode);
+    Assertions.assertEquals(401, returnedManagerCode);
+  }
 
-    @Test
-    //@Disabled
-    @Order(7)
-    void testLoginCIMNotFound(){
-        int returnedClientCode = testHHM.systemLogin("Who is this guy?","validPassword","Client");
-        int returnedInstrCode = testHHM.systemLogin("Who is this guy","validPassword","Instructor");
-        int returnedManagerCode = testHHM.systemLogin("Who is this guy","validPassword","Manager");
+  @Test
+  // @Disabled
+  @Order(7)
+  void testLoginCIMNotFound() {
+    int returnedClientCode = testHHM.systemLogin("Who is this guy?", "validPassword", "Client");
+    int returnedInstrCode = testHHM.systemLogin("Who is this guy", "validPassword", "Instructor");
+    int returnedManagerCode = testHHM.systemLogin("Who is this guy", "validPassword", "Manager");
 
-        Assertions.assertEquals(returnedClientCode,404);
-        Assertions.assertEquals(returnedInstrCode,404);
-        Assertions.assertEquals(returnedManagerCode,404);
-    }
+    Assertions.assertEquals(404, returnedClientCode);
+    Assertions.assertEquals(404, returnedInstrCode);
+    Assertions.assertEquals(404, returnedManagerCode);
+  }
 
   @Test
   // @Disabled
   @Order(8)
   void testLoginSelectionInvalid() {
+    System.out.println("Expected Error if no database connected");
     int returnedClientCode = testHHM.systemLogin("Who is this guy?", "validPassword", "Hacker");
     int returnedInstrCode = testHHM.systemLogin("Who is this guy", "validPassword", "Vtuber");
     int returnedManagerCode = testHHM.systemLogin("Who is this guy", "validPassword", "Shrimp");
 
-    Assertions.assertEquals(returnedClientCode, -1);
-    Assertions.assertEquals(returnedInstrCode, -1);
-    Assertions.assertEquals(returnedManagerCode, -1);
-    }
+    Assertions.assertEquals(-1, returnedClientCode);
+    Assertions.assertEquals(-1, returnedInstrCode);
+    Assertions.assertEquals(-1, returnedManagerCode);
+  }
+
+  @Test
+  // @Disabled
+  @Order(9)
+  void testLoginServerIssues() {
+    // You can test this by removing your internet connection. That should give you a server issue.
+    // Although database needs to be connected
+    System.out.println("Expected Error if no database connected");
+    int returnedClientCode = testHHM.systemLogin("Who is this guy?", "validPassword", "Client");
+    int returnedInstrCode = testHHM.systemLogin("Who is this guy", "validPassword", "Instructor");
+    int returnedManagerCode = testHHM.systemLogin("Who is this guy", "validPassword", "Manager");
+
+    Assertions.assertEquals(500, returnedClientCode);
+    Assertions.assertEquals(500, returnedInstrCode);
+    Assertions.assertEquals(500, returnedManagerCode);
+  }
 }
