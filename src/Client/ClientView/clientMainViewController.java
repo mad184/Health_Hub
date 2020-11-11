@@ -1,8 +1,9 @@
 package Client.ClientView;
 
-import Client.Client;
 import Client.ClientController;
+import Client.Client;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -10,13 +11,11 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import javafx.event.ActionEvent;
-
 import javax.imageio.ImageIO;
-import javafx.scene.image.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
