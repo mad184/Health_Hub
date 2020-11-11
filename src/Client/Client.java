@@ -1,12 +1,13 @@
 package Client;
 
 import javafx.scene.image.Image;
+import java.util.ArrayList;
 
 public class Client implements ClientInterface {
   private String name, email, instructor, organization, phoneNumber;
   private int id, age, height, weight;
   private int goalWeight, goalCals, calories;
-  private String[] allergies, comment;
+  private ArrayList<String> allergies, comment;
   private Image profilePicture;
 
   public Client(
@@ -22,8 +23,8 @@ public class Client implements ClientInterface {
       int goalWeight,
       int goalCals,
       int calories,
-      String[] allergies,
-      String[] comment,
+      ArrayList<String> allergies,
+      ArrayList<String> comment,
       Image profilePicture) {
     this.name = name;
     this.email = email;
@@ -92,7 +93,7 @@ public class Client implements ClientInterface {
   }
 
   @Override
-  public void setAllergies(String[] allergies) {
+  public void setAllergies(ArrayList<String> allergies) {
     this.allergies = allergies;
   }
 
@@ -107,7 +108,7 @@ public class Client implements ClientInterface {
   }
 
   @Override
-  public void setComment(String[] comment) {
+  public void setComment(ArrayList<String> comment) {
     this.comment = comment;
   }
 
@@ -166,7 +167,7 @@ public class Client implements ClientInterface {
   }
 
   @Override
-  public String[] getAllergies() {
+  public ArrayList<String> getAllergies() {
     return this.allergies;
   }
 
@@ -181,7 +182,7 @@ public class Client implements ClientInterface {
   }
 
   @Override
-  public String[] getComment() {
+  public ArrayList<String> getComment() {
     return this.comment;
   }
 

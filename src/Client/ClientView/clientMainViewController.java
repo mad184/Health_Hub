@@ -21,6 +21,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class clientMainViewController implements Initializable {
@@ -58,7 +59,7 @@ public class clientMainViewController implements Initializable {
                       3000,
                       1000,
                       null,
-                      new String[]{"You need to exercise Lazy fuck"},
+                      null,
                       null));
 
   // Changes scene to inputted fxml file scene
@@ -137,10 +138,13 @@ public class clientMainViewController implements Initializable {
     reccomendationLabel.setText("None"); // Changes recommendation label to client's recommendations
 
     //Sets clients comments to none if there are no comments, else sets to first comment
+    ArrayList<String> comment = new ArrayList<String>();
+    comment.add("Get up lazy fuck");
+    client1.setClientComment(comment);
     if (client1.getClientComment() == null) {
       commentLabel.setText("None");
     } else {
-      commentLabel.setText(client1.getClientComment()[0]);
+      commentLabel.setText(client1.getClientComment().get(0));
     }
     }
 }

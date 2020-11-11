@@ -2,6 +2,8 @@ package Client;
 
 import javafx.scene.image.Image;
 
+import java.util.ArrayList;
+
 public class ClientController {
   private Client model;
 
@@ -58,11 +60,11 @@ public class ClientController {
     model.setCalories(cals);
   }
 
-  public void setClientAllergies(String[] allergies) {
+  public void setClientAllergies(ArrayList<String> allergies) {
     model.setAllergies(allergies);
   }
 
-  public void setClientComment(String[] comment) {
+  public void setClientComment(ArrayList<String> comment) {
     model.setComment(comment);
   }
 
@@ -120,11 +122,11 @@ public class ClientController {
     return model.getCalories();
   }
 
-  public String[] getClientAllergies() {
+  public ArrayList<String> getClientAllergies() {
     return model.getAllergies();
   }
 
-  public String[] getClientComment() {
+  public ArrayList<String> getClientComment() {
     return model.getComment();
   }
 

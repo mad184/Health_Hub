@@ -3,6 +3,7 @@ package Client;
 import javafx.scene.image.Image;
 
 import java.io.File;
+import java.util.ArrayList;
 
 public interface ClientInterface {
 
@@ -27,13 +28,13 @@ public interface ClientInterface {
 
   void setCalories(int calories);
 
-  void setAllergies(String[] allergies);
+  void setAllergies(ArrayList<String> allergies);
 
   void setInstructor(String instructor);
 
   void setOrganization(String organization);
 
-  void setComment(String[] comment);
+  void setComment(ArrayList<String> comment);
 
   void setProfilePicture(Image picture);
   // void controller(Controller);
@@ -59,13 +60,13 @@ public interface ClientInterface {
 
   int getCalories();
 
-  String[] getAllergies();
+  ArrayList<String> getAllergies();
 
   String getInstructor();
 
   String getOrganization();
   // void controller();
-  String[] getComment();
+  ArrayList<String> getComment();
 
   Image getProfilePicture();
 }
