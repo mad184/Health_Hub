@@ -55,56 +55,40 @@ public class HealthHubModel {
    * @throws IllegalArgumentException: when the loginSelection is invalid. It needs to be Client,
    *     Manager or Instructor
    */
-  private int CIMLogin(String realUserName, String realPassword, String loginSelection)
+  public int systemLogin(String realUserName, String realPassword, String loginSelection)
       throws IllegalArgumentException {
 
-    JSONArray CIMdata = new JSONArray();
-
-    switch (loginSelection) {
-      case "Client":
-        CIMdata = database.getAllClients();
-        break;
-      case "Instructor":
-        CIMdata = database.getAllInstructor();
-        break;
-      case "Manager":
-        CIMdata = database.getAllManager();
-        break;
-      default:
-        throw new IllegalArgumentException();
-    }
-
-    for (Object eachElement : CIMdata) {
-
-      if (((JSONObject) eachElement).get("UserName").equals(realUserName)
-          && ((JSONObject) eachElement).get("PassWord").equals(realPassword)) {
-        return 200;
-      } else if (((JSONObject) eachElement).get("UserName").equals(realUserName)
-          && !((JSONObject) eachElement).get("PassWord").equals(realPassword)) {
-        return 401;
-      }
-    }
-    return 404;
-  }
-
-  /**
-   * This function is the primary entrance to system login. Calls the CIM login that verifies the
-   * validity of username and password
-   *
-   * @param realUserName: Username to be checked
-   * @param realPassWord: Password to be checked
-   * @param loginSelection: Can be client, manager, or instructor. Use to determine who are you
-   *     logging in as.
-   * @return: 200 for successful found. 401 for incorrect password. 404 for not found. 500 for
-   *     server-client issues. -1 for anything that is unexpected
-   */
-  public int systemLogin(String realUserName, String realPassWord, String loginSelection) {
-
     try {
-      return CIMLogin(realUserName, realPassWord, loginSelection);
-    } catch (MongoException mse) {
+      JSONArray CIMdata = new JSONArray();
+
+      switch (loginSelection) {
+        case "Client":
+          CIMdata = database.getAllClients();
+          break;
+        case "Instructor":
+          CIMdata = database.getAllInstructor();
+          break;
+        case "Manager":
+          CIMdata = database.getAllManager();
+          break;
+        default:
+          throw new IllegalArgumentException();
+      }
+
+      for (Object eachElement : CIMdata) {
+
+        if (((JSONObject) eachElement).get("UserName").equals(realUserName)
+            && ((JSONObject) eachElement).get("PassWord").equals(realPassword)) {
+          return 200;
+        } else if (((JSONObject) eachElement).get("UserName").equals(realUserName)
+            && !((JSONObject) eachElement).get("PassWord").equals(realPassword)) {
+          return 401;
+        }
+      }
+      return 404;
+    } catch (MongoException me) {
       return 500;
-    } catch (Exception ex) {
+    } catch (Exception e) {
       return -1;
     }
   }
