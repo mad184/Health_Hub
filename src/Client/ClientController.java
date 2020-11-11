@@ -2,8 +2,6 @@ package Client;
 
 import javafx.scene.image.Image;
 
-import java.io.File;
-
 public class ClientController {
   private Client model;
 
