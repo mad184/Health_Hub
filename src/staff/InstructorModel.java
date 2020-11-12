@@ -2,6 +2,7 @@ package staff;
 
 import java.util.List;
 import org.json.JSONObject;
+import com.google.gson.Gson;
 
 /**
  * Model of the Instructor classes, which allows for modification of the Instructors in the system.
@@ -187,5 +188,17 @@ public class InstructorModel {
         json.put("Controller", instructor.getController());
         json.put("ID", instructor.getId());
         return json;
+    }
+
+    /**
+     * Converts a JSONObject representation of an Instructor into an
+     * Instructor object.
+     *
+     * @param json: JSONObject representation of an Instructor
+     * @return Instructor object
+     */
+    public Instructor jsonToInstructor(JSONObject json) {
+        Gson gson = new Gson();
+        return gson.fromJson(String.valueOf(json), Instructor.class);
     }
 }
