@@ -2,6 +2,8 @@ package clientTests.Intergration;
 
 import Client.Client;
 import Client.ClientController;
+import database.Dbms;
+import database.EmptyQueryException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -27,6 +29,19 @@ class ClientToDatabase {
           null);
 
   ClientController clientController1 = new ClientController(client1);
+
+  Dbms testDB = new Dbms("Justyn", "Staff1", "Test-Justyn-Db", "testCollection");
+
+  //Tests adding Client to database
+  @Test
+  void addClientToDB() throws EmptyQueryException {
+    testDB.createClient(clientController1.getClientID(), clientController1.clientToJson());
+  }
+
+  @Test
+  void removeClientFromDB(){
+    testDB.removeClient(clientController1.getClientID());
+  }
   }
 
 
