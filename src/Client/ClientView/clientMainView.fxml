@@ -22,7 +22,7 @@
                   <Image url="@Assets/add-user.png" />
                </image>
             </ImageView>
-            <Button layoutY="-1.0" mnemonicParsing="false" onAction="#onProfilePictureButtonPushed" prefHeight="81.0" prefWidth="80.0" style="-fx-background-color: #ffffff00;" textFill="TRANSPARENT" />
+            <Button layoutY="-1.0" mnemonicParsing="false" prefHeight="81.0" prefWidth="80.0" style="-fx-background-color: #ffffff00;" textFill="TRANSPARENT" />
          </children></Pane>
       <Pane layoutX="98.0" layoutY="20.0" prefHeight="70.0" prefWidth="502.0">
          <children>

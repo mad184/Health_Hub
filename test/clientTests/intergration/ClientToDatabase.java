@@ -4,7 +4,10 @@ import Client.Client;
 import Client.ClientController;
 import database.Dbms;
 import database.EmptyQueryException;
+import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -39,9 +42,29 @@ class ClientToDatabase {
   }
 
   @Test
+  void readClientFromDB() throws EmptyQueryException {
+    JSONObject clientJSON = testDB.readClientData(clientController1.getClientID());
+    clientController1.jsonToClient(clientJSON);
+    assertEquals("dustin", clientController1.getClientName());
+    assertEquals("dcr518@usask.ca", clientController1.getClientEmail());
+    assertEquals("Rick", clientController1.getClientInstructor());
+    assertEquals("Golds", clientController1.getClientOrg());
+    assertEquals(1, clientController1.getClientID());
+    assertEquals(29, clientController1.getClientAge());
+    assertEquals(177, clientController1.getClientHeight());
+    assertEquals(182, clientController1.getClientWeight());
+    assertEquals("306-111-1111", clientController1.getClientPhoneNum());
+    assertEquals(170, clientController1.getClientWeightGoal());
+    assertEquals(2000, clientController1.getClientCals());
+    assertEquals(new ArrayList<String>(), clientController1.getClientComment());
+    assertEquals(new ArrayList<String>(), clientController1.getClientAllergies());
+  }
+
+  @Test
   void removeClientFromDB(){
     testDB.removeClient(clientController1.getClientID());
   }
+
   }
 
 
