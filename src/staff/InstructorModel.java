@@ -41,7 +41,7 @@ public class InstructorModel {
    * @param clientName: Name of the client to remove.
    * @param instructorName: Name of the Instructor who is having the client removed.
    */
-  public void removeClient(String clientName, String instructorName) {
+  public void removeClient(String clientName, String instructorName) throws ClientNotFoundException {
     // Instructor instructor = database.getInstructor(instructorName);
     database.removeClient(clientName, instructorName);
   }
@@ -63,7 +63,7 @@ public class InstructorModel {
    * @param instructor: Instructor sending the comment
    * @param comment: The message itself.
    */
-  public void addComment(ClientInterface client, InstructorInterface instructor, String comment) {
+  public void addComment(ClientInterface client, InstructorInterface instructor, String comment) throws ClientNotFoundException {
     // TODO: Figure out how to make a JSON object of the comment
     // TODO: Add the comment to the client in the database
   }
@@ -76,7 +76,7 @@ public class InstructorModel {
    * @param comment: The comment itself
    */
   public void removeComment(
-      ClientInterface client, InstructorInterface instructor, String comment) {
+      ClientInterface client, InstructorInterface instructor, String comment) throws ClientNotFoundException {
     // TODO: Figure out how to remove a comment from a client's profile
   }
 
@@ -86,7 +86,7 @@ public class InstructorModel {
    * @param client
    * @return
    */
-  public String getClientInfo(ClientInterface client) {
+  public String getClientInfo(ClientInterface client) throws ClientNotFoundException {
     // TODO: Figure out how to get the client's info from the database
   }
 
