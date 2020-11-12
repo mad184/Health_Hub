@@ -1,6 +1,11 @@
 package Client;
 
+import com.google.gson.JsonObject;
 import javafx.scene.image.Image;
+import org.json.JSONException;
+import org.json.JSONObject;
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 
 public class ClientController {
@@ -131,5 +136,30 @@ public class ClientController {
 
   public Image getClientProfilePicture() {
     return model.getProfilePicture();
+  }
+
+  public JSONObject clientToJson (){
+    JSONObject jsonObject = new JSONObject();
+    jsonObject.put("name", model.getName());
+    jsonObject.put("email", model.getEmail());
+    jsonObject.put("instructor", model.getInstructor());
+    jsonObject.put("organization", model.getOrganization());
+    jsonObject.put("id", model.getId());
+    jsonObject.put("age", model.getAge());
+    jsonObject.put("height", model.getHeight());
+    jsonObject.put("weight", model.getWeight());
+    jsonObject.put("phoneNumber", model.getPhoneNum());
+    jsonObject.put("goalWeight", model.getWeightGoal());
+    jsonObject.put("goalCals", model.getCalGoal());
+    jsonObject.put("calories", model.getCalories());
+    jsonObject.put("allergies", model.getAllergies());
+    jsonObject.put("comment", model.getComment());
+    jsonObject.put("profilePicture", model.getProfilePicture());
+    return jsonObject;
+  }
+
+  public Client jsonToClient (JSONObject clientJson){
+    Gson json = new Gson();
+    return json.fromJson(String.valueOf(clientJson), Client.class);
   }
 }
