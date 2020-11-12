@@ -16,6 +16,8 @@ public class ClientController {
   }
 
   //Setters
+  public void setModel(Client model){this.model = model;}
+
   public void setClientName(String name) {
     model.setName(name);
   }
@@ -78,6 +80,10 @@ public class ClientController {
 
 
   //Getters
+  public Client getModel(){
+    return this.model;
+  }
+
   public String getClientName() {
     return model.getName();
   }
@@ -158,8 +164,8 @@ public class ClientController {
     return jsonObject;
   }
 
-  public Client jsonToClient (JSONObject clientJson){
+  public void jsonToClient (JSONObject clientJson){
     Gson json = new Gson();
-    return json.fromJson(String.valueOf(clientJson), Client.class);
+    model = json.fromJson(String.valueOf(clientJson), Client.class);
   }
 }

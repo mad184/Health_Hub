@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.ClientView.clientMainViewController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.ClientView.ClientMainViewController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2a0033" height="400.0" stroke="BLACK" strokeType="INSIDE" width="602.0" />
       <Pane layoutX="14.0" layoutY="14.0" style="-fx-border-color: #9643A9 #9643A9 #9643A9 #9643A9 #9643A9 #9643A9 #9643A9 ##9643A9;">
@@ -69,7 +69,7 @@
                   <Font size="12.0" />
                </font>
             </Label>
-            <Label fx:id="reccomendationLabel" alignment="CENTER" layoutX="1.0" layoutY="32.0" prefHeight="17.0" prefWidth="502.0" text="Reccomendation" textFill="#ddd9d9" />
+            <Label fx:id="recommendationLabel" alignment="CENTER" layoutX="1.0" layoutY="32.0" prefHeight="17.0" prefWidth="502.0" text="Reccomendation" textFill="#ddd9d9" />
          </children>
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

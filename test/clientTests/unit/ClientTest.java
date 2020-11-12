@@ -66,7 +66,6 @@ class ClientTest {
   @Test
   void getJsonFromClient(){
     JSONObject jsonClient = clientController1.clientToJson();
-    System.out.println(jsonClient);
     JSONAssert.assertEquals("{name:dustin}", jsonClient, false);
     JSONAssert.assertEquals("{email:dcr518@usask.ca}", jsonClient, false);
     JSONAssert.assertEquals("{instructor:Rick}", jsonClient, false);
@@ -83,7 +82,8 @@ class ClientTest {
 
   @Test void getClientFromJson(){
     JSONObject jsonClient = clientController1.clientToJson();
-    Client clientFromJson = clientController1.jsonToClient(jsonClient);
+    clientController1.jsonToClient(jsonClient);
+    Client clientFromJson = clientController1.getModel();
     assertEquals("dustin", clientFromJson.getName());
     assertEquals("dcr518@usask.ca", clientFromJson.getEmail());
     assertEquals("Rick", clientFromJson.getInstructor());
