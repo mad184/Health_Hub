@@ -23,6 +23,8 @@ public interface InstructorInterface {
 
   void setController(Controller controller);
 
+  void setId(int id);
+
   // getters for instructor attributes
   String getName();
 
@@ -41,4 +43,6 @@ public interface InstructorInterface {
   String getOrganization();
 
   Controller getController();
+
+  int getId();
 }
