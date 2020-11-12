@@ -24,13 +24,18 @@ public class ClientSettingsViewController implements Initializable {
 
   // Goes to main view scene when back button is pushed
   public void onBackButtonPressed(ActionEvent event) throws IOException {
-    Parent mainViewParent = FXMLLoader.load(getClass().getResource("clientMainView.fxml"));
-    Scene mainViewScene = new Scene(mainViewParent);
+    //Loads Scene for main view
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("clientMainView.fxml"));
+    Parent root = loader.load();
 
+    //Gets main view controller and passes client to it
+    ClientMainViewController viewController = loader.getController();
+    viewController.setupScene(clientController.getModel());
+
+    Scene viewScene = new Scene(root);
     // Gets stage information
     Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-    window.setScene(mainViewScene);
+    window.setScene(viewScene);
     window.show();
   }
 
