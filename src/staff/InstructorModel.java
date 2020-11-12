@@ -1,6 +1,7 @@
 package staff;
 
 import java.util.List;
+import org.json.JSONObject;
 
 /**
  * Model of the Instructor classes, which allows for modification of the Instructors in the system.
@@ -168,5 +169,23 @@ public class InstructorModel {
         this.instructorList = database.getInstructors();
     }
 
-
+    /**
+     * Converts an Instructor into a JSON Object.
+     * @param instructor: Instructor instance
+     * @return JSONObject containing the Instructor's information
+     */
+    public JSONObject instructorToJson(Instructor instructor) {
+        JSONObject json = new JSONObject();
+        json.put("Name", instructor.getName());
+        json.put("Age", instructor.getAge());
+        json.put("Email", instructor.getEmail());
+        json.put("Phone Number", instructor.getPhoneNumber());
+        json.put("Height", instructor.getHeight());
+        json.put("Weight", instructor.getWeight());
+        json.put("Clients", instructor.getClients());
+        json.put("Organization", instructor.getOrganization());
+        json.put("Controller", instructor.getController());
+        json.put("ID", instructor.getId());
+        return json;
+    }
 }
