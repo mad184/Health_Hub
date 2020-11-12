@@ -1,4 +1,4 @@
-package clientTests.Intergration;
+package clientTests.intergration;
 
 import Client.Client;
 import Client.ClientController;

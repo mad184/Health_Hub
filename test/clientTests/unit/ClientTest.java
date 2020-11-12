@@ -1,4 +1,4 @@
-package clientTests;
+package clientTests.unit;
 
 import Client.Client;
 import Client.ClientController;
