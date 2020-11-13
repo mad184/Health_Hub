@@ -2,7 +2,7 @@ package staff;
 
 import java.util.List;
 
-public interface InstructorInterface {
+public interface InstructorInterface extends StaffInterface{
 
   /**
    * Gets a list of all Clients assigned to the Instructor.
