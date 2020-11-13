@@ -4,36 +4,33 @@ import java.util.List;
 import org.json.JSONObject;
 import com.google.gson.Gson;
 
-/**
- * Storage class for Instructor users.
- */
+/** Storage class for Instructor users. */
 public class InstructorModel extends StaffModel implements InstructorInterface {
   private List<UserID> clients;
-
 
   /**
    * Constructs a new StaffModel object.
    *
-   * @param name         : Name of the staff member
-   * @param age          : Age of the staff member (years)
-   * @param email        : Email of the staff member
-   * @param phoneNumber  : Phone number of the staff member
-   * @param height       : Height of the staff member (cm)
-   * @param weight       : Weight of the staff member (lbs)
+   * @param name : Name of the staff member
+   * @param age : Age of the staff member (years)
+   * @param email : Email of the staff member
+   * @param phoneNumber : Phone number of the staff member
+   * @param height : Height of the staff member (cm)
+   * @param weight : Weight of the staff member (lbs)
    * @param organization : Organization the staff member is affiliated with
-   * @param id           : Database ID of the staff member
-   * @param clients      : Client list for the Instructor
+   * @param id : Database ID of the staff member
+   * @param clients : Client list for the Instructor
    */
   public InstructorModel(
-          String name,
-          int age,
-          String email,
-          String phoneNumber,
-          int height,
-          int weight,
-          String organization,
-          int id,
-          List<UserID> clients) {
+      String name,
+      int age,
+      String email,
+      String phoneNumber,
+      int height,
+      int weight,
+      String organization,
+      int id,
+      List<UserID> clients) {
     super(name, age, email, phoneNumber, height, weight, organization, id);
     this.clients = clients;
   }
@@ -75,9 +72,7 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
    * @param comment: The comment itself
    */
   @Override
-  public void addComment(UserID client, String comment) {
-
-  }
+  public void addComment(UserID client, String comment) {}
 
   /**
    * Removes a comment from a Client's profile.
@@ -86,9 +81,7 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
    * @param comment: The comment itself
    */
   @Override
-  public void removeComment(UserID client, String comment) {
-
-  }
+  public void removeComment(UserID client, String comment) {}
 
   /**
    * Gets all the information on a Client.
