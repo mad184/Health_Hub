@@ -2,47 +2,52 @@ package staff;
 
 import java.util.List;
 
-public interface InstructorInterface {
+public interface InstructorInterface extends StaffInterface {
 
-  // setters for instructor attributes
-  void setName(String name);
+  /**
+   * Gets a list of all Clients assigned to the Instructor.
+   *
+   * @return list of Clients assigned to the Instructor.
+   */
+  List<UserID> getClients();
 
-  void setAge(int age);
+  /**
+   * Adds a Client to the Instructor's Client list. Client must be registered in the system.
+   *
+   * @param client: Client to add
+   */
+  void addClient(UserID client);
 
-  void setEmail(String email);
+  /**
+   * Removes a Client from the Instructor's Client list. Client must be registered in the
+   * Instructor's list beforehand.
+   *
+   * @param client: Client to remove
+   */
+  void removeClient(UserID client);
 
-  void setPhoneNumber(int phoneNumber);
+  /**
+   * Adds a comment to the Client's profile from the Instructor. Client must be in the Instructor's
+   * Client list.
+   *
+   * @param client: Client receiving the comment
+   * @param comment: The comment itself
+   */
+  void addComment(UserID client, String comment);
 
-  void setHeight(int height);
+  /**
+   * Removes a comment on the Client's profile. Client must be in the Instructor's client list.
+   *
+   * @param client: Client whose profile the comment is on
+   * @param comment: The comment itself
+   */
+  void removeComment(UserID client, String comment);
 
-  void setWeight(int weight);
-
-  void setClients(List<String> clients);
-
-  void setOrganization(String organization);
-
-  void setController(Controller controller);
-
-  void setId(int id);
-
-  // getters for instructor attributes
-  String getName();
-
-  int getAge();
-
-  String getEmail();
-
-  int getPhoneNumber();
-
-  int getHeight();
-
-  int getWeight();
-
-  List<String> getClients();
-
-  String getOrganization();
-
-  Controller getController();
-
-  int getId();
+  /**
+   * Gets all information about a Client. Client must be in the Instructor's Client list.
+   *
+   * @param client: Client to fetch
+   * @return Information about the Client
+   */
+  Client getClientInfo(UserID client);
 }
