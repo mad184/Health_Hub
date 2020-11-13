@@ -27,10 +27,6 @@ public class HealthHubController {
         model.addManager(manager);
     }
 
-// talk about on tuesday
-//    void addOwner(ManagerInterface owner){
-//        model.addOwner(owner);
-//    }
 
     // LogIn success/Error Codes
     // 200 = success
@@ -63,8 +59,4 @@ public class HealthHubController {
         }
     }
 
-// delete on Tuesday
-//    int Search(String userName, String password, String name){
-//        return 1;
-//    }
 }
