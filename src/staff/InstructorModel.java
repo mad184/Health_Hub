@@ -36,6 +36,17 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
   }
 
   /**
+   * Converts a JSONObject representation of the Instructor to InstructorModel.
+   *
+   * @param instructor: JSONObject of the instructor
+   * @return InstructorModel object
+   */
+  public static InstructorModel fromJson(JSONObject instructor) {
+    Gson converter = new Gson();
+    return converter.fromJson(String.valueOf(instructor), InstructorModel.class);
+  }
+
+  /**
    * Gets the Client list for the Instructor.
    *
    * @return List of UserIDs for the Clients
