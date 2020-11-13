@@ -104,4 +104,15 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
   public Client getClientInfo(UserID client) {
     return null;
   }
+
+  /**
+   * Converts the object into a JSONObject representation.
+   *
+   * @return JSONObject representation of an Instructor
+   */
+  public JSONObject toJson() {
+    JSONObject json = super.toJson();
+    json.put("Clients", this.clients);
+    return json;
+  }
 }
