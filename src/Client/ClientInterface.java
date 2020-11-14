@@ -1,8 +1,9 @@
 package Client;
 
+import API.FoodItem;
 import javafx.scene.image.Image;
+
 import java.util.ArrayList;
-import java.util.Hashtable;
 
 public interface ClientInterface {
 
@@ -37,7 +38,13 @@ public interface ClientInterface {
 
   void setProfilePicture(Image picture);
 
-  void setFoodLog(Hashtable<String, Hashtable<String, Integer>> foodLog);
+  void setBreakfastFoods(ArrayList<FoodItem> breakfastFoods);
+
+  void setLunchFoods(ArrayList<FoodItem> lunchFoods);
+
+  void setDinnerFoods(ArrayList<FoodItem> dinnerFoods);
+
+  void setSnackFoods(ArrayList<FoodItem> snackFoods);
 
   // void controller(Controller);
 
@@ -72,15 +79,20 @@ public interface ClientInterface {
 
   Image getProfilePicture();
 
-  Hashtable<String, Hashtable<String, Integer>> getFoodLog();
+  ArrayList<FoodItem> getBreakfastFoods();
 
-  //FoodLog methods
-  void addBreakfastFood(String foodName, Integer calories);
+  ArrayList<FoodItem> getLunchFoods();
 
-  void addLunchFood(String foodName, Integer calories);
+  ArrayList<FoodItem> getDinnerFoods();
 
-  void addDinnerFood(String foodName, Integer calories);
+  ArrayList<FoodItem> getSnackFoods();
 
-  void addSnackFood(String foodName, Integer calories);
+  // Add food items to food arrays
+  void addBreakfastFood(FoodItem foodItem);
 
+  void addLunchFood(FoodItem foodItem);
+
+  void addDinnerFood(FoodItem foodItem);
+
+  void addSnackFood(FoodItem foodItem);
 }

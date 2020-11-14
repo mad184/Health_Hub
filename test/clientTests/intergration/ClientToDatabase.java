@@ -1,5 +1,6 @@
 package clientTests.intergration;
 
+import API.FoodItem;
 import Client.Client;
 import Client.ClientController;
 import database.Dbms;
@@ -31,7 +32,10 @@ class ClientToDatabase {
           null,
           null,
           null,
-              new Hashtable<String, Hashtable<String, Integer>>());
+              new ArrayList<FoodItem>(),
+              new ArrayList<FoodItem>(),
+              new ArrayList<FoodItem>(),
+              new ArrayList<FoodItem>());
 
   ClientController clientController1 = new ClientController(client1);
 
@@ -40,6 +44,11 @@ class ClientToDatabase {
   //Tests adding Client to database
   @Test
   void addClientToDB() throws EmptyQueryException {
+    clientController1.addClientBreakfastFood(new FoodItem("Donut", 1.0, 100));
+    clientController1.addClientBreakfastFood(new FoodItem("Donut", 1.0, 100));
+    clientController1.addClientLunchFood(new FoodItem("Toast", 1.0, 100));
+    clientController1.addClientDinnerFood(new FoodItem("Pizza", 1.0, 100));
+    clientController1.addClientSnackFood(new FoodItem("Chips", 1.0, 100));
     testDB.createClient(clientController1.getClientID(), clientController1.clientToJson());
   }
 
@@ -47,6 +56,7 @@ class ClientToDatabase {
   void readClientFromDB() throws EmptyQueryException {
     JSONObject clientJSON = testDB.readClientData(clientController1.getClientID());
     clientController1.jsonToClient(clientJSON);
+
     assertEquals("dustin", clientController1.getClientName());
     assertEquals("dcr518@usask.ca", clientController1.getClientEmail());
     assertEquals("Rick", clientController1.getClientInstructor());
@@ -60,13 +70,24 @@ class ClientToDatabase {
     assertEquals(2000, clientController1.getClientCals());
     assertEquals(new ArrayList<String>(), clientController1.getClientComment());
     assertEquals(new ArrayList<String>(), clientController1.getClientAllergies());
+    assertEquals("Donut", clientController1.getClientBreakfastFoods().get(0).getFoodName());
+    assertEquals("Toast", clientController1.getClientLunchFoods().get(0).getFoodName());
+    assertEquals("Pizza", clientController1.getClientDinnerFoods().get(0).getFoodName());
+    assertEquals("Chips", clientController1.getClientSnackFoods().get(0).getFoodName());
+    assertEquals(1.0, clientController1.getClientBreakfastFoods().get(0).getServingAmount());
+    assertEquals(1.0, clientController1.getClientLunchFoods().get(0).getServingAmount());
+    assertEquals(1.0, clientController1.getClientDinnerFoods().get(0).getServingAmount());
+    assertEquals(1.0, clientController1.getClientSnackFoods().get(0).getServingAmount());
+    assertEquals(100, clientController1.getClientBreakfastFoods().get(0).getCalories());
+    assertEquals(100, clientController1.getClientLunchFoods().get(0).getCalories());
+    assertEquals(100, clientController1.getClientDinnerFoods().get(0).getCalories());
+    assertEquals(100, clientController1.getClientSnackFoods().get(0).getCalories());
   }
 
   @Test
   void removeClientFromDB(){
     testDB.removeClient(clientController1.getClientID());
   }
-
   }
 
 

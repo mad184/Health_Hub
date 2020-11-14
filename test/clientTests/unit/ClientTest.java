@@ -1,5 +1,6 @@
 package clientTests.unit;
 
+import API.FoodItem;
 import Client.Client;
 import Client.ClientController;
 import org.json.JSONObject;
@@ -30,7 +31,10 @@ class ClientTest {
           null,
           null,
           null,
-              new Hashtable<String, Hashtable<String, Integer>>());
+              new ArrayList<FoodItem>(),
+              new ArrayList<FoodItem>(),
+              new ArrayList<FoodItem>(),
+              new ArrayList<FoodItem>());
 
   ClientController clientController1 = new ClientController(client1);
 
@@ -77,16 +81,23 @@ class ClientTest {
 
   @Test
   void addFood(){
-    client1.addBreakfastFood("Bagel", 100);
-    client1.addLunchFood("Donut", 305);
-    client1.addDinnerFood("Pizza", 500);
-    client1.addSnackFood("Toast", 45);
-    client1.addBreakfastFood("Egg", 78);
-    assertEquals(100, client1.getFoodLog().get("Breakfast").get("Bagel"));
-    assertEquals(305, client1.getFoodLog().get("Lunch").get("Donut"));
-    assertEquals(500, client1.getFoodLog().get("Dinner").get("Pizza"));
-    assertEquals(45, client1.getFoodLog().get("Snack").get("Toast"));
-    System.out.println(client1.getFoodLog());
+    clientController1.addClientBreakfastFood(new FoodItem("Donut", 1.0, 100));
+    clientController1.addClientBreakfastFood(new FoodItem("Donut", 1.0, 100));
+    clientController1.addClientLunchFood(new FoodItem("Toast", 1.0, 100));
+    clientController1.addClientDinnerFood(new FoodItem("Pizza", 1.0, 100));
+    clientController1.addClientSnackFood(new FoodItem("Chips", 1.0, 100));
+    assertEquals("Donut", clientController1.getClientBreakfastFoods().get(0).getFoodName());
+    assertEquals("Toast", clientController1.getClientLunchFoods().get(0).getFoodName());
+    assertEquals("Pizza", clientController1.getClientDinnerFoods().get(0).getFoodName());
+    assertEquals("Chips", clientController1.getClientSnackFoods().get(0).getFoodName());
+    assertEquals(1.0, clientController1.getClientBreakfastFoods().get(0).getServingAmount());
+    assertEquals(1.0, clientController1.getClientLunchFoods().get(0).getServingAmount());
+    assertEquals(1.0, clientController1.getClientDinnerFoods().get(0).getServingAmount());
+    assertEquals(1.0, clientController1.getClientSnackFoods().get(0).getServingAmount());
+    assertEquals(100, clientController1.getClientBreakfastFoods().get(0).getCalories());
+    assertEquals(100, clientController1.getClientLunchFoods().get(0).getCalories());
+    assertEquals(100, clientController1.getClientDinnerFoods().get(0).getCalories());
+    assertEquals(100, clientController1.getClientSnackFoods().get(0).getCalories());
   }
 
   @Test
@@ -104,10 +115,16 @@ class ClientTest {
     JSONAssert.assertEquals("{goalWeight:170}", jsonClient, false);
     JSONAssert.assertEquals("{goalCals:3000}", jsonClient, false);
     JSONAssert.assertEquals("{calories:2000}", jsonClient, false);
+    //Have to test food methods being converted to json
+    //JSONAssert.assertEquals("{breakfastFoods:[{\"foodName\":\"Donut\",\"servingAmount\":1.0,\"calories\":100}]}", jsonClient, false);
   }
 
   @Test
   void getClientFromJson() {
+    clientController1.addClientBreakfastFood(new FoodItem("Donut", 1.0, 100));
+    clientController1.addClientLunchFood(new FoodItem("Toast", 1.0, 100));
+    clientController1.addClientDinnerFood(new FoodItem("Pizza", 1.0, 100));
+    clientController1.addClientSnackFood(new FoodItem("Chips", 1.0, 100));
     JSONObject jsonClient = clientController1.clientToJson();
     clientController1.jsonToClient(jsonClient);
     Client clientFromJson = clientController1.getModel();
@@ -124,5 +141,17 @@ class ClientTest {
     assertEquals(2000, clientFromJson.getCalories());
     assertEquals(new ArrayList<String>(), clientFromJson.getComment());
     assertEquals(new ArrayList<String>(), clientFromJson.getAllergies());
+    assertEquals("Donut", clientFromJson.getBreakfastFoods().get(0).getFoodName());
+    assertEquals("Toast", clientFromJson.getLunchFoods().get(0).getFoodName());
+    assertEquals("Pizza", clientFromJson.getDinnerFoods().get(0).getFoodName());
+    assertEquals("Chips", clientFromJson.getSnackFoods().get(0).getFoodName());
+    assertEquals(1.0, clientFromJson.getBreakfastFoods().get(0).getServingAmount());
+    assertEquals(1.0, clientFromJson.getLunchFoods().get(0).getServingAmount());
+    assertEquals(1.0, clientFromJson.getDinnerFoods().get(0).getServingAmount());
+    assertEquals(1.0, clientFromJson.getSnackFoods().get(0).getServingAmount());
+    assertEquals(100, clientFromJson.getBreakfastFoods().get(0).getCalories());
+    assertEquals(100, clientFromJson.getLunchFoods().get(0).getCalories());
+    assertEquals(100, clientFromJson.getDinnerFoods().get(0).getCalories());
+    assertEquals(100, clientFromJson.getSnackFoods().get(0).getCalories());
   }
 }

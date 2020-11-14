@@ -1,13 +1,12 @@
 package Client;
 
-import com.google.gson.JsonObject;
-import javafx.scene.image.Image;
-import org.json.JSONException;
-import org.json.JSONObject;
+import API.FoodItem;
 import com.google.gson.Gson;
+import javafx.scene.image.Image;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
 
 public class ClientController {
   private Client model;
@@ -16,8 +15,10 @@ public class ClientController {
     this.model = model;
   }
 
-  //Setters
-  public void setModel(Client model){this.model = model;}
+  // Setters
+  public void setModel(Client model) {
+    this.model = model;
+  }
 
   public void setClientName(String name) {
     model.setName(name);
@@ -79,10 +80,24 @@ public class ClientController {
     model.setProfilePicture(picture);
   }
 
-  public void setClientFoodLog(Hashtable<String, Hashtable<String, Integer>> foodLog) {model.setFoodLog(foodLog);}
+  public void setClientBreakfastFood(ArrayList<FoodItem> breakfastFood) {
+    model.setBreakfastFoods(breakfastFood);
+  }
 
-  //Getters
-  public Client getModel(){
+  public void setClientLunchFood(ArrayList<FoodItem> lunchFood) {
+    model.setLunchFoods(lunchFood);
+  }
+
+  public void setClientDinnerFood(ArrayList<FoodItem> dinnerFood) {
+    model.setDinnerFoods(dinnerFood);
+  }
+
+  public void setClientSnackFood(ArrayList<FoodItem> snackFood) {
+    model.setSnackFoods(snackFood);
+  }
+
+  // Getters
+  public Client getModel() {
     return this.model;
   }
 
@@ -146,9 +161,42 @@ public class ClientController {
     return model.getProfilePicture();
   }
 
-  public Hashtable<String, Hashtable<String, Integer>> getClientFoodLog() {return model.getFoodLog();}
+  public ArrayList<FoodItem> getClientBreakfastFoods() {
+    return model.getBreakfastFoods();
+  }
 
-  public JSONObject clientToJson (){
+  public ArrayList<FoodItem> getClientLunchFoods() {
+    return model.getLunchFoods();
+  }
+
+  public ArrayList<FoodItem> getClientDinnerFoods() {
+    return model.getDinnerFoods();
+  }
+
+  public ArrayList<FoodItem> getClientSnackFoods() {
+    return model.getSnackFoods();
+  }
+
+  // Food array methods
+  public void addClientBreakfastFood(FoodItem foodItem) {
+    model.addBreakfastFood(foodItem);
+  }
+
+  public void addClientLunchFood(FoodItem foodItem) {
+    model.addLunchFood(foodItem);
+  }
+
+  public void addClientDinnerFood(FoodItem foodItem) {
+    model.addDinnerFood(foodItem);
+  }
+
+  public void addClientSnackFood(FoodItem foodItem) {
+    model.addSnackFood(foodItem);
+  }
+
+  // JSONObject conversion methods
+  public JSONObject clientToJson() {
+    Gson json = new Gson();
     JSONObject jsonObject = new JSONObject();
     jsonObject.put("name", model.getName());
     jsonObject.put("email", model.getEmail());
@@ -165,29 +213,66 @@ public class ClientController {
     jsonObject.put("allergies", model.getAllergies());
     jsonObject.put("comment", model.getComment());
     jsonObject.put("profilePicture", model.getProfilePicture());
+    jsonObject.put("breakfastFoods", model.getBreakfastFoods().toString().substring(1, model.getBreakfastFoods().toString().length() - 1));
+    jsonObject.put("lunchFoods", model.getLunchFoods().toString().substring(1, model.getLunchFoods().toString().length() - 1));
+    jsonObject.put("dinnerFoods", model.getDinnerFoods().toString().substring(1, model.getDinnerFoods().toString().length() - 1));
+    jsonObject.put("snackFoods", model.getSnackFoods().toString().substring(1, model.getSnackFoods().toString().length() - 1));
     return jsonObject;
   }
 
-  public void jsonToClient (JSONObject clientJson){
+  public void jsonToClient(JSONObject clientJson) {
     Gson json = new Gson();
-    model = json.fromJson(String.valueOf(clientJson), Client.class);
-  }
+    setClientName(json.fromJson(String.valueOf(clientJson.get("name")), String.class));
+    setClientEmail(json.fromJson(String.valueOf(clientJson.get("email")), String.class));
+    setClientInstructor(json.fromJson(String.valueOf(clientJson.get("instructor")), String.class));
+    setClientOrg(json.fromJson(String.valueOf(clientJson.get("organization")), String.class));
+    setClientID(json.fromJson(String.valueOf(clientJson.get("id")), Integer.class));
+    setClientAge(json.fromJson(String.valueOf(clientJson.get("age")), Integer.class));
+    setClientHeight(json.fromJson(String.valueOf(clientJson.get("height")), Integer.class));
+    setClientWeight(json.fromJson(String.valueOf(clientJson.get("weight")), Integer.class));
+    setClientPhoneNum(json.fromJson(String.valueOf(clientJson.get("phoneNumber")), String.class));
+    setClientGoalWeight(json.fromJson(String.valueOf(clientJson.get("goalWeight")), Integer.class));
+    setClientGoalCals(json.fromJson(String.valueOf(clientJson.get("goalCals")), Integer.class));
+    setClientCals(json.fromJson(String.valueOf(clientJson.get("calories")), Integer.class));
+    setClientAllergies(json.fromJson(String.valueOf(clientJson.get("allergies")), ArrayList.class));
+    setClientComment(json.fromJson(String.valueOf(clientJson.get("comment")), ArrayList.class));
 
+    //setClientProfilePicture(json.fromJson(String.valueOf(clientJson.get("profilePicture")), Image.class));
 
-  //foodLog methods
-  public void addClientBreakfastFood(String foodName, int calories){
-    model.addBreakfastFood(foodName, calories);
-  }
+    String list[] = String.valueOf(clientJson.get("breakfastFoods")).split(" ");
+    ArrayList<FoodItem> breakfastFoods = new ArrayList<>();
+    for (String item : list){
+      String foodInfo[] = item.split(",");
+      FoodItem food = new FoodItem(foodInfo[0], Double.parseDouble(foodInfo[2]), Integer.parseInt(foodInfo[1]));
+      breakfastFoods.add(food);
+    }
+    setClientBreakfastFood(breakfastFoods);
 
-  public void addClientLunchFood(String foodName, int calories){
-    model.addLunchFood(foodName, calories);
-  }
+    list = String.valueOf(clientJson.get("lunchFoods")).split(" ");
+    ArrayList<FoodItem> lunchFoods = new ArrayList<>();
+    for (String item : list){
+      String foodInfo[] = item.split(",");
+      FoodItem food = new FoodItem(foodInfo[0], Double.parseDouble(foodInfo[2]), Integer.parseInt(foodInfo[1]));
+      lunchFoods.add(food);
+    }
+    setClientLunchFood(lunchFoods);
 
-  public void addClientDinnerFood(String foodName, int calories){
-    model.addDinnerFood(foodName, calories);
-  }
+    list = String.valueOf(clientJson.get("dinnerFoods")).split(" ");
+    ArrayList<FoodItem> dinnerFoods = new ArrayList<>();
+    for (String item : list){
+      String foodInfo[] = item.split(",");
+      FoodItem food = new FoodItem(foodInfo[0], Double.parseDouble(foodInfo[2]), Integer.parseInt(foodInfo[1]));
+      dinnerFoods.add(food);
+    }
+    setClientDinnerFood(dinnerFoods);
 
-  public void addClientSnackFood(String foodName, int calories){
-    model.addSnackFood(foodName, calories);
+    list = String.valueOf(clientJson.get("snackFoods")).split(" ");
+    ArrayList<FoodItem> snackFoods = new ArrayList<>();
+    for (String item : list){
+      String foodInfo[] = item.split(",");
+      FoodItem food = new FoodItem(foodInfo[0], Double.parseDouble(foodInfo[2]), Integer.parseInt(foodInfo[1]));
+      snackFoods.add(food);
+    }
+    setClientSnackFood(snackFoods);
   }
-}
+  }

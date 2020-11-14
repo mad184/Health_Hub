@@ -1,5 +1,6 @@
 package Client.ClientView;
 
+import API.FoodItem;
 import Client.Client;
 import Client.ClientController;
 import database.Dbms;
@@ -9,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
 
 public class ClientView extends Application {
@@ -35,7 +37,10 @@ public class ClientView extends Application {
                           null,
                           null,
                           null,
-                          new Hashtable<String, Hashtable<String, Integer>>()));
+                          new ArrayList<FoodItem>(),
+                          new ArrayList<FoodItem>(),
+                          new ArrayList<FoodItem>(),
+                          new ArrayList<FoodItem>()));
 
   // Loads window/stage for client view, then loads main scene
   @Override

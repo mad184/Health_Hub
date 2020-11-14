@@ -1,8 +1,9 @@
 package Client;
 
+import API.FoodItem;
 import javafx.scene.image.Image;
+
 import java.util.ArrayList;
-import java.util.Hashtable;
 
 public class Client implements ClientInterface {
   private String name, email, instructor, organization, phoneNumber;
@@ -10,7 +11,10 @@ public class Client implements ClientInterface {
   private int goalWeight, goalCals, calories;
   private ArrayList<String> allergies, comment;
   private Image profilePicture;
-  private Hashtable<String, Hashtable<String, Integer>> foodLog;
+  private ArrayList<FoodItem> breakfastFoods;
+  private ArrayList<FoodItem> lunchFoods;
+  private ArrayList<FoodItem> dinnerFoods;
+  private ArrayList<FoodItem> snackFoods;
 
   public Client(
       String name,
@@ -28,7 +32,10 @@ public class Client implements ClientInterface {
       ArrayList<String> allergies,
       ArrayList<String> comment,
       Image profilePicture,
-      Hashtable<String, Hashtable<String, Integer>> foodLog) {
+      ArrayList<FoodItem> breakfastFoods,
+      ArrayList<FoodItem> lunchFoods,
+      ArrayList<FoodItem> dinnerFoods,
+      ArrayList<FoodItem> snackFoods) {
     this.name = name;
     this.email = email;
     this.instructor = instructor;
@@ -44,12 +51,10 @@ public class Client implements ClientInterface {
     this.allergies = allergies;
     this.comment = comment;
     this.profilePicture = profilePicture;
-    this.foodLog = foodLog;
-    this.foodLog.put("Breakfast", new Hashtable<String, Integer>());
-    this.foodLog.put("Lunch", new Hashtable<String, Integer>());
-    this.foodLog.put("Dinner", new Hashtable<String, Integer>());
-    this.foodLog.put("Snack", new Hashtable<String, Integer>());
-
+    this.breakfastFoods = breakfastFoods;
+    this.lunchFoods = lunchFoods;
+    this.dinnerFoods = dinnerFoods;
+    this.snackFoods = snackFoods;
   }
 
   // setters
@@ -127,9 +132,25 @@ public class Client implements ClientInterface {
   }
 
   @Override
-  public void setFoodLog(Hashtable<String, Hashtable<String, Integer>> foodLog) {
-    this.foodLog = foodLog;
+  public void setBreakfastFoods(ArrayList<FoodItem> breakfastFoods) {
+    this.breakfastFoods = breakfastFoods;
   }
+
+  @Override
+  public void setLunchFoods(ArrayList<FoodItem> lunchFoods) {
+    this.lunchFoods = lunchFoods;
+  }
+
+  @Override
+  public void setDinnerFoods(ArrayList<FoodItem> dinnerFoods) {
+    this.dinnerFoods = dinnerFoods;
+  }
+
+  @Override
+  public void setSnackFoods(ArrayList<FoodItem> snackFoods) {
+    this.snackFoods = snackFoods;
+  }
+
 
   // getters
   @Override
@@ -206,30 +227,42 @@ public class Client implements ClientInterface {
   }
 
   @Override
-  public Hashtable<String, Hashtable<String, Integer>> getFoodLog() {
-    return this.foodLog;
-  }
-
-
-  //FoodLog methods
-  @Override
-  public void addBreakfastFood(String foodName, Integer calories){
-    foodLog.get("Breakfast").put(foodName, calories);
+  public ArrayList<FoodItem> getBreakfastFoods() {
+    return this.breakfastFoods;
   }
 
   @Override
-  public void addLunchFood(String foodName, Integer calories) {
-    foodLog.get("Lunch").put(foodName, calories);
+  public ArrayList<FoodItem> getLunchFoods() {
+    return this.lunchFoods;
   }
 
   @Override
-  public void addDinnerFood(String foodName, Integer calories) {
-    foodLog.get("Dinner").put(foodName, calories);
+  public ArrayList<FoodItem> getDinnerFoods() {
+    return this.dinnerFoods;
   }
 
   @Override
-  public void addSnackFood(String foodName, Integer calories) {
-    foodLog.get("Snack").put(foodName, calories);
+  public ArrayList<FoodItem> getSnackFoods() {
+    return this.snackFoods;
+  }
+
+  @Override
+  public void addBreakfastFood(FoodItem foodItem) {
+    this.breakfastFoods.add(foodItem);
+  }
+
+  @Override
+  public void addLunchFood(FoodItem foodItem) {
+    this.lunchFoods.add(foodItem);
+  }
+
+  @Override
+  public void addDinnerFood(FoodItem foodItem) {
+    this.dinnerFoods.add(foodItem);
+  }
+
+  @Override
+  public void addSnackFood(FoodItem foodItem) {
+    this.snackFoods.add(foodItem);
   }
 }
-
