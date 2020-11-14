@@ -1,6 +1,5 @@
 package Health_Hub;
 
-import Health_Hub.HealthHubController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,13 +7,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class LogInView extends Application {
-    String userName;
-    String PassWord;
-
-
 
   public static void main(String[] args){
-
+      launch(args);
   }
 
     @Override
