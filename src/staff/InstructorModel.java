@@ -9,7 +9,7 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
   private List<UserID> clients;
 
   /**
-   * Constructs a new StaffModel object.
+   * Constructs a new InstructorModel object.
    *
    * @param name : Name of the staff member
    * @param age : Age of the staff member (years)
