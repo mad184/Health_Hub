@@ -211,7 +211,6 @@ public class StaffModel implements StaffInterface {
    *
    * @return JSONObject representation of a staff member
    */
-  @Override
   public JSONObject toJson() {
     JSONObject json = new JSONObject();
     json.put("Name", this.name);
