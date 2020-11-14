@@ -2,6 +2,9 @@ package Client.ClientView;
 
 import Client.Client;
 import Client.ClientController;
+import database.Dbms;
+import database.EmptyQueryException;
+import database.JsonObjectException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +23,9 @@ import java.util.ResourceBundle;
 public class ClientSettingsViewController {
 
   private ClientController clientController = new ClientController(null);
+
+  //DB object (Currently setup to test db)
+  Dbms DB = new Dbms("Justyn", "Staff1", "Test-Justyn-Db", "testCollection");
 
   // Label to display clients information
   @FXML public Label nameLabel = new Label();
@@ -44,42 +50,44 @@ public class ClientSettingsViewController {
     calorieGoalLabel.setText(String.valueOf(clientController.getClientCalGoal()) + "Kcal");
   }
 
-  public void onNamePressed(ActionEvent event){
+  public void onNamePressed(ActionEvent event) throws JsonObjectException, EmptyQueryException {
     nameInput.showAndWait();
     String input = nameInput.getEditor().getText();
     clientController.setClientName(input);
     nameLabel.setText(clientController.getClientName());
-
+    DB.updateClient(clientController.getClientID(), clientController.clientToJson());
   }
 
-  public void onAgePressed(ActionEvent event){
+  public void onAgePressed(ActionEvent event) throws JsonObjectException, EmptyQueryException {
     ageInput.showAndWait();
     String input = ageInput.getEditor().getText();
     clientController.setClientAge(Integer.parseInt(input));
     ageLabel.setText(input);
-
+    DB.updateClient(clientController.getClientID(), clientController.clientToJson());
   }
 
-  public void onHeightPressed(ActionEvent event){
+  public void onHeightPressed(ActionEvent event) throws JsonObjectException, EmptyQueryException {
     heightInput.showAndWait();
     String input = heightInput.getEditor().getText();
     clientController.setClientHeight(Integer.parseInt(input));
     heightLabel.setText(input);
-
+    DB.updateClient(clientController.getClientID(), clientController.clientToJson());
   }
 
-  public void onWeightGoalPressed(ActionEvent event){
+  public void onWeightGoalPressed(ActionEvent event) throws JsonObjectException, EmptyQueryException {
     weightGoalInput.showAndWait();
     String input = weightGoalInput.getEditor().getText();
     clientController.setClientGoalWeight(Integer.parseInt(input));
     weightGoalLabel.setText(input);
+    DB.updateClient(clientController.getClientID(), clientController.clientToJson());
   }
 
-  public void onCalorieGoalPressed(ActionEvent event){
+  public void onCalorieGoalPressed(ActionEvent event) throws JsonObjectException, EmptyQueryException {
     calorieGoalInput.showAndWait();
     String input = calorieGoalInput.getEditor().getText();
     clientController.setClientGoalCals(Integer.parseInt(input));
     calorieGoalLabel.setText(input);
+    DB.updateClient(clientController.getClientID(), clientController.clientToJson());
   }
 
   // Goes to main view scene when back button is pushed
