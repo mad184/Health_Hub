@@ -102,6 +102,10 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
    */
   @Override
   public Client getClientInfo(UserID client) {
+    // TODO: Figure out how to connect to the Database.
+    // Dbms db = new Dbms();
+    // JSONObject clientJson = db.readClientData(client.id);
+    // return Client.fromJson(clientJson);
     return null;
   }
 
