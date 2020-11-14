@@ -2,7 +2,7 @@ package staff;
 
 import java.util.List;
 
-public class ManagerController implements ManagerInterface{
+public class ManagerController implements ManagerInterface {
 
     private ManagerModel model;
 
@@ -10,7 +10,7 @@ public class ManagerController implements ManagerInterface{
     //-------GETTERS-------//
 
     @Override
-    public List<UserID> getInstructors(){
+    public List<UserID> getInstructors() {
         return model.getInstructors();
     }
 
