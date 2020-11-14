@@ -18,4 +18,37 @@ public class UserIDTest {
         assertNotNull(user);
     }
 
+    /**
+     * Tests getId method.
+     */
+    @Test
+    public void testGetID() {
+        assertEquals(1, user.getId());
+    }
+
+    /**
+     * Tests getName method.
+     */
+    @Test
+    public void testGetName() {
+        assertEquals("John Wick", user.getName());
+    }
+
+    /**
+     * Tests setId method.
+     */
+    @Test
+    public void testSetID() {
+        user.setId(2);
+        assertEquals(2, user.getId());
+    }
+
+    /**
+     * Tests setName method.
+     */
+    @Test
+    public void testSetName() {
+        user.setName("Charles Xavier");
+        assertEquals("Charles Xavier", user.getName());
+    }
 }
