@@ -97,7 +97,12 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
    * @param comment: The comment itself
    */
   @Override
-  public void removeComment(UserID client, String comment) {}
+  public void removeComment(UserID client, String comment) {
+    Client clientObj = this.getClientInfo(client);
+    List<String> comments = clientObj.getComment();
+    comments.remove(comment);
+    // TODO: Write the Client back to the Database
+  }
 
   /**
    * Gets all the information on a Client.
