@@ -41,9 +41,9 @@
       <Label fx:id="weightGoalLabel" alignment="CENTER" layoutX="285.0" layoutY="124.0" prefHeight="17.0" prefWidth="61.0" text="weightGoalLabel" textFill="#ddd9d9" />
       <Label fx:id="calorieGoalLabel" alignment="CENTER" layoutX="285.0" layoutY="152.0" prefHeight="17.0" prefWidth="57.0" text="calGoalLabel" textFill="#ddd9d9" />
       <Button layoutX="285.0" layoutY="35.0" mnemonicParsing="false" onAction="#onNamePressed" prefHeight="18.0" prefWidth="61.0" style="-fx-background-color: #ffffff00#ffffff00;" text="nameEditButton" textFill="TRANSPARENT" />
-      <Button layoutX="285.0" layoutY="63.0" mnemonicParsing="false" onAction="#onNamePressed" prefHeight="27.0" prefWidth="61.0" style="-fx-background-color: #ffffff00#ffffff00;" text="ageEditButton" textFill="TRANSPARENT" />
-      <Button layoutX="285.0" layoutY="91.0" mnemonicParsing="false" onAction="#onNamePressed" prefHeight="27.0" prefWidth="61.0" style="-fx-background-color: #ffffff00#ffffff00;" text="heightEditButton" textFill="TRANSPARENT" />
-      <Button layoutX="285.0" layoutY="119.0" mnemonicParsing="false" onAction="#onNamePressed" prefHeight="27.0" prefWidth="61.0" style="-fx-background-color: #ffffff00#ffffff00;" text="weightGoalEditButton" textFill="TRANSPARENT" />
-      <Button layoutX="285.0" layoutY="147.0" mnemonicParsing="false" onAction="#onNamePressed" prefHeight="27.0" prefWidth="61.0" style="-fx-background-color: #ffffff00#ffffff00;" text="calGoalEditButton" textFill="TRANSPARENT" />
+      <Button layoutX="285.0" layoutY="63.0" mnemonicParsing="false" onAction="#onAgePressed" prefHeight="27.0" prefWidth="61.0" style="-fx-background-color: #ffffff00#ffffff00;" text="ageEditButton" textFill="TRANSPARENT" />
+      <Button layoutX="285.0" layoutY="91.0" mnemonicParsing="false" onAction="#onHeightPressed" prefHeight="27.0" prefWidth="61.0" style="-fx-background-color: #ffffff00#ffffff00;" text="heightEditButton" textFill="TRANSPARENT" />
+      <Button layoutX="285.0" layoutY="119.0" mnemonicParsing="false" onAction="#onWeightGoalPressed" prefHeight="27.0" prefWidth="61.0" style="-fx-background-color: #ffffff00#ffffff00;" text="weightGoalEditButton" textFill="TRANSPARENT" />
+      <Button layoutX="285.0" layoutY="147.0" mnemonicParsing="false" onAction="#onCalorieGoalPressed" prefHeight="27.0" prefWidth="61.0" style="-fx-background-color: #ffffff00#ffffff00;" text="calGoalEditButton" textFill="TRANSPARENT" />
    </children>
 </AnchorPane>

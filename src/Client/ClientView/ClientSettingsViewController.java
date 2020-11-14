@@ -31,8 +31,8 @@ public class ClientSettingsViewController {
   //Text inputs for editing client info
   @FXML public TextInputDialog nameInput = new TextInputDialog("Enter your new name");
   @FXML public TextInputDialog ageInput = new TextInputDialog("Enter your new age");
-  @FXML public TextInputDialog heightInput = new TextInputDialog("Enter your new height");
-  @FXML public TextInputDialog weightGoalInput = new TextInputDialog("Enter your new weight goal");
+  @FXML public TextInputDialog heightInput = new TextInputDialog("Enter your new height in cm");
+  @FXML public TextInputDialog weightGoalInput = new TextInputDialog("Enter your new weight goal in Kg");
   @FXML public TextInputDialog calorieGoalInput = new TextInputDialog("Enter your new calorie goal");
 
   public void setupScene(Client client) {
@@ -50,6 +50,36 @@ public class ClientSettingsViewController {
     clientController.setClientName(input);
     nameLabel.setText(clientController.getClientName());
 
+  }
+
+  public void onAgePressed(ActionEvent event){
+    ageInput.showAndWait();
+    String input = ageInput.getEditor().getText();
+    clientController.setClientAge(Integer.parseInt(input));
+    ageLabel.setText(input);
+
+  }
+
+  public void onHeightPressed(ActionEvent event){
+    heightInput.showAndWait();
+    String input = heightInput.getEditor().getText();
+    clientController.setClientHeight(Integer.parseInt(input));
+    heightLabel.setText(input);
+
+  }
+
+  public void onWeightGoalPressed(ActionEvent event){
+    weightGoalInput.showAndWait();
+    String input = weightGoalInput.getEditor().getText();
+    clientController.setClientGoalWeight(Integer.parseInt(input));
+    weightGoalLabel.setText(input);
+  }
+
+  public void onCalorieGoalPressed(ActionEvent event){
+    calorieGoalInput.showAndWait();
+    String input = calorieGoalInput.getEditor().getText();
+    clientController.setClientGoalCals(Integer.parseInt(input));
+    calorieGoalLabel.setText(input);
   }
 
   // Goes to main view scene when back button is pushed
