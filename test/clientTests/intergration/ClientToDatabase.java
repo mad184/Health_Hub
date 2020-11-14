@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -29,7 +30,8 @@ class ClientToDatabase {
           2000,
           null,
           null,
-          null);
+          null,
+              new Hashtable<String, Hashtable<String, Integer>>());
 
   ClientController clientController1 = new ClientController(client1);
 

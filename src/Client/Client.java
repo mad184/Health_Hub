@@ -2,6 +2,7 @@ package Client;
 
 import javafx.scene.image.Image;
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 public class Client implements ClientInterface {
   private String name, email, instructor, organization, phoneNumber;
@@ -9,6 +10,7 @@ public class Client implements ClientInterface {
   private int goalWeight, goalCals, calories;
   private ArrayList<String> allergies, comment;
   private Image profilePicture;
+  private Hashtable<String, Hashtable<String, Integer>> foodLog;
 
   public Client(
       String name,
@@ -25,7 +27,8 @@ public class Client implements ClientInterface {
       int calories,
       ArrayList<String> allergies,
       ArrayList<String> comment,
-      Image profilePicture) {
+      Image profilePicture,
+      Hashtable<String, Hashtable<String, Integer>> foodLog) {
     this.name = name;
     this.email = email;
     this.instructor = instructor;
@@ -41,6 +44,12 @@ public class Client implements ClientInterface {
     this.allergies = allergies;
     this.comment = comment;
     this.profilePicture = profilePicture;
+    this.foodLog = foodLog;
+    this.foodLog.put("Breakfast", new Hashtable<String, Integer>());
+    this.foodLog.put("Lunch", new Hashtable<String, Integer>());
+    this.foodLog.put("Dinner", new Hashtable<String, Integer>());
+    this.foodLog.put("Snack", new Hashtable<String, Integer>());
+
   }
 
   // setters
@@ -117,6 +126,11 @@ public class Client implements ClientInterface {
     this.profilePicture = picture;
   }
 
+  @Override
+  public void setFoodLog(Hashtable<String, Hashtable<String, Integer>> foodLog) {
+    this.foodLog = foodLog;
+  }
+
   // getters
   @Override
   public String getName() {
@@ -190,4 +204,32 @@ public class Client implements ClientInterface {
   public Image getProfilePicture() {
     return this.profilePicture;
   }
+
+  @Override
+  public Hashtable<String, Hashtable<String, Integer>> getFoodLog() {
+    return this.foodLog;
+  }
+
+
+  //FoodLog methods
+  @Override
+  public void addBreakfastFood(String foodName, Integer calories){
+    foodLog.get("Breakfast").put(foodName, calories);
+  }
+
+  @Override
+  public void addLunchFood(String foodName, Integer calories) {
+    foodLog.get("Lunch").put(foodName, calories);
+  }
+
+  @Override
+  public void addDinnerFood(String foodName, Integer calories) {
+    foodLog.get("Dinner").put(foodName, calories);
+  }
+
+  @Override
+  public void addSnackFood(String foodName, Integer calories) {
+    foodLog.get("Snack").put(foodName, calories);
+  }
 }
+

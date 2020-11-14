@@ -9,6 +9,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.Hashtable;
+
 public class ClientView extends Application {
 
   //DB object (Currently setup to test db)
@@ -32,7 +34,8 @@ public class ClientView extends Application {
                           1000,
                           null,
                           null,
-                          null));
+                          null,
+                          new Hashtable<String, Hashtable<String, Integer>>()));
 
   // Loads window/stage for client view, then loads main scene
   @Override

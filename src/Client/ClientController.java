@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 public class ClientController {
   private Client model;
@@ -78,6 +79,7 @@ public class ClientController {
     model.setProfilePicture(picture);
   }
 
+  public void setClientFoodLog(Hashtable<String, Hashtable<String, Integer>> foodLog) {model.setFoodLog(foodLog);}
 
   //Getters
   public Client getModel(){
@@ -144,6 +146,8 @@ public class ClientController {
     return model.getProfilePicture();
   }
 
+  public Hashtable<String, Hashtable<String, Integer>> getClientFoodLog() {return model.getFoodLog();}
+
   public JSONObject clientToJson (){
     JSONObject jsonObject = new JSONObject();
     jsonObject.put("name", model.getName());
@@ -167,5 +171,23 @@ public class ClientController {
   public void jsonToClient (JSONObject clientJson){
     Gson json = new Gson();
     model = json.fromJson(String.valueOf(clientJson), Client.class);
+  }
+
+
+  //foodLog methods
+  public void addClientBreakfastFood(String foodName, int calories){
+    model.addBreakfastFood(foodName, calories);
+  }
+
+  public void addClientLunchFood(String foodName, int calories){
+    model.addLunchFood(foodName, calories);
+  }
+
+  public void addClientDinnerFood(String foodName, int calories){
+    model.addDinnerFood(foodName, calories);
+  }
+
+  public void addClientSnackFood(String foodName, int calories){
+    model.addSnackFood(foodName, calories);
   }
 }

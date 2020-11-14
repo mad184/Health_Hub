@@ -1,16 +1,16 @@
-package clientTests;
+package clientTests.unit;
 
 import Client.Client;
 import Client.ClientController;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class ClientTest {
   Client client1 =
@@ -28,11 +28,11 @@ class ClientTest {
           3000,
           2000,
           null,
-              null,
-              null);
+          null,
+          null,
+              new Hashtable<String, Hashtable<String, Integer>>());
 
-  ClientController clientController1 =
-          new ClientController(client1);
+  ClientController clientController1 = new ClientController(client1);
 
   @Test
   void testObjectCreate() {
@@ -64,7 +64,33 @@ class ClientTest {
   }
 
   @Test
-  void getJsonFromClient(){
+  void changeEmail() {
+    client1.setEmail("jmp447@usask.ca");
+    assertEquals("jmp447@usask.ca", client1.getEmail());
+  }
+
+  @Test
+  void changePhoneNumber() {
+    client1.setPhoneNum("306-850-0727");
+    assertEquals("306-850-0727", client1.getPhoneNum());
+  }
+
+  @Test
+  void addFood(){
+    client1.addBreakfastFood("Bagel", 100);
+    client1.addLunchFood("Donut", 305);
+    client1.addDinnerFood("Pizza", 500);
+    client1.addSnackFood("Toast", 45);
+    client1.addBreakfastFood("Egg", 78);
+    assertEquals(100, client1.getFoodLog().get("Breakfast").get("Bagel"));
+    assertEquals(305, client1.getFoodLog().get("Lunch").get("Donut"));
+    assertEquals(500, client1.getFoodLog().get("Dinner").get("Pizza"));
+    assertEquals(45, client1.getFoodLog().get("Snack").get("Toast"));
+    System.out.println(client1.getFoodLog());
+  }
+
+  @Test
+  void getJsonFromClient() {
     JSONObject jsonClient = clientController1.clientToJson();
     JSONAssert.assertEquals("{name:dustin}", jsonClient, false);
     JSONAssert.assertEquals("{email:dcr518@usask.ca}", jsonClient, false);
@@ -80,7 +106,8 @@ class ClientTest {
     JSONAssert.assertEquals("{calories:2000}", jsonClient, false);
   }
 
-  @Test void getClientFromJson(){
+  @Test
+  void getClientFromJson() {
     JSONObject jsonClient = clientController1.clientToJson();
     clientController1.jsonToClient(jsonClient);
     Client clientFromJson = clientController1.getModel();

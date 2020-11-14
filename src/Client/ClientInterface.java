@@ -2,6 +2,7 @@ package Client;
 
 import javafx.scene.image.Image;
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 public interface ClientInterface {
 
@@ -35,6 +36,9 @@ public interface ClientInterface {
   void setComment(ArrayList<String> comment);
 
   void setProfilePicture(Image picture);
+
+  void setFoodLog(Hashtable<String, Hashtable<String, Integer>> foodLog);
+
   // void controller(Controller);
 
   // getters for client
@@ -67,4 +71,16 @@ public interface ClientInterface {
   ArrayList<String> getComment();
 
   Image getProfilePicture();
+
+  Hashtable<String, Hashtable<String, Integer>> getFoodLog();
+
+  //FoodLog methods
+  void addBreakfastFood(String foodName, Integer calories);
+
+  void addLunchFood(String foodName, Integer calories);
+
+  void addDinnerFood(String foodName, Integer calories);
+
+  void addSnackFood(String foodName, Integer calories);
+
 }
