@@ -1,0 +1,71 @@
+package Health_Hub;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
+import javax.swing.*;
+import java.io.IOException;
+
+public class ClientSignUpViewController {
+    @FXML
+    private TextField Name;
+    @FXML
+    private TextField BirthDate;
+    @FXML
+    private TextField Email;
+    @FXML
+    private TextField UserName;
+    @FXML
+    private TextField Password;
+
+    @FXML
+    public void onSignUpButtonPushed(ActionEvent event) throws IOException {
+        System.out.println("signUpButton Pushed");
+        String name = this.Name.getText();
+        String birthDate = this.BirthDate.getText();
+        String email = this.Email.getText();
+        String userName = this.UserName.getText();
+        String passWord = this.Password.getText();
+
+        //regex looks for any number of white space
+        if(!(name.length() > 0) || name.matches("^ *$")){
+            JOptionPane.showMessageDialog(null, "A Name is required");
+        }
+
+        //regex matches dd-mm-yyy format
+        else if(!(birthDate.length() > 0) || !birthDate.matches("^([0]?[1-9]|[1|2][0-9]|[3][0|1])[-]([0]?[1-9]" +
+                "|[1][0-2])[-]([0-9]{4}|[0-9]{2})$")){
+            JOptionPane.showMessageDialog(null, "BirthDate is required to be an integer " +
+                    "sequence in  dd-mm-yyyy format");
+        }
+
+        //regex looks for empty spaces entered
+        else if(!(email.length() > 0) || email.matches("^ *$")){
+            JOptionPane.showMessageDialog(null, "A Email is required");
+        }
+
+        //regex looks for empty spaces entered
+        else if(!(userName.length() > 0) || userName.matches("^ *$")){
+            JOptionPane.showMessageDialog(null, "A userName is required");
+        }
+
+        //regex looks for empty spaces entered
+        else if(!(passWord.length() > 0) || passWord.matches("^ *$")){
+            JOptionPane.showMessageDialog(null, "A Password is required");
+        }
+
+//        //go to client package
+//        FXMLLoader loader = new FXMLLoader(getClass().getResource("SignUpOptionsPageView.fxml"));
+//        Parent root = loader.load();
+//        Scene newScene = new Scene(root);
+//        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//        stage.setScene(newScene);
+//        stage.show();
+    }
+}
