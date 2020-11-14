@@ -84,7 +84,7 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
    */
   @Override
   public void addComment(UserID client, String comment) {
-    Client clientObj = this.getClientInfo(client);
+    ClientInterface clientObj = this.getClientInfo(client);
     List<String> comments = clientObj.getComment();
     comments.add(comment);
     // TODO: Write the Client object back to the Database
@@ -98,7 +98,7 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
    */
   @Override
   public void removeComment(UserID client, String comment) {
-    Client clientObj = this.getClientInfo(client);
+    ClientInterface clientObj = this.getClientInfo(client);
     List<String> comments = clientObj.getComment();
     comments.remove(comment);
     // TODO: Write the Client back to the Database
@@ -111,7 +111,7 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
    * @return Client object
    */
   @Override
-  public Client getClientInfo(UserID client) {
+  public ClientInterface getClientInfo(UserID client) {
     // TODO: Figure out how to connect to the Database.
     // Dbms db = new Dbms();
     // JSONObject clientJson = db.readClientData(client.id);

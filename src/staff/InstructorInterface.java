@@ -49,5 +49,5 @@ public interface InstructorInterface extends StaffInterface {
    * @param client: Client to fetch
    * @return Information about the Client
    */
-  Client getClientInfo(UserID client);
+  ClientInterface getClientInfo(UserID client);
 }
