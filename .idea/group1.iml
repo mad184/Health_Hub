@@ -16,6 +16,7 @@
     <orderEntry type="library" exported="" name="javafx" level="project" />
     <orderEntry type="library" exported="" name="com.google.code.gson:gson:2.8.6" level="project" />
     <orderEntry type="library" exported="" name="org.skyscreamer:jsonassert:1.5.0" level="project" />
+    <orderEntry type="library" exported="" name="com.mashape.unirest:unirest-java:1.4.9" level="project" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>
