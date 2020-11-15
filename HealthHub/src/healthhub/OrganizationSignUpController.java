@@ -15,15 +15,7 @@ import java.io.IOException;
 public class OrganizationSignUpController {
 
     @FXML
-    private TextField Name;
-    @FXML
-    private TextField BirthDate;
-    @FXML
-    private TextField Email;
-    @FXML
-    private TextField UserName;
-    @FXML
-    private TextField Password;
+    private TextField Name, BirthDate, Email, UserName, Password;
 
 
     public HealthHubController healthHubController = new HealthHubController(null);

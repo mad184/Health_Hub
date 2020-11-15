@@ -21,9 +21,7 @@ import java.io.IOException;
 
 public class LogInViewController {
     @FXML
-    private TextField userName;
-    @FXML
-    private TextField passWord;
+    private TextField userName, passWord;
 
     @FXML
     private ComboBox userTypeComboBox;

@@ -9,20 +9,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import javax.swing.*;
+import javax.swing.JOptionPane;
 import java.io.IOException;
 
 public class InstructorSignUpController {
     @FXML
-    private TextField Name;
-    @FXML
-    private TextField BirthDate;
-    @FXML
-    private TextField Email;
-    @FXML
-    private TextField UserName;
-    @FXML
-    private TextField Password;
+    private TextField Name, BirthDate, Email, UserName, Password;
 
     @FXML
     public void onSignUpButtonPushed(ActionEvent event) throws IOException {

@@ -4,6 +4,7 @@ public class HealthHubSingleton {
 
   // attributes
   private static HealthHubSingleton HealthHub = null;
+
   String organizationName;
 
 
