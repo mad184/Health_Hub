@@ -30,15 +30,17 @@ public class LogInViewController {
 
     ObservableList<String> userTypeList = FXCollections.observableArrayList("Client", "Instructor", "Manager", "Owner");
 
+    public HealthHubController healthHubController = new HealthHubController(null);
+
+
     @FXML
     public void initialize(){
         this.userTypeComboBox.setValue("");
         this.userTypeComboBox.setItems(userTypeList);
-
     }
-    @FXML
-    public void onSignUpButtonPushed(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("SignUpOptionsPageView.fxml"));
+
+    public void gotoView(String fxmlFileName, ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
         Parent root = loader.load();
         Scene newScene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -46,7 +48,11 @@ public class LogInViewController {
         stage.show();
     }
 
-    public HealthHubController healthHubController = new HealthHubController(null);
+    @FXML
+    public void onSignUpButtonPushed(ActionEvent event) throws IOException {
+        gotoView("SignUpOptionsPageView.fxml", event);
+    }
+
     @FXML
     public void onLoginButtonPushed(ActionEvent event) throws IOException {
         String userType = (String) userTypeComboBox.getValue();
@@ -54,22 +60,17 @@ public class LogInViewController {
         //send the heathHub Controller the login text
         int loginCode = healthHubController.LogIn(this.userName.getText(),this.passWord.getText(), userType);
 
-
-        //display different messages to view depending on code we get back
+        //go to the different view depending on which user we are
         if (loginCode == 200){
-            switch (userType){
-                case "Client":
-                    // go to client view
-                    break;
-                case "Instructor":
-                    //go to instructor view
-                    break;
-                case "Manager":
-                    //go to manager view
-                    break;
-                case "Owner":
-                    // go to owner view
-                    break;
+            /*
+            ToDO:
+                change .fxml file names to proper file names
+             */
+            switch (userType) {
+                case "Client" -> gotoView("ClientView.fxml", event);
+                case "Instructor" -> gotoView("InstructorView.fxml", event);
+                case "Manager" -> gotoView("ManagerView.fxml", event);
+                case "Owner" -> gotoView("OwnerView.fxml", event);
             }
         }
         // send account not found to LogInView
@@ -89,6 +90,5 @@ public class LogInViewController {
             JOptionPane.showMessageDialog(null, "Sorry, an unknown error occurred");
         }
     }
-
 }
 

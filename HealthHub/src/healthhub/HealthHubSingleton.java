@@ -1,15 +1,15 @@
-package Health_Hub;
+package healthhub;
 
 public class HealthHubSingleton {
 
   // attributes
-  private static HealthHubSingleton HealthHub;
+  private static HealthHubSingleton HealthHub = null;
   String organizationName;
 
 
   // private constructor to ensure no instances are created
   private HealthHubSingleton(String Name) {
-    organizationName = Name;
+    this.organizationName = Name;
   }
 
 
@@ -23,7 +23,6 @@ public class HealthHubSingleton {
     else if (HealthHub != null) {
       throw new RuntimeException("Initialize should only be invoked once.");
     }
-
     HealthHub = new HealthHubSingleton(name);
   }
 
@@ -34,5 +33,10 @@ public class HealthHubSingleton {
           "The organization must be previously initialized before it can be accessed.");
     }
     return HealthHub;
+  }
+
+
+  public static boolean isOrganizationCreated(){
+    return HealthHub != null;
   }
 }

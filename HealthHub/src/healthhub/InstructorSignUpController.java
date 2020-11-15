@@ -1,4 +1,4 @@
-package Health_Hub;
+package healthhub;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 import javax.swing.*;
 import java.io.IOException;
 
-public class ClientSignUpViewController {
+public class InstructorSignUpController {
     @FXML
     private TextField Name;
     @FXML
@@ -27,6 +27,8 @@ public class ClientSignUpViewController {
     @FXML
     public void onSignUpButtonPushed(ActionEvent event) throws IOException {
         System.out.println("signUpButton Pushed");
+
+        // check that our inputs were properly entered
         String name = this.Name.getText();
         String birthDate = this.BirthDate.getText();
         String email = this.Email.getText();
@@ -38,7 +40,7 @@ public class ClientSignUpViewController {
             JOptionPane.showMessageDialog(null, "A Name is required");
         }
 
-        //regex matches dd-mm-yyy format
+        //regex will reject anything that doesn't match dd-mm-yyyy format
         else if(!(birthDate.length() > 0) || !birthDate.matches("^([0]?[1-9]|[1|2][0-9]|[3][0|1])[-]([0]?[1-9]" +
                 "|[1][0-2])[-]([0-9]{4}|[0-9]{2})$")){
             JOptionPane.showMessageDialog(null, "BirthDate is required to be an integer " +
@@ -60,12 +62,16 @@ public class ClientSignUpViewController {
             JOptionPane.showMessageDialog(null, "A Password is required");
         }
 
-//        //go to client package
-//        FXMLLoader loader = new FXMLLoader(getClass().getResource("SignUpOptionsPageView.fxml"));
-//        Parent root = loader.load();
-//        Scene newScene = new Scene(root);
-//        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//        stage.setScene(newScene);
-//        stage.show();
+        /*
+        ToDo:
+             change name for loader to the clients view
+         */
+        //go to client package
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("clientView.fxml"));
+        Parent root = loader.load();
+        Scene newScene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(newScene);
+        stage.show();
     }
 }
