@@ -12,6 +12,12 @@ public class LogInView extends Application {
       launch(args);
   }
 
+    /**
+     * This function starts up the logInView when the main method is called, opens the initial login view
+     *
+     * @param stage: fixed
+     * @throws Exception
+     */
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginView.fxml"));

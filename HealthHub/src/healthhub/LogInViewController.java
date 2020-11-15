@@ -31,12 +31,22 @@ public class LogInViewController {
     public HealthHubController healthHubController = new HealthHubController(null);
 
 
+    /**
+     * Function sets the values of the drop down menu (ComboBox) to the values of userTypeList
+     */
     @FXML
     public void initialize(){
         this.userTypeComboBox.setValue("");
         this.userTypeComboBox.setItems(userTypeList);
     }
 
+    /**
+     * Function switches to the gui window
+     *
+     * @param fxmlFileName: the .fxml file wanting to switch to
+     * @param event: the ActionEvent that occured
+     * @throws IOException: For the FXMLLoader .load() function
+     */
     public void gotoView(String fxmlFileName, ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
         Parent root = loader.load();
@@ -46,11 +56,24 @@ public class LogInViewController {
         stage.show();
     }
 
+    /**
+     * Function switches to the gui window upon the ActionEvent
+     *
+     * @param event: the ActionEvent that occured
+     * @throws IOException: For the FXMLLoader .load() function
+     */
     @FXML
     public void onSignUpButtonPushed(ActionEvent event) throws IOException {
         gotoView("SignUpOptionsPageView.fxml", event);
     }
 
+    /**
+     * Function gathers the username and password from the textboxes and, selection from the type of login, passes it
+     * to the controller and displays the proper message upon return or switches to the proper gui
+     *
+     * @param event: the ActionEvent that occured
+     * @throws IOException: For the FXMLLoader .load() function
+     */
     @FXML
     public void onLoginButtonPushed(ActionEvent event) throws IOException {
         String userType = (String) userTypeComboBox.getValue();

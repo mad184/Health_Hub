@@ -13,11 +13,20 @@ import javax.swing.JOptionPane;
 import java.io.IOException;
 
 public class ClientSignUpViewController {
+
     @FXML
     private TextField Name, BirthDate, Email, UserName, Password;
 
     public HealthHubController healthHubController = new HealthHubController(null);
 
+
+    /**
+     * This method take the text box entry from the ClientSignUpView, verifys it and then sends it to the healthHub
+     * Controller to be added to the database, Then switches the view to the clinets view
+     *
+     * @param event: The ActionEvent associated with the button clicked action
+     * @throws IOException: For the FXMLLoader .load() function
+     */
     @FXML
     public void onSignUpButtonPushed(ActionEvent event) throws IOException {
         System.out.println("signUpButton Pushed");
@@ -63,7 +72,7 @@ public class ClientSignUpViewController {
         //add the client
         healthHubController.addClient();
 
-        //go to client package
+        //go to client view
         /*
         ToDO:
             change .fxml file to the proper name for the client view

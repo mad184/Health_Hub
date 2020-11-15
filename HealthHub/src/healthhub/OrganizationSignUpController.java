@@ -20,6 +20,13 @@ public class OrganizationSignUpController {
 
     public HealthHubController healthHubController = new HealthHubController(null);
 
+    /**
+     * Function switches to the gui window
+     *
+     * @param fxmlFileName: the .fxml file wanting to switch to
+     * @param event: the ActionEvent that occured
+     * @throws IOException: For the FXMLLoader .load() function
+     */
     public void gotoView(String fxmlFileName, ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
         Parent root = loader.load();
@@ -29,6 +36,15 @@ public class OrganizationSignUpController {
         stage.show();
     }
 
+    /**
+     * When the Create Organization button is pressed,
+     *  - if the organization has already been created display a message and go back to the LoginView.fxml
+     *  - otherwise gather/check all the information from the textbox input, create the organization and go to the
+     *    owners view
+     *
+     * @param event: the ActionEvent that occured
+     * @throws IOException: for gotoView()
+     */
     @FXML
     public void onCreateOrganizationButtonPushed(ActionEvent event) throws IOException {
         if (HealthHubSingleton.isOrganizationCreated()) {

@@ -16,6 +16,13 @@ public class InstructorSignUpController {
     @FXML
     private TextField Name, BirthDate, Email, UserName, Password;
 
+
+    /**
+     * Gathers the information entered into the textboxes and
+     *
+     * @param event: the ActionEvent that occured
+     * @throws IOException: For the FXMLLoader .load() function
+     */
     @FXML
     public void onSignUpButtonPushed(ActionEvent event) throws IOException {
         System.out.println("signUpButton Pushed");
@@ -55,11 +62,20 @@ public class InstructorSignUpController {
         }
 
         /*
-        ToDo:
-             change name for loader to the clients view
+        ToDO:
+            - figure out addInstructor:
+               I shouldn't make a call to the staff package but there is not other way to add a instructor to the
+               database right now
          */
-        //go to client package
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("clientView.fxml"));
+        //add instructor()
+        HealthHubController.addInstructor();
+
+        /*
+        ToDo:
+             change name for loader to the Instructors view
+         */
+        //go to instructor view
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("InstructorView.fxml"));
         Parent root = loader.load();
         Scene newScene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
