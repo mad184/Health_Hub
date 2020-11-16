@@ -1,4 +1,4 @@
-package apiTests;
+package apiTests.unit;
 
 import API.APIManager;
 import API.FoodItem;
