@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="healthhub.SignUpOptionsPageController">
+    <children>
+        <Button layoutX="234.0" layoutY="108.0" mnemonicParsing="false" onAction="#onClientButtonPushed" text="I am a client" />
+        <Button layoutX="222.0" layoutY="187.0" mnemonicParsing="false" onAction="#onInstructorButtonPushed" text="I am a Instructor" />
+        <Button layoutX="232.0" layoutY="270.0" mnemonicParsing="false" onAction="#onOrganizationButtonPushed" text="Organization " />
+    </children>
+</AnchorPane>
