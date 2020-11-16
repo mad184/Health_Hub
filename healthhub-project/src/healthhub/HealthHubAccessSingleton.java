@@ -1,43 +1,43 @@
 package healthhub;
 
-public class HealthHubSingleton {
+import staff.Manager;
+
+public class HealthHubAccessSingleton {
 
   // attributes
-  private static HealthHubSingleton HealthHub = null;
+  private static HealthHub healthHubOrganization = null;
 
-  String organizationName;
 
 
   // private constructor to ensure no instances are created
-  private HealthHubSingleton(String Name) {
-    this.organizationName = Name;
+  private HealthHubAccessSingleton() {
   }
 
 
-  public static void newOrganziation(String name) {
+  public static void newOrganziation(String name, Manager owner) {
     //the organization must have a name
     if (name == null || name.equals("")) {
       throw new RuntimeException("The name of a ward cannot be null or empty.  " + "It is " + name);
     }
 
     // we can only only initialize the organization once
-    else if (HealthHub != null) {
+    else if (healthHubOrganization != null) {
       throw new RuntimeException("Initialize should only be invoked once.");
     }
-    HealthHub = new HealthHubSingleton(name);
+    healthHubOrganization = new HealthHub(name, owner);
   }
 
 
-  public static HealthHubSingleton getHealthHub() {
-    if (HealthHub == null) {
+  public static HealthHub getHealthHub() {
+    if (healthHubOrganization == null) {
       throw new RuntimeException(
           "The organization must be previously initialized before it can be accessed.");
     }
-    return HealthHub;
+    return healthHubOrganization;
   }
 
 
   public static boolean isOrganizationCreated(){
-    return HealthHub != null;
+    return healthHubOrganization != null;
   }
 }
