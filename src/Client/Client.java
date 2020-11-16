@@ -57,105 +57,16 @@ public class Client implements ClientInterface {
     this.snackFoods = snackFoods;
   }
 
-  // setters
-  @Override
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  @Override
-  public void setAge(int age) {
-    this.age = age;
-  }
-
-  @Override
-  public void setId(int id) {
-    this.id = id;
-  }
-
-  @Override
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-  @Override
-  public void setPhoneNum(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
-  }
-
-  @Override
-  public void setHeight(int height) {
-    this.height = height;
-  }
-
-  @Override
-  public void setWeight(int weight) {
-    this.weight = weight;
-  }
-
-  @Override
-  public void setWeightGoal(int goal) {
-    this.goalWeight = goal;
-  }
-
-  @Override
-  public void setCalGoal(int goal) { this.goalCals = goal; }
-
-  @Override
-  public void setCalories(int calories) {
-    this.calories = calories;
-  }
-
-  @Override
-  public void setAllergies(ArrayList<String> allergies) {
-    this.allergies = allergies;
-  }
-
-  @Override
-  public void setInstructor(String instructor) {
-    this.instructor = instructor;
-  }
-
-  @Override
-  public void setOrganization(String organization) {
-    this.organization = organization;
-  }
-
-  @Override
-  public void setComment(ArrayList<String> comment) {
-    this.comment = comment;
-  }
-
-  @Override
-  public void setProfilePicture(Image picture) {
-    this.profilePicture = picture;
-  }
-
-  @Override
-  public void setBreakfastFoods(ArrayList<FoodItem> breakfastFoods) {
-    this.breakfastFoods = breakfastFoods;
-  }
-
-  @Override
-  public void setLunchFoods(ArrayList<FoodItem> lunchFoods) {
-    this.lunchFoods = lunchFoods;
-  }
-
-  @Override
-  public void setDinnerFoods(ArrayList<FoodItem> dinnerFoods) {
-    this.dinnerFoods = dinnerFoods;
-  }
-
-  @Override
-  public void setSnackFoods(ArrayList<FoodItem> snackFoods) {
-    this.snackFoods = snackFoods;
-  }
-
-
   // getters
   @Override
   public String getName() {
     return this.name;
+  }
+
+  // setters
+  @Override
+  public void setName(String name) {
+    this.name = name;
   }
 
   @Override
@@ -164,8 +75,18 @@ public class Client implements ClientInterface {
   }
 
   @Override
+  public void setAge(int age) {
+    this.age = age;
+  }
+
+  @Override
   public int getId() {
     return this.id;
+  }
+
+  @Override
+  public void setId(int id) {
+    this.id = id;
   }
 
   @Override
@@ -174,8 +95,18 @@ public class Client implements ClientInterface {
   }
 
   @Override
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  @Override
   public String getPhoneNum() {
     return this.phoneNumber;
+  }
+
+  @Override
+  public void setPhoneNum(String phoneNumber) {
+    this.phoneNumber = phoneNumber;
   }
 
   @Override
@@ -184,8 +115,18 @@ public class Client implements ClientInterface {
   }
 
   @Override
+  public void setHeight(int height) {
+    this.height = height;
+  }
+
+  @Override
   public int getWeight() {
     return this.weight;
+  }
+
+  @Override
+  public void setWeight(int weight) {
+    this.weight = weight;
   }
 
   @Override
@@ -194,11 +135,28 @@ public class Client implements ClientInterface {
   }
 
   @Override
-  public int getCalGoal(){ return this.goalCals; }
+  public void setWeightGoal(int goal) {
+    this.goalWeight = goal;
+  }
+
+  @Override
+  public int getCalGoal() {
+    return this.goalCals;
+  }
+
+  @Override
+  public void setCalGoal(int goal) {
+    this.goalCals = goal;
+  }
 
   @Override
   public int getCalories() {
     return this.calories;
+  }
+
+  @Override
+  public void setCalories(int calories) {
+    this.calories = calories;
   }
 
   @Override
@@ -207,8 +165,18 @@ public class Client implements ClientInterface {
   }
 
   @Override
+  public void setAllergies(ArrayList<String> allergies) {
+    this.allergies = allergies;
+  }
+
+  @Override
   public String getInstructor() {
     return this.instructor;
+  }
+
+  @Override
+  public void setInstructor(String instructor) {
+    this.instructor = instructor;
   }
 
   @Override
@@ -217,8 +185,18 @@ public class Client implements ClientInterface {
   }
 
   @Override
+  public void setOrganization(String organization) {
+    this.organization = organization;
+  }
+
+  @Override
   public ArrayList<String> getComment() {
     return this.comment;
+  }
+
+  @Override
+  public void setComment(ArrayList<String> comment) {
+    this.comment = comment;
   }
 
   @Override
@@ -227,8 +205,18 @@ public class Client implements ClientInterface {
   }
 
   @Override
+  public void setProfilePicture(Image picture) {
+    this.profilePicture = picture;
+  }
+
+  @Override
   public ArrayList<FoodItem> getBreakfastFoods() {
     return this.breakfastFoods;
+  }
+
+  @Override
+  public void setBreakfastFoods(ArrayList<FoodItem> breakfastFoods) {
+    this.breakfastFoods = breakfastFoods;
   }
 
   @Override
@@ -237,13 +225,28 @@ public class Client implements ClientInterface {
   }
 
   @Override
+  public void setLunchFoods(ArrayList<FoodItem> lunchFoods) {
+    this.lunchFoods = lunchFoods;
+  }
+
+  @Override
   public ArrayList<FoodItem> getDinnerFoods() {
     return this.dinnerFoods;
   }
 
   @Override
+  public void setDinnerFoods(ArrayList<FoodItem> dinnerFoods) {
+    this.dinnerFoods = dinnerFoods;
+  }
+
+  @Override
   public ArrayList<FoodItem> getSnackFoods() {
     return this.snackFoods;
+  }
+
+  @Override
+  public void setSnackFoods(ArrayList<FoodItem> snackFoods) {
+    this.snackFoods = snackFoods;
   }
 
   @Override

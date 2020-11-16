@@ -32,9 +32,9 @@ public class ClientProgressViewController {
   // Progress bar for daily calorie intake progress
   @FXML private ProgressBar pBar = new ProgressBar();
 
-  public void setupScene(Client client) {
+  public void setupScene(ClientController client) {
     //Set controller to use current information for client
-    clientController.setModel(client);
+    clientController = client;
 
     //Set calorie labels to current values in client
     calorieLabel.setText(String.valueOf(clientController.getClientCals()));
@@ -60,7 +60,7 @@ public class ClientProgressViewController {
 
     // Gets main view controller and passes client to it
     ClientMainViewController viewController = loader.getController();
-    viewController.setupScene(clientController.getModel());
+    viewController.setupScene(clientController);
 
     Scene viewScene = new Scene(root);
     // Gets stage information

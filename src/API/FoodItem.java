@@ -5,7 +5,7 @@ public class FoodItem {
     private double servingAmount;
     private int calories;
 
-    public FoodItem(String foodName, double servingAmount, int calories){
+  public FoodItem(String foodName, double servingAmount, int calories) {
         this.foodName = foodName;
         this.calories = calories;
         this.servingAmount = servingAmount;

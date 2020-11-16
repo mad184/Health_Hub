@@ -7,85 +7,86 @@ import java.util.ArrayList;
 
 public interface ClientInterface {
 
-  // setters for client attributes
-  void setName(String name);
-
-  void setAge(int age);
-
-  void setId(int id);
-
-  void setEmail(String email);
-
-  void setPhoneNum(String phoneNumber);
-
-  void setHeight(int height);
-
-  void setWeight(int weight);
-
-  void setWeightGoal(int goal);
-
-  void setCalGoal(int goal);
-
-  void setCalories(int calories);
-
-  void setAllergies(ArrayList<String> allergies);
-
-  void setInstructor(String instructor);
-
-  void setOrganization(String organization);
-
-  void setComment(ArrayList<String> comment);
-
-  void setProfilePicture(Image picture);
-
-  void setBreakfastFoods(ArrayList<FoodItem> breakfastFoods);
-
-  void setLunchFoods(ArrayList<FoodItem> lunchFoods);
-
-  void setDinnerFoods(ArrayList<FoodItem> dinnerFoods);
-
-  void setSnackFoods(ArrayList<FoodItem> snackFoods);
-
-  // void controller(Controller);
-
   // getters for client
   String getName();
 
+  // setters for client attributes
+  void setName(String name);
+
   int getId();
+
+  void setId(int id);
 
   int getAge();
 
+  void setAge(int age);
+
   String getEmail();
+
+  void setEmail(String email);
 
   String getPhoneNum();
 
+  void setPhoneNum(String phoneNumber);
+
   int getHeight();
+
+  void setHeight(int height);
 
   int getWeight();
 
+  void setWeight(int weight);
+
   int getWeightGoal();
+
+  void setWeightGoal(int goal);
 
   int getCalGoal();
 
+  void setCalGoal(int goal);
+
   int getCalories();
+
+  // void controller(Controller);
+
+  void setCalories(int calories);
 
   ArrayList<String> getAllergies();
 
+  void setAllergies(ArrayList<String> allergies);
+
   String getInstructor();
 
+  void setInstructor(String instructor);
+
   String getOrganization();
+
+  void setOrganization(String organization);
+
   // void controller();
   ArrayList<String> getComment();
 
+  void setComment(ArrayList<String> comment);
+
   Image getProfilePicture();
+
+  void setProfilePicture(Image picture);
 
   ArrayList<FoodItem> getBreakfastFoods();
 
+  void setBreakfastFoods(ArrayList<FoodItem> breakfastFoods);
+
   ArrayList<FoodItem> getLunchFoods();
+
+  void setLunchFoods(ArrayList<FoodItem> lunchFoods);
 
   ArrayList<FoodItem> getDinnerFoods();
 
+  void setDinnerFoods(ArrayList<FoodItem> dinnerFoods);
+
   ArrayList<FoodItem> getSnackFoods();
+
+  void setSnackFoods(ArrayList<FoodItem> snackFoods);
 
   // Add food items to food arrays
   void addBreakfastFood(FoodItem foodItem);

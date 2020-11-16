@@ -1,6 +1,5 @@
 package Client.ClientView;
 
-import Client.Client;
 import Client.ClientController;
 import database.Dbms;
 import javafx.event.ActionEvent;
@@ -17,16 +16,13 @@ import java.util.ArrayList;
 
 public class ClientMainViewController {
 
+  // test client for gui testing purposes
+  public ClientController clientController = new ClientController(null);
   // Client information
   // Client unique Id
   private int clientId;
-
   // Database object (Currently setup to test db)
   private Dbms DB = new Dbms("Justyn", "Staff1", "Test-Justyn-Db", "testCollection");
-
-  // test client for gui testing purposes
-  public ClientController clientController = new ClientController(null);
-
   // UI
   // Label for client name
   @FXML private Label nameLabel = new Label();
@@ -37,9 +33,9 @@ public class ClientMainViewController {
   // Label for most recent client comments
   @FXML private Label commentLabel = new Label();
 
-  public void setupScene(Client client) {
+  public void setupScene(ClientController client) {
     // Sets client to client controller for scene
-    clientController.setModel(client);
+    clientController = client;
 
     // Changes name label to clients name
     nameLabel.setText(clientController.getClientName());
@@ -67,13 +63,13 @@ public class ClientMainViewController {
    * @throws IOException throws exception
    */
   public void onExerciseButtonPushed(ActionEvent event) throws IOException {
-    //Loads Scene for exercise view
+    // Loads Scene for exercise view
     FXMLLoader loader = new FXMLLoader(getClass().getResource("clientExerciseView.fxml"));
     Parent root = loader.load();
 
-    //Gets exercise view controller and passes client to it
+    // Gets exercise view controller and passes client to it
     ClientExerciseViewController viewController = loader.getController();
-    viewController.setupScene(clientController.getModel());
+    viewController.setupScene(clientController);
 
     Scene viewScene = new Scene(root);
     // Gets stage information
@@ -89,13 +85,13 @@ public class ClientMainViewController {
    * @throws IOException throws exception
    */
   public void onProgressButtonPushed(ActionEvent event) throws IOException {
-    //Loads Scene for progress view
+    // Loads Scene for progress view
     FXMLLoader loader = new FXMLLoader(getClass().getResource("clientProgressView.fxml"));
     Parent root = loader.load();
 
-    //Gets progress view controller and passes client to it
+    // Gets progress view controller and passes client to it
     ClientProgressViewController viewController = loader.getController();
-    viewController.setupScene(clientController.getModel());
+    viewController.setupScene(clientController);
 
     Scene viewScene = new Scene(root);
     // Gets stage information
@@ -111,13 +107,13 @@ public class ClientMainViewController {
    * @throws IOException throws exception
    */
   public void onNutrientButtonPushed(ActionEvent event) throws IOException {
-    //Loads Scene for nutrient view
+    // Loads Scene for nutrient view
     FXMLLoader loader = new FXMLLoader(getClass().getResource("clientNutrientView.fxml"));
     Parent root = loader.load();
 
-    //Gets nutrient view controller and passes client to it
+    // Gets nutrient view controller and passes client to it
     ClientNutrientViewController viewController = loader.getController();
-    viewController.setupScene(clientController.getModel());
+    viewController.setupScene(clientController);
 
     Scene viewScene = new Scene(root);
     // Gets stage information
@@ -133,13 +129,13 @@ public class ClientMainViewController {
    * @throws IOException throws exception
    */
   public void onProfileButtonPushed(ActionEvent event) throws IOException {
-    //Loads Scene for profile view
+    // Loads Scene for profile view
     FXMLLoader loader = new FXMLLoader(getClass().getResource("clientProfileView.fxml"));
     Parent root = loader.load();
 
-    //Gets profile view controller and passes client to it
+    // Gets profile view controller and passes client to it
     ClientProfileViewController viewController = loader.getController();
-    viewController.setupScene(clientController.getModel());
+    viewController.setupScene(clientController);
 
     Scene viewScene = new Scene(root);
     // Gets stage information
@@ -155,13 +151,13 @@ public class ClientMainViewController {
    * @throws IOException throws exception
    */
   public void onSettingsButtonPushed(ActionEvent event) throws IOException {
-    //Loads Scene for settings view
+    // Loads Scene for settings view
     FXMLLoader loader = new FXMLLoader(getClass().getResource("clientSettingsView.fxml"));
     Parent root = loader.load();
 
-    //Gets Setting view controller and passes client to it
+    // Gets Setting view controller and passes client to it
     ClientSettingsViewController viewController = loader.getController();
-    viewController.setupScene(clientController.getModel());
+    viewController.setupScene(clientController);
 
     Scene viewScene = new Scene(root);
     // Gets stage information
@@ -169,4 +165,4 @@ public class ClientMainViewController {
     window.setScene(viewScene);
     window.show();
   }
-  }
+}

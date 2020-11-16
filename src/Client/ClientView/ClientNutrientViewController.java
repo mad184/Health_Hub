@@ -1,6 +1,5 @@
 package Client.ClientView;
 
-import Client.Client;
 import Client.ClientController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -18,19 +17,19 @@ public class ClientNutrientViewController implements Initializable {
 
   public ClientController clientController = new ClientController(null);
 
-  public void setupScene(Client client){
-    clientController.setModel(client);
+  public void setupScene(ClientController client) {
+    clientController = client;
   }
 
   // Goes to main view scene when back button is pushed
   public void onBackButtonPressed(ActionEvent event) throws IOException {
-    //Loads Scene for main view
+    // Loads Scene for main view
     FXMLLoader loader = new FXMLLoader(getClass().getResource("clientMainView.fxml"));
     Parent root = loader.load();
 
-    //Gets main view controller and passes client to it
+    // Gets main view controller and passes client to it
     ClientMainViewController viewController = loader.getController();
-    viewController.setupScene(clientController.getModel());
+    viewController.setupScene(clientController);
 
     Scene viewScene = new Scene(root);
     // Gets stage information

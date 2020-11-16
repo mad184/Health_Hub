@@ -8,7 +8,6 @@ import database.JsonObjectException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -17,15 +16,8 @@ import javafx.scene.control.TextInputDialog;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class ClientSettingsViewController {
-
-  private ClientController clientController = new ClientController(null);
-
-  //DB object (Currently setup to test db)
-  Dbms DB = new Dbms("Justyn", "Staff1", "Test-Justyn-Db", "testCollection");
 
   // Label to display clients information
   @FXML public Label nameLabel = new Label();
@@ -34,15 +26,21 @@ public class ClientSettingsViewController {
   @FXML public Label weightGoalLabel = new Label();
   @FXML public Label calorieGoalLabel = new Label();
 
-  //Text inputs for editing client info
+  // Text inputs for editing client info
   @FXML public TextInputDialog nameInput = new TextInputDialog("Enter your new name");
   @FXML public TextInputDialog ageInput = new TextInputDialog("Enter your new age");
   @FXML public TextInputDialog heightInput = new TextInputDialog("Enter your new height in cm");
   @FXML public TextInputDialog weightGoalInput = new TextInputDialog("Enter your new weight goal in Kg");
   @FXML public TextInputDialog calorieGoalInput = new TextInputDialog("Enter your new calorie goal");
 
-  public void setupScene(Client client) {
-    clientController.setModel(client);
+  // DB object (Currently setup to test db)
+  Dbms DB = new Dbms("Justyn", "Staff1", "Test-Justyn-Db", "testCollection");
+
+  //Controller for Client
+  private ClientController clientController = new ClientController(null);
+
+  public void setupScene(ClientController client) {
+    clientController = client;
     nameLabel.setText(clientController.getClientName());
     ageLabel.setText(String.valueOf(clientController.getClientAge()));
     heightLabel.setText(String.valueOf(clientController.getClientHeight()) + "cm");
@@ -74,7 +72,8 @@ public class ClientSettingsViewController {
     DB.updateClient(clientController.getClientID(), clientController.clientToJson());
   }
 
-  public void onWeightGoalPressed(ActionEvent event) throws JsonObjectException, EmptyQueryException {
+  public void onWeightGoalPressed(ActionEvent event)
+      throws JsonObjectException, EmptyQueryException {
     weightGoalInput.showAndWait();
     String input = weightGoalInput.getEditor().getText();
     clientController.setClientGoalWeight(Integer.parseInt(input));
@@ -82,7 +81,8 @@ public class ClientSettingsViewController {
     DB.updateClient(clientController.getClientID(), clientController.clientToJson());
   }
 
-  public void onCalorieGoalPressed(ActionEvent event) throws JsonObjectException, EmptyQueryException {
+  public void onCalorieGoalPressed(ActionEvent event)
+      throws JsonObjectException, EmptyQueryException {
     calorieGoalInput.showAndWait();
     String input = calorieGoalInput.getEditor().getText();
     clientController.setClientGoalCals(Integer.parseInt(input));
@@ -98,7 +98,7 @@ public class ClientSettingsViewController {
 
     // Gets main view controller and passes client to it
     ClientMainViewController viewController = loader.getController();
-    viewController.setupScene(clientController.getModel());
+    viewController.setupScene(clientController);
 
     Scene viewScene = new Scene(root);
     // Gets stage information
@@ -106,5 +106,4 @@ public class ClientSettingsViewController {
     window.setScene(viewScene);
     window.show();
   }
-  }
-
+}
