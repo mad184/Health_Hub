@@ -87,4 +87,15 @@ public class OwnerModel extends ManagerModel implements OwnerInterface {
     json.put("Managers", this.managers);
     return json;
   }
+
+  /**
+   * Gets the information about a Manager from the database.
+   *
+   * @param manager: UserID of the Manager
+   * @return JSONObject representation of the Manager
+   */
+  @Override
+  public JSONObject getManagerInfo(UserID manager) {
+    return this.db.readManagerInfo(manager.getId());
+  }
 }

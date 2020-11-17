@@ -1,5 +1,7 @@
 package staff;
 
+import org.json.JSONObject;
+
 import java.util.List;
 
 /** An interface for Owner users */
@@ -25,4 +27,12 @@ public interface OwnerInterface {
    * @param manager: UserID of the Manager
    */
   public void removeManager(UserID manager);
+
+  /**
+   * Gets the information about a Manager from the database.
+   *
+   * @param manager: UserID of the Manager
+   * @return JSONObject representation of the Manager
+   */
+  public JSONObject getManagerInfo(UserID manager);
 }
