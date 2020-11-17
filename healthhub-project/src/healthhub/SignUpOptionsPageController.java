@@ -13,23 +13,6 @@ import java.io.IOException;
 public class SignUpOptionsPageController {
 
     /**
-     * Function switches to the gui window
-     *
-     * @param fxmlFileName: the .fxml file wanting to switch to
-     * @param event: the ActionEvent that occured
-     * @throws IOException: For the FXMLLoader .load() function
-     */
-    public void gotoView(String fxmlFileName, ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
-        Parent root = loader.load();
-        Scene newScene = new Scene(root);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(newScene);
-        stage.show();
-    }
-
-
-    /**
      * Switches view to the corresponding view based on an action event
      *
      * @param event: ActionEvent when the button is clicked
@@ -37,7 +20,7 @@ public class SignUpOptionsPageController {
      */
     @FXML
     public void onClientButtonPushed(ActionEvent event) throws IOException {
-        gotoView("ClientSignUpView.fxml", event);
+        View.goToView("ClientSignUpView.fxml", event);
     }
 
 
@@ -49,7 +32,7 @@ public class SignUpOptionsPageController {
      */
     @FXML
     public void onInstructorButtonPushed(ActionEvent event) throws IOException {
-        gotoView("InstructorSignUpView.fxml", event);
+        View.goToView("InstructorSignUpView.fxml", event);
     }
 
 
@@ -61,6 +44,6 @@ public class SignUpOptionsPageController {
      */
     @FXML
     public void onOrganizationButtonPushed(ActionEvent event) throws IOException {
-        gotoView("OrganizationSignUpView.fxml", event);
+        View.goToView("OrganizationSignUpView.fxml", event);
     }
 }

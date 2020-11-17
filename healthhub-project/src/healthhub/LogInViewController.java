@@ -40,21 +40,6 @@ public class LogInViewController {
         this.userTypeComboBox.setItems(userTypeList);
     }
 
-    /**
-     * Function switches to the gui window
-     *
-     * @param fxmlFileName: the .fxml file wanting to switch to
-     * @param event: the ActionEvent that occured
-     * @throws IOException: For the FXMLLoader .load() function
-     */
-    public void gotoView(String fxmlFileName, ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
-        Parent root = loader.load();
-        Scene newScene = new Scene(root);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(newScene);
-        stage.show();
-    }
 
     /**
      * Function switches to the gui window upon the ActionEvent
@@ -64,7 +49,7 @@ public class LogInViewController {
      */
     @FXML
     public void onSignUpButtonPushed(ActionEvent event) throws IOException {
-        gotoView("SignUpOptionsPageView.fxml", event);
+        View.goToView("SignUpOptionsPageView.fxml", event);
     }
 
     /**
@@ -88,10 +73,10 @@ public class LogInViewController {
                 change .fxml file names to proper file names
              */
             switch (userType) {
-                case "Client" -> gotoView("ClientView.fxml", event);
-                case "Instructor" -> gotoView("InstructorView.fxml", event);
-                case "Manager" -> gotoView("ManagerView.fxml", event);
-                case "Owner" -> gotoView("OwnerView.fxml", event);
+                case "Client" -> View.goToView("ClientView.fxml", event);
+                case "Instructor" -> View.goToView("InstructorView.fxml", event);
+                case "Manager" -> View.goToView("ManagerView.fxml", event);
+                case "Owner" -> View.goToView("OwnerView.fxml", event);
             }
         }
         // send account not found to LogInView

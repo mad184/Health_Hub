@@ -1,5 +1,6 @@
 package healthhub;
 
+import com.jcraft.jsch.IO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,20 +21,11 @@ public class OrganizationSignUpController {
 
     public HealthHubController healthHubController = new HealthHubController(null);
 
-    /**
-     * Function switches to the gui window
-     *
-     * @param fxmlFileName: the .fxml file wanting to switch to
-     * @param event: the ActionEvent that occured
-     * @throws IOException: For the FXMLLoader .load() function
-     */
-    public void gotoView(String fxmlFileName, ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
-        Parent root = loader.load();
-        Scene newScene = new Scene(root);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(newScene);
-        stage.show();
+
+
+    @FXML
+    public void goBackButtonPushed(ActionEvent event) throws IOException{
+        View.goToView("SignUpOptionsPageView.fxml",event);
     }
 
     /**
@@ -49,7 +41,7 @@ public class OrganizationSignUpController {
     public void onCreateOrganizationButtonPushed(ActionEvent event) throws IOException {
         if (HealthHubAccessSingleton.isOrganizationCreated()) {
             JOptionPane.showMessageDialog(null, "Organization has already been created");
-            gotoView("LoginView.fxml", event);
+            View.goToView("LoginView.fxml", event);
         }
         else{
             // check that our inputs were properly entered
@@ -102,7 +94,7 @@ public class OrganizationSignUpController {
             ToDO:
              - go to The Owners View, not sure of the fileName yet
              */
-            gotoView("OwnerView.fxml", event);
+            View.goToView("OwnerView.fxml", event);
         }
     }
 }

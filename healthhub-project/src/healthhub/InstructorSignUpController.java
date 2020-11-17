@@ -75,11 +75,6 @@ public class InstructorSignUpController {
              change name for loader to the Instructors view
          */
         //go to instructor view
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("InstructorView.fxml"));
-        Parent root = loader.load();
-        Scene newScene = new Scene(root);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(newScene);
-        stage.show();
+        View.goToView("InstructorView.fxml", event);
     }
 }

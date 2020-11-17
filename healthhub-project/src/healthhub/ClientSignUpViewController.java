@@ -77,11 +77,6 @@ public class ClientSignUpViewController {
         ToDO:
             change .fxml file to the proper name for the client view
          */
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("ClientView.fxml"));
-        Parent root = loader.load();
-        Scene newScene = new Scene(root);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(newScene);
-        stage.show();
+        View.goToView("ClientView.fxml", event);
     }
 }
