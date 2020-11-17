@@ -68,7 +68,7 @@ public class InstructorSignUpController {
                database right now
          */
         //add instructor()
-        HealthHubController.addInstructor();
+//        HealthHubController.addInstructor();
 
         /*
         ToDo:

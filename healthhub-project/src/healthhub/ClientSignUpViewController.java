@@ -70,7 +70,7 @@ public class ClientSignUpViewController {
                database right now
          */
         //add the client
-        healthHubController.addClient();
+//        healthHubController.addClient();
 
         //go to client view
         /*
