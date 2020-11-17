@@ -6,9 +6,18 @@ public class HealthHub {
     String organizationName;
     Manager owner;
 
-    public HealthHub(String organizationName, Manager owner){
+    protected HealthHub(String organizationName, Manager owner){
         this.organizationName = organizationName;
         this.owner = owner;
     }
+
+    protected String getOrganizationName(){
+        return this.organizationName;
+    }
+
+    protected Manager getOwner(){
+        return this.owner;
+    }
+
 
 }
