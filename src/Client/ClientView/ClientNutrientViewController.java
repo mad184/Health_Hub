@@ -1,12 +1,16 @@
 package Client.ClientView;
 
 import Client.ClientController;
+import Client.ClientView.FoodSearchView.FoodSearchViewController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -15,7 +19,7 @@ import java.util.ResourceBundle;
 
 public class ClientNutrientViewController implements Initializable {
 
-  public ClientController clientController = new ClientController(null);
+  private ClientController clientController = new ClientController(null);
 
   public void setupScene(ClientController client) {
     clientController = client;
@@ -37,6 +41,26 @@ public class ClientNutrientViewController implements Initializable {
     window.setScene(viewScene);
     window.show();
   }
+
+    public void foodSearch(ActionEvent event) throws IOException {
+      // Load food search scene
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("FoodSearchView/foodSearchView.fxml"));
+      Parent root = loader.load();
+
+      // Get controller for search scene
+      FoodSearchViewController viewController = loader.getController();
+      // setup scene
+      viewController.setupScene(clientController);
+
+      //Create popup window/stage and make it a sub-window of the main stage
+      final Stage foodSearchStage = new Stage();
+      foodSearchStage.initModality(Modality.APPLICATION_MODAL);
+      foodSearchStage.initOwner((Stage) ((Node) event.getSource()).getScene().getWindow());
+
+      Scene foodSearchScene = new Scene(root, 300, 200);
+      foodSearchStage.setScene(foodSearchScene);
+      foodSearchStage.show();
+    }
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {}

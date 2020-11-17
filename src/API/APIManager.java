@@ -73,7 +73,7 @@ public class APIManager {
   private FoodItem jsonFieldsToFoodItem(JSONObject json) {
     return new FoodItem(
         json.getString("item_name"),
-        json.getDouble("nf_calories"),
-        json.getInt("nf_serving_size_qty"));
+            json.getInt("nf_serving_size_qty"),
+        json.getInt("nf_calories"));
   }
 }
