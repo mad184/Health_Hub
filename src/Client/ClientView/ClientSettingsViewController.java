@@ -1,7 +1,7 @@
 package Client.ClientView;
 
-import Client.Client;
 import Client.ClientController;
+import Client.ClientToDB;
 import database.Dbms;
 import database.EmptyQueryException;
 import database.JsonObjectException;
@@ -30,13 +30,17 @@ public class ClientSettingsViewController {
   @FXML public TextInputDialog nameInput = new TextInputDialog("Enter your new name");
   @FXML public TextInputDialog ageInput = new TextInputDialog("Enter your new age");
   @FXML public TextInputDialog heightInput = new TextInputDialog("Enter your new height in cm");
-  @FXML public TextInputDialog weightGoalInput = new TextInputDialog("Enter your new weight goal in Kg");
-  @FXML public TextInputDialog calorieGoalInput = new TextInputDialog("Enter your new calorie goal");
+
+  @FXML
+  public TextInputDialog weightGoalInput = new TextInputDialog("Enter your new weight goal in Kg");
+
+  @FXML
+  public TextInputDialog calorieGoalInput = new TextInputDialog("Enter your new calorie goal");
 
   // DB object (Currently setup to test db)
-  Dbms DB = new Dbms("Justyn", "Staff1", "Test-Justyn-Db", "testCollection");
+  ClientToDB DB = new ClientToDB();
 
-  //Controller for Client
+  // Controller for Client
   private ClientController clientController = new ClientController(null);
 
   public void setupScene(ClientController client) {
