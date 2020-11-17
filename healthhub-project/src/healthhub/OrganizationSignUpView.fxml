@@ -4,9 +4,9 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
+
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="healthhub.OrganizationSignUpController">
     <children>
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2a0033" height="400.0" stroke="BLACK" strokeType="INSIDE" width="600.0" />
@@ -25,7 +25,7 @@
                 <Font size="14.0" />
             </font>
         </Label>
-        <Label layoutX="86.0" layoutY="227.0" prefHeight="32.0" prefWidth="118.0" text="Owner UserName" textFill="#c9c1c1">
+        <Label layoutX="72.0" layoutY="227.0" prefHeight="32.0" prefWidth="132.0" text="Owner UserName" textFill="#c9c1c1">
             <font>
                 <Font size="14.0" />
             </font>
@@ -40,11 +40,7 @@
         <TextField fx:id="Email" layoutX="217.0" layoutY="174.0" />
         <TextField fx:id="UserName" layoutX="217.0" layoutY="227.0" />
         <TextField fx:id="Password" layoutX="217.0" layoutY="280.0" />
-        <Button layoutX="226.0" layoutY="323.0" mnemonicParsing="false" onAction="#onCreateOrganizationButtonPushed"
-                prefHeight="33.0" prefWidth="180.0" style="-fx-border-color: #9643A9; -fx-border-radius: 10;
-                -fx-background-color: #2A0033; -fx-background-radius: 10;" text="Create Organization"  textFill="#ddd9d9"
-
-        />
+        <Button layoutX="303.0" layoutY="323.0" mnemonicParsing="false" onAction="#onCreateOrganizationButtonPushed" prefHeight="33.0" prefWidth="180.0" style="-fx-border-color: #9643A9; -fx-border-radius: 10;                 -fx-background-color: #2A0033; -fx-background-radius: 10;" text="Create Organization" textFill="#ddd9d9" />
 
         <TextField fx:id="organizationName" layoutX="217.0" layoutY="15.0" />
 
@@ -53,5 +49,6 @@
               <Font size="14.0" />
           </font>
       </Label>
+      <Button layoutX="108.0" layoutY="323.0" mnemonicParsing="false" onAction="#backButtonPushed" prefHeight="33.0" prefWidth="180.0" style="-fx-border-color: #9643A9; -fx-border-radius: 10;                 -fx-background-color: #2A0033; -fx-background-radius: 10;" text="Back" textFill="#ddd9d9" />
     </children>
 </AnchorPane>

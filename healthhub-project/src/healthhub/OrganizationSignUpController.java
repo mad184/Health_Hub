@@ -22,9 +22,14 @@ public class OrganizationSignUpController {
     public HealthHubController healthHubController = new HealthHubController(null);
 
 
-
+    /**
+     * Goes to the back to the previous defined page SignUpOptionsPageView.fxml
+     *
+     * @param event: the ActionEvent that occured
+     * @throws IOException: for View.gotoView()
+     */
     @FXML
-    public void goBackButtonPushed(ActionEvent event) throws IOException{
+    public void backButtonPushed(ActionEvent event) throws IOException{
         View.goToView("SignUpOptionsPageView.fxml",event);
     }
 
@@ -35,7 +40,7 @@ public class OrganizationSignUpController {
      *    owners view
      *
      * @param event: the ActionEvent that occured
-     * @throws IOException: for gotoView()
+     * @throws IOException: for View.gotoView()
      */
     @FXML
     public void onCreateOrganizationButtonPushed(ActionEvent event) throws IOException {
