@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+
+<AnchorPane prefHeight="267.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.ClientView.FoodSearchView.foodTypeSelectViewController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2a0033" height="267.0" stroke="BLACK" strokeType="INSIDE" width="400.0" />
+   </children>
+</AnchorPane>
