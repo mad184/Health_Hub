@@ -35,7 +35,19 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
       String password,
       String dbName,
       String tableName) {
-    super(name, age, email, phoneNumber, height, weight, organization, id, username, password, dbName, tableName);
+    super(
+        name,
+        age,
+        email,
+        phoneNumber,
+        height,
+        weight,
+        organization,
+        id,
+        username,
+        password,
+        dbName,
+        tableName);
     this.clients = clients;
   }
 
@@ -91,7 +103,8 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
     ClientInterface clientObj = this.getClientInfo(client);
     List<String> comments = clientObj.getComment();
     comments.add(comment);
-    // TODO: Write the Client object back to the Database
+    JSONObject clientJson = clientObj.toJson(); // TODO: Verify with Client package
+    this.db.updateClientInfo(client.getId(), clientJson);
   }
 
   /**
@@ -105,8 +118,8 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
     ClientInterface clientObj = this.getClientInfo(client);
     List<String> comments = clientObj.getComment();
     comments.remove(comment);
-    this.db.updateClientInfo(clientObj);
-    // TODO: Write the Client back to the Database
+    JSONObject clientJson = clientObj.toJson(); // TODO: Verify with client package
+    this.db.updateClientInfo(client.getId(), clientJson);
   }
 
   /**
@@ -118,7 +131,7 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
   @Override
   public ClientInterface getClientInfo(UserID client) {
     JSONObject clientJson = this.db.readClientData(client.getId());
-    return Client.fromJson(clientJson);
+    return Client.fromJson(clientJson); // TODO: Verify with Client package
   }
 
   /**
