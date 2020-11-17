@@ -57,8 +57,8 @@
             <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
                <children>
                   <Button alignment="CENTER" mnemonicParsing="false" onAction="#topResultAddButton" prefHeight="33.0" prefWidth="33.0" style="-fx-border-color: #9643a9; -fx-border-radius: 30; -fx-background-color: #2a0033; -fx-background-radius: 30;" text="+" textFill="#9643a9" />
-                  <Button alignment="CENTER" layoutX="19.0" layoutY="10.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="33.0" style="-fx-border-color: #9643a9; -fx-border-radius: 30; -fx-background-color: #2a0033; -fx-background-radius: 30;" text="+" textFill="#9643a9" />
-                  <Button alignment="CENTER" layoutX="19.0" layoutY="29.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="33.0" style="-fx-border-color: #9643a9; -fx-border-radius: 30; -fx-background-color: #2a0033; -fx-background-radius: 30;" text="+" textFill="#9643a9" />
+                  <Button alignment="CENTER" layoutX="19.0" layoutY="10.0" mnemonicParsing="false" onAction="#secondResultAddButton" prefHeight="33.0" prefWidth="33.0" style="-fx-border-color: #9643a9; -fx-border-radius: 30; -fx-background-color: #2a0033; -fx-background-radius: 30;" text="+" textFill="#9643a9" />
+                  <Button alignment="CENTER" layoutX="19.0" layoutY="29.0" mnemonicParsing="false" onAction="#thirdResultAddButton" prefHeight="33.0" prefWidth="33.0" style="-fx-border-color: #9643a9; -fx-border-radius: 30; -fx-background-color: #2a0033; -fx-background-radius: 30;" text="+" textFill="#9643a9" />
                </children>
                <HBox.margin>
                   <Insets />
