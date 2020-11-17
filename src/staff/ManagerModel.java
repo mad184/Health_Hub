@@ -77,6 +77,16 @@ public class ManagerModel extends StaffModel implements ManagerInterface {
   }
 
   /**
+   * Gets the instructor information from the Database.
+   *
+   * @param instructor : UserID of the Instructor
+   */
+  @Override
+  public JSONObject getInstructorInfo(UserID instructor) {
+    return this.db.readInstructorData(instructor.getId());
+  }
+
+  /**
    * Converts the ManagerModel to a JSON representation.
    *
    * @return JSON representation of a Manager
