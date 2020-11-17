@@ -1,5 +1,7 @@
 package staff;
 
+import org.json.JSONObject;
+
 import java.util.List;
 
 public interface InstructorInterface {
@@ -50,5 +52,5 @@ public interface InstructorInterface {
    * @param client: Client to fetch
    * @return Information about the Client
    */
-  ClientInterface getClientInfo(UserID client);
+  JSONObject getClientInfo(UserID client);
 }
