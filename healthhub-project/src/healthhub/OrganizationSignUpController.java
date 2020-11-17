@@ -15,7 +15,7 @@ import java.io.IOException;
 public class OrganizationSignUpController {
 
     @FXML
-    private TextField Name, BirthDate, Email, UserName, Password;
+    private TextField organizationName, ownerName, BirthDate, Email, UserName, Password;
 
 
     public HealthHubController healthHubController = new HealthHubController(null);
@@ -53,14 +53,15 @@ public class OrganizationSignUpController {
         }
         else{
             // check that our inputs were properly entered
-            String name = this.Name.getText();
+            String organizationName = this.organizationName.getText();
+            String ownerName = this.ownerName.getText();
             String birthDate = this.BirthDate.getText();
             String email = this.Email.getText();
             String userName = this.UserName.getText();
             String passWord = this.Password.getText();
 
             //regex looks for any number of white space
-            if(!(name.length() > 0) || name.matches("^ *$")){
+            if(!(ownerName.length() > 0) || ownerName.matches("^ *$")){
                 JOptionPane.showMessageDialog(null, "A Name is required");
             }
 
@@ -93,7 +94,7 @@ public class OrganizationSignUpController {
                database right now
              */
 //              Owner owner = new Owner();
-//            healthHubController.createOrganization("test", owner);
+//            healthHubController.createOrganization(organizationName, owner);
 //            healthHubController.addManager();
 
 
