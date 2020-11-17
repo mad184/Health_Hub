@@ -16,6 +16,17 @@ public class InstructorSignUpController {
     @FXML
     private TextField Name, BirthDate, Email, UserName, Password;
 
+    /**
+     * Goes to the back to the previous defined page SignUpOptionsPageView.fxml
+     *
+     * @param event: the ActionEvent that occured
+     * @throws IOException: for View.gotoView()
+     */
+    @FXML
+    public void backButtonPushed(ActionEvent event) throws IOException{
+        View.goToView("LoginView.fxml",event);
+    }
+
 
     /**
      * Gathers the information entered into the textboxes and
