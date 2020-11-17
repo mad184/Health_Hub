@@ -13,6 +13,7 @@ public class StaffModel implements StaffInterface {
   private int weight;
   private String organization;
   private int id;
+  private Dbms db;
 
   /**
    * Constructs a new StaffModel object.
@@ -34,7 +35,12 @@ public class StaffModel implements StaffInterface {
       int height,
       int weight,
       String organization,
-      int id) {
+      int id,
+      String username,  // For connection to Dbms
+      String password,  // For connection to Dbms
+      String dbName,    // For connection to Dbms
+      String tableName  // For connection to Dbms
+      ) {
     this.name = name;
     this.age = age;
     this.email = email;
@@ -43,6 +49,7 @@ public class StaffModel implements StaffInterface {
     this.weight = weight;
     this.organization = organization;
     this.id = id;
+    this.db = new Dbms(username, password, dbName, tableName);
   }
 
   /**
@@ -53,6 +60,7 @@ public class StaffModel implements StaffInterface {
    */
   static StaffModel fromJson(JSONObject staff) {
     Gson converter = new Gson();
+    System.out.println(String.valueOf(staff));
     return converter.fromJson(String.valueOf(staff), StaffModel.class);
   }
 
@@ -204,6 +212,14 @@ public class StaffModel implements StaffInterface {
   @Override
   public void setOrganization(String orgName) {
     this.organization = orgName;
+  }
+
+  /**
+   * Setter for the Database connection.
+   * @param db: Database
+   */
+  private void setDbms(Dbms db) {
+    this.db = db;
   }
 
   /**
