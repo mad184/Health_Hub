@@ -9,7 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 
-public class foodTypeSelectViewController {
+public class FoodTypeSelectViewController {
   // Database connection
   ClientToDB DB = new ClientToDB();
 

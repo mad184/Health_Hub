@@ -3,7 +3,6 @@ package Client.ClientView.FoodSearchView;
 import API.APIManager;
 import API.FoodItem;
 import Client.ClientController;
-import Client.ClientView.ClientMainViewController;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -75,7 +74,7 @@ public class FoodSearchViewController {
     Parent root = loader.load();
 
     // Gets main view controller and passes client to it
-    foodTypeSelectViewController viewController = loader.getController();
+    FoodTypeSelectViewController viewController = loader.getController();
     viewController.setupScene(clientController, food);
 
     Scene viewScene = new Scene(root);
