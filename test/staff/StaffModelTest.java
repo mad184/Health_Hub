@@ -1,5 +1,6 @@
 package staff;
 
+import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -113,5 +114,30 @@ public class StaffModelTest {
   public void testSetOrganization() {
     staff.setOrganization("GloboGym");
     assertEquals("GloboGym", staff.getOrganization());
+  }
+
+  /**
+   * Tests conversion from JSONObject to StaffModel instance.
+   */
+  @Test
+  public void testFromJson() {
+    JSONObject json = new JSONObject();
+    json.put("Name", "John");
+    json.put("Age", 50);
+    json.put("Email", "abc123@usask.ca");
+    json.put("Phone Number", "306-123-4567");
+    json.put("Height", 200);
+    json.put("Weight", 199);
+    json.put("Organization", "GloboGym");
+    json.put("ID", 1);
+    StaffModel staff2 = StaffModel.fromJson(json);
+    assertEquals(staff.getName(), staff2.getName());
+    assertEquals(staff.getAge(), staff2.getAge());
+    assertEquals(staff.getEmail(), staff2.getEmail());
+    assertEquals(staff.getPhoneNumber(), staff2.getPhoneNumber());
+    assertEquals(staff.getHeight(), staff2.getHeight());
+    assertEquals(staff.getWeight(), staff2.getWeight());
+    assertEquals(staff.getOrganization(), staff2.getOrganization());
+    assertEquals(staff.getId(), staff2.getId());
   }
 }
