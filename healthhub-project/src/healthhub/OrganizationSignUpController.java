@@ -47,7 +47,7 @@ public class OrganizationSignUpController {
      */
     @FXML
     public void onCreateOrganizationButtonPushed(ActionEvent event) throws IOException {
-        if (HealthHubSingleton.isOrganizationCreated()) {
+        if (HealthHubAccessSingleton.isOrganizationCreated()) {
             JOptionPane.showMessageDialog(null, "Organization has already been created");
             gotoView("LoginView.fxml", event);
         }
@@ -92,7 +92,8 @@ public class OrganizationSignUpController {
                I shouldn't make a call to the staff package but there is not other way to add a manager to the
                database right now
              */
-            healthHubController.createOrganization("test");
+//              Owner owner = new Owner();
+//            healthHubController.createOrganization("test", owner);
 //            healthHubController.addManager();
 
 
