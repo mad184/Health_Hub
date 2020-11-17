@@ -13,7 +13,7 @@ public class StaffModel implements StaffInterface {
   private int weight;
   private String organization;
   private int id;
-  private Dbms db;
+  protected Dbms db;
 
   /**
    * Constructs a new StaffModel object.
