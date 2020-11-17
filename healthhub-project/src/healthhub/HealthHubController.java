@@ -7,7 +7,7 @@ import staff.Manager;
 public class HealthHubController {
     private static HealthHubModel model;
 
-    private static HealthHubSingleton healthHubSingleton;
+    private static HealthHubAccessSingleton healthHub;
 
     //constructor takes the model
     public HealthHubController(HealthHubModel model){
@@ -16,7 +16,7 @@ public class HealthHubController {
 
     /**
      * Makes call the model to pass it the client created
-     * @param Client: of type Client
+     * @param client: of type Client
      */
     protected void addClient(Client client){
         model.addClient(client);
@@ -46,9 +46,9 @@ public class HealthHubController {
      *     true -> the organization has been created
      *     false -> the organziation has already been created
      */
-    protected boolean createOrganization(String name){
+    protected boolean createOrganization(String name, Manager owner){
         try{
-            HealthHubSingleton.newOrganziation(name);
+            HealthHubAccessSingleton.newOrganziation(name, owner);
             return true;
         }
         catch(RuntimeException e){
