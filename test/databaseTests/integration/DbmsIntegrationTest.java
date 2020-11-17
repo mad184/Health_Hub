@@ -2,8 +2,8 @@ package databaseTests.integration;
 
 import com.mongodb.MongoWriteException;
 import database.Dbms;
-import database.EmptyQueryException;
 import database.JsonObjectException;
+import database.EmptyQueryException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
