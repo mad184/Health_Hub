@@ -2,11 +2,16 @@ package Client.ClientView.FoodSearchView;
 
 import API.FoodItem;
 import Client.ClientController;
+import Client.ClientToDB;
+import database.EmptyQueryException;
+import database.JsonObjectException;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 
 public class foodTypeSelectViewController {
+  // Database connection
+  ClientToDB DB = new ClientToDB();
 
   // Controller for client
   private ClientController clientController = new ClientController(null);
@@ -30,8 +35,10 @@ public class foodTypeSelectViewController {
    *
    * @param event breakfast button clicked
    */
-  public void breakfastButtonPressed(ActionEvent event) {
+  public void breakfastButtonPressed(ActionEvent event)
+      throws JsonObjectException, EmptyQueryException {
     clientController.addClientBreakfastFood(food);
+    DB.updateClient(clientController.getClientID(), clientController.clientToJson());
     closeWindow(event);
   }
 
@@ -40,8 +47,10 @@ public class foodTypeSelectViewController {
    *
    * @param event lunch button clicked
    */
-  public void lunchButtonPressed(ActionEvent event) {
+  public void lunchButtonPressed(ActionEvent event)
+      throws JsonObjectException, EmptyQueryException {
     clientController.addClientLunchFood(food);
+    DB.updateClient(clientController.getClientID(), clientController.clientToJson());
     closeWindow(event);
   }
 
@@ -50,8 +59,10 @@ public class foodTypeSelectViewController {
    *
    * @param event dinner button clicked
    */
-  public void dinnerButtonPressed(ActionEvent event) {
+  public void dinnerButtonPressed(ActionEvent event)
+      throws JsonObjectException, EmptyQueryException {
     clientController.addClientDinnerFood(food);
+    DB.updateClient(clientController.getClientID(), clientController.clientToJson());
     closeWindow(event);
   }
 
@@ -60,8 +71,10 @@ public class foodTypeSelectViewController {
    *
    * @param event snack button clicked
    */
-  public void snackButtonPressed(ActionEvent event) {
+  public void snackButtonPressed(ActionEvent event)
+      throws JsonObjectException, EmptyQueryException {
     clientController.addClientSnackFood(food);
+    DB.updateClient(clientController.getClientID(), clientController.clientToJson());
     closeWindow(event);
   }
 
