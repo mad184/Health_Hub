@@ -5,16 +5,34 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="healthhub.LogInViewController">
    <children>
-      <Label layoutX="125.0" layoutY="93.0" prefHeight="30.0" prefWidth="102.0" text="UserName" />
-      <Label layoutX="125.0" layoutY="126.0" prefHeight="32.0" prefWidth="98.0" text="PassWord" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2a0033" height="400.0" stroke="BLACK" strokeType="INSIDE" width="600.0" />
+      <Label layoutX="125.0" layoutY="93.0" prefHeight="30.0" prefWidth="102.0" style="-fx-font: 14;" text="UserName" textFill="#c9c1c1">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="125.0" layoutY="132.0" prefHeight="32.0" prefWidth="98.0" text="PassWord" textFill="#c9c1c1">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
       <TextField fx:id="userName" layoutX="226.0" layoutY="95.0" />
-      <TextField fx:id="passWord" layoutX="226.0" layoutY="129.0" />
-      <Button layoutX="273.0" layoutY="238.0" mnemonicParsing="false" onAction="#onLoginButtonPushed" text="LogIn" />
-      <Button layoutX="266.0" layoutY="320.0" mnemonicParsing="false" onAction="#onSignUpButtonPushed" text="Sign Up" />
+      <TextField fx:id="passWord" layoutX="226.0" layoutY="132.0" />
+
+      <Button layoutX="273.0" layoutY="238.0" mnemonicParsing="false" onAction="#onLoginButtonPushed" prefHeight="33.0"
+              prefWidth="57.0" style="-fx-border-color: #9643A9; -fx-border-radius: 10; -fx-background-color: #2A0033;
+               -fx-background-radius: 10;" text="LogIn" textFill="#ddd9d9" />
+
+      <Button layoutX="266.0" layoutY="320.0" mnemonicParsing="false" onAction="#onSignUpButtonPushed"
+              prefHeight="33.0" prefWidth="75.0" style="-fx-border-color: #9643A9; -fx-border-radius: 10;
+              -fx-background-color: #2A0033; -fx-background-radius: 10;" text="Sign Up" textFill="#ddd9d9" />
+
       <ComboBox fx:id="userTypeComboBox" layoutX="226.0" layoutY="174.0" prefHeight="26.0" prefWidth="171.0" />
-      <Label layoutX="125.0" layoutY="171.0" prefHeight="32.0" prefWidth="98.0" text="Type of User" />
+      <Label layoutX="125.0" layoutY="171.0" prefHeight="32.0" prefWidth="98.0" text="Type of User" textFill="#c9c1c1" />
    </children>
 </AnchorPane>
