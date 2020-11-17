@@ -13,6 +13,18 @@ import java.io.IOException;
 public class SignUpOptionsPageController {
 
     /**
+     * Goes to the back to the previous defined page SignUpOptionsPageView.fxml
+     *
+     * @param event: the ActionEvent that occured
+     * @throws IOException: for View.gotoView()
+     */
+    @FXML
+    public void backButtonPushed(ActionEvent event) throws IOException{
+        View.goToView("LoginView.fxml",event);
+    }
+
+
+    /**
      * Switches view to the corresponding view based on an action event
      *
      * @param event: ActionEvent when the button is clicked
