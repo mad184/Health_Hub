@@ -3,7 +3,7 @@ package staff;
 import java.util.List;
 
 /** An interface for Owner users */
-public interface OwnerInterface extends ManagerInterface {
+public interface OwnerInterface {
 
   /**
    * Gets the list of all Managers in the organization.

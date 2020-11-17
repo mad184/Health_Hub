@@ -3,7 +3,7 @@ package staff;
 import java.util.List;
 
 /** An interface for Manager class */
-public interface ManagerInterface extends StaffInterface {
+public interface ManagerInterface {
 
   /**
    * Returns the Instructors (via UserIDs) that are assigned to the Manager

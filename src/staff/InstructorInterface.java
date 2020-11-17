@@ -2,7 +2,7 @@ package staff;
 
 import java.util.List;
 
-public interface InstructorInterface extends StaffInterface {
+public interface InstructorInterface {
 
   /**
    * Gets a list of all Clients assigned to the Instructor.
@@ -23,6 +23,7 @@ public interface InstructorInterface extends StaffInterface {
    * Instructor's list beforehand.
    *
    * @param client: Client to remove
+   * @throws ClientNotFoundException
    */
   void removeClient(UserID client);
 
