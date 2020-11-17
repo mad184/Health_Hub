@@ -19,6 +19,17 @@ public class ClientSignUpViewController {
 
     public HealthHubController healthHubController = new HealthHubController(null);
 
+    /**
+     * Goes to the back to the previous defined page SignUpOptionsPageView.fxml
+     *
+     * @param event: the ActionEvent that occured
+     * @throws IOException: for View.gotoView()
+     */
+    @FXML
+    public void backButtonPushed(ActionEvent event) throws IOException{
+        View.goToView("LoginView.fxml",event);
+    }
+
 
     /**
      * This method take the text box entry from the ClientSignUpView, verifys it and then sends it to the healthHub
