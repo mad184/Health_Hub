@@ -1,7 +1,7 @@
 package Client.ClientView;
 
 import Client.ClientController;
-import database.Dbms;
+import Client.ClientToDB;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,10 +19,10 @@ public class ClientMainViewController {
   // test client for gui testing purposes
   public ClientController clientController = new ClientController(null);
   // Client information
-  // Client unique Id
-  private int clientId;
-  // Database object (Currently setup to test db)
-  private Dbms DB = new Dbms("Justyn", "Staff1", "Test-Justyn-Db", "testCollection");
+
+  // DB object (Currently setup to test db)
+  ClientToDB DB = new ClientToDB();
+
   // UI
   // Label for client name
   @FXML private Label nameLabel = new Label();

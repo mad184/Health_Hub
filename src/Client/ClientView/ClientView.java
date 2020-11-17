@@ -3,7 +3,7 @@ package Client.ClientView;
 import API.FoodItem;
 import Client.Client;
 import Client.ClientController;
-import database.Dbms;
+import Client.ClientToDB;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -39,7 +39,7 @@ public class ClientView extends Application {
               new ArrayList<FoodItem>()));
 
   // DB object (Currently setup to test db)
-  Dbms DB = new Dbms("Justyn", "Staff1", "Test-Justyn-Db", "testCollection");
+  ClientToDB DB = new ClientToDB();
 
   public static void main(String[] args) {
     launch(args);
