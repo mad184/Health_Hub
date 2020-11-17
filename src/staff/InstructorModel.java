@@ -100,10 +100,10 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
    */
   @Override
   public void addComment(UserID client, String comment) {
-    ClientInterface clientObj = this.getClientInfo(client);
-    List<String> comments = clientObj.getComment();
+    JSONObject clientJson = this.getClientInfo(client);
+    List<String> comments = (List<String>) clientJson.get("Comments");  // TODO: Verify with client package
     comments.add(comment);
-    JSONObject clientJson = clientObj.toJson(); // TODO: Verify with Client package
+    clientJson.put("Comments", comments);
     this.db.updateClientInfo(client.getId(), clientJson);
   }
 
@@ -115,10 +115,10 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
    */
   @Override
   public void removeComment(UserID client, String comment) {
-    ClientInterface clientObj = this.getClientInfo(client);
-    List<String> comments = clientObj.getComment();
+    JSONObject clientJson = this.getClientInfo(client);
+    List<String> comments = (List<String>) clientJson.get("Comments");  // TODO: Verify with client package
     comments.remove(comment);
-    JSONObject clientJson = clientObj.toJson(); // TODO: Verify with client package
+    clientJson.put("Comments", comments);
     this.db.updateClientInfo(client.getId(), clientJson);
   }
 
@@ -129,9 +129,8 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
    * @return Client object
    */
   @Override
-  public ClientInterface getClientInfo(UserID client) {
-    JSONObject clientJson = this.db.readClientData(client.getId());
-    return Client.fromJson(clientJson); // TODO: Verify with Client package
+  public JSONObject getClientInfo(UserID client) {
+    return this.db.readClientData(client.getId());
   }
 
   /**
