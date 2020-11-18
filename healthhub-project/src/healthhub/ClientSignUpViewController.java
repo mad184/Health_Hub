@@ -74,20 +74,11 @@ public class ClientSignUpViewController {
             JOptionPane.showMessageDialog(null, "A Password is required");
         }
 
-        /*
-        ToDO:
-            - figure out addClient:
-               I shouldn't make a call to the staff package but there is not other way to add a manager to the
-               database right now
-         */
-        //add the client
-//        healthHubController.addClient();
+
+       healthHubController.addClient(name, birthDate, email, userName, passWord);
 
         //go to client view
-        /*
-        ToDO:
-            change .fxml file to the proper name for the client view
-         */
         View.goToView("ClientView.fxml", event);
+
     }
 }
