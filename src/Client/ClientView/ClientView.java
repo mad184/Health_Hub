@@ -20,6 +20,7 @@ public class ClientView extends Application {
           new Client(
               "Justyn Pollard",
               "Justynpollard12@hotmail.com",
+              "1234",
               "Pete",
               "Gym1",
               1,

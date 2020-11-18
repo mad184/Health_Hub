@@ -38,12 +38,10 @@ public class ClientController {
     model.setSnackFoods(snackFood);
   }
 
-  // Getters
   public Client getModel() {
     return this.model;
   }
 
-  // Setters
   public void setModel(Client model) {
     this.model = model;
   }
@@ -54,6 +52,14 @@ public class ClientController {
 
   public void setClientName(String name) {
     model.setName(name);
+  }
+
+  public String getClientPassword() {
+    return model.getPassword();
+  }
+
+  public void setClientPassword(String password) {
+    model.setPassword(password);
   }
 
   public String getClientOrg() {
@@ -195,53 +201,7 @@ public class ClientController {
 
   // JSONObject conversion methods
   public JSONObject clientToJson() {
-    Gson json = new Gson();
-    JSONObject jsonObject = new JSONObject();
-    jsonObject.put("name", model.getName());
-    jsonObject.put("email", model.getEmail());
-    jsonObject.put("instructor", model.getInstructor());
-    jsonObject.put("organization", model.getOrganization());
-    jsonObject.put("id", model.getId());
-    jsonObject.put("age", model.getAge());
-    jsonObject.put("height", model.getHeight());
-    jsonObject.put("weight", model.getWeight());
-    jsonObject.put("phoneNumber", model.getPhoneNum());
-    jsonObject.put("goalWeight", model.getWeightGoal());
-    jsonObject.put("goalCals", model.getCalGoal());
-    jsonObject.put("calories", model.getCalories());
-    jsonObject.put("allergies", model.getAllergies());
-    jsonObject.put("comment", model.getComment());
-    jsonObject.put("profilePicture", model.getProfilePicture());
-    // Converts Array Lists toString
-    jsonObject.put(
-        "breakfastFoods",
-        model
-            .getBreakfastFoods()
-            .toString()
-            .substring(1, model.getBreakfastFoods().toString().length() - 1));
-
-    jsonObject.put(
-        "lunchFoods",
-        model
-            .getLunchFoods()
-            .toString()
-            .substring(1, model.getLunchFoods().toString().length() - 1));
-
-    jsonObject.put(
-        "dinnerFoods",
-        model
-            .getDinnerFoods()
-            .toString()
-            .substring(1, model.getDinnerFoods().toString().length() - 1));
-
-    jsonObject.put(
-        "snackFoods",
-        model
-            .getSnackFoods()
-            .toString()
-            .substring(1, model.getSnackFoods().toString().length() - 1));
-
-    return jsonObject;
+    return model.toJSON();
   }
 
   /**
@@ -250,64 +210,6 @@ public class ClientController {
    * @param clientJson JSONObject obtained from database
    */
   public void jsonToClient(JSONObject clientJson) {
-    Gson json = new Gson();
-    setClientName(json.fromJson(String.valueOf(clientJson.get("name")), String.class));
-    setClientEmail(json.fromJson(String.valueOf(clientJson.get("email")), String.class));
-    setClientInstructor(json.fromJson(String.valueOf(clientJson.get("instructor")), String.class));
-    setClientOrg(json.fromJson(String.valueOf(clientJson.get("organization")), String.class));
-    setClientID(json.fromJson(String.valueOf(clientJson.get("id")), Integer.class));
-    setClientAge(json.fromJson(String.valueOf(clientJson.get("age")), Integer.class));
-    setClientHeight(json.fromJson(String.valueOf(clientJson.get("height")), Integer.class));
-    setClientWeight(json.fromJson(String.valueOf(clientJson.get("weight")), Integer.class));
-    setClientPhoneNum(json.fromJson(String.valueOf(clientJson.get("phoneNumber")), String.class));
-    setClientGoalWeight(json.fromJson(String.valueOf(clientJson.get("goalWeight")), Integer.class));
-    setClientGoalCals(json.fromJson(String.valueOf(clientJson.get("goalCals")), Integer.class));
-    setClientCals(json.fromJson(String.valueOf(clientJson.get("calories")), Integer.class));
-    setClientAllergies(json.fromJson(String.valueOf(clientJson.get("allergies")), ArrayList.class));
-    setClientComment(json.fromJson(String.valueOf(clientJson.get("comment")), ArrayList.class));
-
-    // setClientProfilePicture(json.fromJson(String.valueOf(clientJson.get("profilePicture")),
-    // Image.class));
-
-    // Converts String to array list of food items.
-    String list[] = String.valueOf(clientJson.get("breakfastFoods")).split(" ");
-    ArrayList<FoodItem> breakfastFoods = new ArrayList<>();
-    for (String item : list) {
-      String foodInfo[] = item.split(",");
-      FoodItem food =
-          new FoodItem(foodInfo[0], Double.parseDouble(foodInfo[2]), Integer.parseInt(foodInfo[1]));
-      breakfastFoods.add(food);
-    }
-    setClientBreakfastFood(breakfastFoods);
-
-    list = String.valueOf(clientJson.get("lunchFoods")).split(" ");
-    ArrayList<FoodItem> lunchFoods = new ArrayList<>();
-    for (String item : list) {
-      String foodInfo[] = item.split(",");
-      FoodItem food =
-          new FoodItem(foodInfo[0], Double.parseDouble(foodInfo[2]), Integer.parseInt(foodInfo[1]));
-      lunchFoods.add(food);
-    }
-    setClientLunchFood(lunchFoods);
-
-    list = String.valueOf(clientJson.get("dinnerFoods")).split(" ");
-    ArrayList<FoodItem> dinnerFoods = new ArrayList<>();
-    for (String item : list) {
-      String foodInfo[] = item.split(",");
-      FoodItem food =
-          new FoodItem(foodInfo[0], Double.parseDouble(foodInfo[2]), Integer.parseInt(foodInfo[1]));
-      dinnerFoods.add(food);
-    }
-    setClientDinnerFood(dinnerFoods);
-
-    list = String.valueOf(clientJson.get("snackFoods")).split(" ");
-    ArrayList<FoodItem> snackFoods = new ArrayList<>();
-    for (String item : list) {
-      String foodInfo[] = item.split(",");
-      FoodItem food =
-          new FoodItem(foodInfo[0], Double.parseDouble(foodInfo[2]), Integer.parseInt(foodInfo[1]));
-      snackFoods.add(food);
-    }
-    setClientSnackFood(snackFoods);
+    model.jsonToClient(clientJson);
   }
 }

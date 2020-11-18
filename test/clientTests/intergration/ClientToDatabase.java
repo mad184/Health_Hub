@@ -19,6 +19,7 @@ class ClientToDatabase {
       new Client(
           "dustin",
           "dcr518@usask.ca",
+          "1234",
           "Rick",
           "Golds",
           1,

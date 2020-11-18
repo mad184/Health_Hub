@@ -1,12 +1,14 @@
 package Client;
 
 import API.FoodItem;
+import com.google.gson.Gson;
 import javafx.scene.image.Image;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
 public class Client implements ClientInterface {
-  private String name, email, instructor, organization, phoneNumber;
+  private String name, email, password, instructor, organization, phoneNumber;
   private int id, age, height, weight;
   private int goalWeight, goalCals, calories;
   private ArrayList<String> allergies, comment;
@@ -19,6 +21,7 @@ public class Client implements ClientInterface {
   public Client(
       String name,
       String email,
+      String password,
       String instructor,
       String organization,
       int id,
@@ -38,6 +41,7 @@ public class Client implements ClientInterface {
       ArrayList<FoodItem> snackFoods) {
     this.name = name;
     this.email = email;
+    this.password = password;
     this.instructor = instructor;
     this.organization = organization;
     this.id = id;
@@ -57,16 +61,24 @@ public class Client implements ClientInterface {
     this.snackFoods = snackFoods;
   }
 
-  // getters
   @Override
   public String getName() {
     return this.name;
   }
 
-  // setters
   @Override
   public void setName(String name) {
     this.name = name;
+  }
+
+  @Override
+  public String getPassword() {
+    return this.password;
+  }
+
+  @Override
+  public void setPassword(String password) {
+    this.password = password;
   }
 
   @Override
@@ -267,5 +279,115 @@ public class Client implements ClientInterface {
   @Override
   public void addSnackFood(FoodItem foodItem) {
     this.snackFoods.add(foodItem);
+  }
+
+  public JSONObject toJSON(){
+    Gson json = new Gson();
+    JSONObject jsonObject = new JSONObject();
+    jsonObject.put("name", getName());
+    jsonObject.put("password", getPassword());
+    jsonObject.put("email", getEmail());
+    jsonObject.put("instructor", getInstructor());
+    jsonObject.put("organization", getOrganization());
+    jsonObject.put("id", getId());
+    jsonObject.put("age", getAge());
+    jsonObject.put("height", getHeight());
+    jsonObject.put("weight", getWeight());
+    jsonObject.put("phoneNumber", getPhoneNum());
+    jsonObject.put("goalWeight", getWeightGoal());
+    jsonObject.put("goalCals", getCalGoal());
+    jsonObject.put("calories", getCalories());
+    jsonObject.put("allergies", getAllergies());
+    jsonObject.put("comment", getComment());
+    jsonObject.put("profilePicture", getProfilePicture());
+
+    // Converts Array Lists toString
+    jsonObject.put(
+            "breakfastFoods",getBreakfastFoods()
+                    .toString()
+                    .substring(1, getBreakfastFoods().toString().length() - 1));
+
+    jsonObject.put(
+            "lunchFoods",
+            getLunchFoods()
+                    .toString()
+                    .substring(1, getLunchFoods().toString().length() - 1));
+
+    jsonObject.put(
+            "dinnerFoods",
+                    getDinnerFoods()
+                    .toString()
+                    .substring(1, getDinnerFoods().toString().length() - 1));
+
+    jsonObject.put(
+            "snackFoods",
+                    getSnackFoods()
+                    .toString()
+                    .substring(1, getSnackFoods().toString().length() - 1));
+
+    return jsonObject;
+  }
+
+  public void jsonToClient (JSONObject clientJson){
+    Gson json = new Gson();
+    setName(json.fromJson(String.valueOf(clientJson.get("name")), String.class));
+    setPassword(json.fromJson(String.valueOf(clientJson.get("password")), String.class));
+    setEmail(json.fromJson(String.valueOf(clientJson.get("email")), String.class));
+    setInstructor(json.fromJson(String.valueOf(clientJson.get("instructor")), String.class));
+    setOrganization(json.fromJson(String.valueOf(clientJson.get("organization")), String.class));
+    setId(json.fromJson(String.valueOf(clientJson.get("id")), Integer.class));
+    setAge(json.fromJson(String.valueOf(clientJson.get("age")), Integer.class));
+    setHeight(json.fromJson(String.valueOf(clientJson.get("height")), Integer.class));
+    setWeight(json.fromJson(String.valueOf(clientJson.get("weight")), Integer.class));
+    setPhoneNum(json.fromJson(String.valueOf(clientJson.get("phoneNumber")), String.class));
+    setWeightGoal(json.fromJson(String.valueOf(clientJson.get("goalWeight")), Integer.class));
+    setCalGoal(json.fromJson(String.valueOf(clientJson.get("goalCals")), Integer.class));
+    setCalories(json.fromJson(String.valueOf(clientJson.get("calories")), Integer.class));
+    setAllergies(json.fromJson(String.valueOf(clientJson.get("allergies")), ArrayList.class));
+    setComment(json.fromJson(String.valueOf(clientJson.get("comment")), ArrayList.class));
+
+    // setClientProfilePicture(json.fromJson(String.valueOf(clientJson.get("profilePicture")),
+    // Image.class));
+
+    // Converts String to array list of food items.
+    String list[] = String.valueOf(clientJson.get("breakfastFoods")).split(" ");
+    ArrayList<FoodItem> breakfastFoods = new ArrayList<>();
+    for (String item : list) {
+      String foodInfo[] = item.split(",");
+      FoodItem food =
+              new FoodItem(foodInfo[0], Double.parseDouble(foodInfo[2]), Integer.parseInt(foodInfo[1]));
+      breakfastFoods.add(food);
+    }
+    setBreakfastFoods(breakfastFoods);
+
+    list = String.valueOf(clientJson.get("lunchFoods")).split(" ");
+    ArrayList<FoodItem> lunchFoods = new ArrayList<>();
+    for (String item : list) {
+      String foodInfo[] = item.split(",");
+      FoodItem food =
+              new FoodItem(foodInfo[0], Double.parseDouble(foodInfo[2]), Integer.parseInt(foodInfo[1]));
+      lunchFoods.add(food);
+    }
+    setLunchFoods(lunchFoods);
+
+    list = String.valueOf(clientJson.get("dinnerFoods")).split(" ");
+    ArrayList<FoodItem> dinnerFoods = new ArrayList<>();
+    for (String item : list) {
+      String foodInfo[] = item.split(",");
+      FoodItem food =
+              new FoodItem(foodInfo[0], Double.parseDouble(foodInfo[2]), Integer.parseInt(foodInfo[1]));
+      dinnerFoods.add(food);
+    }
+    setDinnerFoods(dinnerFoods);
+
+    list = String.valueOf(clientJson.get("snackFoods")).split(" ");
+    ArrayList<FoodItem> snackFoods = new ArrayList<>();
+    for (String item : list) {
+      String foodInfo[] = item.split(",");
+      FoodItem food =
+              new FoodItem(foodInfo[0], Double.parseDouble(foodInfo[2]), Integer.parseInt(foodInfo[1]));
+      snackFoods.add(food);
+    }
+    setSnackFoods(snackFoods);
   }
 }

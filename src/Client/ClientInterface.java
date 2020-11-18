@@ -2,6 +2,7 @@ package Client;
 
 import API.FoodItem;
 import javafx.scene.image.Image;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -12,6 +13,10 @@ public interface ClientInterface {
 
   // setters for client attributes
   void setName(String name);
+
+  String getPassword();
+
+  void setPassword(String password);
 
   int getId();
 
@@ -96,4 +101,8 @@ public interface ClientInterface {
   void addDinnerFood(FoodItem foodItem);
 
   void addSnackFood(FoodItem foodItem);
+
+  JSONObject toJSON();
+
+  void jsonToClient(JSONObject clientJson);
 }
