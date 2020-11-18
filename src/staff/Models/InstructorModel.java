@@ -1,6 +1,8 @@
 package staff.Models;
 
 import java.util.List;
+
+import org.json.JSONException;
 import org.json.JSONObject;
 import com.google.gson.Gson;
 import staff.InstructorInterface;
@@ -101,7 +103,7 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
    * @param comment: The comment itself
    */
   @Override
-  public void addComment(UserID client, String comment) {
+  public void addComment(UserID client, String comment) throws JSONException {
     JSONObject clientJson = this.getClientInfo(client);
     List<String> comments = (List<String>) clientJson.get("Comments");  // TODO: Verify with client package
     comments.add(comment);
