@@ -1,7 +1,9 @@
-package staff;
+package staff.Models;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import com.google.gson.Gson;
+import staff.StaffInterface;
 
 /** Storage class for Staff users. */
 public class StaffModel implements StaffInterface {
@@ -227,7 +229,7 @@ public class StaffModel implements StaffInterface {
    *
    * @return JSONObject representation of a staff member
    */
-  public JSONObject toJson() {
+  public JSONObject toJson() throws JSONException {
     JSONObject json = new JSONObject();
     json.put("Name", this.name);
     json.put("Age", this.age);

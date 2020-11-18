@@ -1,8 +1,10 @@
-package staff;
+package staff.Models;
 
 import java.util.List;
 import org.json.JSONObject;
 import com.google.gson.Gson;
+import staff.InstructorInterface;
+import staff.UserID;
 
 /** Storage class for Instructor users. */
 public class InstructorModel extends StaffModel implements InstructorInterface {

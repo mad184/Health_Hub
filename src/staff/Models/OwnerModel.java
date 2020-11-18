@@ -1,10 +1,12 @@
-package staff;
+package staff.Models;
 
 import java.util.List;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 import com.google.gson.Gson;
+import staff.OwnerInterface;
+import staff.UserID;
 
 /** Storage class for Owner users. */
 public class OwnerModel extends ManagerModel implements OwnerInterface {

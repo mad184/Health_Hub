@@ -1,8 +1,12 @@
-package staff;
+package staff.Models;
 
 import java.util.List;
+
+import org.json.JSONException;
 import org.json.JSONObject;
 import com.google.gson.Gson;
+import staff.ManagerInterface;
+import staff.UserID;
 
 /** Storage class for Manager users. */
 public class ManagerModel extends StaffModel implements ManagerInterface {
@@ -91,7 +95,8 @@ public class ManagerModel extends StaffModel implements ManagerInterface {
    *
    * @return JSON representation of a Manager
    */
-  public JSONObject toJson() {
+
+  public JSONObject toJson() throws JSONException {
     JSONObject json = super.toJson();
     json.put("Clients", this.instructors);
     return json;
