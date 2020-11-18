@@ -3,7 +3,7 @@ package staff.Models;
 import org.json.JSONException;
 import org.json.JSONObject;
 import com.google.gson.Gson;
-import staff.StaffInterface;
+import staff.Interfaces.StaffInterface;
 
 /** Storage class for Staff users. */
 public class StaffModel implements StaffInterface {

@@ -5,7 +5,7 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 import com.google.gson.Gson;
-import staff.ManagerInterface;
+import staff.Interfaces.ManagerInterface;
 import staff.UserID;
 
 /** Storage class for Manager users. */
@@ -34,8 +34,13 @@ public class ManagerModel extends StaffModel implements ManagerInterface {
       int weight,
       String organization,
       int id,
-      List<UserID> instructors) {
-    super(name, age, email, phoneNumber, height, weight, organization, id);
+      List<UserID> instructors,
+      String username,  // For connection to Dbms
+      String password,  // For connection to Dbms
+      String dbName,    // For connection to Dbms
+      String tableName) // For connection to Dbms)
+       {
+    super(name, age, email, phoneNumber, height, weight, organization, id, username, password, dbName, tableName);
     this.instructors = instructors;
   }
 

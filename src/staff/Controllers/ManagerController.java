@@ -1,7 +1,7 @@
 package staff.Controllers;
 
 import org.json.JSONObject;
-import staff.ManagerInterface;
+import staff.Interfaces.ManagerInterface;
 import staff.Models.ManagerModel;
 import staff.UserID;
 
