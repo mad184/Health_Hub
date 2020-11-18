@@ -2,12 +2,7 @@ package healthhub;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 import javax.swing.JOptionPane;
 import java.io.IOException;
@@ -15,25 +10,21 @@ import java.io.IOException;
 public class OrganizationSignUpController {
 
     @FXML
-    private TextField Name, BirthDate, Email, UserName, Password;
+    private TextField organizationName, ownerName, BirthDate, Email, UserName, Password;
 
 
     public HealthHubController healthHubController = new HealthHubController(null);
 
+
     /**
-     * Function switches to the gui window
+     * Goes to the back to the previous defined page SignUpOptionsPageView.fxml
      *
-     * @param fxmlFileName: the .fxml file wanting to switch to
      * @param event: the ActionEvent that occured
-     * @throws IOException: For the FXMLLoader .load() function
+     * @throws IOException: for View.gotoView()
      */
-    public void gotoView(String fxmlFileName, ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
-        Parent root = loader.load();
-        Scene newScene = new Scene(root);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(newScene);
-        stage.show();
+    @FXML
+    public void backButtonPushed(ActionEvent event) throws IOException{
+        View.goToView("SignUpOptionsPageView.fxml",event);
     }
 
     /**
@@ -43,24 +34,25 @@ public class OrganizationSignUpController {
      *    owners view
      *
      * @param event: the ActionEvent that occured
-     * @throws IOException: for gotoView()
+     * @throws IOException: for View.gotoView()
      */
     @FXML
     public void onCreateOrganizationButtonPushed(ActionEvent event) throws IOException {
-        if (HealthHubSingleton.isOrganizationCreated()) {
+        if (HealthHubAccessSingleton.isOrganizationCreated()) {
             JOptionPane.showMessageDialog(null, "Organization has already been created");
-            gotoView("LoginView.fxml", event);
+            View.goToView("LoginView.fxml", event);
         }
         else{
             // check that our inputs were properly entered
-            String name = this.Name.getText();
+            String organizationName = this.organizationName.getText();
+            String ownerName = this.ownerName.getText();
             String birthDate = this.BirthDate.getText();
             String email = this.Email.getText();
             String userName = this.UserName.getText();
             String passWord = this.Password.getText();
 
             //regex looks for any number of white space
-            if(!(name.length() > 0) || name.matches("^ *$")){
+            if(!(ownerName.length() > 0) || ownerName.matches("^ *$")){
                 JOptionPane.showMessageDialog(null, "A Name is required");
             }
 
@@ -92,15 +84,14 @@ public class OrganizationSignUpController {
                I shouldn't make a call to the staff package but there is not other way to add a manager to the
                database right now
              */
-            healthHubController.createOrganization("test");
-//            healthHubController.addManager();
 
+            if(!healthHubController.createOrganization(organizationName, ownerName)){
+                JOptionPane.showMessageDialog(null, "Organization failed to be created");
+            }
 
-            /*
-            ToDO:
-             - go to The Owners View, not sure of the fileName yet
-             */
-            gotoView("OwnerView.fxml", event);
+            healthHubController.addManager(ownerName, birthDate, email, userName, passWord);
+
+            View.goToView("OwnerView.fxml", event);
         }
     }
 }

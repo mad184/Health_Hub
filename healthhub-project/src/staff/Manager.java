@@ -3,6 +3,11 @@ package staff;
 import org.json.JSONObject;
 
 public class Manager {
+
+    //constructor for testing
+    public Manager(){};
+
+
     public int getUniqueId() {
         return 0;
     }

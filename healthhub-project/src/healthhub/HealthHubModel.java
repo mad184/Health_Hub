@@ -92,4 +92,23 @@ public class HealthHubModel {
       return -1;
     }
   }
+
+  /**
+   * A method to create the Organization,
+   *
+   * @param name: the name of the organization we want to create
+   * @param owner: the owner of the organization
+   * @return
+   *     true -> the organization has been created
+   *     false -> the organziation has already been created
+   */
+  public boolean CreateOrgnaization(String name, String ownerName) {
+    try {
+      HealthHubAccessSingleton.newOrganziation(name, ownerName);
+      return true;
+    }
+    catch (RuntimeException e) {
+      return false;
+    }
+  }
 }

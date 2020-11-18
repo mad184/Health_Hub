@@ -4,11 +4,20 @@ import staff.Manager;
 
 public class HealthHub {
     String organizationName;
-    Manager owner;
+    String owner;
 
-    public HealthHub(String organizationName, Manager owner){
+    protected HealthHub(String organizationName, String ownerName){
         this.organizationName = organizationName;
-        this.owner = owner;
+        this.owner = ownerName;
     }
+
+    protected String getOrganizationName(){
+        return this.organizationName;
+    }
+
+    protected String getOwner(){
+        return this.owner;
+    }
+
 
 }

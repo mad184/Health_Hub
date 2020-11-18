@@ -2,12 +2,9 @@ package healthhub;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
+
 
 import javax.swing.JOptionPane;
 import java.io.IOException;
@@ -15,6 +12,19 @@ import java.io.IOException;
 public class InstructorSignUpController {
     @FXML
     private TextField Name, BirthDate, Email, UserName, Password;
+
+    public HealthHubController healthHubController = new HealthHubController(null);
+
+    /**
+     * Goes to the back to the previous defined page SignUpOptionsPageView.fxml
+     *
+     * @param event: the ActionEvent that occured
+     * @throws IOException: for View.gotoView()
+     */
+    @FXML
+    public void backButtonPushed(ActionEvent event) throws IOException{
+        View.goToView("LoginView.fxml",event);
+    }
 
 
     /**
@@ -61,25 +71,11 @@ public class InstructorSignUpController {
             JOptionPane.showMessageDialog(null, "A Password is required");
         }
 
-        /*
-        ToDO:
-            - figure out addInstructor:
-               I shouldn't make a call to the staff package but there is not other way to add a instructor to the
-               database right now
-         */
-        //add instructor()
-        HealthHubController.addInstructor();
 
-        /*
-        ToDo:
-             change name for loader to the Instructors view
-         */
+        //add instructor()
+        healthHubController.addInstructor(name, birthDate, email, userName, passWord);
+
         //go to instructor view
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("InstructorView.fxml"));
-        Parent root = loader.load();
-        Scene newScene = new Scene(root);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(newScene);
-        stage.show();
+        View.goToView("InstructorView.fxml", event);
     }
 }
