@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 import org.jmock.Mockery;
-import org.jmock.Expectations;
+import staff.Models.InstructorModel;
 
 public class InstructorModelTest {
   Mockery context = new Mockery();
@@ -13,6 +13,8 @@ public class InstructorModelTest {
   //final Database database = context.mock(Database.class);
   final Controller controller = context.mock(Controller.class);
 
+  // Please not that the database name is just for testing purpose - Dev-Marcos-Db = personal testing Marcos db
+  // It can be changed
   InstructorModel model = new InstructorModel(
           "John",
           21,
@@ -22,7 +24,12 @@ public class InstructorModelTest {
           160,
           "Average Joes",
           1,
-          new ArrayList<UserID>());
+          new ArrayList<UserID>(),
+          "JhonWick",
+          "Jhon123",
+          "Dev-Marcos-Db",
+          "Instructors"
+          );
 
   /** Tests the constructor of the InstructorModel */
   @Test
