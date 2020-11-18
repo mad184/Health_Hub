@@ -20,6 +20,11 @@ public class ManagerController implements ManagerInterface {
     }
 
     @Override
+    public JSONObject getInstructorInfo(UserID instructor) {
+        return model.getInstructorInfo(instructor);
+    }
+
+    @Override
     public void addInstructor(UserID instructor) {
         model.addInstructor(instructor);
     }
