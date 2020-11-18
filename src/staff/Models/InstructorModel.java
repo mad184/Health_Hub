@@ -5,7 +5,7 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 import com.google.gson.Gson;
-import staff.InstructorInterface;
+import staff.Interfaces.InstructorInterface;
 import staff.UserID;
 
 /** Storage class for Instructor users. */
@@ -118,7 +118,7 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
    * @param comment: The comment itself
    */
   @Override
-  public void removeComment(UserID client, String comment) {
+  public void removeComment(UserID client, String comment) throws JSONException {
     JSONObject clientJson = this.getClientInfo(client);
     List<String> comments = (List<String>) clientJson.get("Comments");  // TODO: Verify with client package
     comments.remove(comment);
@@ -142,7 +142,7 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
    *
    * @return JSONObject representation of an Instructor
    */
-  public JSONObject toJson() {
+  public JSONObject toJson() throws JSONException {
     JSONObject json = super.toJson();
     json.put("Clients", this.clients);
     return json;
