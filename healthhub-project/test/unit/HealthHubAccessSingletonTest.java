@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 public class HealthHubAccessSingletonTest {
 
         //attributes for testing
-        Manager owner;
+        String owner;
         HealthHub organization;
 
         @Rule
@@ -47,7 +47,7 @@ public class HealthHubAccessSingletonTest {
         @Test
         @Order(3)
         void testObjectCreation(){
-            owner = new Manager();
+            owner = "dustin";
             assertDoesNotThrow(()->{
                 HealthHubAccessSingleton.newOrganziation("MyGym", owner);
             });
@@ -62,7 +62,7 @@ public class HealthHubAccessSingletonTest {
         @Test
         @Order(5)
         void testCreatedObjectsOwner(){
-            assertTrue(HealthHubAccessSingleton.getOwner() instanceof Manager);
+            assertEquals(HealthHubAccessSingleton.getOwner(),"dustin");
         }
 
         @Test
@@ -74,7 +74,7 @@ public class HealthHubAccessSingletonTest {
         @Test
         @Order(7)
         void createMultipleOrganizations() {
-            Manager owner2 = new Manager();
+            String owner2 = "Bob";
             assertThrows(RuntimeException.class, () -> {
                 HealthHubAccessSingleton.newOrganziation("Golds", owner2);
             });
