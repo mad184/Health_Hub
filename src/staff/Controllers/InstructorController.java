@@ -1,6 +1,8 @@
 package staff.Controllers;
 
-import staff.InstructorInterface;
+import org.json.JSONException;
+import org.json.JSONObject;
+import staff.Interfaces.InstructorInterface;
 import staff.Models.InstructorModel;
 import staff.UserID;
 
@@ -35,12 +37,12 @@ public class InstructorController implements InstructorInterface {
     }
 
     @Override
-    public void addComment(UserID client, String comment) {
+    public void addComment(UserID client, String comment) throws JSONException {
         model.addComment(client, comment);
     }
 
     @Override
-    public void removeComment(UserID client, String comment) {
+    public void removeComment(UserID client, String comment) throws JSONException {
         model.removeComment(client, comment);
     }
 
