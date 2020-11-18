@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 import org.jmock.Mockery;
+import staff.Interfaces.Controller;
 import staff.Models.InstructorModel;
 
 public class InstructorModelTest {
