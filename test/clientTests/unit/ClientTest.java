@@ -18,6 +18,7 @@ class ClientTest {
       new Client(
           "dustin",
           "dcr518@usask.ca",
+          "password",
           "Rick",
           "Golds",
           1,

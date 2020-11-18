@@ -60,7 +60,7 @@ public class ClientNutrientViewController implements Initializable {
     foodSearchStage.initModality(Modality.APPLICATION_MODAL);
     foodSearchStage.initOwner((Stage) ((Node) event.getSource()).getScene().getWindow());
 
-    Scene foodSearchScene = new Scene(root, 300, 200);
+    Scene foodSearchScene = new Scene(root, 400, 267);
     foodSearchStage.setScene(foodSearchScene);
     foodSearchStage.show();
   }
