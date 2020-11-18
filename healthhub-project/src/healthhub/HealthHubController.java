@@ -11,23 +11,35 @@ public class HealthHubController {
 
     //constructor takes the model
     public HealthHubController(HealthHubModel model){
+
         HealthHubController.model = model;
     }
 
     /**
      * Makes call the model to pass it the client created
-     * @param client: of type Client
+     * @param name: String-client name
+     * @param birthDate: String-client birthdate
+     * @param email: String-client email
+     * @param userName: String-client username
+     * @param passWord: String-client passWord
      */
-    protected void addClient(Client client){
-        model.addClient(client);
+    protected void addClient(String name, String birthDate, String email, String userName, String passWord){
+        /*TODO:
+            make model take a method with these params
+         */
+        //model.addClient(name, birthDate, email, userName, passWord);
     }
 
     /**
-     * Makes call the model to pass it the instructor created
-     * @param instructor: of type Instructor
+     * Makes call the model to pass it the client created
+     * @param name: String-Instructor name
+     * @param birthDate: String-Instructor birthdate
+     * @param email: String-Instructor email
+     * @param userName: String-Instructor username
+     * @param passWord: String-Instructor passWord
      */
-    protected void addInstructor(Instructor instructor){
-        model.addInstructor(instructor);
+    protected void addInstructor(String name, String birthDate, String email, String userName, String passWord){
+        //model.addClient(name, birthDate, email, userName, passWord);
     }
 
     /**
@@ -47,13 +59,7 @@ public class HealthHubController {
      *     false -> the organziation has already been created
      */
     protected boolean createOrganization(String name, Manager owner){
-        try{
-            HealthHubAccessSingleton.newOrganziation(name, owner);
-            return true;
-        }
-        catch(RuntimeException e){
-            return false;
-        }
+        return model.CreateOrgnaization(name, owner);
     }
 
   /**
