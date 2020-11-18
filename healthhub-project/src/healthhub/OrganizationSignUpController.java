@@ -84,15 +84,13 @@ public class OrganizationSignUpController {
                I shouldn't make a call to the staff package but there is not other way to add a manager to the
                database right now
              */
-//              Owner owner = new Owner();
-//            healthHubController.createOrganization(organizationName, owner);
-//            healthHubController.addManager();
 
+            if(!healthHubController.createOrganization(organizationName, ownerName)){
+                JOptionPane.showMessageDialog(null, "Organization failed to be created");
+            }
 
-            /*
-            ToDO:
-             - go to The Owners View, not sure of the fileName yet
-             */
+            healthHubController.addManager(ownerName, birthDate, email, userName, passWord);
+
             View.goToView("OwnerView.fxml", event);
         }
     }

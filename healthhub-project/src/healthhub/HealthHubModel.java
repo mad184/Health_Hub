@@ -102,9 +102,9 @@ public class HealthHubModel {
    *     true -> the organization has been created
    *     false -> the organziation has already been created
    */
-  public boolean CreateOrgnaization(String name, Manager owner) {
+  public boolean CreateOrgnaization(String name, String ownerName) {
     try {
-      HealthHubAccessSingleton.newOrganziation(name, owner);
+      HealthHubAccessSingleton.newOrganziation(name, ownerName);
       return true;
     }
     catch (RuntimeException e) {

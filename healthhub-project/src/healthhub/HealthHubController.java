@@ -53,8 +53,13 @@ public class HealthHubController {
      * Makes call the model to pass it the manager created
      * @param manager: of type Manager
      */
-    protected void addManager(Manager manager){
-        model.addManager(manager);
+    protected void addManager(String name, String birthDate, String email, String userName, String passWord){
+        /*TODO:
+            make model take a method with these params
+            -either we can return the client id and pass that to the client vew or figure out a way to pass the cleint
+             object
+         */
+        //model.addManager(name, birthDate, email, userName, passWord);
     }
 
     /**
@@ -65,8 +70,8 @@ public class HealthHubController {
      *     true -> the organization has been created
      *     false -> the organziation has already been created
      */
-    protected boolean createOrganization(String name, Manager owner){
-        return model.CreateOrgnaization(name, owner);
+    protected boolean createOrganization(String name, String ownerName){
+        return model.CreateOrgnaization(name, ownerName);
     }
 
   /**

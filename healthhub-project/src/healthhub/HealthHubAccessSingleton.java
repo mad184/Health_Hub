@@ -14,7 +14,7 @@ public class HealthHubAccessSingleton {
   }
 
 
-  public static void newOrganziation(String name, Manager owner) {
+  public static void newOrganziation(String name, String owner) {
     //the organization must have a name
     if (name == null || name.equals("")) {
       throw new RuntimeException("The name of a organization cannot be null or empty.  " + "It is " + name);
@@ -44,7 +44,7 @@ public class HealthHubAccessSingleton {
     return healthHubOrganization.getOrganizationName();
   }
 
-  public static Manager getOwner(){
+  public static String getOwner(){
     if (healthHubOrganization == null) {
       throw new RuntimeException(
               "The organization must be previously initialized before it can be accessed.");
