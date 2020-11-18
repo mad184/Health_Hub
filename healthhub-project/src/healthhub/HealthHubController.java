@@ -26,6 +26,8 @@ public class HealthHubController {
     protected void addClient(String name, String birthDate, String email, String userName, String passWord){
         /*TODO:
             make model take a method with these params
+            -either we can return the client id and pass that to the client vew or figure out a way to pass the cleint
+             object
          */
         //model.addClient(name, birthDate, email, userName, passWord);
     }
@@ -39,7 +41,12 @@ public class HealthHubController {
      * @param passWord: String-Instructor passWord
      */
     protected void addInstructor(String name, String birthDate, String email, String userName, String passWord){
-        //model.addClient(name, birthDate, email, userName, passWord);
+        /*TODO:
+            make model take a method with these params
+            -either we can return the client id and pass that to the client vew or figure out a way to pass the cleint
+             object
+         */
+        //model.addInstructor(name, birthDate, email, userName, passWord);
     }
 
     /**
