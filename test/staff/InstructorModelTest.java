@@ -10,10 +10,19 @@ import org.jmock.Expectations;
 public class InstructorModelTest {
   Mockery context = new Mockery();
 
-  final Database database = context.mock(Database.class);
+  //final Database database = context.mock(Database.class);
   final Controller controller = context.mock(Controller.class);
 
-  InstructorModel model = new InstructorModel(database, controller);
+  InstructorModel model = new InstructorModel(
+          "John",
+          21,
+          "john@usask.ca",
+          "306-555-5555",
+          175,
+          160,
+          "Average Joes",
+          1,
+          new ArrayList<UserID>());
 
   /** Tests the constructor of the InstructorModel */
   @Test

@@ -1,9 +1,10 @@
 package staff;
 
 import java.util.List;
+import org.json.JSONObject;
 
 /** An interface for Manager class */
-public interface ManagerInterface extends StaffInterface {
+public interface ManagerInterface {
 
   /**
    * Returns the Instructors (via UserIDs) that are assigned to the Manager
@@ -25,4 +26,11 @@ public interface ManagerInterface extends StaffInterface {
    * @param instructor: UserID of Instructor
    */
   public void removeInstructor(UserID instructor);
+
+  /**
+   * Accesses instructor info from the Database.
+   *
+   * @param instructor: UserID of the Instructor
+   */
+  public JSONObject getInstructorInfo(UserID instructor);
 }
