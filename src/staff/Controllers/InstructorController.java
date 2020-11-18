@@ -1,4 +1,8 @@
-package staff;
+package staff.Controllers;
+
+import staff.InstructorInterface;
+import staff.Models.InstructorModel;
+import staff.UserID;
 
 import java.util.List;
 

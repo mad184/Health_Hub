@@ -1,7 +1,9 @@
-package staff;
+package staff.Controllers;
 
 import org.json.JSONObject;
+import staff.ManagerInterface;
 import staff.Models.ManagerModel;
+import staff.UserID;
 
 import java.util.List;
 
