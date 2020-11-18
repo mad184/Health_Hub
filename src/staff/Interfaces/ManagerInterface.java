@@ -1,7 +1,8 @@
-package staff;
+package staff.Interfaces;
 
 import java.util.List;
 import org.json.JSONObject;
+import staff.UserID;
 
 /** An interface for Manager class */
 public interface ManagerInterface {
