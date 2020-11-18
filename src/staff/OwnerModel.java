@@ -1,6 +1,8 @@
 package staff;
 
 import java.util.List;
+
+import org.json.JSONException;
 import org.json.JSONObject;
 import com.google.gson.Gson;
 
@@ -82,7 +84,7 @@ public class OwnerModel extends ManagerModel implements OwnerInterface {
    *
    * @return JSONObject representation of an OwnerModel
    */
-  public JSONObject toJson() {
+  public JSONObject toJson() throws JSONException {
     JSONObject json = super.toJson();
     json.put("Managers", this.managers);
     return json;
