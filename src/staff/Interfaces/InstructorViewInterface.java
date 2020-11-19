@@ -62,4 +62,16 @@ public interface InstructorViewInterface {
   ArrayList<FoodItem> getSnackFoods();
 
   Image getProfilePicture();
+
+  //------------ADD TO ARRAYLIST<>-------------//
+
+  void addToBreakFoods(FoodItem food);
+
+  void addToLunchFoods(FoodItem food);
+
+  void addToDinnerFoods(FoodItem food);
+
+  void addToSnackFoods(FoodItem food);
+
+  void addToClients(UserID user);
 }
