@@ -1,8 +1,13 @@
-package staff;
+package staff.Interfaces;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+import staff.ClientNotFoundException;
+import staff.UserID;
 
 import java.util.List;
 
-public interface InstructorInterface extends StaffInterface {
+public interface InstructorInterface {
 
   /**
    * Gets a list of all Clients assigned to the Instructor.
@@ -23,6 +28,7 @@ public interface InstructorInterface extends StaffInterface {
    * Instructor's list beforehand.
    *
    * @param client: Client to remove
+   * @throws ClientNotFoundException
    */
   void removeClient(UserID client);
 
@@ -33,7 +39,7 @@ public interface InstructorInterface extends StaffInterface {
    * @param client: Client receiving the comment
    * @param comment: The comment itself
    */
-  void addComment(UserID client, String comment);
+  void addComment(UserID client, String comment) throws JSONException;
 
   /**
    * Removes a comment on the Client's profile. Client must be in the Instructor's client list.
@@ -41,7 +47,7 @@ public interface InstructorInterface extends StaffInterface {
    * @param client: Client whose profile the comment is on
    * @param comment: The comment itself
    */
-  void removeComment(UserID client, String comment);
+  void removeComment(UserID client, String comment) throws JSONException;
 
   /**
    * Gets all information about a Client. Client must be in the Instructor's Client list.
@@ -49,5 +55,5 @@ public interface InstructorInterface extends StaffInterface {
    * @param client: Client to fetch
    * @return Information about the Client
    */
-  Client getClientInfo(UserID client);
+  JSONObject getClientInfo(UserID client);
 }

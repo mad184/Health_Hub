@@ -1,4 +1,4 @@
-package staff;
+package staff.Interfaces;
 
 public interface Controller {
 

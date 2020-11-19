@@ -1,6 +1,4 @@
-package staff;
-
-import org.json.JSONObject;
+package staff.Interfaces;
 
 public interface StaffInterface {
 
@@ -108,11 +106,4 @@ public interface StaffInterface {
    * @param orgName: Name of the organization
    */
   void setOrganization(String orgName);
-
-  /**
-   * Converts the information about the Staff member into JSON.
-   *
-   * @return A JSONObject of the Staff member
-   */
-  JSONObject toJson();
 }

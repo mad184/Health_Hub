@@ -1,4 +1,4 @@
-package staff;
+package staff.Interfaces;
 
 /**
  * Just a mock
