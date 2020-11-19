@@ -38,7 +38,7 @@ public class OwnerController implements OwnerInterface, StaffInterface {
 
   @Override
   public String getName() {
-    return null;
+    return model.getName();
   }
 
   @Override
