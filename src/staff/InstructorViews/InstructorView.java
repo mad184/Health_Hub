@@ -261,4 +261,29 @@ public class InstructorView implements StaffInterface, InstructorViewInterface {
   public String getOrganization() {
     return this.organization;
   }
+
+  @Override
+  public void addToBreakFoods(FoodItem food) {
+    breakFoods.add(food);
+  }
+
+  @Override
+  public void addToLunchFoods(FoodItem food) {
+    lunchFoods.add(food);
+  }
+
+  @Override
+  public void addToDinnerFoods(FoodItem food) {
+    dinnerFoods.add(food);
+  }
+
+  @Override
+  public void addToSnackFoods(FoodItem food) {
+    snackFoods.add(food);
+  }
+
+  @Override
+  public void addToClients(UserID user) {
+    clients.add(user);
+  }
 }
