@@ -321,6 +321,85 @@ public class InstructorView implements StaffInterface, InstructorViewInterface {
     jsonObject.put(
         "snackFoods",
         getSnackFoods().toString().substring(1, getSnackFoods().toString().length() - 1));
+
+    jsonObject.put("clients",
+            getClients().toString().substring(1,getClients().toString().length() - 1));
+
     return jsonObject;
     }
+
+    public void jsonToInstructor(JSONObject instructorJson) throws JSONException {
+      Gson json = new Gson();
+      setName(json.fromJson(String.valueOf(instructorJson.get("name")), String.class));
+      setPassword(json.fromJson(String.valueOf(instructorJson.get("password")), String.class));
+      setEmail(json.fromJson(String.valueOf(instructorJson.get("email")), String.class));
+      setOrganization(json.fromJson(String.valueOf(instructorJson.get("organization")), String.class));
+      setId(json.fromJson(String.valueOf(instructorJson.get("id")), int.class));
+      setAge(json.fromJson(String.valueOf(instructorJson.get("age")), int.class));
+      setHeight(json.fromJson(String.valueOf(instructorJson.get("height")), int.class));
+      setWeight(json.fromJson(String.valueOf(instructorJson.get("weight")), int.class));
+      setPhoneNumber(json.fromJson(String.valueOf(instructorJson.get("phoneNumber")), String.class));
+      setGoalWeight(json.fromJson(String.valueOf(instructorJson.get("goalWeight")), int.class));
+      setCalories(json.fromJson(String.valueOf(instructorJson.get("calories")), int.class));
+      setAllergies(json.fromJson(String.valueOf(instructorJson.get("allergies")), ArrayList.class));
+      setComment(json.fromJson(String.valueOf(instructorJson.get("comment")), ArrayList.class));
+
+      // BREAKFAST
+      String ArrayList[] =String.valueOf(instructorJson.get("breakfastFoods")).split(" ");
+      ArrayList<FoodItem> breakfastFoods = new ArrayList<FoodIem>();
+      for (String item : ArrayList){
+        String foodInfo[] = item.split(",");
+        FoodItem food =
+                new FoodItem(foodInfo[0], Double.parseDouble(foodInfo[2]), Integer.parseInt(foodInfo[1]));
+        breakfastFoods.add(food);
+      }
+      setBreakFoods(breakfastFoods);
+
+      // LUNCH
+      ArrayList = String.valueOf(instructorJson.get("lunchFoods")).split(" ");
+      ArrayList<FoodItem> lunchFoods = new ArrayList<FoodIem>();
+      for (String item : ArrayList){
+        String foodInfo[] = item.split(",");
+        FoodItem food =
+                new FoodItem(foodInfo[0], Double.parseDouble(foodInfo[2]), Integer.parseInt(foodInfo[1]));
+        lunchFoods.add(food);
+      }
+      setLunchFoods(lunchFoods);
+
+      // DINNER
+      ArrayList = String.valueOf(instructorJson.get("dinnerFoods")).split(" ");
+      ArrayList<FoodItem> dinnerFoods = new ArrayList<FoodIem>();
+      for (String item : ArrayList){
+        String foodInfo[] = item.split(",");
+        FoodItem food =
+                new FoodItem(foodInfo[0], Double.parseDouble(foodInfo[2]), Integer.parseInt(foodInfo[1]));
+        dinnerFoods.add(food);
+      }
+      setDinnerFoods(dinnerFoods);
+
+      // Snacks
+      ArrayList = String.valueOf(instructorJson.get("snacksFoods")).split(" ");
+      ArrayList<FoodItem> snackFoods = new ArrayList<FoodIem>();
+      for (String item : ArrayList){
+        String foodInfo[] = item.split(",");
+        FoodItem food =
+                new FoodItem(foodInfo[0], Double.parseDouble(foodInfo[2]), Integer.parseInt(foodInfo[1]));
+        snackFoods.add(food);
+      }
+      setSnackFoods(snackFoods);
+
+      // CLIENTS
+      ArrayList = String.valueOf(instructorJson.get("clients")).split(" ");
+      ArrayList<UserID> clients = new ArrayList<FoodIem>();
+      for (String item : ArrayList){
+        String clientInfo[] = item.split(",");
+        UserID user =
+                new UserID(Integer.parseInt(clientInfo[0]), clientInfo[1]);
+        clients.add(user);
+      }
+      setClients(clients);
+
+    }
+
+
 }
