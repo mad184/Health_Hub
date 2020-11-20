@@ -1,5 +1,6 @@
 package staff.InstructorViews;
 
+import org.json.JSONException;
 import staff.Interfaces.InstructorViewInterface;
 import staff.Interfaces.StaffInterface;
 import javafx.scene.image.Image;
@@ -174,7 +175,7 @@ public class InstructorView implements StaffInterface, InstructorViewInterface {
 
   @Override
   public int getGoalWeight() {
-    return this.id;
+    return this.goalWeight;
   }
 
   @Override
@@ -286,4 +287,40 @@ public class InstructorView implements StaffInterface, InstructorViewInterface {
   public void addToClients(UserID user) {
     clients.add(user);
   }
+
+  public JSONObject toJSON() throws JSONException {
+    Gson json = new Gson();
+    JSONObject jsonObject = new JSONObject();
+    jsonObject.put("name", getName());
+    jsonObject.put("password", getPassword());
+    jsonObject.put("email", getEmail());
+    jsonObject.put("organization", getOrganization());
+    jsonObject.put("id", getId());
+    jsonObject.put("age", getAge());
+    jsonObject.put("height", getHeight());
+    jsonObject.put("weight", getWeight());
+    jsonObject.put("phoneNumber", getPhoneNumber());
+    jsonObject.put("goalWeight", getGoalWeight());
+    jsonObject.put("goalCals", getGoalCals());
+    jsonObject.put("calories", getCalories());
+    jsonObject.put("allergies", getAllergies());
+    jsonObject.put("comment", getComment());
+
+    jsonObject.put(
+        "breakfastFoods",
+        getBreakFoods().toString().substring(1, getBreakFoods().toString().length() - 1));
+
+    jsonObject.put(
+        "lunchFoods",
+        getLunchFoods().toString().substring(1, getLunchFoods().toString().length() - 1));
+
+    jsonObject.put(
+        "dinnerFoods",
+        getDinnerFoods().toString().substring(1, getDinnerFoods().toString().length() - 1));
+
+    jsonObject.put(
+        "snackFoods",
+        getSnackFoods().toString().substring(1, getSnackFoods().toString().length() - 1));
+    return jsonObject;
+    }
 }
