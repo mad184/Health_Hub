@@ -56,6 +56,7 @@ public class ClientView extends Application {
     // Add client to database for testing purpose
     DB.createClient(clientController.getClientID(), clientController.clientToJson());
 
+    clientController.jsonToClient(DB.getClient(clientController.getClientID()));
     // Load main scene
     FXMLLoader loader = new FXMLLoader(getClass().getResource("clientMainView.fxml"));
     Parent root = loader.load();
