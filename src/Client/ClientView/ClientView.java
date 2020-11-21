@@ -34,10 +34,10 @@ public class ClientView extends Application {
               null,
               null,
               null,
-              new ArrayList<FoodItem>(),
-              new ArrayList<FoodItem>(),
-              new ArrayList<FoodItem>(),
-              new ArrayList<FoodItem>()));
+              null,
+                  null,
+                  null,
+                  null));
 
   // DB object (Currently setup to test db)
   ClientToDB DB = new ClientToDB();

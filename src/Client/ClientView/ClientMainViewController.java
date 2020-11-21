@@ -38,7 +38,7 @@ public class ClientMainViewController {
   public void setupScene(int clientID) throws EmptyQueryException {
     // Sets client to client controller for scene
     clientController = new ClientController(new Client(DB.getClient(clientID)));
-    
+
     // Changes name label to clients name
     nameLabel.setText(clientController.getClientName());
 

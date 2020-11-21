@@ -268,22 +268,46 @@ public class Client implements ClientInterface {
 
   @Override
   public void addBreakfastFood(FoodItem foodItem) {
-    this.breakfastFoods.add(foodItem);
-  }
+    if (this.breakfastFoods == null) {
+      ArrayList<FoodItem> list = new ArrayList<FoodItem>();
+      list.add(foodItem);
+      this.breakfastFoods = list;
+    } else {
+      this.breakfastFoods.add(foodItem);
+    }
+    }
 
   @Override
   public void addLunchFood(FoodItem foodItem) {
-    this.lunchFoods.add(foodItem);
-  }
+    if (this.lunchFoods == null) {
+      ArrayList<FoodItem> list = new ArrayList<FoodItem>();
+      list.add(foodItem);
+      this.lunchFoods = list;
+    } else {
+      this.lunchFoods.add(foodItem);
+    }
+    }
 
   @Override
   public void addDinnerFood(FoodItem foodItem) {
-    this.dinnerFoods.add(foodItem);
+    if (this.dinnerFoods == null) {
+      ArrayList<FoodItem> list = new ArrayList<FoodItem>();
+      list.add(foodItem);
+      this.dinnerFoods = list;
+    } else {
+      this.dinnerFoods.add(foodItem);
+    }
   }
 
   @Override
   public void addSnackFood(FoodItem foodItem) {
-    this.snackFoods.add(foodItem);
+    if (this.snackFoods == null) {
+      ArrayList<FoodItem> list = new ArrayList<FoodItem>();
+      list.add(foodItem);
+      this.snackFoods = list;
+    } else {
+      this.snackFoods.add(foodItem);
+    }
   }
 
   public JSONObject toJSON(){
@@ -307,29 +331,37 @@ public class Client implements ClientInterface {
     jsonObject.put("profilePicture", getProfilePicture());
 
     // Converts Array Lists toString
-    jsonObject.put(
-            "breakfastFoods",
-            getBreakfastFoods()
-                    .toString()
-                    .substring(1, getBreakfastFoods().toString().length() - 1));
+    if (getBreakfastFoods() == null) {
+      jsonObject.put("breakfastFoods", "");
+    } else {
+      jsonObject.put(
+          "breakfastFoods",
+          getBreakfastFoods().toString().substring(1, getBreakfastFoods().toString().length() - 1));
+    }
 
-    jsonObject.put(
-            "lunchFoods",
-            getLunchFoods()
-                    .toString()
-                    .substring(1, getLunchFoods().toString().length() - 1));
+    if (getLunchFoods() == null) {
+      jsonObject.put("lunchFoods", "");
+    } else {
+      jsonObject.put(
+          "lunchFoods",
+          getLunchFoods().toString().substring(1, getLunchFoods().toString().length() - 1));
+    }
 
-    jsonObject.put(
-            "dinnerFoods",
-                    getDinnerFoods()
-                    .toString()
-                    .substring(1, getDinnerFoods().toString().length() - 1));
+    if (getDinnerFoods() == null) {
+      jsonObject.put("dinnerFoods", "");
+    } else {
+      jsonObject.put(
+          "dinnerFoods",
+          getDinnerFoods().toString().substring(1, getDinnerFoods().toString().length() - 1));
+    }
 
-    jsonObject.put(
-            "snackFoods",
-                    getSnackFoods()
-                    .toString()
-                    .substring(1, getSnackFoods().toString().length() - 1));
+    if (getSnackFoods() == null) {
+      jsonObject.put("snackFoods", "");
+    } else {
+      jsonObject.put(
+          "snackFoods",
+          getSnackFoods().toString().substring(1, getSnackFoods().toString().length() - 1));
+    }
 
     return jsonObject;
   }
@@ -356,12 +388,11 @@ public class Client implements ClientInterface {
     // Image.class))
 
     // Converts String to array list of food items.
-    if (clientJson.isNull("breakfastFoods")) {
+    if (!clientJson.get("breakfastFoods").toString().equals("")) {
       String list[] = String.valueOf(clientJson.get("breakfastFoods")).split(" ");
       ArrayList<FoodItem> breakfastFoods = new ArrayList<>();
       for (String item : list) {
         String foodInfo[] = item.split(",");
-        System.out.println(foodInfo[0]);
         FoodItem food =
             new FoodItem(
                 foodInfo[0], Double.parseDouble(foodInfo[2]), Integer.parseInt(foodInfo[1]));
@@ -369,7 +400,8 @@ public class Client implements ClientInterface {
       }
       this.setBreakfastFoods(breakfastFoods);
     }
-    if (clientJson.isNull("lunchFoods")) {
+
+    if (!clientJson.get("lunchFoods").toString().equals("")) {
       String list[] = String.valueOf(clientJson.get("lunchFoods")).split(" ");
       ArrayList<FoodItem> lunchFoods = new ArrayList<>();
       for (String item : list) {
@@ -381,7 +413,7 @@ public class Client implements ClientInterface {
       }
       setLunchFoods(lunchFoods);
     }
-    if (clientJson.isNull("dinnerFoods")) {
+    if (!clientJson.get("dinnerFoods").toString().equals("")) {
       String list[] = String.valueOf(clientJson.get("dinnerFoods")).split(" ");
       ArrayList<FoodItem> dinnerFoods = new ArrayList<>();
       for (String item : list) {
@@ -393,7 +425,7 @@ public class Client implements ClientInterface {
       }
       setDinnerFoods(dinnerFoods);
     }
-    if (clientJson.isNull("snackFoods")) {
+    if (!clientJson.get("snackFoods").toString().equals("")) {
       String list[] = String.valueOf(clientJson.get("snackFoods")).split(" ");
       ArrayList<FoodItem> snackFoods = new ArrayList<>();
       for (String item : list) {
