@@ -62,6 +62,10 @@ public class Client implements ClientInterface {
     this.snackFoods = snackFoods;
   }
 
+  public Client (JSONObject clientJSON){
+    jsonToClient(clientJSON);
+  }
+
   @Override
   public String getName() {
     return this.name;
