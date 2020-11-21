@@ -64,7 +64,7 @@ public class ClientView extends Application {
     // Get controller for main scene
     ClientMainViewController viewController = loader.getController();
     // setup scene
-    viewController.setupScene(clientController);
+    viewController.setupScene(clientController.getClientID());
 
     // Show scene in window
     stage.setTitle("Client View");
