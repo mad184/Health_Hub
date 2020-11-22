@@ -382,17 +382,17 @@ public class Client implements ClientInterface {
     setCalGoal(json.fromJson(String.valueOf(clientJson.get("goalCals")), Integer.class));
     setCalories(json.fromJson(String.valueOf(clientJson.get("calories")), Integer.class));
     setAllergies(json.fromJson(String.valueOf(clientJson.get("allergies")), ArrayList.class));
-    setComment(json.fromJson(String.valueOf(clientJson.get("comment")), ArrayList.class));
+    //setComment(json.fromJson(String.valueOf(clientJson.get("comment")), ArrayList.class));
 
     // setClientProfilePicture(json.fromJson(String.valueOf(clientJson.get("profilePicture")),
     // Image.class))
 
     // Converts String to array list of food items.
     if (!clientJson.get("breakfastFoods").toString().equals("")) {
-      String list[] = String.valueOf(clientJson.get("breakfastFoods")).split(" ");
+      String list[] = String.valueOf(clientJson.get("breakfastFoods")).split("/");
       ArrayList<FoodItem> breakfastFoods = new ArrayList<>();
       for (String item : list) {
-        String foodInfo[] = item.split(",");
+        String foodInfo[] = item.split(";");
         FoodItem food =
             new FoodItem(
                 foodInfo[0], Double.parseDouble(foodInfo[2]), Integer.parseInt(foodInfo[1]));
@@ -402,10 +402,10 @@ public class Client implements ClientInterface {
     }
 
     if (!clientJson.get("lunchFoods").toString().equals("")) {
-      String list[] = String.valueOf(clientJson.get("lunchFoods")).split(" ");
+      String list[] = String.valueOf(clientJson.get("lunchFoods")).split("/");
       ArrayList<FoodItem> lunchFoods = new ArrayList<>();
       for (String item : list) {
-        String foodInfo[] = item.split(",");
+        String foodInfo[] = item.split(";");
         FoodItem food =
             new FoodItem(
                 foodInfo[0], Double.parseDouble(foodInfo[2]), Integer.parseInt(foodInfo[1]));
@@ -414,10 +414,10 @@ public class Client implements ClientInterface {
       setLunchFoods(lunchFoods);
     }
     if (!clientJson.get("dinnerFoods").toString().equals("")) {
-      String list[] = String.valueOf(clientJson.get("dinnerFoods")).split(" ");
+      String list[] = String.valueOf(clientJson.get("dinnerFoods")).split("/");
       ArrayList<FoodItem> dinnerFoods = new ArrayList<>();
       for (String item : list) {
-        String foodInfo[] = item.split(",");
+        String foodInfo[] = item.split(";");
         FoodItem food =
             new FoodItem(
                 foodInfo[0], Double.parseDouble(foodInfo[2]), Integer.parseInt(foodInfo[1]));
@@ -426,10 +426,10 @@ public class Client implements ClientInterface {
       setDinnerFoods(dinnerFoods);
     }
     if (!clientJson.get("snackFoods").toString().equals("")) {
-      String list[] = String.valueOf(clientJson.get("snackFoods")).split(" ");
+      String list[] = String.valueOf(clientJson.get("snackFoods")).split("/");
       ArrayList<FoodItem> snackFoods = new ArrayList<>();
       for (String item : list) {
-        String foodInfo[] = item.split(",");
+        String foodInfo[] = item.split(";");
         FoodItem food =
             new FoodItem(
                 foodInfo[0], Double.parseDouble(foodInfo[2]), Integer.parseInt(foodInfo[1]));

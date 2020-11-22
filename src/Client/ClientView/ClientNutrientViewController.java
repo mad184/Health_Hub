@@ -6,6 +6,7 @@ import Client.ClientToDB;
 import Client.ClientView.FoodSearchView.FoodSearchViewController;
 import database.EmptyQueryException;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -13,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -25,17 +27,31 @@ public class ClientNutrientViewController implements Initializable {
 
   private ClientController clientController = new ClientController(null);
 
-  private VBox breakfastVBox = new VBox();
+  //VBoxs that display all clients food items
+  @FXML VBox breakfastVBox = new VBox();
+  @FXML VBox lunchVBox = new VBox();
+  @FXML VBox dinnerVBox = new VBox();
+  @FXML VBox snackVBox = new VBox();
 
   // DB object (Currently setup to test db)
   ClientToDB DB = new ClientToDB();
 
+  /**
+   * Sets up scene for nutrient view
+   * @param client client data
+   */
   public void setupScene(ClientController client) {
     clientController = client;
     updateBreakfastVBox();
+    updateLunchVBox();
+    updateDinnerVBox();
+    updateSnackVBox();
   }
 
-  // Goes to main view scene when back button is pushed
+  /**
+   * Goes to main view when pressed
+   * @param event event of back button pushed
+   */
   public void onBackButtonPressed(ActionEvent event) throws IOException, EmptyQueryException {
     // Loads Scene for main view
     FXMLLoader loader = new FXMLLoader(getClass().getResource("clientMainView.fxml"));
@@ -52,6 +68,10 @@ public class ClientNutrientViewController implements Initializable {
     window.show();
   }
 
+  /**
+   * Goes to food search view
+   * @param event add button pressed
+   */
   public void foodSearch(ActionEvent event) throws IOException {
     // Load food search scene
     FXMLLoader loader =
@@ -70,17 +90,78 @@ public class ClientNutrientViewController implements Initializable {
     window.show();
   }
 
+  /**
+   * Updates breakfast items in v box
+   */
   public void updateBreakfastVBox(){
     if (clientController.getClientBreakfastFoods() != null) {
       ArrayList<FoodItem> bfList = clientController.getClientBreakfastFoods();
       for (int i = 0; i < bfList.size(); i++){
         Label foodLabel = new Label(
                 bfList.get(i).getFoodName() +
-                ", Calories: " +
+                "\n\tCalories: " +
                 bfList.get(i).getCalories() +
-                        ", Serving size: " +
+                        "\n\tServing size: " +
                         bfList.get(i).getServingAmount());
+        foodLabel.setTextFill(Color.web("#ddd9d9"));
         breakfastVBox.getChildren().add(foodLabel);
+      }
+    }
+  }
+
+  /**
+   * Updates lunch items in v box
+   */
+  public void updateLunchVBox(){
+    if (clientController.getClientLunchFoods() != null) {
+      ArrayList<FoodItem> bfList = clientController.getClientLunchFoods();
+      for (int i = 0; i < bfList.size(); i++){
+        Label foodLabel = new Label(
+                bfList.get(i).getFoodName() +
+                        "\n\tCalories: " +
+                        bfList.get(i).getCalories() +
+                        "\n\tServing size: " +
+                        bfList.get(i).getServingAmount());
+        foodLabel.setTextFill(Color.web("#ddd9d9"));
+        lunchVBox.getChildren().add(foodLabel);
+      }
+    }
+  }
+
+  /**
+   * Updates dinner items in v box
+   */
+  public void updateDinnerVBox(){
+    if (clientController.getClientDinnerFoods() != null) {
+      ArrayList<FoodItem> bfList = clientController.getClientDinnerFoods();
+      for (int i = 0; i < bfList.size(); i++){
+        Label foodLabel = new Label(
+                bfList.get(i).getFoodName() +
+                        "\n\tCalories: " +
+                        bfList.get(i).getCalories() +
+                        "\n\tServing size: " +
+                        bfList.get(i).getServingAmount());
+        foodLabel.setTextFill(Color.web("#ddd9d9"));
+        dinnerVBox.getChildren().add(foodLabel);
+      }
+    }
+  }
+
+  /**
+   * Updates snack items in v box
+   */
+  public void updateSnackVBox(){
+    if (clientController.getClientSnackFoods() != null) {
+      ArrayList<FoodItem> bfList = clientController.getClientSnackFoods();
+      for (int i = 0; i < bfList.size(); i++){
+        Label foodLabel = new Label(
+                bfList.get(i).getFoodName() +
+                        "\n\tCalories: " +
+                        bfList.get(i).getCalories() +
+                        "\n\tServing size: " +
+                        bfList.get(i).getServingAmount());
+        foodLabel.setTextFill(Color.web("#ddd9d9"));
+        snackVBox.getChildren().add(foodLabel);
       }
     }
   }
