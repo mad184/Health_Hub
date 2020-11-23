@@ -42,17 +42,9 @@ public class InstructorMainViewController {
         // Changes recommendation label to client's recommendations
         recommendationLabel.setText("None");
 
-        // Add comment to client for testing
-        ArrayList<String> comment = new ArrayList<String>();
-        comment.add("Get up lazy fuck");
 
         // Sets clients comments label to none if there are no comments, else sets to first comment
-        clientController.setClientComment(comment);
-        if (clientController.getClientComment() == null) {
-            commentLabel.setText("None");
-        } else {
-            commentLabel.setText(clientController.getClientComment().get(0));
-        }
+
     }
 
     /**
