@@ -5,15 +5,7 @@ import staff.Instructor;
 import staff.Manager;
 
 public class HealthHubController {
-    private static HealthHubModel model;
-
-    private static HealthHubAccessSingleton healthHub;
-
-    //constructor takes the model
-    public HealthHubController(HealthHubModel model){
-
-        HealthHubController.model = model;
-    }
+    private static final HealthHubModel model = new HealthHubModel();
 
     /**
      * Makes call the model to pass it the client created
@@ -23,7 +15,7 @@ public class HealthHubController {
      * @param userName: String-client username
      * @param passWord: String-client passWord
      */
-    protected void addClient(String name, String birthDate, String email, String userName, String passWord){
+    public static void addClient(String name, String birthDate, String email, String userName, String passWord){
         /*TODO:
             make model take a method with these params
             -either we can return the client id and pass that to the client vew or figure out a way to pass the cleint
@@ -40,26 +32,25 @@ public class HealthHubController {
      * @param userName: String-Instructor username
      * @param passWord: String-Instructor passWord
      */
-    protected void addInstructor(String name, String birthDate, String email, String userName, String passWord){
+    public static void addInstructor(Instructor instructor){
         /*TODO:
             make model take a method with these params
             -either we can return the client id and pass that to the client vew or figure out a way to pass the cleint
              object
          */
-        //model.addInstructor(name, birthDate, email, userName, passWord);
+        model.addInstructor(instructor);
     }
 
     /**
      * Makes call the model to pass it the manager created
      * @param manager: of type Manager
      */
-    protected void addManager(String name, String birthDate, String email, String userName, String passWord){
+    public static int addManager(Manager manager){
         /*TODO:
-            make model take a method with these params
-            -either we can return the client id and pass that to the client vew or figure out a way to pass the cleint
-             object
+            createJsonObject
          */
-        //model.addManager(name, birthDate, email, userName, passWord);
+//        return model.addManager(manager);
+        return 0;
     }
 
     /**
@@ -70,7 +61,7 @@ public class HealthHubController {
      *     true -> the organization has been created
      *     false -> the organziation has already been created
      */
-    protected boolean createOrganization(String name, String ownerName){
+    public static boolean createOrganization(String name, String ownerName){
         return model.CreateOrgnaization(name, ownerName);
     }
 
@@ -88,7 +79,7 @@ public class HealthHubController {
    *    500 -> for server error
    *    -1 -> for unknown error
    */
-  protected int LogIn(String userName, String passWord, String userType) {
+  public static int LogIn(String userName, String passWord, String userType) {
         return model.systemLogin(userName, passWord, userType);
     }
 }
