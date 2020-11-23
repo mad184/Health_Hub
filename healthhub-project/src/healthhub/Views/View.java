@@ -1,4 +1,4 @@
-package healthhub;
+package healthhub.Views;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;

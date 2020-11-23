@@ -1,4 +1,4 @@
-package healthhub;
+package healthhub.Views;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -20,7 +20,7 @@ public class LogInView extends Application {
      */
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/LoginView.fxml"));
         Parent root = loader.load();
         stage.setTitle("Welcome to Health Hub");
         stage.setScene(new Scene(root, 600,400));
