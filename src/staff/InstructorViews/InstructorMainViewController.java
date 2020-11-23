@@ -55,12 +55,12 @@ public class InstructorMainViewController {
      */
     public void onExerciseButtonPushed(ActionEvent event) throws IOException {
         // Loads Scene for exercise view
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("clientExerciseView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("instructorExerciseView.fxml"));
         Parent root = loader.load();
 
         // Gets exercise view controller and passes client to it
-        ClientExerciseViewController viewController = loader.getController();
-        viewController.setupScene(clientController);
+        InstructorExerciseViewController ExerciseViewController = loader.getController();
+        ExerciseViewController.setupScene(controller);
 
         Scene viewScene = new Scene(root);
         // Gets stage information
@@ -77,12 +77,12 @@ public class InstructorMainViewController {
      */
     public void onProgressButtonPushed(ActionEvent event) throws IOException {
         // Loads Scene for progress view
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("clientProgressView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("instructorProgressView.fxml"));
         Parent root = loader.load();
 
         // Gets progress view controller and passes client to it
-        ClientProgressViewController viewController = loader.getController();
-        viewController.setupScene(clientController);
+        InstructorProgressViewController ProgressViewController = loader.getController();
+        ProgressViewController.setupScene(controller);
 
         Scene viewScene = new Scene(root);
         // Gets stage information
