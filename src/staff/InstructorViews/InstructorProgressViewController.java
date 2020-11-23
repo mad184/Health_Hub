@@ -4,7 +4,7 @@ import staff.Controllers.InstructorController;
 
 public class InstructorProgressViewController {
 
-    InstructorController controller;
+    private InstructorController controller;
 
     public void setupScene(InstructorController controller) {
         this.controller = controller;
