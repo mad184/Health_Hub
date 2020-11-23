@@ -1,5 +1,8 @@
-package healthhub;
+package healthhub.ViewControllers;
 
+import healthhub.HealthHubAccessSingleton;
+import healthhub.HealthHubController;
+import healthhub.Views.View;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -13,7 +16,6 @@ public class OrganizationSignUpController {
     private TextField organizationName, ownerName, BirthDate, Email, UserName, Password;
 
 
-    public HealthHubController healthHubController = new HealthHubController(null);
 
 
     /**
@@ -85,11 +87,11 @@ public class OrganizationSignUpController {
                database right now
              */
 
-            if(!healthHubController.createOrganization(organizationName, ownerName)){
+            if(!HealthHubController.createOrganization(organizationName, ownerName)){
                 JOptionPane.showMessageDialog(null, "Organization failed to be created");
             }
 
-            healthHubController.addManager(ownerName, birthDate, email, userName, passWord);
+//            healthHubController.addManager(ownerName, birthDate, email, userName, passWord);
 
             View.goToView("OwnerView.fxml", event);
         }

@@ -1,17 +1,14 @@
-package healthhub;
+package healthhub.ViewControllers;
 
 //for switching windows
+import healthhub.HealthHubController;
+import healthhub.Views.View;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 // for alerting the user of invalid or valid password
 import javax.swing.JOptionPane;
@@ -21,14 +18,12 @@ import java.io.IOException;
 
 public class LogInViewController {
     @FXML
-    private TextField userName, passWord;
+    private TextField email, passWord;
 
     @FXML
     private ComboBox userTypeComboBox;
 
     ObservableList<String> userTypeList = FXCollections.observableArrayList("Client", "Instructor", "Manager", "Owner");
-
-    public HealthHubController healthHubController = new HealthHubController(null);
 
 
     /**
@@ -64,7 +59,7 @@ public class LogInViewController {
         String userType = (String) userTypeComboBox.getValue();
 
         //send the heathHub Controller the login text
-        int loginCode = healthHubController.LogIn(this.userName.getText(),this.passWord.getText(), userType);
+        int loginCode = HealthHubController.LogIn(this.email.getText(),this.passWord.getText(), userType);
 
         //go to the different view depending on which user we are
         if (loginCode == 200){
