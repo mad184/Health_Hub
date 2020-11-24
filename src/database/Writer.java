@@ -182,6 +182,44 @@ public class Writer implements ServerInterface, WriteInterface {
   }
 
   /**
+   * OVERLOADED and DUPLICATED FUNCTION
+   * Updates data based on the unique String within the specified collection. It takes a JSONObject
+   * value which it writes as an updated data for the specified unique id It will throw an exception
+   * if unique id does not exist
+   *
+   * @param uniqueString unique String to update
+   * @param collectionUpdate collection where the unique id is located
+   * @param updatedData replace the old data with this updated data within the specified unique id
+   *     data
+   * @throws NullPointerException when updatedData is null ( not empty ), this exception will be
+   *     thrown
+   * @throws JsonObjectException when the updatedData is empty ( not null ), this exception will be
+   *     thrown to prevent users from updating empty data to Manager
+   * @throws EmptyQueryException when the unique Id does not exist within the list of instructors
+   *     this exception will be thrown
+   */
+  private void updateData(String uniqueString, String collectionUpdate, JSONObject updatedData)
+          throws JsonObjectException, EmptyQueryException, NullPointerException {
+    if (updatedData.isEmpty()) {
+      throw new JsonObjectException();
+    }
+    MongoCollection<Document> previousCollection = getCollectionTable();
+    setCollectionTable(collectionUpdate);
+
+    Document updatedDocument = new Document();
+    Document updatedDoc = createDocumentData(updatedData, updatedDocument);
+
+    try {
+      Document checkResult = collectionTable.findOneAndReplace(eq("_id", uniqueString), updatedDoc);
+      assert checkResult != null;
+    } catch (AssertionError ae) {
+      throw new EmptyQueryException();
+    } finally {
+      setCollectionTable(previousCollection);
+    }
+  }
+
+  /**
    * deletes everything ( including the unique id ) of the the specified unique id within a
    * collection. If the unique id does not exist within the database, no update will be performed on
    * the database
