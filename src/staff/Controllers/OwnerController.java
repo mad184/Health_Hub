@@ -1,5 +1,6 @@
 package staff.Controllers;
 
+import database.EmptyQueryException;
 import org.json.JSONObject;
 import staff.Interfaces.StaffInterface;
 import staff.Models.OwnerModel;
@@ -32,7 +33,7 @@ public class OwnerController implements OwnerInterface, StaffInterface {
   }
 
   @Override
-  public JSONObject getManagerInfo(UserID manager) {
+  public JSONObject getManagerInfo(UserID manager) throws EmptyQueryException {
     return model.getManagerInfo(manager);
   }
 

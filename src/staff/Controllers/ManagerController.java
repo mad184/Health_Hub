@@ -1,5 +1,6 @@
 package staff.Controllers;
 
+import database.EmptyQueryException;
 import org.json.JSONObject;
 import staff.Interfaces.ManagerInterface;
 import staff.Interfaces.StaffInterface;
@@ -23,7 +24,7 @@ public class ManagerController implements ManagerInterface, StaffInterface {
   }
 
   @Override
-  public JSONObject getInstructorInfo(UserID instructor) {
+  public JSONObject getInstructorInfo(UserID instructor) throws EmptyQueryException {
     return model.getInstructorInfo(instructor);
   }
 

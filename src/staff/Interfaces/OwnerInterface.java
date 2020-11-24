@@ -1,5 +1,6 @@
 package staff.Interfaces;
 
+import database.EmptyQueryException;
 import org.json.JSONObject;
 import staff.UserID;
 
@@ -35,5 +36,5 @@ public interface OwnerInterface {
    * @param manager: UserID of the Manager
    * @return JSONObject representation of the Manager
    */
-  public JSONObject getManagerInfo(UserID manager);
+  public JSONObject getManagerInfo(UserID manager) throws EmptyQueryException;
 }

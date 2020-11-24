@@ -2,6 +2,7 @@ package staff.Models;
 
 import java.util.List;
 
+import database.EmptyQueryException;
 import org.json.JSONException;
 import org.json.JSONObject;
 import com.google.gson.Gson;
@@ -91,7 +92,7 @@ public class ManagerModel extends StaffModel implements ManagerInterface {
    * @param instructor : UserID of the Instructor
    */
   @Override
-  public JSONObject getInstructorInfo(UserID instructor) {
+  public JSONObject getInstructorInfo(UserID instructor) throws EmptyQueryException {
     return this.db.readInstructorData(instructor.getId());
   }
 

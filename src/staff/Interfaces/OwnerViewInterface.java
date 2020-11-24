@@ -1,5 +1,6 @@
 package staff.Interfaces;
 
+import API.FoodItem;
 import javafx.scene.image.Image;
 import staff.UserID;
 

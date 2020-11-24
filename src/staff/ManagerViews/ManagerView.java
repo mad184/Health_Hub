@@ -1,5 +1,6 @@
 package staff.ManagerViews;
 
+import API.FoodItem;
 import com.google.gson.Gson;
 import javafx.scene.image.Image;
 import org.json.JSONException;
@@ -122,6 +123,16 @@ public class ManagerView implements StaffInterface, ManagerViewInterface {
     this.calories = calories;
   }
 
+  /**
+   * Sets the goal calorie
+   *
+   * @param goalCal the calorie that is the goal
+   */
+  @Override
+  public void setGoalCal(int goalCal) {
+
+  }
+
   @Override
   public void setAllergies(ArrayList<String> allergies) {
     this.allergies = allergies;
@@ -182,6 +193,16 @@ public class ManagerView implements StaffInterface, ManagerViewInterface {
   @Override
   public int getCalories() {
     return this.calories;
+  }
+
+  /**
+   * Gets the goal calorie of the client
+   *
+   * @return the goal set for calories
+   */
+  @Override
+  public int getCaloriesGoal() {
+    return this.goalCals;
   }
 
   @Override
@@ -350,7 +371,7 @@ public class ManagerView implements StaffInterface, ManagerViewInterface {
 
     // BREAKFAST
     String ArrayList[] = String.valueOf(ManagerJson.get("breakfastFoods")).split(" ");
-    ArrayList<FoodItem> breakfastFoods = new ArrayList<FoodIem>();
+    ArrayList<FoodItem> breakfastFoods = new ArrayList<FoodItem>();
     for (String item : ArrayList) {
       String foodInfo[] = item.split(",");
       FoodItem food =
@@ -361,7 +382,7 @@ public class ManagerView implements StaffInterface, ManagerViewInterface {
 
     // LUNCH
     ArrayList = String.valueOf(ManagerJson.get("lunchFoods")).split(" ");
-    ArrayList<FoodItem> lunchFoods = new ArrayList<FoodIem>();
+    ArrayList<FoodItem> lunchFoods = new ArrayList<FoodItem>();
     for (String item : ArrayList) {
       String foodInfo[] = item.split(",");
       FoodItem food =
@@ -372,7 +393,7 @@ public class ManagerView implements StaffInterface, ManagerViewInterface {
 
     // DINNER
     ArrayList = String.valueOf(ManagerJson.get("dinnerFoods")).split(" ");
-    ArrayList<FoodItem> dinnerFoods = new ArrayList<FoodIem>();
+    ArrayList<FoodItem> dinnerFoods = new ArrayList<FoodItem>();
     for (String item : ArrayList) {
       String foodInfo[] = item.split(",");
       FoodItem food =
@@ -383,7 +404,7 @@ public class ManagerView implements StaffInterface, ManagerViewInterface {
 
     // Snacks
     ArrayList = String.valueOf(ManagerJson.get("snacksFoods")).split(" ");
-    ArrayList<FoodItem> snackFoods = new ArrayList<FoodIem>();
+    ArrayList<FoodItem> snackFoods = new ArrayList<FoodItem>();
     for (String item : ArrayList) {
       String foodInfo[] = item.split(",");
       FoodItem food =
@@ -392,13 +413,13 @@ public class ManagerView implements StaffInterface, ManagerViewInterface {
     }
     setSnackFoods(snackFoods);
 
-    // CLIENTS
+    // Instructors
     ArrayList = String.valueOf(ManagerJson.get("instructors")).split(" ");
-    ArrayList<UserID> instructor = new ArrayList<FoodIem>();
+    ArrayList<UserID> instructor = new ArrayList<UserID>();
     for (String item : ArrayList) {
       String instructorInfo[] = item.split(",");
       UserID user = new UserID(Integer.parseInt(instructorInfo[0]), instructorInfo[1]);
-      clients.add(user);
+      instructor.add(user);
     }
     setInstructors(instructor);
   }

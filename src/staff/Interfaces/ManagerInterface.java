@@ -1,6 +1,8 @@
 package staff.Interfaces;
 
 import java.util.List;
+
+import database.EmptyQueryException;
 import org.json.JSONObject;
 import staff.UserID;
 
@@ -33,5 +35,5 @@ public interface ManagerInterface {
    *
    * @param instructor: UserID of the Instructor
    */
-  public JSONObject getInstructorInfo(UserID instructor);
+  public JSONObject getInstructorInfo(UserID instructor) throws EmptyQueryException;
 }

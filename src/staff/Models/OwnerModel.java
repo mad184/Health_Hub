@@ -2,6 +2,7 @@ package staff.Models;
 
 import java.util.List;
 
+import database.EmptyQueryException;
 import org.json.JSONException;
 import org.json.JSONObject;
 import com.google.gson.Gson;
@@ -35,8 +36,12 @@ public class OwnerModel extends ManagerModel implements OwnerInterface {
       String organization,
       int id,
       List<UserID> instructors,
-      List<UserID> managers) {
-    super(name, age, email, phoneNumber, height, weight, organization, id, instructors);
+      List<UserID> managers,
+      String username,
+      String password,
+      String dbName,
+      String tableName) {
+    super(name, age, email, phoneNumber, height, weight, organization, id, instructors, username, password, dbName, tableName);
     this.managers = managers;
   }
 
@@ -99,7 +104,7 @@ public class OwnerModel extends ManagerModel implements OwnerInterface {
    * @return JSONObject representation of the Manager
    */
   @Override
-  public JSONObject getManagerInfo(UserID manager) {
-    return this.db.readManagerInfo(manager.getId());
+  public JSONObject getManagerInfo(UserID manager) throws EmptyQueryException {
+    return this.db.readManagerData(manager.getId());
   }
 }

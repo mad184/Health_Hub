@@ -1,5 +1,7 @@
 package staff.Controllers;
 
+import database.EmptyQueryException;
+import database.JsonObjectException;
 import org.json.JSONException;
 import org.json.JSONObject;
 import staff.Interfaces.InstructorInterface;
@@ -11,7 +13,7 @@ import java.util.List;
 
 public class InstructorController implements InstructorInterface, StaffInterface {
 
-  private InstructorModel model;
+  public InstructorModel model;
 
   public InstructorController(InstructorModel model) {
     this.model = model;
@@ -33,17 +35,17 @@ public class InstructorController implements InstructorInterface, StaffInterface
   }
 
   @Override
-  public void addComment(UserID client, String comment) throws JSONException {
+  public void addComment(UserID client, String comment) throws JSONException, JsonObjectException, EmptyQueryException {
     model.addComment(client, comment);
   }
 
   @Override
-  public void removeComment(UserID client, String comment) throws JSONException {
+  public void removeComment(UserID client, String comment) throws JSONException, JsonObjectException, EmptyQueryException {
     model.removeComment(client, comment);
   }
 
   @Override
-  public JSONObject getClientInfo(UserID client) {
+  public JSONObject getClientInfo(UserID client) throws EmptyQueryException {
     return model.getClientInfo(client);
   }
 
