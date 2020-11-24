@@ -1,5 +1,6 @@
 package healthhub.ViewControllers;
 
+import client.Client;
 import healthhub.HealthHubController;
 import healthhub.Views.View;
 import javafx.event.ActionEvent;
@@ -12,7 +13,7 @@ import java.io.IOException;
 public class ClientSignUpViewController {
 
     @FXML
-    private TextField Name, BirthDate, Email, UserName, Password;
+    private TextField Name, age, Email, phoneNumber, Password;
 
 
     /**
@@ -36,23 +37,27 @@ public class ClientSignUpViewController {
      */
     @FXML
     public void onSignUpButtonPushed(ActionEvent event) throws IOException {
-        System.out.println("signUpButton Pushed");
         String name = this.Name.getText();
-        String birthDate = this.BirthDate.getText();
+        String ageString = this.age.getText();
         String email = this.Email.getText();
-        String userName = this.UserName.getText();
+        String phoneNumber = this.phoneNumber.getText();
         String passWord = this.Password.getText();
+        int age = 0;
 
+        try{
+            age = Integer.parseInt(ageString);
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, "age could not be read");
+        }
         //regex looks for any number of white space
         if(!(name.length() > 0) || name.matches("^ *$")){
             JOptionPane.showMessageDialog(null, "A Name is required");
         }
 
-        //regex matches dd-mm-yyy format
-        else if(!(birthDate.length() > 0) || !birthDate.matches("^([0]?[1-9]|[1|2][0-9]|[3][0|1])[-]([0]?[1-9]" +
-                "|[1][0-2])[-]([0-9]{4}|[0-9]{2})$")){
-            JOptionPane.showMessageDialog(null, "BirthDate is required to be an integer " +
-                    "sequence in  dd-mm-yyyy format");
+        //regex
+        else if(!(age > 0) || !(age < 150)){
+            JOptionPane.showMessageDialog(null, "Right now only ages 1 - 149 are accepted");
         }
 
         //regex looks for empty spaces entered
@@ -61,7 +66,7 @@ public class ClientSignUpViewController {
         }
 
         //regex looks for empty spaces entered
-        else if(!(userName.length() > 0) || userName.matches("^ *$")){
+        else if(!(phoneNumber.length() > 0) || phoneNumber.matches("^ *$")){
             JOptionPane.showMessageDialog(null, "A userName is required");
         }
 
@@ -70,11 +75,44 @@ public class ClientSignUpViewController {
             JOptionPane.showMessageDialog(null, "A Password is required");
         }
 
+//        //For testing the outputs manually
+//        System.out.println("Start Manual output Test");
+//        System.out.println("name: " + name);
+//        System.out.println("age: " + age);
+//        System.out.println("phoneNumber: " + phoneNumber);
+//        System.out.println("email: " + email);
+//        System.out.println("passWord: " + passWord);
 
-        HealthHubController.addClient(name, birthDate, email, userName, passWord);
+        Client client = new Client(
+                name,
+                email,
+                passWord,
+                null,
+                null,
+                0,
+                age,
+                0,
+                0,
+                phoneNumber,
+                0,
+                0,
+                0,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null);
+        HealthHubController.addClient(client);
+
+
+         //TODO: Uncomment after merge
+//        ClientMainViewController viewController = loader.getController();
+//        viewController.setupScene(clientController.getClientID());
 
         //go to client view
-        View.goToView("ClientView.fxml", event);
+        View.goToView("ClientMainView.fxml", event);
 
     }
 }
