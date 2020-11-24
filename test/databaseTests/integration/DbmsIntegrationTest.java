@@ -110,7 +110,10 @@ public class DbmsIntegrationTest {
     }
 
     Assertions.assertDoesNotThrow(
-        () -> realDbms.createOrganization("Hololive", expectedFullData.getJSONObject(0)));
+        () -> {
+          realDbms.createOrganization("Hololive", expectedFullData.getJSONObject(0));
+          realDbms.createOrganization("Hololive2", expectedFullData.getJSONObject(1));
+        });
   }
 
   // Tests for duplicates. Repeated tests are done as different random combination will be used
