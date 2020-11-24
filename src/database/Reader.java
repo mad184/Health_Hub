@@ -108,9 +108,9 @@ public class Reader implements ServerInterface, ReadInterface {
   }
 
   /**
-   * OVERLOADED FUNCTION
-   * Looks for the unique String within the specified Collection inside the database. The iteration will
-   * only return the first result as Strings are suppose to be unique within Collections
+   * OVERLOADED FUNCTION Looks for the unique String within the specified Collection inside the
+   * database. The iteration will only return the first result as Strings are suppose to be unique
+   * within Collections
    *
    * @param uniqueString unique String to search/read
    * @param readCollection collection to find the unique String data
@@ -188,6 +188,16 @@ public class Reader implements ServerInterface, ReadInterface {
    */
   public JSONObject readManagerData(int uniqueMid) throws EmptyQueryException {
     return createJsonData(new JSONObject(), readData(uniqueMid, "ManagerCollection"));
+  }
+
+  /**
+   * Reads the Manager data for the specified unique manager id
+   *
+   * @param uniqueOrgString: unique organization String to read
+   * @return JSONObject of the Organization data.
+   */
+  public JSONObject readOrganizationData(String uniqueOrgString) throws EmptyQueryException {
+    return createJsonData(new JSONObject(), readData(uniqueOrgString, "OrganizationCollection"));
   }
 
   /**
