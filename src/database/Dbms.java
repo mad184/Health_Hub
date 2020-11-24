@@ -168,7 +168,22 @@ public class Dbms implements WriteInterface, ReadInterface {
     DBWRITER.updateManager(uniqueMid, managerUpdatedData);
   }
 
-  public void updateOrganization(String uniqueOrgName, JSONObject orgUpdatedData) {}
+  /**
+   * calls the updateOrganization from the writer initialization. This should be called when
+   * updating Organization information inside the database.
+   *
+   * @param uniqueOrgName: unique Organization Name to find
+   * @param orgUpdatedData: Manager updated data to store
+   * @throws NullPointerException when value is null ( not empty ), this exception will be thrown
+   * @throws JsonObjectException when the managerUpdatedData is empty ( not null ), this exception
+   *     will be thrown to prevent users from updating empty data to Organization
+   * @throws EmptyQueryException when the unique Organization Name does not exist within the list of
+   *     organization, this exception will be thrown
+   */
+  public void updateOrganization(String uniqueOrgName, JSONObject orgUpdatedData)
+      throws JsonObjectException, EmptyQueryException, NullPointerException {
+    DBWRITER.updateOrganization(uniqueOrgName, orgUpdatedData);
+  }
 
   /**
    * calls the readClientData from the reader initialization. This should be called when reading
