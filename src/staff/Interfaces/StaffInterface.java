@@ -52,6 +52,13 @@ public interface StaffInterface {
   int getCalories();
 
   /**
+   * Gets the goal calorie of the client
+   *
+   * @return the goal set for calories
+   */
+  int getCaloriesGoal();
+
+  /**
    * Gets the organization that the user is affiliated with
    *
    * @return the organization name
@@ -113,6 +120,13 @@ public interface StaffInterface {
    * @param calories calories
    */
   void setCalories(int calories);
+
+  /**
+   * Sets the goal calorie
+   *
+   * @param goalCal the calorie that is the goal
+   */
+  void setGoalCal(int goalCal);
 
   /**
    * Sets the name of the organization the user is affiliated with
