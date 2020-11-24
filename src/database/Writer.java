@@ -235,6 +235,22 @@ public class Writer implements ServerInterface, WriteInterface {
   }
 
   /**
+   * OVERLOADED FUNCTION
+   * deletes everything ( including the unique String ) of the the specified unique String within a
+   * collection. If the unique String does not exist within the database, no update will be performed on
+   * the database
+   *
+   * @param uniqueString unique id to delete
+   * @param collectionDelete collection to where the unique String exist
+   */
+  private void deleteData(String uniqueString, String collectionDelete) {
+    MongoCollection<Document> previousCollection = getCollectionTable();
+    setCollectionTable(collectionDelete);
+    collectionTable.deleteOne(eq("_id", uniqueString));
+    setCollectionTable(previousCollection);
+  }
+
+  /**
    * Create a client data within the client collection
    *
    * @param uniqueCid unique client id
