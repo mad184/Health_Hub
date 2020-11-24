@@ -37,6 +37,7 @@ public class InstructorView extends Application {
                   "Instructor1",
                   "Dev-Remington-Db",
                   "Instructors") );
+  
   public static void main(String[] args) {
     launch(args);
   }
