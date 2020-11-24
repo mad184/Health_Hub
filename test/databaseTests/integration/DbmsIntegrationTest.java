@@ -108,6 +108,9 @@ public class DbmsIntegrationTest {
             realDbms.createManager(finalUniqueId, expectedFullData.getJSONObject(finalUniqueId));
           });
     }
+
+    Assertions.assertDoesNotThrow(
+        () -> realDbms.createOrganization("Hololive", expectedFullData.getJSONObject(0)));
   }
 
   // Tests for duplicates. Repeated tests are done as different random combination will be used
@@ -320,6 +323,7 @@ public class DbmsIntegrationTest {
             realDbms.removeClient(finalUniqueId);
             realDbms.removeInstructor(finalUniqueId);
             realDbms.removeManager(finalUniqueId);
+            realDbms.removeOrganization("Hololive");
           });
     }
 
@@ -333,5 +337,8 @@ public class DbmsIntegrationTest {
             realDbms.readManagerData(finalUniqueId);
           });
     }
+
+    Assertions.assertThrows(
+        EmptyQueryException.class, () -> realDbms.readOrganizationData("Hololive"));
   }
 }
