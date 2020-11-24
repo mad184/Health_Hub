@@ -149,8 +149,17 @@ public class DbmsIntegrationTest {
                 generator.nextInt(19), expectedFullData.getJSONObject(generator.nextInt(19))));
   }
 
-  // Test that reading data does not throw unnecessary exceptions
+  // Tests for duplicates. Repeated tests are done as different random combination will be used
   @Order(5)
+  void testDuplicateOrganizationCreate() {
+
+    Assertions.assertThrows(
+        MongoWriteException.class,
+        () -> realDbms.createOrganization("Hololive", expectedFullData.getJSONObject(0)));
+  }
+
+  // Test that reading data does not throw unnecessary exceptions
+  @Order(6)
   @Test
   void testCIMRead() {
 
@@ -163,10 +172,12 @@ public class DbmsIntegrationTest {
             realDbms.readManagerData(finalUniqueId);
           });
     }
+
+    Assertions.assertDoesNotThrow(() -> realDbms.readOrganizationData("Hololive"));
   }
 
   // Test data reading for Client, Instructor and Manager
-  @Order(6)
+  @Order(7)
   @Test
   void testDataRead() throws EmptyQueryException {
 
@@ -231,8 +242,39 @@ public class DbmsIntegrationTest {
     }
   }
 
+  // Test data reading for Organization
+  @Order(8)
+  @Test
+  void testDataOrganizationRead() throws EmptyQueryException {
+
+    JSONObject expectedData = expectedFullData.getJSONObject(0);
+    JSONObject actualOrganizationData = realDbms.readOrganizationData("Hololive");
+
+    // Checking the client data
+    Assertions.assertEquals(expectedData.get("Name"), actualOrganizationData.get("Name"));
+    Assertions.assertEquals(expectedData.get("Age"), actualOrganizationData.get("Age"));
+    Assertions.assertEquals(expectedData.get("Manager"), actualOrganizationData.get("Manager"));
+    Assertions.assertEquals(expectedData.get("Active"), actualOrganizationData.get("Active"));
+    Assertions.assertEquals(expectedData.get("Retired"), actualOrganizationData.get("Retired"));
+
+    // Testing the array within array. I recommend using JSONArrays for arrays
+    if (((JSONArray) expectedData.get("Nicknames")).isEmpty()) {
+      Assertions.assertEquals(
+          expectedData.get("Nicknames").toString(),
+          actualOrganizationData.get("Nicknames").toString());
+    } else {
+
+      // Special for loop for nicknames which is an array within an array
+      for (int each = 0; each < ((JSONArray) expectedData.get("Nicknames")).length(); each++) {
+        Assertions.assertEquals(
+            ((JSONArray) expectedData.get("Nicknames")).get(each),
+            ((List<String>) actualOrganizationData.get("Nicknames")).get(each));
+      }
+    }
+  }
+
   // Tests on getting all data for clients, instructors and managers
-  @Order(7)
+  @Order(9)
   @Test
   void testGetAllData() {
 
@@ -263,8 +305,24 @@ public class DbmsIntegrationTest {
     }
   }
 
+  // Tests on getting all data for organization
+  @Order(10)
+  @Test
+  void testGetAllOrgData() {
+
+    JSONObject expectedArrayElement = expectedFullData.getJSONObject(0);
+    JSONObject actualAllOrganization = realDbms.getAllOrganization().getJSONObject(0);
+
+    // Compare each key value with expected data key-value
+    for (String eachKey : expectedArrayElement.keySet()) {
+      Assertions.assertEquals(
+          expectedArrayElement.get(eachKey).toString(),
+          actualAllOrganization.get(eachKey).toString());
+    }
+  }
+
   // Testing for updating client, manager and instructor
-  @Order(8)
+  @Order(11)
   @Test
   void testDataUpdate() throws EmptyQueryException, JsonObjectException {
 
