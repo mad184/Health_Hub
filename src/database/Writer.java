@@ -396,15 +396,14 @@ public class Writer implements ServerInterface, WriteInterface {
   public void removeManager(int uniqueMid) {
     deleteData(uniqueMid, "ManagerCollection");
   }
-}
 
   /**
-   * Removes Manager Information inside the Manager Collection If the manager id does not exist
+   * Removes Organization Information inside the Organization Collection. If the organization does not exist
    * within the database, no update will be performed on the database
    *
-   * @param uniqueOrgName: unique manager id to remove
+   * @param uniqueOrgName: unique organization to remove
    */
   public void removeOrganization(String uniqueOrgName) {
-    deleteData(uniqueO, "ManagerCollection");
+    deleteData(uniqueOrgName, "OrganizationCollection");
   }
 }
