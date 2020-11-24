@@ -143,7 +143,7 @@ public class InstructorMainViewController {
      */
     public void onSettingsButtonPushed(ActionEvent event) throws IOException {
         // Loads Scene for settings view
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("instructorSettingsView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("InstructorSettingsView.fxml"));
         Parent root = loader.load();
 
         // Gets Setting view controller and passes client to it
