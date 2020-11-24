@@ -55,6 +55,7 @@ public class ReaderUnitTest {
           preWriter.createClient(1, testAdd);
           preWriter.createManager(1, testAdd);
           preWriter.createInstructor(1, testAdd);
+          preWriter.createOrganization("HololiveEN", testAdd);
         });
   }
 
@@ -89,22 +90,27 @@ public class ReaderUnitTest {
     Assertions.assertThrows(EmptyQueryException.class, () -> realCon.readClientData(2));
     Assertions.assertThrows(EmptyQueryException.class, () -> realCon.readInstructorData(2));
     Assertions.assertThrows(EmptyQueryException.class, () -> realCon.readManagerData(2));
+    Assertions.assertThrows(
+        EmptyQueryException.class, () -> realCon.readOrganizationData("HololivePH"));
   }
 
   // Tests the actual reading by comparing to pre-created data for client, manager and instructor
   @Test
   @Order(3)
   void testCIMDataReading() throws EmptyQueryException {
-    Assertions.assertDoesNotThrow(() -> {
-      realCon.readClientData(1);
-      realCon.readInstructorData(1);
-      realCon.readManagerData(1);
-    });
+    Assertions.assertDoesNotThrow(
+        () -> {
+          realCon.readClientData(1);
+          realCon.readInstructorData(1);
+          realCon.readManagerData(1);
+          realCon.readOrganizationData("HololiveEN");
+        });
 
     // Checking the expected and actual data created in precondition
     JSONObject clientData = realCon.readClientData(1);
     JSONObject InstructorData = realCon.readInstructorData(1);
     JSONObject ManagerData = realCon.readManagerData(1);
+    JSONObject OrganizationData = realCon.readOrganizationData("HololiveEN");
     ArrayList<String> testArray = new ArrayList<>();
     testArray.add("Kiara");
     testArray.add("Ina");
@@ -120,6 +126,10 @@ public class ReaderUnitTest {
     Assertions.assertEquals(ManagerData.get("Age"), 7);
     Assertions.assertEquals(ManagerData.get("Name"), "Gawr Gura");
     Assertions.assertEquals(ManagerData.get("Hololive Friends"), testArray);
+
+    Assertions.assertEquals(OrganizationData.get("Age"), 7);
+    Assertions.assertEquals(OrganizationData.get("Name"), "Gawr Gura");
+    Assertions.assertEquals(OrganizationData.get("Hololive Friends"), testArray);
   }
 
   // function that createsTestElement used for the next case
@@ -181,6 +191,7 @@ public class ReaderUnitTest {
           postWriter.removeClient(1);
           postWriter.removeManager(1);
           postWriter.removeInstructor(1);
+          postWriter.removeOrganization("HololiveEN");
         });
   }
 }
