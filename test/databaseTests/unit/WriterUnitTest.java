@@ -23,7 +23,7 @@ import java.util.List;
 @TestMethodOrder(OrderAnnotation.class)
 public class WriterUnitTest {
 
-    // Creadential related fields
+  // Creadential related fields
   private static final String realUserName = "test-user";
   private static final String realPassWord = "healthhub1";
   private static final String dbName = "Test-General-Database";
@@ -68,6 +68,11 @@ public class WriterUnitTest {
           realCon.removeInstructor(5);
           realCon.removeInstructor(6);
           realCon.removeInstructor(7);
+
+          realCon.removeOrganization("HololiveJP");
+          realCon.removeOrganization("HololiveEN");
+          realCon.removeOrganization("HololiveID");
+          realCon.removeOrganization("HololiveCN");
         });
   }
 
@@ -107,6 +112,7 @@ public class WriterUnitTest {
           realCon.removeClient(1);
           realCon.removeManager(1);
           realCon.removeInstructor(1);
+          realCon.removeOrganization("HololiveJP");
         });
   }
 
@@ -121,6 +127,7 @@ public class WriterUnitTest {
           realCon.createClient(1, null);
           realCon.createManager(1, null);
           realCon.createInstructor(1, null);
+          realCon.createOrganization("HololiveJP", null);
         });
   }
 
@@ -439,6 +446,10 @@ public class WriterUnitTest {
           realCon.removeInstructor(3);
           realCon.removeInstructor(4);
           realCon.removeInstructor(5);
+          realCon.removeOrganization("HololiveJP");
+          realCon.removeOrganization("HololiveEN");
+          realCon.removeOrganization("HololiveID");
+          realCon.removeOrganization("HololiveCN");
         });
   }
 }
