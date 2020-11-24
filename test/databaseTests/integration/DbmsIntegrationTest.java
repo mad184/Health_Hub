@@ -392,26 +392,18 @@ public class DbmsIntegrationTest {
             realDbms.removeInstructor(finalUniqueId);
             realDbms.removeManager(finalUniqueId);
           });
-      }
-    Assertions.assertDoesNotThrow(()->{
-      realDbms.removeOrganization("Hololive");
-      realDbms.removeOrganization("Hololive2");
-    });
+    }
+    Assertions.assertDoesNotThrow(
+        () -> {
+          realDbms.removeOrganization("Hololive");
+          realDbms.removeOrganization("Hololive2");
+        });
   }
 
-
-  // post delete of all the created data. This acts as test for deletion too
-  @AfterAll
-  static void postDataDeletion() {
-    for (int uniqueId = 0; uniqueId < 19; uniqueId++) {
-      int finalUniqueId = uniqueId;
-      realDbms.removeClient(finalUniqueId);
-      realDbms.removeInstructor(finalUniqueId);
-      realDbms.removeManager(finalUniqueId);
-    }
-    realDbms.removeOrganization("Hololive");
-    realDbms.removeOrganization("Hololive2");
-
+  // Test of post Client, Instructor, Manager and Organization deletion
+  @Test
+  @Order(13)
+  void testPostCIMODeletion() {
     for (int uniqueId = 0; uniqueId < 19; uniqueId++) {
       int finalUniqueId = uniqueId;
       Assertions.assertThrows(
@@ -422,12 +414,24 @@ public class DbmsIntegrationTest {
             realDbms.readManagerData(finalUniqueId);
           });
     }
-
     Assertions.assertThrows(
         EmptyQueryException.class,
         () -> {
           realDbms.readOrganizationData("Hololive");
           realDbms.readOrganizationData("Hololive2");
         });
+  }
+
+  // post delete all the created Data
+  @AfterAll
+  static void postDataDeletion() {
+    for (int uniqueId = 0; uniqueId < 19; uniqueId++) {
+      int finalUniqueId = uniqueId;
+      realDbms.removeClient(finalUniqueId);
+      realDbms.removeInstructor(finalUniqueId);
+      realDbms.removeManager(finalUniqueId);
+    }
+    realDbms.removeOrganization("Hololive");
+    realDbms.removeOrganization("Hololive2");
   }
 }
