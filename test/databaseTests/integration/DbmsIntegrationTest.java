@@ -345,15 +345,20 @@ public class DbmsIntegrationTest {
     JSONObject expectedUpdatedManagerData = new JSONObject();
     expectedUpdatedManagerData.put("Manager Removed", true);
 
+    JSONObject expectedUpdatedOrgData = new JSONObject();
+    expectedUpdatedOrgData.put("Organization Removed", true);
+
     // perform the updates
     realDbms.updateClient(0, expectedUpdatedClientData);
     realDbms.updateInstructor(1, expectedUpdatedInstrData);
     realDbms.updateManager(2, expectedUpdatedManagerData);
+    realDbms.updateOrganization("Hololive", expectedUpdatedOrgData);
 
     // read the actual data updated
     JSONObject actualUpdatedClientData = realDbms.readClientData(0);
     JSONObject actualInstrData = realDbms.readInstructorData(1);
     JSONObject actualManagerData = realDbms.readManagerData(2);
+    JSONObject actualOrgData = realDbms.readOrganizationData("Hololive");
 
     // Testing the asserted data not equal to previous value
     Assertions.assertThrows(
@@ -366,6 +371,7 @@ public class DbmsIntegrationTest {
               expectedFullData.getJSONObject(1).get("Instructor Removed"), actualInstrData);
           Assertions.assertNotEquals(
               expectedFullData.getJSONObject(2).get("Manager Removed"), actualManagerData);
+          Assertions.assertNotEquals(expectedFullData.getJSONObject(3).get("ENma"), actualOrgData);
         });
 
     // Testing it that it is equal now to the updated data
@@ -378,6 +384,9 @@ public class DbmsIntegrationTest {
     Assertions.assertEquals(
         expectedUpdatedManagerData.get("Manager Removed"),
         actualManagerData.get("Manager Removed"));
+    Assertions.assertEquals(
+        expectedUpdatedOrgData.get("Organization Removed"),
+        actualOrgData.get("Organization Removed"));
   }
 
   // Test of Client, Instructor, Manager and Organization deletion
