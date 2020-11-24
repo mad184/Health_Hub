@@ -1,5 +1,6 @@
 package staff.InstructorViews;
 
+import API.FoodItem;
 import org.json.JSONException;
 import staff.Interfaces.InstructorViewInterface;
 import staff.Interfaces.StaffInterface;
@@ -346,7 +347,7 @@ public class InstructorView implements StaffInterface, InstructorViewInterface {
 
       // BREAKFAST
       String ArrayList[] =String.valueOf(instructorJson.get("breakfastFoods")).split(" ");
-      ArrayList<FoodItem> breakfastFoods = new ArrayList<FoodIem>();
+      ArrayList<FoodItem> breakfastFoods = new ArrayList<>();
       for (String item : ArrayList){
         String foodInfo[] = item.split(",");
         FoodItem food =
@@ -357,7 +358,7 @@ public class InstructorView implements StaffInterface, InstructorViewInterface {
 
       // LUNCH
       ArrayList = String.valueOf(instructorJson.get("lunchFoods")).split(" ");
-      ArrayList<FoodItem> lunchFoods = new ArrayList<FoodIem>();
+      ArrayList<FoodItem> lunchFoods = new ArrayList<>();
       for (String item : ArrayList){
         String foodInfo[] = item.split(",");
         FoodItem food =
@@ -368,7 +369,7 @@ public class InstructorView implements StaffInterface, InstructorViewInterface {
 
       // DINNER
       ArrayList = String.valueOf(instructorJson.get("dinnerFoods")).split(" ");
-      ArrayList<FoodItem> dinnerFoods = new ArrayList<FoodIem>();
+      ArrayList<FoodItem> dinnerFoods = new ArrayList<>();
       for (String item : ArrayList){
         String foodInfo[] = item.split(",");
         FoodItem food =
@@ -379,7 +380,7 @@ public class InstructorView implements StaffInterface, InstructorViewInterface {
 
       // Snacks
       ArrayList = String.valueOf(instructorJson.get("snacksFoods")).split(" ");
-      ArrayList<FoodItem> snackFoods = new ArrayList<FoodIem>();
+      ArrayList<FoodItem> snackFoods = new ArrayList<>();
       for (String item : ArrayList){
         String foodInfo[] = item.split(",");
         FoodItem food =
@@ -390,7 +391,7 @@ public class InstructorView implements StaffInterface, InstructorViewInterface {
 
       // CLIENTS
       ArrayList = String.valueOf(instructorJson.get("clients")).split(" ");
-      ArrayList<UserID> clients = new ArrayList<FoodIem>();
+      ArrayList<UserID> clients = new ArrayList<>();
       for (String item : ArrayList){
         String clientInfo[] = item.split(",");
         UserID user =
