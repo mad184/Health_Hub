@@ -9,28 +9,18 @@ public class HealthHubController {
 
     /**
      * Makes call the model to pass it the client created
-     * @param name: String-client name
-     * @param birthDate: String-client birthdate
-     * @param email: String-client email
-     * @param userName: String-client username
-     * @param passWord: String-client passWord
+     * @param client: client object
      */
-    public static void addClient(String name, String birthDate, String email, String userName, String passWord){
-        /*TODO:
-            make model take a method with these params
-            -either we can return the client id and pass that to the client vew or figure out a way to pass the cleint
-             object
-         */
-        //model.addClient(name, birthDate, email, userName, passWord);
+    public static int addClient(Client client){
+
+        //ToDO:change return mehtod
+//        return model.addClient(client.getJSONData());
+        return 0; //to prevent error
     }
 
     /**
      * Makes call the model to pass it the client created
-     * @param name: String-Instructor name
-     * @param birthDate: String-Instructor birthdate
-     * @param email: String-Instructor email
-     * @param userName: String-Instructor username
-     * @param passWord: String-Instructor passWord
+     * @param instructor: Instructor object
      */
     public static void addInstructor(Instructor instructor){
         /*TODO:
@@ -38,7 +28,8 @@ public class HealthHubController {
             -either we can return the client id and pass that to the client vew or figure out a way to pass the cleint
              object
          */
-        model.addInstructor(instructor);
+
+//        model.addInstructor(instructor.getJSONData());
     }
 
     /**
@@ -46,10 +37,8 @@ public class HealthHubController {
      * @param manager: of type Manager
      */
     public static int addManager(Manager manager){
-        /*TODO:
-            createJsonObject
-         */
-//        return model.addManager(manager);
+         //ToDO: uncomment and replace return method
+//        return model.addManager(manager.getJSONData());
         return 0;
     }
 
