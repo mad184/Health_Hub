@@ -225,6 +225,19 @@ public class Dbms implements WriteInterface, ReadInterface {
   }
 
   /**
+   * calls the readOrganization Data from the reader initialization. This should be called when reading
+   * organization data of specified unique organization id
+   *
+   * @param uniqueOrgString Unique organization String used to read
+   * @return JSONObject of the organization data
+   * @throws EmptyQueryException when the unique string does not exist within the list of
+   *     organization, this exception is thrown
+   */
+  public JSONObject readOrganizationData(String uniqueOrgString) throws EmptyQueryException {
+    return DBREADER.readOrganizationData(uniqueOrgString);
+  }
+
+  /**
    * Gets all the clients available in the client collection
    *
    * @return returns a JSONArray of all the clients and their data, null if no data
@@ -249,5 +262,14 @@ public class Dbms implements WriteInterface, ReadInterface {
    */
   public JSONArray getAllManagers() {
     return DBREADER.getAllManagers();
+  }
+
+  /**
+   * Gets all the organization available in the organization collection
+   *
+   * @return returns a JSONArray of all the organization and their data, null if no data
+   */
+  public JSONArray getAllOrganization() {
+    return DBREADER.getAllOrganization();
   }
 }
