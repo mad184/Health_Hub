@@ -138,6 +138,7 @@ public class WriterUnitTest {
     // JSONObject with String key - String value
     JSONObject testStrStr = new JSONObject();
     testStrStr.append("Data", "Client/Manager/Instructor Data");
+    testStrStr.append("OrganizationData", "Hololive Organization Data");
 
     // Test Creation of data
     Assertions.assertDoesNotThrow(
@@ -145,6 +146,7 @@ public class WriterUnitTest {
           realCon.createClient(1, testStrStr);
           realCon.createManager(1, testStrStr);
           realCon.createInstructor(1, testStrStr);
+          realCon.createOrganization("HololiveJP", testStrStr);
         });
   }
 
@@ -153,11 +155,14 @@ public class WriterUnitTest {
   void testCreationDuplicate() {
     JSONObject test_add = new JSONObject();
     test_add.append("Data", "Client/Manager/Instructor Data");
+    test_add.append("OrganizationData", "Hololive Organization Data");
 
     // Test Creation of duplicated data
     Assertions.assertThrows(MongoWriteException.class, () -> realCon.createClient(1, test_add));
     Assertions.assertThrows(MongoWriteException.class, () -> realCon.createManager(1, test_add));
     Assertions.assertThrows(MongoWriteException.class, () -> realCon.createInstructor(1, test_add));
+    Assertions.assertThrows(
+        MongoWriteException.class, () -> realCon.createOrganization("HololiveJP", test_add));
   }
 
   @Test
