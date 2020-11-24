@@ -11,7 +11,11 @@ import java.util.List;
 
 public class ManagerController implements ManagerInterface, StaffInterface {
 
-  private ManagerModel model;
+  public ManagerModel model;
+
+  public ManagerController(ManagerModel model) {
+    this.model = model;
+  }
 
   @Override
   public List<UserID> getInstructors() {

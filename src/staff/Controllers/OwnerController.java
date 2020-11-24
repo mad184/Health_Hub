@@ -11,7 +11,7 @@ import java.util.List;
 
 public class OwnerController implements OwnerInterface, StaffInterface {
 
-  private OwnerModel model;
+  public OwnerModel model;
 
   public OwnerController(OwnerModel model) {
     this.model = model;
