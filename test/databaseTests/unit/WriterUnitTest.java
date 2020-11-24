@@ -185,7 +185,7 @@ public class WriterUnitTest {
           realCon.createClient(2, testStrJarr);
           realCon.createInstructor(2, testStrJarr);
           realCon.createManager(2, testStrJarr);
-          realCon.createOrganization("HololiveEN",testStrJarr);
+          realCon.createOrganization("HololiveCN", testStrJarr);
         });
   }
 
@@ -207,7 +207,7 @@ public class WriterUnitTest {
           realCon.createClient(3, testStrJArrNull);
           realCon.createInstructor(3, testStrJArrNull);
           realCon.createManager(3, testStrJArrNull);
-          realCon.createOrganization("HololiveCN",testStrJArrNull);
+          realCon.createOrganization("HololiveCN", testStrJArrNull);
         });
   }
 
@@ -227,7 +227,7 @@ public class WriterUnitTest {
           realCon.createClient(4, testStrBool);
           realCon.createInstructor(4, testStrBool);
           realCon.createManager(4, testStrBool);
-          realCon.createOrganization("HololiveEN", testStrBool);
+          realCon.createOrganization("HololiveID", testStrBool);
         });
   }
 
@@ -277,6 +277,7 @@ public class WriterUnitTest {
           realCon.createClient(6, testJavaArray);
           realCon.createInstructor(6, testJavaArray);
           realCon.createManager(6, testJavaArray);
+          realCon.createOrganization("HololiveEN", testJavaArray);
         });
   }
 
@@ -307,6 +308,7 @@ public class WriterUnitTest {
           realCon.createClient(7, testStrList);
           realCon.createInstructor(7, testStrList);
           realCon.createManager(7, testStrList);
+          realCon.createOrganization("HololiveEN", testStrList);
         });
   }
 
