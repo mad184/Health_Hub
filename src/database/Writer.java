@@ -210,6 +210,23 @@ public class Writer implements ServerInterface, WriteInterface {
   }
 
   /**
+   * Create an Organization data within the Organization collection
+   *
+   * @param uniqueOrgName unique organization name to be added within the database
+   * @param value JSON data that refers to the specific Organization
+   * @throws NullPointerException when value is null ( not empty ), this exception will be thrown
+   */
+  public void createOrganization(String uniqueOrgName, JSONObject value) throws NullPointerException {
+
+    MongoCollection<Document> previousCollection = getCollectionTable();
+    setCollectionTable("OrganizationCollection");
+    Document newDocument = new Document("_id", uniqueOrgName);
+    Document newData = createDocumentData(value, newDocument);
+    collectionTable.insertOne(newData);
+    setCollectionTable(previousCollection);
+  }
+
+  /**
    * Update Client Information inside the Client Collection Does not allow updates for non-existing
    * clients within the database
    *
