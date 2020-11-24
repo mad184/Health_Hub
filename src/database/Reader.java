@@ -226,4 +226,13 @@ public class Reader implements ServerInterface, ReadInterface {
   public JSONArray getAllManagers() {
     return retrieveAllData("ManagerCollection");
   }
+
+  /**
+   * Gets all the Organization available in the Organization table
+   *
+   * @return returns a JSONarray of all the Organization and their data, null if no data
+   */
+  public JSONArray getAllOrganization() {
+    return retrieveAllData("OrganizationCollection");
+  }
 }
