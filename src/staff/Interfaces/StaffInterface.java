@@ -45,6 +45,13 @@ public interface StaffInterface {
   int getWeight();
 
   /**
+   * Gets the calories of the user
+   *
+   * @return client calorie
+   */
+  int getCalories();
+
+  /**
    * Gets the organization that the user is affiliated with
    *
    * @return the organization name
@@ -99,6 +106,13 @@ public interface StaffInterface {
    * @param weight: Weight in lbs
    */
   void setWeight(int weight);
+
+  /**
+   * Sets calorie of the user
+   *
+   * @param calories calories
+   */
+  void setCalories(int calories);
 
   /**
    * Sets the name of the organization the user is affiliated with
