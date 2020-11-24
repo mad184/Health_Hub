@@ -33,7 +33,7 @@
                         <Font size="12.0" />
                     </font>
                 </Button>
-                <Label fx:id="nameLabel" layoutY="6.0" prefHeight="16.0" prefWidth="151.0" text="Client Name" textFill="#ddd9d9">
+                <Label fx:id="nameLabel" layoutY="6.0" prefHeight="16.0" prefWidth="151.0" text="Instructor Name" textFill="#ddd9d9">
                     <font>
                         <Font size="12.0" />
                     </font>
@@ -66,18 +66,18 @@
         </HBox>
         <Pane layoutX="52.0" layoutY="200.0" prefHeight="80.0" prefWidth="502.0" style="-fx-border-radius: 10; -fx-background-color: #9643A9 #9643A9 #9643A9 #9643A9 #9643A9 #9643A9 #9643A9 #9643A9; -fx-border-color: #ddd9d9; -fx-background-radius: 10;">
             <children>
-                <Label fx:id="nameLabel1" layoutX="14.0" layoutY="14.0" prefHeight="16.0" prefWidth="97.0" text="Reccomendations:" textFill="#ddd9d9">
+                <Label fx:id="nameLabel1" layoutX="14.0" layoutY="14.0" prefHeight="16.0" prefWidth="97.0" text="Recommendations:" textFill="#ddd9d9">
                     <font>
                         <Font size="12.0" />
                     </font>
                 </Label>
-                <Label fx:id="recommendationLabel" alignment="CENTER" layoutX="-89.0" layoutY="14.0" prefHeight="17.0" prefWidth="502.0" text="Reccomendation" textFill="#ddd9d9" />
+                <Label fx:id="recommendationLabel" alignment="CENTER" layoutX="-89.0" layoutY="14.0" prefHeight="17.0" prefWidth="502.0" text="Recommendation" textFill="#ddd9d9" />
             </children>
             <padding>
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
             </padding>
         </Pane>
       <Accordion layoutX="147.0" layoutY="290.0" />
-      <ComboBox layoutX="226.0" layoutY="316.0" prefWidth="150.0" promptText="test" fx:id="ClientComboBox" />
+      <ComboBox fx:id="ClientComboBox" layoutX="226.0" layoutY="316.0" prefWidth="150.0" promptText="test" />
     </children>
 </AnchorPane>
