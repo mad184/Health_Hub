@@ -128,8 +128,7 @@ public class Writer implements ServerInterface, WriteInterface {
    * Creates data based on the unique String within the specified collection It takes a JSONObject value
    * which it uses to create data.
    *
-   * @param uniqueString unique id within a collection
-   *
+   * @param uniqueString unique String within a collection
    * @param collectionInsert collection to create/insert new data
    * @param dataValue JSONObject value that will be stored within the document
    * @throws NullPointerException when dataValue is null, it will throw this exception
@@ -156,8 +155,8 @@ public class Writer implements ServerInterface, WriteInterface {
    * @throws NullPointerException when updatedData is null ( not empty ), this exception will be
    *     thrown
    * @throws JsonObjectException when the updatedData is empty ( not null ), this exception will be
-   *     thrown to prevent users from updating empty data to Manager
-   * @throws EmptyQueryException when the unique Id does not exist within the list of instructors
+   *     thrown to prevent users updating to empty data
+   * @throws EmptyQueryException when the unique Id does not exist within the collection
    *     this exception will be thrown
    */
   private void updateData(int uniqueId, String collectionUpdate, JSONObject updatedData)
@@ -194,8 +193,8 @@ public class Writer implements ServerInterface, WriteInterface {
    * @throws NullPointerException when updatedData is null ( not empty ), this exception will be
    *     thrown
    * @throws JsonObjectException when the updatedData is empty ( not null ), this exception will be
-   *     thrown to prevent users from updating empty data to Manager
-   * @throws EmptyQueryException when the unique Id does not exist within the list of instructors
+   *     thrown to prevent users updating to empty data
+   * @throws EmptyQueryException when the unique Id does not exist within the collection
    *     this exception will be thrown
    */
   private void updateData(String uniqueString, String collectionUpdate, JSONObject updatedData)
