@@ -152,7 +152,12 @@ public class ReaderUnitTest {
   @Test
   @Order(4)
   void testGetAllCIM() {
-    Assertions.assertDoesNotThrow(() -> realCon.getAllClients());
+    Assertions.assertDoesNotThrow(() -> {
+      realCon.getAllClients();
+      realCon.getAllInstructors();
+      realCon.getAllManagers();
+      realCon.getAllOrganization();
+    } );
 
     JSONArray testClient = realCon.getAllClients();
     JSONArray testInstructors = realCon.getAllInstructors();
