@@ -63,6 +63,11 @@ public class ManagerController implements ManagerInterface, StaffInterface {
   }
 
   @Override
+  public int getCalories() {
+    return model.getCalories();
+  }
+
+  @Override
   public String getOrganization() {
     return model.getOrganization();
   }
@@ -100,6 +105,11 @@ public class ManagerController implements ManagerInterface, StaffInterface {
   @Override
   public void setWeight(int weight) {
     model.setWeight(weight);
+  }
+
+  @Override
+  public void setCalories(int calories) {
+    model.setCalories(calories);
   }
 
   @Override

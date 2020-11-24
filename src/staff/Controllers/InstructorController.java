@@ -78,6 +78,11 @@ public class InstructorController implements InstructorInterface, StaffInterface
   }
 
   @Override
+  public int getCalories() {
+    return model.getCalories();
+  }
+
+  @Override
   public String getOrganization() {
     return model.getOrganization();
   }
@@ -115,6 +120,11 @@ public class InstructorController implements InstructorInterface, StaffInterface
   @Override
   public void setWeight(int weight) {
     model.setWeight(weight);
+  }
+
+  @Override
+  public void setCalories(int calories) {
+    model.setCalories(calories);
   }
 
   @Override
