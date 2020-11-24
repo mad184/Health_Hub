@@ -326,7 +326,7 @@ public class WriterUnitTest {
           realCon.updateClient(1, testStrStr);
           realCon.updateManager(1, testStrStr);
           realCon.updateInstructor(1, testStrStr);
-          realCon.updateOrganization("HololiveJP",testStrStr);
+          realCon.updateOrganization("HololiveJP", testStrStr);
         });
   }
 
@@ -350,6 +350,7 @@ public class WriterUnitTest {
           realCon.updateClient(2, testStrJarr);
           realCon.updateInstructor(2, testStrJarr);
           realCon.updateManager(2, testStrJarr);
+          realCon.updateOrganization("HololiveCN", testStrJarr);
         });
   }
 
@@ -371,6 +372,7 @@ public class WriterUnitTest {
           realCon.updateClient(3, testStrJArrNull);
           realCon.updateInstructor(3, testStrJArrNull);
           realCon.updateManager(3, testStrJArrNull);
+          realCon.updateOrganization("HololiveID", testStrJArrNull);
         });
   }
 
@@ -390,6 +392,7 @@ public class WriterUnitTest {
           realCon.updateClient(4, testStrBool);
           realCon.updateInstructor(4, testStrBool);
           realCon.updateManager(4, testStrBool);
+          realCon.updateOrganization("HololiveID", testStrBool);
         });
   }
 
@@ -404,6 +407,7 @@ public class WriterUnitTest {
           realCon.updateClient(1, null);
           realCon.updateManager(1, null);
           realCon.updateInstructor(1, null);
+          realCon.updateOrganization("HololiveJP", null);
         });
   }
 
@@ -420,6 +424,7 @@ public class WriterUnitTest {
           realCon.updateClient(1, emptyUpdate);
           realCon.updateManager(1, emptyUpdate);
           realCon.updateInstructor(1, emptyUpdate);
+          realCon.updateOrganization("HololiveJP", emptyUpdate);
         });
   }
 
