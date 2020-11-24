@@ -314,13 +314,19 @@ public class DbmsIntegrationTest {
   void testGetAllOrgData() {
 
     JSONObject expectedArrayElement = expectedFullData.getJSONObject(0);
+    JSONObject expectedArrayElement1 = expectedFullData.getJSONObject(1);
+
     JSONObject actualAllOrganization = realDbms.getAllOrganization().getJSONObject(0);
+    JSONObject actualAllOrganization1 = realDbms.getAllOrganization().getJSONObject(1);
 
     // Compare each key value with expected data key-value
     for (String eachKey : expectedArrayElement.keySet()) {
       Assertions.assertEquals(
           expectedArrayElement.get(eachKey).toString(),
           actualAllOrganization.get(eachKey).toString());
+      Assertions.assertEquals(
+          expectedArrayElement1.get(eachKey).toString(),
+          actualAllOrganization1.get(eachKey).toString());
     }
   }
 
@@ -374,9 +380,10 @@ public class DbmsIntegrationTest {
         actualManagerData.get("Manager Removed"));
   }
 
-  // post delete of all the created data. This acts as test for deletion too
-  @AfterAll
-  static void postDataDeletion() {
+  // Test of Client, Instructor, Manager and Organization deletion
+  @Test
+  @Order(12)
+  void testCIMODeletion() {
     for (int uniqueId = 0; uniqueId < 19; uniqueId++) {
       int finalUniqueId = uniqueId;
       Assertions.assertDoesNotThrow(
@@ -384,9 +391,26 @@ public class DbmsIntegrationTest {
             realDbms.removeClient(finalUniqueId);
             realDbms.removeInstructor(finalUniqueId);
             realDbms.removeManager(finalUniqueId);
-            realDbms.removeOrganization("Hololive");
           });
+      }
+    Assertions.assertDoesNotThrow(()->{
+      realDbms.removeOrganization("Hololive");
+      realDbms.removeOrganization("Hololive2");
+    });
+  }
+
+
+  // post delete of all the created data. This acts as test for deletion too
+  @AfterAll
+  static void postDataDeletion() {
+    for (int uniqueId = 0; uniqueId < 19; uniqueId++) {
+      int finalUniqueId = uniqueId;
+      realDbms.removeClient(finalUniqueId);
+      realDbms.removeInstructor(finalUniqueId);
+      realDbms.removeManager(finalUniqueId);
     }
+    realDbms.removeOrganization("Hololive");
+    realDbms.removeOrganization("Hololive2");
 
     for (int uniqueId = 0; uniqueId < 19; uniqueId++) {
       int finalUniqueId = uniqueId;
@@ -400,6 +424,10 @@ public class DbmsIntegrationTest {
     }
 
     Assertions.assertThrows(
-        EmptyQueryException.class, () -> realDbms.readOrganizationData("Hololive"));
+        EmptyQueryException.class,
+        () -> {
+          realDbms.readOrganizationData("Hololive");
+          realDbms.readOrganizationData("Hololive2");
+        });
   }
 }
