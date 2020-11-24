@@ -441,6 +441,7 @@ public class WriterUnitTest {
           realCon.updateClient(50, testUpdate);
           realCon.updateManager(51, testUpdate);
           realCon.updateInstructor(52, testUpdate);
+          realCon.updateOrganization("HololivePH", testUpdate);
         });
   }
 
