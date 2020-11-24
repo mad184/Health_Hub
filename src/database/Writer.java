@@ -357,12 +357,14 @@ public class Writer implements ServerInterface, WriteInterface {
    * @param updatedData: updated data to store
    * @throws NullPointerException when value is null ( not empty ), this exception will be thrown
    * @throws JsonObjectException when the updatedData is empty ( not null ), this exception will be
-   *     thrown to prevent users from updating empty data to Manager
-   * @throws EmptyQueryException when the unique Manager Id does not exist within the list of
-   *     managers this exception will be thrown
+   *     thrown to prevent users updating to empty data
+   * @throws EmptyQueryException when the unique Id does not exist within the collection
+   *     this exception will be thrown
    */
   public void updateOrganization(String uniqueOrgName, JSONObject updatedData)
           throws NullPointerException, JsonObjectException, EmptyQueryException {
+    updateData(uniqueOrgName, "OrganizationCollection", updatedData);
+
   }
 
   /**
