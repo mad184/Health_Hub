@@ -108,6 +108,31 @@ public class Reader implements ServerInterface, ReadInterface {
   }
 
   /**
+   * OVERLOADED FUNCTION
+   * Looks for the unique String within the specified Collection inside the database. The iteration will
+   * only return the first result as Strings are suppose to be unique within Collections
+   *
+   * @param uniqueString unique String to search/read
+   * @param readCollection collection to find the unique String data
+   * @return Document object that corresponds to the specified unique String
+   * @throws EmptyQueryException when the unique String does not exist within the collection, this
+   *     exception is thrown
+   */
+  private Document readData(String uniqueString, String readCollection) throws EmptyQueryException {
+    MongoCollection<Document> previousCollection = getCollectionTable();
+    setCollectionTable(readCollection);
+    try {
+      Document readResult = collectionTable.find(eq("_id", uniqueString)).first();
+      assert readResult != null;
+      return readResult;
+    } catch (AssertionError eqe) {
+      throw new EmptyQueryException();
+    } finally {
+      setCollectionTable(previousCollection);
+    }
+  }
+
+  /**
    * Retrieve all data within the collection
    *
    * @param collectionRetrieve: collection where we retrieve all data
