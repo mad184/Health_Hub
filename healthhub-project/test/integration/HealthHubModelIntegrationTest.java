@@ -106,7 +106,7 @@ public class HealthHubModelIntegrationTest {
         JSONObject testManager = new JSONObject();
         testManager.put("email","Ina@Hololive.en");
 
-        int testValue = testHHM.addInstructor(testManager);
+        int testValue = testHHM.addManager(testManager);
 
         createdUniqueIds.add(testValue);
 
@@ -116,20 +116,20 @@ public class HealthHubModelIntegrationTest {
         Assertions.assertNotEquals(401, testValue);
     }
 
-//    // Test if creating email duplicated instructor will result to 403 error codes
-//    @Order(5)
-//    @RepeatedTest(5)
-//    void testDuplicateEmailAddInstructor() {
-//
-//        JSONObject testInstructor = new JSONObject();
-//        testInstructor.put("email","Kiara@Hololive.en");
-//
-//        int testValue = testHHM.addInstructor(testInstructor);
-//
-//        createdUniqueIds.add(testValue);
-//
-//        Assertions.assertEquals(403, testValue);
-//    }
+    // Test if creating email duplicated instructor will result to 403 error codes
+    @Order(8)
+    @RepeatedTest(8)
+    void testDuplicateEmailAddManager() {
+
+        JSONObject testManager = new JSONObject();
+        testManager.put("email","Ina@Hololive.en");
+
+        int testValue = testHHM.addManager(testManager);
+
+        createdUniqueIds.add(testValue);
+
+        Assertions.assertEquals(403, testValue);
+    }
 //
 //    // Test whether adding an instructor that does not have an email will throw exceptions
 //    @Test
