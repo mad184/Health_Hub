@@ -58,32 +58,48 @@ public class HealthHubModel {
     JSONArray allInstructors = database.getAllInstructors();
     JSONArray allManagers = database.getAllManagers();
 
-    for (int i = 0; i < allClients.length(); i++) {
+    // if everything is empty, return false
+    if (allClients.isEmpty() && allInstructors.isEmpty() && allClients.isEmpty()) {
+      return true;
+    }
 
-      String existingEmail = allClients.getJSONObject(i).getString("Email");
+    // Check the list of clients
+    if (!allClients.isEmpty()) {
+      for (int i = 0; i < allClients.length(); i++) {
 
-      if (existingEmail.equals(newEmail)) {
-        return false;
+        String existingEmail = allClients.getJSONObject(i).getString("Email");
+
+        if (existingEmail.equals(newEmail)) {
+          return false;
+        }
       }
     }
 
-    for (int i = 0; i < allInstructors.length(); i++) {
+    // Check the list of Instructors
+    if (!allInstructors.isEmpty()) {
+      for (int i = 0; i < allInstructors.length(); i++) {
 
-      String existingEmail = allInstructors.getJSONObject(i).getString("Email");
+        String existingEmail = allInstructors.getJSONObject(i).getString("Email");
 
-      if (existingEmail.equals(newEmail)) {
-        return false;
+        if (existingEmail.equals(newEmail)) {
+          return false;
+        }
       }
     }
 
-    for (int i = 0; i < allManagers.length(); i++) {
+    // Check the list of Managers
+    if (!allManagers.isEmpty()) {
+      for (int i = 0; i < allManagers.length(); i++) {
 
-      String existingEmail = allManagers.getJSONObject(i).getString("Email");
+        String existingEmail = allManagers.getJSONObject(i).getString("Email");
 
-      if (existingEmail.equals(newEmail)) {
-        return false;
+        if (existingEmail.equals(newEmail)) {
+          return false;
+        }
       }
     }
+
+    // if you cannot find the email, then its unique
     return true;
   }
 
