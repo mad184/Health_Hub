@@ -50,7 +50,7 @@ public class OwnerView extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         // Add client to database for testing purpose
-        controller.model.db.createOwner(controller.getId(), controller.model.toJson());
+        //controller.model.db.createOwner(controller.getId(), controller.model.toJson());
 
         // Load main scene
         FXMLLoader loader = new FXMLLoader(getClass().getResource("OwnerMainView.fxml"));
