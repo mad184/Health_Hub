@@ -1,12 +1,12 @@
 package healthhub;
 
-import client.Client;
+import database.main.EmptyQueryException;
 import com.mongodb.MongoException;
 import database.main.Dbms;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import staff.InstructorModel;
-import staff.Manager;
+
+import java.util.Random;
 
 public class HealthHubModel {
   private final Dbms database; // actual database that the healthhub model connects
@@ -17,30 +17,145 @@ public class HealthHubModel {
   }
 
   /**
-   * This method adds/creates the client within the database
+   * This method determines the unique id that will be used to write within the database The
+   * database will throw exception if the query returned nothing when reading. Thus, I am using that
+   * to determine the uniqueness of the ID. If the read does return something, its not unique If the
+   * read does not return and throws exception, that means that the chosen id is unique, thus we use
+   * that to determine the uniqueness of the id NOTE: The unique id system is set up in the way that
+   * the "UNIQUE ID" will be unique for all managers, clients and Instructor
    *
-   * @param client: Client Object to be added within the database
+   * @return uniqueId: unique id that is within the max bounds of java int This value is unique to
+   *     all manager,client and instructor
    */
-  public void addClient(Client client) {
-    database.createClient(client.getUniqueId(), client.getJSONData());
+  private int determineUniqueId() {
+    Random randomID = new Random();
+    int uniqueId = 0;
+    while (true) {
+
+      try {
+        uniqueId = randomID.nextInt(2147483647);
+        database.readClientData(uniqueId);
+        database.readInstructorData(uniqueId);
+        database.readManagerData(uniqueId);
+      } catch (EmptyQueryException eqe) {
+        break;
+      }
+    }
+
+    return uniqueId;
   }
 
   /**
-   * This method adds/creates the instructor within the database
+   * This function is used to determine if the newEmail is unique or not It loops through the whole
+   * database which the method will return false if it detects that the email is not unique
    *
-   * @param instructor: Instructor Object to be added within the database
+   * @param newEmail: Email to be check if unique or not
+   * @return boolean: true if email is unique, false otherwise
    */
-  public void addInstructor(InstructorModel instructor) {
-    database.createInstructor(instructor.getUniqueId(), instructor.getJSONData());
+  private boolean determineUniqueEmail(String newEmail) {
+
+    JSONArray allClients = database.getAllClients();
+    JSONArray allInstructors = database.getAllInstructor();
+    JSONArray allManagers = database.getAllManager();
+
+    for (int i = 0; i < allClients.length(); i++) {
+
+      String existingEmail = allClients.getJSONObject(i).getString("Email");
+
+      if (existingEmail.equals(newEmail)) {
+        return false;
+      }
+    }
+
+    for (int i = 0; i < allInstructors.length(); i++) {
+
+      String existingEmail = allInstructors.getJSONObject(i).getString("Email");
+
+      if (existingEmail.equals(newEmail)) {
+        return false;
+      }
+    }
+
+    for (int i = 0; i < allManagers.length(); i++) {
+
+      String existingEmail = allManagers.getJSONObject(i).getString("Email");
+
+      if (existingEmail.equals(newEmail)) {
+        return false;
+      }
+    }
+    return true;
   }
 
   /**
-   * This method adds/creates the manager within the database
+   * This method adds/creates the client within the database. It checks for uniqueness of the ID and
+   * Email for ALL the instructor,client and Manager within the database
    *
-   * @param manager: Manager Object to be added within the database
+   * @param clientInitialData: JSONObject that contains the data from the new client to be created
+   * @return 403 if the email is not unique, 500 for server errors and 200 for successful
    */
-  public void addManager(Manager manager) {
-    database.createManager(manager.getUniqueId(), manager.getJSONData());
+  public int addClient(JSONObject clientInitialData) {
+    int clientId = determineUniqueId();
+    boolean emailUnique = determineUniqueEmail(clientInitialData.getString("Email"));
+
+    if (!emailUnique) {
+      return 403;
+    }
+
+    try {
+      database.createClient(clientId, clientInitialData);
+      return 200;
+    } catch (MongoException me) {
+      return 500;
+    }
+  }
+
+  /**
+   * This method adds/creates the instructor within the database It checks for uniqueness of the ID
+   * and Email for ALL the instructor,client and Manager within the database
+   *
+   * @param instrInitialData: JSONObject that contains the data from the new instructor to be
+   *     created
+   * @return 403 if the email is not unique, 500 for server errors and 200 for successful
+   */
+  public int addInstructor(JSONObject instrInitialData) {
+    int instructorId = determineUniqueId();
+    boolean emailUnique = determineUniqueEmail(instrInitialData.getString("Email"));
+
+    if (!emailUnique) {
+      return 403;
+    }
+
+    try {
+      database.createInstructor(instructorId, instrInitialData);
+      return 200;
+    } catch (MongoException me) {
+      return 500;
+    }
+  }
+
+  /**
+   * This method adds/creates the manager within the database It checks for uniqueness of the ID and
+   * Email for ALL the instructor,client and Manager within the database
+   *
+   * @param managerInitialData: JSONObject that contains the data from the new instructor to be
+   *     created
+   * @return 403 if the email is not unique, 500 for server errors and 200 for successful
+   */
+  public int addManager(JSONObject managerInitialData) {
+    int managerId = determineUniqueId();
+    boolean emailUnique = determineUniqueEmail(managerInitialData.getString("Email"));
+
+    if (!emailUnique) {
+      return 403;
+    }
+
+    try {
+      database.createManager(managerId, managerInitialData);
+      return 200;
+    } catch (MongoException me) {
+      return 500;
+    }
   }
 
   /**
@@ -51,9 +166,9 @@ public class HealthHubModel {
    * @param realPassword: Password to be checked
    * @param loginSelection: Can be client, manager, or instructor. Use to determine who are you
    *     logging in as
-   * @return: 200 for successful found. 401 for incorrect password. 404 for not found
    * @throws IllegalArgumentException: when the loginSelection is invalid. It needs to be Client,
    *     Manager or Instructor
+   * @return: 200 for successful found. 401 for incorrect password. 404 for not found
    */
   public int systemLogin(String realUserName, String realPassword, String loginSelection)
       throws IllegalArgumentException {
@@ -85,7 +200,7 @@ public class HealthHubModel {
           return 401;
         }
       }
-      return 404;
+      return 404; // if we cant find the data
     } catch (MongoException me) {
       return 500;
     } catch (Exception e) {
@@ -94,26 +209,18 @@ public class HealthHubModel {
   }
 
   /**
-   * A method to create the Organization,
+   * Creates the Organization with a specified unique organization name and jsonOrgData
    *
-   * @param name: the name of the organization we want to create
-   * @param ownerName: the owner of the organization
-   * @return
-   *     true -> the organization has been created
-   *     false -> the organziation has already been created
+   * @param uniqueOrgName: Unique Organization Name
+   * @param jsonOrgData: Json data involving the organization
    */
-  public boolean CreateOrgnaization(String name, String ownerName) {
+  public int createOrganization(String uniqueOrgName, JSONObject jsonOrgData) {
+
     try {
-      HealthHubAccessSingleton.newOrganziation(name, ownerName);
-      return true;
-    } catch (RuntimeException e) {
-      return false;
+      database.createOrganization(uniqueOrgName, jsonOrgData);
+      return 200;
+    } catch (MongoException me) {
+      return 500;
     }
   }
-
-    public boolean organziationExists(String name){
-
-      //ToDo: check if organziation name exists in the database
-      return true;
-    }
 }
