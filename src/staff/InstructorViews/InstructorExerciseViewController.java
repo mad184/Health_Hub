@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 
 import staff.Controllers.InstructorController;
 
-import java.awt.event.ActionEvent;
+import javafx.event.ActionEvent;
 import java.io.IOException;
 import javafx.scene.Node;
 
