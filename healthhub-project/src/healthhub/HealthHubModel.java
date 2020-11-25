@@ -27,7 +27,7 @@ public class HealthHubModel {
    * @return uniqueId: unique id that is within the max bounds of java int This value is unique to
    *     all manager,client and instructor
    */
-  private int determineUniqueId() {
+  protected int determineUniqueId() {
     Random randomID = new Random();
     int uniqueId = 0;
     while (true) {
@@ -52,7 +52,7 @@ public class HealthHubModel {
    * @param newEmail: Email to be check if unique or not
    * @return boolean: true if email is unique, false otherwise
    */
-  private boolean determineUniqueEmail(String newEmail) {
+  protected boolean determineUniqueEmail(String newEmail) {
 
     JSONArray allClients = database.getAllClients();
     JSONArray allInstructors = database.getAllInstructor();
