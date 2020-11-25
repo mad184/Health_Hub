@@ -10,6 +10,8 @@ public interface WriteInterface {
 
   void createManager(int uniqueMid, JSONObject value) throws NullPointerException;
 
+  void createOrganization(String uniqueOrgName, JSONObject value) throws NullPointerException;
+
   void updateClient(int uniqueCid, JSONObject updatedData)
       throws NullPointerException, JsonObjectException, EmptyQueryException;
 
@@ -19,9 +21,14 @@ public interface WriteInterface {
   void updateManager(int uniqueMid, JSONObject updatedData)
       throws JsonObjectException, NullPointerException, EmptyQueryException;
 
+  void updateOrganization(String uniqueOrgName, JSONObject updatedData)
+          throws JsonObjectException, NullPointerException, EmptyQueryException;
+
   void removeClient(int uniqueCid);
 
   void removeInstructor(int uniqueIid);
 
   void removeManager(int uniqueMid);
+
+  void removeOrganization(String uniqueOrgName);
 }
