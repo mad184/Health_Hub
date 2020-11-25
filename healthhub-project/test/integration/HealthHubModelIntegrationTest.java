@@ -168,6 +168,41 @@ public class HealthHubModelIntegrationTest {
 
   }
 
+  // Testing of unique ID system
+  @Test
+  @Order(11)
+  void testCIMUniqueIdSystem() {
+
+    // At this stage, the DB should have Gura - Client, Kiara - Instructor and Ina - Manager
+    testHHM.setProductionRandomBound();
+
+    // Loop with the range of the Production Random Bound
+    for(int iteration=1;iteration<=100;iteration++){
+
+      JSONObject testClientData = new JSONObject();
+      testClientData.put("email", iteration + "@client.com");
+
+      JSONObject testInstructorData = new JSONObject();
+      testInstructorData.put("email", iteration + "@instructor.com");
+
+      JSONObject testManagerData = new JSONObject();
+      testManagerData.put("email", iteration + "@manager.com");
+
+      int clientStatusValue = testHHM.addClient(testClientData);
+      createdUniqueIds.add(clientStatusValue);
+      Assertions.assertNotEquals(500,clientStatusValue);
+
+      int instructorStatusValue = testHHM.addInstructor(testInstructorData);
+      createdUniqueIds.add(instructorStatusValue);
+      Assertions.assertNotEquals(500,testHHM.addInstructor(testInstructorData));
+
+      int managerStatusValue = testHHM.addManager(testManagerData);
+      createdUniqueIds.add(managerStatusValue);
+      Assertions.assertNotEquals(500,testHHM.addManager(testManagerData));
+    }
+    testHHM.testRevertRandomBound();
+  }
+
   //  @Test
   //  @Order(2)
   //  void testAddInstructor() {
