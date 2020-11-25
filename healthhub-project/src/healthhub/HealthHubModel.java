@@ -10,6 +10,7 @@ import java.util.Random;
 
 public class HealthHubModel {
   private final Dbms database; // actual database that the healthhub model connects
+  private final int RANDOMBOUND = 5; // this is the maximum random number unique id can generate
 
   public HealthHubModel() {
     // Need to be changed in the future. This is for Development
@@ -43,7 +44,7 @@ public class HealthHubModel {
       // Make sures unique ID is not within of the status codes
       // May cause heisenbugg in the future
       do {
-        uniqueId = randomID.nextInt(5); // Should be changed back to a max int value
+        uniqueId = randomID.nextInt(RANDOMBOUND); // Should be changed back to a max int value
       } while (uniqueId == 400
           || uniqueId == 500
           || uniqueId == 403
@@ -82,43 +83,35 @@ public class HealthHubModel {
       return true;
     }
 
-    // Check the list of clients
-    if (!allClients.isEmpty()) {
-      for (int i = 0; i < allClients.length(); i++) {
+    JSONArray allData = new JSONArray();
 
-        String existingEmail = allClients.getJSONObject(i).getString("email");
-
-        if (existingEmail.equals(newEmail)) {
-          return false;
-        }
-      }
+    // Only append when the all the array is not null
+    if(allClients != null){
+      allClients.forEach((e)->{
+        allData.put(e);
+      });
     }
 
-    // Check the list of Instructors
-    if (!allInstructors.isEmpty()) {
-      for (int i = 0; i < allInstructors.length(); i++) {
-
-        String existingEmail = allInstructors.getJSONObject(i).getString("email");
-
-        if (existingEmail.equals(newEmail)) {
-          return false;
-        }
-      }
+    if (allInstructors != null) {
+      allInstructors.forEach((e)->{
+        allData.put(e);
+      });
     }
 
-    // Check the list of Managers
-    if (!allManagers.isEmpty()) {
-      for (int i = 0; i < allManagers.length(); i++) {
-
-        String existingEmail = allManagers.getJSONObject(i).getString("email");
-
-        if (existingEmail.equals(newEmail)) {
-          return false;
-        }
-      }
+    if(allManagers != null){
+      allManagers.forEach((e)->{
+        allData.put(e);
+      });
     }
 
-    // if you cannot find the email, then its unique
+    for (int i = 0; i < allData.length(); i++) {
+
+      String existingEmail = allData.getJSONObject(i).getString("email");
+
+      if (existingEmail.equals(newEmail)) {
+        return false;
+      }
+    }
     return true;
   }
 
