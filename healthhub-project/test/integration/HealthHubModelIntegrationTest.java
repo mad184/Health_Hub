@@ -98,6 +98,49 @@ public class HealthHubModelIntegrationTest {
         Assertions.assertThrows(Exception.class, () ->testHHM.addInstructor(testInstructor));
     }
 
+    // Test if creating the manager will not result to any of the error codes
+    @Test
+    @Order(7)
+    void testNewAddManager() {
+
+        JSONObject testManager = new JSONObject();
+        testManager.put("email","Ina@Hololive.en");
+
+        int testValue = testHHM.addInstructor(testManager);
+
+        createdUniqueIds.add(testValue);
+
+        Assertions.assertNotEquals(500, testValue);
+        Assertions.assertNotEquals(404, testValue);
+        Assertions.assertNotEquals(403, testValue);
+        Assertions.assertNotEquals(401, testValue);
+    }
+
+//    // Test if creating email duplicated instructor will result to 403 error codes
+//    @Order(5)
+//    @RepeatedTest(5)
+//    void testDuplicateEmailAddInstructor() {
+//
+//        JSONObject testInstructor = new JSONObject();
+//        testInstructor.put("email","Kiara@Hololive.en");
+//
+//        int testValue = testHHM.addInstructor(testInstructor);
+//
+//        createdUniqueIds.add(testValue);
+//
+//        Assertions.assertEquals(403, testValue);
+//    }
+//
+//    // Test whether adding an instructor that does not have an email will throw exceptions
+//    @Test
+//    @Order(6)
+//    void testInvalidKeyAddInstructor(){
+//        JSONObject testInstructor = new JSONObject();
+//        testInstructor.put("NoEmail","Gura@Hololive.en");
+//
+//        Assertions.assertThrows(Exception.class, () ->testHHM.addInstructor(testInstructor));
+//    }
+
 //  @Test
 //  @Order(2)
 //  void testAddInstructor() {
@@ -204,7 +247,7 @@ public class HealthHubModelIntegrationTest {
       for(Integer each: createdUniqueIds){
           testHHM.getDatabase().removeClient(each);
           testHHM.getDatabase().removeInstructor(each);
-          //testHHM.getDatabase().removeManager(each);
+          testHHM.getDatabase().removeManager(each);
       }
 
     }
