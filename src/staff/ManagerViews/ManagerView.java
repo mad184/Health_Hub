@@ -57,7 +57,7 @@ public class ManagerView extends Application {
     viewController.setupScene(controller);
 
     // Show scene in window
-    stage.setTitle("Instructor View");
+    stage.setTitle("Manager View");
     stage.setScene(new Scene(root, 600, 400));
     stage.show();
   }
