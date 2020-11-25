@@ -6,6 +6,7 @@ import healthhub.Views.View;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import staff.InstructorModel;
 
 import javax.swing.JOptionPane;
 import java.io.IOException;
@@ -83,13 +84,15 @@ public class ClientSignUpViewController {
 //        System.out.println("passWord: " + passWord);
 //        System.out.println("finished manual output tesing");
 
+        int clientID = HealthHubController.getUniqueID();
+
         Client client = new Client(
                 name,
                 email,
                 passWord,
                 null,
                 null,
-                0,
+                clientID,
                 age,
                 0,
                 0,
@@ -104,15 +107,21 @@ public class ClientSignUpViewController {
                 null,
                 null,
                 null);
-        HealthHubController.addClient(client);
 
+        int databaseAdditionSuccessCode = HealthHubController.addClient(client);
 
-        //TODO: Uncomment after merge
+        switch(databaseAdditionSuccessCode){
+            case 403:
+                JOptionPane.showMessageDialog(null, "ERROR: Email " + email + " has already been used");
+                break;
+            case 500:
+                JOptionPane.showMessageDialog(null, "ERROR: Server Error");
+                break;
+            case 200:
+                //TODO: Uncomment after merge
 //        ClientMainViewController viewController = loader.getController();
 //        viewController.setupScene(clientController.getClientID());
-
-        //go to client view
-        View.goToView("ClientMainView.fxml", event);
-
+//        View.goToView("ClientMainView.fxml", event);
+        }
     }
 }
