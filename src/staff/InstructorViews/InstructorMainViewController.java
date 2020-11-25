@@ -51,8 +51,8 @@ public class InstructorMainViewController {
     Parent root = loader.load();
 
     // Gets exercise view controller and passes client to it
-    InstructorExerciseViewController ExerciseViewController = loader.getController();
-    ExerciseViewController.setupScene(controller);
+    InstructorExerciseViewController ViewController = loader.getController();
+    ViewController.setupScene(controller);
 
     Scene viewScene = new Scene(root);
     // Gets stage information
@@ -73,8 +73,8 @@ public class InstructorMainViewController {
     Parent root = loader.load();
 
     // Gets progress view controller and passes client to it
-    InstructorProgressViewController ProgressViewController = loader.getController();
-    ProgressViewController.setupScene(controller);
+    InstructorProgressViewController ViewController = loader.getController();
+    ViewController.setupScene(controller);
 
     Scene viewScene = new Scene(root);
     // Gets stage information
@@ -95,8 +95,8 @@ public class InstructorMainViewController {
     Parent root = loader.load();
 
     // Gets nutrient view controller and passes client to it
-    InstructorNutrientController NutrienViewController = loader.getController();
-    NutrienViewController.setupScene(controller);
+    InstructorNutrientController ViewController = loader.getController();
+    ViewController.setupScene(controller);
 
     Scene viewScene = new Scene(root);
     // Gets stage information
@@ -117,8 +117,8 @@ public class InstructorMainViewController {
     Parent root = loader.load();
 
     // Gets profile view controller and passes client to it
-    InstructorProfileViewController ProfileViewController = loader.getController();
-    ProfileViewController.setupScene(controller);
+    InstructorProfileViewController ViewController = loader.getController();
+    ViewController.setupScene(controller);
 
     Scene viewScene = new Scene(root);
     // Gets stage information
@@ -135,12 +135,12 @@ public class InstructorMainViewController {
    */
   public void onSettingsButtonPushed(ActionEvent event) throws IOException {
     // Loads Scene for settings view
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("InstructorSettingsView.fxml"));
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("instructorSettingsView.fxml"));
     Parent root = loader.load();
 
     // Gets Setting view controller and passes client to it
-    InstructorSettingViewController SettingViewController = loader.getController();
-    SettingViewController.setupScene(controller);
+    InstructorSettingViewController ViewController = loader.getController();
+    ViewController.setupScene(controller);
 
     Scene viewScene = new Scene(root);
     // Gets stage information
