@@ -20,9 +20,10 @@ public class HealthHubController {
 
     /**
      * Makes call the model to pass it the client created
-     * @param instructor: Instructor object
+     * @param instructor : Instructor object
+     * @return
      */
-    public static void addInstructor(InstructorModel instructor){
+    public static int addInstructor(InstructorModel instructor){
         /*TODO:
             make model take a method with these params
             -either we can return the client id and pass that to the client vew or figure out a way to pass the cleint
@@ -30,6 +31,7 @@ public class HealthHubController {
          */
 
 //        model.addInstructor(instructor.getJSONData());
+        return 0;
     }
 
     /**
@@ -50,8 +52,9 @@ public class HealthHubController {
      *     true -> the organization has been created
      *     false -> the organziation has already been created
      */
-    public static boolean createOrganization(String name, String ownerName){
-        return model.CreateOrgnaization(name, ownerName);
+    public static int createOrganization(String name, String ownerName){
+//        int success = model.CreateOrgnaization(name, owner.json());
+        return 0;
     }
 
   /**
@@ -72,8 +75,11 @@ public class HealthHubController {
         return model.systemLogin(userName, passWord, userType);
     }
 
-  public static boolean organizationExists(String name){
-      return model.organziationExists(name);
+  public static boolean organizationExists(){
+      return HealthHubAccessSingleton.isOrganizationCreated();
   }
 
+  public static int getUniqueID(){
+      return model.determineUniqueId();
+  }
 }
