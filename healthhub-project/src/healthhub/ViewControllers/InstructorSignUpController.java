@@ -6,7 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 import javafx.scene.control.TextField;
-import staff.Instructor;
+import staff.InstructorModel;
 
 
 import javax.swing.JOptionPane;
@@ -14,7 +14,7 @@ import java.io.IOException;
 
 public class InstructorSignUpController {
     @FXML
-    private TextField Name, age, Email, Password, organziation;
+    private TextField Name, age, Email, Password, organziation, phoneNumber;
 
 
     /**
@@ -37,14 +37,13 @@ public class InstructorSignUpController {
      */
     @FXML
     public void onSignUpButtonPushed(ActionEvent event) throws IOException {
-        System.out.println("signUpButton Pushed");
-
         // check that our inputs were properly entered
         String name = this.Name.getText();
         String ageString = this.age.getText();
         String email = this.Email.getText();
         String organization = this.organziation.getText();
         String passWord = this.Password.getText();
+        String phoneNumber = this.phoneNumber.getText();
         int age = 0;
 
         try {
@@ -76,11 +75,20 @@ public class InstructorSignUpController {
         else if (!(passWord.length() > 0) || passWord.matches("^ *$")) {
             JOptionPane.showMessageDialog(null, "A Password is required");
         }
+        //regex looks for empty spaces entered
+        else if (!(phoneNumber.length() > 0) || phoneNumber.matches("^ *$")) {
+            JOptionPane.showMessageDialog(null, "A phone number is required");
+        }
+        else if((!HealthHubController.organizationExists(organization))){
+            JOptionPane.showMessageDialog(null, "A valid organization must be given");
+        }
+
 
 ////        //For testing the outputs manually
 //        System.out.println("Start Manual output Test for Instructor Sign Up input");
 //        System.out.println("name: " + name);
 //        System.out.println("age: " + age);
+//        System.out.println("phoneNumber: " + phoneNumber);
 //        System.out.println("organziation: " + organization);
 //        System.out.println("email: " + email);
 //        System.out.println("passWord: " + passWord);
@@ -90,10 +98,9 @@ public class InstructorSignUpController {
 //        ClientMainViewController viewController = loader.getController();
 //        viewController.setupScene(clientController.getClientID());
 
-//        Instructor addInstructor = new Instructor();
-//        int returnedSuccess = HealthHubController.addInstructor(addInstructor);
+        InstructorModel instructor = new InstructorModel(name,age,email,phoneNumber,0,0,organization,0,null,null,passWord,null,null);
+        int returnedSuccess = HealthHubController.addInstructor(instructor);
 
-//        //go to instructor view
-//        View.goToView("InstructorView.fxml", event);
+        View.goToView("InstructorView.fxml", event);
     }
 }
