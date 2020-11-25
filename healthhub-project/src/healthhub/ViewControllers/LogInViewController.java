@@ -1,6 +1,7 @@
 package healthhub.ViewControllers;
 
 //for switching windows
+
 import healthhub.HealthHubController;
 import healthhub.Views.View;
 import javafx.collections.FXCollections;
@@ -30,7 +31,7 @@ public class LogInViewController {
      * Function sets the values of the drop down menu (ComboBox) to the values of userTypeList
      */
     @FXML
-    public void initialize(){
+    public void initialize() {
         this.userTypeComboBox.setValue("");
         this.userTypeComboBox.setItems(userTypeList);
     }
@@ -59,14 +60,16 @@ public class LogInViewController {
         String userType = (String) userTypeComboBox.getValue();
 
         //send the heathHub Controller the login text
-        int loginCode = HealthHubController.LogIn(this.email.getText(),this.passWord.getText(), userType);
+        int loginSuccessCode = HealthHubController.LogIn(this.email.getText(), this.passWord.getText(), userType);
 
         //go to the different view depending on which user we are
-        if (loginCode == 200){
+
+        if (loginSuccessCode == 200) {
             /*
             ToDO:
-                change .fxml file names to proper file names
-             */
+             - change .fxml file names to proper file names
+             - pass the email to the controller so they can construct the object on the other side
+            */
             switch (userType) {
                 case "Client" -> View.goToView("ClientView.fxml", event);
                 case "Instructor" -> View.goToView("InstructorView.fxml", event);
@@ -74,20 +77,21 @@ public class LogInViewController {
                 case "Owner" -> View.goToView("OwnerView.fxml", event);
             }
         }
+
         // send account not found to LogInView
-        else if(loginCode == 404){
-            JOptionPane.showMessageDialog(null, "Account Not Found");
+        else if (loginSuccessCode == 404) {
+                JOptionPane.showMessageDialog(null, "Account Not Found");
         }
         // send account exists, password is not correct to LogInView
-        else if (loginCode == 401){
+        else if (loginSuccessCode == 401) {
             JOptionPane.showMessageDialog(null, "Account Exists, password was incorrect");
         }
         // send server error to LogInView
-        else if (loginCode == 500){
+        else if (loginSuccessCode == 500) {
             JOptionPane.showMessageDialog(null, "Server Error Occurred");
         }
         //unknown error
-        else{
+        else {
             JOptionPane.showMessageDialog(null, "Sorry, an unknown error occurred");
         }
     }
