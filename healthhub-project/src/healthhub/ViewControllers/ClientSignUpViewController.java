@@ -119,6 +119,7 @@ public class ClientSignUpViewController {
                 break;
             case 200:
                 //TODO: Uncomment after merge
+                // - check file names are correct
 //        ClientMainViewController viewController = loader.getController();
 //        viewController.setupScene(clientController.getClientID());
 //        View.goToView("ClientMainView.fxml", event);
