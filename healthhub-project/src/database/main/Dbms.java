@@ -37,4 +37,7 @@ public class Dbms {
 
     public void readManagerData(int uniqueId) throws EmptyQueryException{
     }
+
+    public void createOrganization(String uniqueOrgName, JSONObject jsonOrgData) {
+    }
 }
