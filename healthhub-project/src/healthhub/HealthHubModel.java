@@ -157,7 +157,7 @@ public class HealthHubModel {
 
     try {
       database.createInstructor(instructorId, instrInitialData);
-      return 200;
+      return instructorId;
     } catch (MongoException me) {
       return 500;
     }
@@ -181,7 +181,7 @@ public class HealthHubModel {
 
     try {
       database.createManager(managerId, managerInitialData);
-      return 200;
+      return managerId;
     } catch (MongoException me) {
       return 500;
     }
