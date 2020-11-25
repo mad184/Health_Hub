@@ -1,8 +1,8 @@
 package healthhub;
 
-import database.main.EmptyQueryException;
+import database.EmptyQueryException;
 import com.mongodb.MongoException;
-import database.main.Dbms;
+import database.Dbms;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -55,8 +55,8 @@ public class HealthHubModel {
   private boolean determineUniqueEmail(String newEmail) {
 
     JSONArray allClients = database.getAllClients();
-    JSONArray allInstructors = database.getAllInstructor();
-    JSONArray allManagers = database.getAllManager();
+    JSONArray allInstructors = database.getAllInstructors();
+    JSONArray allManagers = database.getAllManagers();
 
     for (int i = 0; i < allClients.length(); i++) {
 
@@ -181,10 +181,10 @@ public class HealthHubModel {
           CIMdata = database.getAllClients();
           break;
         case "Instructor":
-          CIMdata = database.getAllInstructor();
+          CIMdata = database.getAllInstructors();
           break;
         case "Manager":
-          CIMdata = database.getAllManager();
+          CIMdata = database.getAllManagers();
           break;
         default:
           throw new IllegalArgumentException();
