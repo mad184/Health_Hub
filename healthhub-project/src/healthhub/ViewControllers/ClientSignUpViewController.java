@@ -50,13 +50,13 @@ public class ClientSignUpViewController {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "age could not be read");
         }
+
         //regex looks for any number of white space
         if (!(name.length() > 0) || name.matches("^ *$")) {
             JOptionPane.showMessageDialog(null, "A Name is required");
         }
 
-
-        else if (!(age > 0) || !(age < 150)) {
+        else if (!(age > 0) || !(age < 150) ) {
             JOptionPane.showMessageDialog(null, "Right now only ages 1 - 149 are accepted");
         }
 
@@ -108,21 +108,26 @@ public class ClientSignUpViewController {
                 null,
                 null);
 
-        int databaseAdditionSuccessCode = HealthHubController.addClient(client);
+        if(!HealthHubController.uniqueEmail(email)){
+            JOptionPane.showMessageDialog(null, "ERROR: Email " + email + " has already been used");
+        }
+        else {
+            int databaseAdditionSuccessCode = HealthHubController.addClient(client);
 
-        switch(databaseAdditionSuccessCode){
-            case 403:
-                JOptionPane.showMessageDialog(null, "ERROR: Email " + email + " has already been used");
-                break;
-            case 500:
-                JOptionPane.showMessageDialog(null, "ERROR: Server Error");
-                break;
-            case 200:
-                //TODO: Uncomment after merge
-                // - check file names are correct
+            switch (databaseAdditionSuccessCode) {
+                case 403:
+                    JOptionPane.showMessageDialog(null, "ERROR: Email " + email + " has already been used");
+                    break;
+                case 500:
+                    JOptionPane.showMessageDialog(null, "ERROR: Server Error");
+                    break;
+                case 200:
+                    //TODO: Uncomment after merge
+                    // - check file names are correct
 //        ClientMainViewController viewController = loader.getController();
 //        viewController.setupScene(clientController.getClientID());
 //        View.goToView("ClientMainView.fxml", event);
+            }
         }
     }
 }
