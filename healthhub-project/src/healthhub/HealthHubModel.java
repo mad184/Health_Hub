@@ -26,6 +26,10 @@ public class HealthHubModel {
     return database;
   }
 
+  public int testGetRandomBound(){
+    return RANDOMBOUND;
+  }
+
   public void testSetRandomBound(int newBound) {
     RANDOMBOUND = newBound;
   }
@@ -67,12 +71,20 @@ public class HealthHubModel {
 
       try {
         database.readClientData(uniqueId);
-        database.readInstructorData(uniqueId);
-        database.readManagerData(uniqueId);
       } catch (EmptyQueryException eqe) {
-        break;
+
+        try {
+          database.readInstructorData(uniqueId);
+        } catch (EmptyQueryException eqe2) {
+
+          try {
+            database.readManagerData(uniqueId);
+          } catch (EmptyQueryException eqe3) {
+            break;
+          }
+        }
       }
-    }
+      }
 
     return uniqueId;
   }
