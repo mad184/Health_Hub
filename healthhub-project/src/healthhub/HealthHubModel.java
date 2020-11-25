@@ -5,7 +5,7 @@ import com.mongodb.MongoException;
 import database.main.Dbms;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import staff.Instructor;
+import staff.InstructorModel;
 import staff.Manager;
 
 public class HealthHubModel {
@@ -30,7 +30,7 @@ public class HealthHubModel {
    *
    * @param instructor: Instructor Object to be added within the database
    */
-  public void addInstructor(Instructor instructor) {
+  public void addInstructor(InstructorModel instructor) {
     database.createInstructor(instructor.getUniqueId(), instructor.getJSONData());
   }
 
@@ -97,7 +97,7 @@ public class HealthHubModel {
    * A method to create the Organization,
    *
    * @param name: the name of the organization we want to create
-   * @param owner: the owner of the organization
+   * @param ownerName: the owner of the organization
    * @return
    *     true -> the organization has been created
    *     false -> the organziation has already been created
@@ -106,9 +106,14 @@ public class HealthHubModel {
     try {
       HealthHubAccessSingleton.newOrganziation(name, ownerName);
       return true;
-    }
-    catch (RuntimeException e) {
+    } catch (RuntimeException e) {
       return false;
     }
   }
+
+    public boolean organziationExists(String name){
+
+      //ToDo: check if organziation name exists in the database
+      return true;
+    }
 }
