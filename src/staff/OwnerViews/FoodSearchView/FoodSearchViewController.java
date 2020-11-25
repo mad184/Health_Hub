@@ -1,8 +1,7 @@
-package staff.InstructorViews.FoodSearchView;
+package staff.OwnerViews.FoodSearchView;
 
 import API.APIManager;
 import API.FoodItem;
-import Client.ClientController;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -43,7 +42,7 @@ public class FoodSearchViewController {
 
   /**
    * Setups scene
-   * @param instructor InstructorController for instructor
+   * @param instructor InstructorController for client
    */
   public void setupScene(InstructorController instructor) {
     instructorController = instructor;

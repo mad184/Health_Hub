@@ -1,8 +1,7 @@
-package staff.InstructorViews.FoodSearchView;
+package staff.ManagerViews.FoodSearchView;
 
 import API.APIManager;
 import API.FoodItem;
-import Client.ClientController;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import staff.Controllers.InstructorController;
+import staff.Controllers.ManagerController;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,17 +36,17 @@ public class FoodSearchViewController {
   @FXML Label thirdResultCals = new Label();
 
   // Controller to hold client information
-  private InstructorController instructorController = new InstructorController(null);
+  private ManagerController managerController = new ManagerController(null);
 
   //Array list initialized for results
   ArrayList<FoodItem> results = new ArrayList<>();
 
   /**
    * Setups scene
-   * @param instructor InstructorController for instructor
+   * @param manager ManagerController for manager
    */
-  public void setupScene(InstructorController instructor) {
-    instructorController = instructor;
+  public void setupScene(ManagerController manager) {
+    managerController = manager;
   }
 
   /**
@@ -76,7 +76,7 @@ public class FoodSearchViewController {
 
     // Gets main view controller and passes client to it
     FoodTypeSelectViewController viewController = loader.getController();
-    viewController.setupScene(instructorController, food);
+    viewController.setupScene(managerController, food);
 
     Scene viewScene = new Scene(root);
     // Gets stage information

@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import staff.Controllers.OwnerController;
+import staff.OwnerViews.FoodSearchView.FoodSearchViewController;
 
 import java.io.IOException;
 import java.net.URL;
@@ -48,7 +49,7 @@ public class OwnerNutrientViewController implements Initializable {
         // Get controller for search scene
         FoodSearchViewController viewController = loader.getController();
         // setup scene
-        viewController.setUpScene(controller);
+        viewController.setupScene(controller);
 
         // Create popup window/stage and make it a sub-window of the main stage
         final Stage foodSearchStage = new Stage();

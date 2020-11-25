@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.*?>
+<AnchorPane prefHeight="267.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.ClientView.FoodSearchView.FoodSearchViewController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2a0033" height="268.0" stroke="BLACK" strokeType="INSIDE" width="400.0" />
+      <TextField fx:id="searchBar" alignment="CENTER" layoutX="116.0" layoutY="8.0" promptText="Search for food" style="-fx-border-color: #9643A9 #9643A9 #9643A9 #9643A9; -fx-border-radius: 10; -fx-background-radius: 10; -fx-background-color: #ffffff;">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <HBox layoutY="58.0" prefHeight="210.0" prefWidth="400.0">
+         <children>
+            <VBox alignment="TOP_CENTER" prefHeight="210.0" prefWidth="310.0" spacing="5.0">
+               <children>
+                  <Label fx:id="topResultName" alignment="CENTER" prefHeight="33.0" prefWidth="275.0" textFill="#ddd9d9">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="secondResultName" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="33.0" prefWidth="262.0" textFill="#ddd9d9">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="thirdResultName" alignment="CENTER" layoutX="10.0" layoutY="27.0" prefHeight="33.0" prefWidth="263.0" textFill="#ddd9d9">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox alignment="TOP_CENTER" prefHeight="168.0" prefWidth="133.0" spacing="5.0">
+               <children>
+                  <Label fx:id="topResultCals" alignment="CENTER" prefHeight="33.0" prefWidth="85.0" textFill="#ddd9d9">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="secondResultCals" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="33.0" prefWidth="102.0" textFill="#ddd9d9" />
+                  <Label fx:id="thirdResultCals" alignment="CENTER" layoutX="10.0" layoutY="27.0" prefHeight="33.0" prefWidth="115.0" textFill="#ddd9d9">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+               <children>
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#topResultAddButton" prefHeight="33.0" prefWidth="33.0" style="-fx-border-color: #9643a9; -fx-border-radius: 30; -fx-background-color: #2a0033; -fx-background-radius: 30;" text="+" textFill="#9643a9" />
+                  <Button alignment="CENTER" layoutX="19.0" layoutY="10.0" mnemonicParsing="false" onAction="#secondResultAddButton" prefHeight="33.0" prefWidth="33.0" style="-fx-border-color: #9643a9; -fx-border-radius: 30; -fx-background-color: #2a0033; -fx-background-radius: 30;" text="+" textFill="#9643a9" />
+                  <Button alignment="CENTER" layoutX="19.0" layoutY="29.0" mnemonicParsing="false" onAction="#thirdResultAddButton" prefHeight="33.0" prefWidth="33.0" style="-fx-border-color: #9643a9; -fx-border-radius: 30; -fx-background-color: #2a0033; -fx-background-radius: 30;" text="+" textFill="#9643a9" />
+               </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </VBox>
+         </children>
+      </HBox>
+      <Button layoutX="321.0" layoutY="10.0" mnemonicParsing="false" onAction="#onSearchButtonPressed" style="-fx-background-color: #2a0033;" text="Search" textFill="#ddd9d9" />
+      <Label layoutX="116.0" layoutY="43.0" text="Results" textFill="#ddd9d9" underline="true" />
+      <Label layoutX="276.0" layoutY="43.0" text="Calories" textFill="#ddd9d9" underline="true" />
+   </children>
+</AnchorPane>
