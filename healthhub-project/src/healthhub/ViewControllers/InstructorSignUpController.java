@@ -14,7 +14,7 @@ import java.io.IOException;
 
 public class InstructorSignUpController {
     @FXML
-    private TextField Name, BirthDate, Email, UserName, Password;
+    private TextField Name, age, Email, Password, organziation;
 
 
     /**
@@ -24,8 +24,8 @@ public class InstructorSignUpController {
      * @throws IOException: for View.gotoView()
      */
     @FXML
-    public void backButtonPushed(ActionEvent event) throws IOException{
-        View.goToView("LoginView.fxml",event);
+    public void backButtonPushed(ActionEvent event) throws IOException {
+        View.goToView("LoginView.fxml", event);
     }
 
 
@@ -41,42 +41,59 @@ public class InstructorSignUpController {
 
         // check that our inputs were properly entered
         String name = this.Name.getText();
-        String birthDate = this.BirthDate.getText();
+        String ageString = this.age.getText();
         String email = this.Email.getText();
-        String userName = this.UserName.getText();
+        String organization = this.organziation.getText();
         String passWord = this.Password.getText();
+        int age = 0;
 
+        try {
+            age = Integer.parseInt(ageString);
+        }
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "age could not be read");
+        }
         //regex looks for any number of white space
-        if(!(name.length() > 0) || name.matches("^ *$")){
+        if (!(name.length() > 0) || name.matches("^ *$")) {
             JOptionPane.showMessageDialog(null, "A Name is required");
         }
 
-        //regex will reject anything that doesn't match dd-mm-yyyy format
-        else if(!(birthDate.length() > 0) || !birthDate.matches("^([0]?[1-9]|[1|2][0-9]|[3][0|1])[-]([0]?[1-9]" +
-                "|[1][0-2])[-]([0-9]{4}|[0-9]{2})$")){
-            JOptionPane.showMessageDialog(null, "BirthDate is required to be an integer " +
-                    "sequence in  dd-mm-yyyy format");
+        else if (!(age > 0) || !(age < 150)) {
+            JOptionPane.showMessageDialog(null, "Right now only ages 1 - 149 are accepted");
         }
 
         //regex looks for empty spaces entered
-        else if(!(email.length() > 0) || email.matches("^ *$")){
+        else if (!(email.length() > 0) || email.matches("^ *$")) {
             JOptionPane.showMessageDialog(null, "A Email is required");
         }
 
         //regex looks for empty spaces entered
-        else if(!(userName.length() > 0) || userName.matches("^ *$")){
+        else if (!(organization.length() > 0) || organization.matches("^ *$")) {
             JOptionPane.showMessageDialog(null, "A userName is required");
         }
 
         //regex looks for empty spaces entered
-        else if(!(passWord.length() > 0) || passWord.matches("^ *$")){
+        else if (!(passWord.length() > 0) || passWord.matches("^ *$")) {
             JOptionPane.showMessageDialog(null, "A Password is required");
         }
 
-        Instructor addInstructor = new Instructor();
+////        //For testing the outputs manually
+//        System.out.println("Start Manual output Test for Instructor Sign Up input");
+//        System.out.println("name: " + name);
+//        System.out.println("age: " + age);
+//        System.out.println("organziation: " + organization);
+//        System.out.println("email: " + email);
+//        System.out.println("passWord: " + passWord);
+//        System.out.println("finsished manual input testing");
+
+        //TODO: Uncomment after merge
+//        ClientMainViewController viewController = loader.getController();
+//        viewController.setupScene(clientController.getClientID());
+
+//        Instructor addInstructor = new Instructor();
 //        int returnedSuccess = HealthHubController.addInstructor(addInstructor);
 
-        //go to instructor view
-        View.goToView("InstructorView.fxml", event);
+//        //go to instructor view
+//        View.goToView("InstructorView.fxml", event);
     }
 }
