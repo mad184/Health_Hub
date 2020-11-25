@@ -230,7 +230,7 @@ public class Reader implements ServerInterface, ReadInterface {
   /**
    * Gets all the Organization available in the Organization table
    *
-   * @return returns a JSONarray of all the Organization and their data, null if no data
+   * @return returns a JSONArray of all the Organization and their data, null if no data
    */
   public JSONArray getAllOrganization() {
     return retrieveAllData("OrganizationCollection");
