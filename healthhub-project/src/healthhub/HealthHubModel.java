@@ -220,7 +220,7 @@ public class HealthHubModel {
    * This method is used to login to the system. Primarily, it checks the validity of the
    * Username/Password
    *
-   * @param realUserName: Username to be checked
+   * @param emailUserName: Username to be checked
    * @param realPassword: Password to be checked
    * @param loginSelection: Can be client, manager, or instructor. Use to determine who are you
    *     logging in as
@@ -228,37 +228,47 @@ public class HealthHubModel {
    *     Manager or Instructor
    * @return: 200 for successful found. 401 for incorrect password. 404 for not found
    */
-  public int systemLogin(String realUserName, String realPassword, String loginSelection)
+  public int systemLogin(String emailUserName, String realPassword, String loginSelection)
       throws IllegalArgumentException {
 
     try {
-      JSONArray CIMdata = new JSONArray();
+      JSONArray CIMData;
 
       switch (loginSelection) {
         case "Client":
-          CIMdata = database.getAllClients();
+          CIMData = database.getAllClients();
           break;
         case "Instructor":
-          CIMdata = database.getAllInstructors();
+          CIMData = database.getAllInstructors();
           break;
         case "Manager":
-          CIMdata = database.getAllManagers();
+          CIMData = database.getAllManagers();
           break;
         default:
           throw new IllegalArgumentException();
       }
 
-      for (Object eachElement : CIMdata) {
+      // If theres no client to login then return 404
+      if (CIMData == null) {
+        return 404;
+      } else {
+        for (int each = 0; each < CIMData.length(); each++) {
 
-        if (((JSONObject) eachElement).get("UserName").equals(realUserName)
-            && ((JSONObject) eachElement).get("PassWord").equals(realPassword)) {
-          return 200;
-        } else if (((JSONObject) eachElement).get("UserName").equals(realUserName)
-            && !((JSONObject) eachElement).get("PassWord").equals(realPassword)) {
-          return 401;
+          // I am trusting that the email and password will be string here
+          String indexUserName = (String) CIMData.getJSONObject(each).get("email");
+          String indexPassWord = (String) CIMData.getJSONObject(each).get("password");
+          int indexId = (int) CIMData.getJSONObject(each).get("_id");
+
+          if (emailUserName.equals(indexUserName) && realPassword.equals(indexPassWord)) {
+            return indexId;
+          } else if (emailUserName.equals(indexUserName) && (!realPassword.equals(indexPassWord))) {
+            return 401;
+          }
         }
+
+        return 404; // if we cant find the data
       }
-      return 404; // if we cant find the data
+
     } catch (MongoException me) {
       return 500;
     } catch (Exception e) {
