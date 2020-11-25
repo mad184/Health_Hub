@@ -6,15 +6,19 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import staff.Controllers.InstructorController;
+import staff.Controllers.ManagerController;
+import staff.Controllers.OwnerController;
 import staff.Models.InstructorModel;
+import staff.Models.ManagerModel;
+import staff.Models.OwnerModel;
 import staff.UserID;
 
 import java.util.ArrayList;
 
 public class ManagerView extends Application {
 
-  public InstructorController controller = new InstructorController(
-          new InstructorModel(
+  public ManagerController controller = new ManagerController(
+          new ManagerModel(
             "John Wick",
             21,
                   "john@usask.ca",
@@ -41,7 +45,7 @@ public class ManagerView extends Application {
   @Override
   public void start(Stage stage) throws Exception {
     // Add client to database for testing purpose
-    controller.model.db.createInstructor(controller.getId(), controller.model.toJson());
+    controller.model.db.createManager(controller.getId(), controller.model.toJson());
 
     // Load main scene
     FXMLLoader loader = new FXMLLoader(getClass().getResource("managerMainView.fxml"));
@@ -61,7 +65,7 @@ public class ManagerView extends Application {
   /** Runs when application is closed */
   @Override
   public void stop() {
-    controller.model.db.removeInstructor(controller.getId()); // Removes test instructor at end of application
+    controller.model.db.removeManager(controller.getId()); // Removes test instructor at end of application
     System.out.println("Health Hub application exited");
   }
 }
