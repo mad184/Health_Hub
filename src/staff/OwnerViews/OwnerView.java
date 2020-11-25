@@ -23,20 +23,20 @@ public class OwnerView extends Application {
 
     public OwnerController controller = new OwnerController(
             new OwnerModel(
-                    "John Wick",
-                    21,
-                    "john@usask.ca",
+                    "Owner",
+                    80,
+                    "owner@usask.ca",
                     "306-555-5555",
                     175,
                     160,
                     "Average Joes",
-                    1,
+                    3,
                     new ArrayList<UserID>(),
                     new ArrayList<UserID>(),
                     "Remington",
                     "Instructor1",
                     "Dev-Remington-Db",
-                    "Instructors") );
+                    "Owners") );
 
     public static void main(String[] args) {
         launch(args);
@@ -50,7 +50,7 @@ public class OwnerView extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         // Add client to database for testing purpose
-        controller.model.db.createOwner(controller.getId(), controller.model.toJson());
+        controller.model.db.createManager(controller.getId(), controller.model.toJson());
 
         // Load main scene
         FXMLLoader loader = new FXMLLoader(getClass().getResource("OwnerMainView.fxml"));
@@ -62,7 +62,7 @@ public class OwnerView extends Application {
         viewController.setupScene(controller);
 
         // Show scene in window
-        stage.setTitle("Instructor View");
+        stage.setTitle("Owner View");
         stage.setScene(new Scene(root, 600, 400));
         stage.show();
     }
@@ -70,7 +70,7 @@ public class OwnerView extends Application {
     /** Runs when application is closed */
     @Override
     public void stop() {
-        controller.model.db.removeInstructor(controller.getId()); // Removes test instructor at end of application
+        controller.model.db.removeManager(controller.getId()); // Removes test instructor at end of application
         System.out.println("Health Hub application exited");
     }
 }
