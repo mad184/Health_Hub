@@ -1,7 +1,7 @@
 package healthhub;
 
 import client.Client;
-import staff.Instructor;
+import staff.InstructorModel;
 import staff.Manager;
 
 public class HealthHubController {
@@ -22,7 +22,7 @@ public class HealthHubController {
      * Makes call the model to pass it the client created
      * @param instructor: Instructor object
      */
-    public static void addInstructor(Instructor instructor){
+    public static void addInstructor(InstructorModel instructor){
         /*TODO:
             make model take a method with these params
             -either we can return the client id and pass that to the client vew or figure out a way to pass the cleint
@@ -71,4 +71,9 @@ public class HealthHubController {
   public static int LogIn(String userName, String passWord, String userType) {
         return model.systemLogin(userName, passWord, userType);
     }
+
+  public static boolean organizationExists(String name){
+      return model.organziationExists(name);
+  }
+
 }
