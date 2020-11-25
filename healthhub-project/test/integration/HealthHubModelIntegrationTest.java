@@ -278,9 +278,9 @@ public class HealthHubModelIntegrationTest {
   static void postDelete() {
 
     for (Integer each : createdUniqueIds) {
-      testHHM.getDatabase().removeClient(each);
-      testHHM.getDatabase().removeInstructor(each);
-      testHHM.getDatabase().removeManager(each);
+      testHHM.testGetDatabase().removeClient(each);
+      testHHM.testGetDatabase().removeInstructor(each);
+      testHHM.testGetDatabase().removeManager(each);
     }
   }
 }
