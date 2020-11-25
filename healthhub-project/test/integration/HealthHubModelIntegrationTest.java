@@ -45,6 +45,16 @@ public class HealthHubModelIntegrationTest {
         Assertions.assertEquals(403, testValue);
     }
 
+    // Test whether adding a client that does not email will throw exceptions
+    @Test
+    @Order(3)
+    void testInvalidKeyAddClient(){
+        JSONObject testClient = new JSONObject();
+        testClient.put("NoEmail","Gura@Hololive.en");
+
+        Assertions.assertThrows(Exception.class, () ->testHHM.addClient(testClient));
+    }
+
 //  @Test
 //  @Order(2)
 //  void testAddInstructor() {
