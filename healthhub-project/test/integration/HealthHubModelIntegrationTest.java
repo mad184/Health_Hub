@@ -155,6 +155,17 @@ public class HealthHubModelIntegrationTest {
     existingInstructor.put("email", "Kiara@Hololive.en");
     JSONObject existingManager = new JSONObject();
     existingManager.put("email", "Ina@Hololive.en");
+
+    // We are going to mix up the adds to make sure it is still checking that email is unique
+    Assertions.assertEquals(403,testHHM.addClient(existingInstructor));
+    Assertions.assertEquals(403,testHHM.addClient(existingManager));
+
+    Assertions.assertEquals(403,testHHM.addInstructor(existingClient));
+    Assertions.assertEquals(403,testHHM.addInstructor(existingManager));
+
+    Assertions.assertEquals(403,testHHM.addManager(existingClient));
+    Assertions.assertEquals(403,testHHM.addManager(existingInstructor));
+
   }
 
   //  @Test
