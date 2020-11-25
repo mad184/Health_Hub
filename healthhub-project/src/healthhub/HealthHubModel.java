@@ -10,7 +10,7 @@ import java.util.Random;
 
 public class HealthHubModel {
   private final Dbms database; // actual database that the healthhub model connects
-  private final int RANDOMBOUND = 5; // this is the maximum random number unique id can generate
+  private int RANDOMBOUND = 5; // this is the maximum random number unique id can generate
 
   public HealthHubModel() {
     // Need to be changed in the future. This is for Development
@@ -19,10 +19,23 @@ public class HealthHubModel {
 
   /**
    * Special method for testing where it returns the database
+   *
    * @return
    */
-  public Dbms getDatabase(){
+  public Dbms testGetDatabase() {
     return database;
+  }
+
+  public void testSetRandomBound(int newBound) {
+    RANDOMBOUND = newBound;
+  }
+
+  public void testRevertRandomBound() {
+    RANDOMBOUND = 5;
+  }
+
+  public void setProductionRandomBound() {
+    RANDOMBOUND = 1000;
   }
 
   /**
@@ -86,22 +99,25 @@ public class HealthHubModel {
     JSONArray allData = new JSONArray();
 
     // Only append when the all the array is not null
-    if(allClients != null){
-      allClients.forEach((e)->{
-        allData.put(e);
-      });
+    if (allClients != null) {
+      allClients.forEach(
+          (e) -> {
+            allData.put(e);
+          });
     }
 
     if (allInstructors != null) {
-      allInstructors.forEach((e)->{
-        allData.put(e);
-      });
+      allInstructors.forEach(
+          (e) -> {
+            allData.put(e);
+          });
     }
 
-    if(allManagers != null){
-      allManagers.forEach((e)->{
-        allData.put(e);
-      });
+    if (allManagers != null) {
+      allManagers.forEach(
+          (e) -> {
+            allData.put(e);
+          });
     }
 
     for (int i = 0; i < allData.length(); i++) {
