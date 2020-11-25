@@ -55,7 +55,7 @@ public class HealthHubModelIntegrationTest {
         Assertions.assertThrows(Exception.class, () ->testHHM.addClient(testClient));
     }
 
-    // Test if creating the client will not result to any of the error codes
+    // Test if creating the instructor will not result to any of the error codes
     @Test
     @Order(4)
     void testNewAddInstructor() {
@@ -73,20 +73,20 @@ public class HealthHubModelIntegrationTest {
         Assertions.assertNotEquals(401, testValue);
     }
 
-//    // Test if creating email duplicated client will result to 403 error codes
-//    @Order(5)
-//    @RepeatedTest(5)
-//    void testDuplicateEmailAddClient() {
-//
-//        JSONObject testClient = new JSONObject();
-//        testClient.put("email","Gura@Hololive.en");
-//
-//        int testValue = testHHM.addClient(testClient);
-//
-//        createdUniqueIds.add(testValue);
-//
-//        Assertions.assertEquals(403, testValue);
-//    }
+    // Test if creating email duplicated instructor will result to 403 error codes
+    @Order(5)
+    @RepeatedTest(5)
+    void testDuplicateEmailAddInstructor() {
+
+        JSONObject testInstructor = new JSONObject();
+        testInstructor.put("email","Kiara@Hololive.en");
+
+        int testValue = testHHM.addClient(testInstructor);
+
+        createdUniqueIds.add(testValue);
+
+        Assertions.assertEquals(403, testValue);
+    }
 //
 //    // Test whether adding a client that does not email will throw exceptions
 //    @Test
