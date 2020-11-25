@@ -32,8 +32,17 @@ public class HealthHubModel {
     int uniqueId = 0;
     while (true) {
 
-      try {
+      // Make sures unique ID is not within of the status codes
+      // May cause heisenbugg in the future
+      do{
         uniqueId = randomID.nextInt(2147483647);
+      } while(uniqueId == 400
+              || uniqueId == 500
+              || uniqueId == 403
+              || uniqueId == 404
+              || uniqueId == 401);
+
+      try {
         database.readClientData(uniqueId);
         database.readInstructorData(uniqueId);
         database.readManagerData(uniqueId);
@@ -59,7 +68,8 @@ public class HealthHubModel {
     JSONArray allManagers = database.getAllManagers();
 
     // if everything is empty, return false
-    if (allClients.isEmpty() && allInstructors.isEmpty() && allClients.isEmpty()) {
+    // isEmpty does not work as it returns null
+    if (allClients == null && allInstructors == null && allManagers == null) {
       return true;
     }
 
@@ -67,7 +77,7 @@ public class HealthHubModel {
     if (!allClients.isEmpty()) {
       for (int i = 0; i < allClients.length(); i++) {
 
-        String existingEmail = allClients.getJSONObject(i).getString("Email");
+        String existingEmail = allClients.getJSONObject(i).getString("email");
 
         if (existingEmail.equals(newEmail)) {
           return false;
@@ -79,7 +89,7 @@ public class HealthHubModel {
     if (!allInstructors.isEmpty()) {
       for (int i = 0; i < allInstructors.length(); i++) {
 
-        String existingEmail = allInstructors.getJSONObject(i).getString("Email");
+        String existingEmail = allInstructors.getJSONObject(i).getString("email");
 
         if (existingEmail.equals(newEmail)) {
           return false;
@@ -91,7 +101,7 @@ public class HealthHubModel {
     if (!allManagers.isEmpty()) {
       for (int i = 0; i < allManagers.length(); i++) {
 
-        String existingEmail = allManagers.getJSONObject(i).getString("Email");
+        String existingEmail = allManagers.getJSONObject(i).getString("email");
 
         if (existingEmail.equals(newEmail)) {
           return false;
@@ -108,11 +118,12 @@ public class HealthHubModel {
    * Email for ALL the instructor,client and Manager within the database
    *
    * @param clientInitialData: JSONObject that contains the data from the new client to be created
-   * @return 403 if the email is not unique, 500 for server errors and 200 for successful
+   * @return 403 if the email is not unique, 500 for server errors and "Unique Client ID for
+   *     successful
    */
   public int addClient(JSONObject clientInitialData) {
     int clientId = determineUniqueId();
-    boolean emailUnique = determineUniqueEmail(clientInitialData.getString("Email"));
+    boolean emailUnique = determineUniqueEmail(clientInitialData.getString("email"));
 
     if (!emailUnique) {
       return 403;
@@ -120,7 +131,7 @@ public class HealthHubModel {
 
     try {
       database.createClient(clientId, clientInitialData);
-      return 200;
+      return clientId;
     } catch (MongoException me) {
       return 500;
     }
@@ -136,7 +147,7 @@ public class HealthHubModel {
    */
   public int addInstructor(JSONObject instrInitialData) {
     int instructorId = determineUniqueId();
-    boolean emailUnique = determineUniqueEmail(instrInitialData.getString("Email"));
+    boolean emailUnique = determineUniqueEmail(instrInitialData.getString("email"));
 
     if (!emailUnique) {
       return 403;
@@ -160,7 +171,7 @@ public class HealthHubModel {
    */
   public int addManager(JSONObject managerInitialData) {
     int managerId = determineUniqueId();
-    boolean emailUnique = determineUniqueEmail(managerInitialData.getString("Email"));
+    boolean emailUnique = determineUniqueEmail(managerInitialData.getString("email"));
 
     if (!emailUnique) {
       return 403;
