@@ -55,6 +55,7 @@ public class ReaderUnitTest {
           preWriter.createClient(1, testAdd);
           preWriter.createManager(1, testAdd);
           preWriter.createInstructor(1, testAdd);
+          preWriter.createOrganization("HololiveEN", testAdd);
         });
   }
 
@@ -89,22 +90,27 @@ public class ReaderUnitTest {
     Assertions.assertThrows(EmptyQueryException.class, () -> realCon.readClientData(2));
     Assertions.assertThrows(EmptyQueryException.class, () -> realCon.readInstructorData(2));
     Assertions.assertThrows(EmptyQueryException.class, () -> realCon.readManagerData(2));
+    Assertions.assertThrows(
+        EmptyQueryException.class, () -> realCon.readOrganizationData("HololivePH"));
   }
 
   // Tests the actual reading by comparing to pre-created data for client, manager and instructor
   @Test
   @Order(3)
   void testCIMDataReading() throws EmptyQueryException {
-    Assertions.assertDoesNotThrow(() -> {
-      realCon.readClientData(1);
-      realCon.readInstructorData(1);
-      realCon.readManagerData(1);
-    });
+    Assertions.assertDoesNotThrow(
+        () -> {
+          realCon.readClientData(1);
+          realCon.readInstructorData(1);
+          realCon.readManagerData(1);
+          realCon.readOrganizationData("HololiveEN");
+        });
 
     // Checking the expected and actual data created in precondition
     JSONObject clientData = realCon.readClientData(1);
     JSONObject InstructorData = realCon.readInstructorData(1);
     JSONObject ManagerData = realCon.readManagerData(1);
+    JSONObject OrganizationData = realCon.readOrganizationData("HololiveEN");
     ArrayList<String> testArray = new ArrayList<>();
     testArray.add("Kiara");
     testArray.add("Ina");
@@ -120,6 +126,10 @@ public class ReaderUnitTest {
     Assertions.assertEquals(ManagerData.get("Age"), 7);
     Assertions.assertEquals(ManagerData.get("Name"), "Gawr Gura");
     Assertions.assertEquals(ManagerData.get("Hololive Friends"), testArray);
+
+    Assertions.assertEquals(OrganizationData.get("Age"), 7);
+    Assertions.assertEquals(OrganizationData.get("Name"), "Gawr Gura");
+    Assertions.assertEquals(OrganizationData.get("Hololive Friends"), testArray);
   }
 
   // function that createsTestElement used for the next case
@@ -142,33 +152,49 @@ public class ReaderUnitTest {
   @Test
   @Order(4)
   void testGetAllCIM() {
-    Assertions.assertDoesNotThrow(() -> realCon.getAllClients());
+    Assertions.assertDoesNotThrow(
+        () -> {
+          realCon.getAllClients();
+          realCon.getAllInstructors();
+          realCon.getAllManagers();
+          realCon.getAllOrganization();
+        });
 
     JSONArray testClient = realCon.getAllClients();
     JSONArray testInstructors = realCon.getAllInstructors();
     JSONArray testManagers = realCon.getAllManagers();
+    JSONArray testOrganization = realCon.getAllOrganization();
+
     JSONObject actualClientData = testClient.getJSONObject(0);
     JSONObject actualInstructorsData = testInstructors.getJSONObject(0);
     JSONObject actualManagerData = testManagers.getJSONObject(0);
+    JSONObject actualOrganizationData = testOrganization.getJSONObject(0);
+
     JSONObject expectedData = createTestElement();
 
-    Assertions.assertEquals(actualClientData.get("Age"), expectedData.get("Age"));
-    Assertions.assertEquals(actualClientData.get("Name"), expectedData.get("Name"));
+    Assertions.assertEquals(expectedData.get("Age"), actualClientData.get("Age"));
+    Assertions.assertEquals(expectedData.get("Name"), actualClientData.get("Name"));
     Assertions.assertEquals(
-        actualClientData.get("Hololive Friends").toString(),
-        expectedData.get("Hololive Friends").toString());
+        expectedData.get("Hololive Friends").toString(),
+        actualClientData.get("Hololive Friends").toString());
 
-    Assertions.assertEquals(actualInstructorsData.get("Age"), expectedData.get("Age"));
-    Assertions.assertEquals(actualInstructorsData.get("Name"), expectedData.get("Name"));
+    Assertions.assertEquals(expectedData.get("Age"), actualInstructorsData.get("Age"));
+    Assertions.assertEquals(expectedData.get("Name"), actualInstructorsData.get("Name"));
     Assertions.assertEquals(
-        actualInstructorsData.get("Hololive Friends").toString(),
-        expectedData.get("Hololive Friends").toString());
+        expectedData.get("Hololive Friends").toString(),
+        actualInstructorsData.get("Hololive Friends").toString());
 
-    Assertions.assertEquals(actualManagerData.get("Age"), expectedData.get("Age"));
-    Assertions.assertEquals(actualManagerData.get("Name"), expectedData.get("Name"));
+    Assertions.assertEquals(expectedData.get("Age"), actualManagerData.get("Age"));
+    Assertions.assertEquals(expectedData.get("Name"), actualManagerData.get("Name"));
     Assertions.assertEquals(
-        actualManagerData.get("Hololive Friends").toString(),
-        expectedData.get("Hololive Friends").toString());
+        expectedData.get("Hololive Friends").toString(),
+        actualManagerData.get("Hololive Friends").toString());
+
+    Assertions.assertEquals(expectedData.get("Age"), actualOrganizationData.get("Age"));
+    Assertions.assertEquals(expectedData.get("Name"), actualOrganizationData.get("Name"));
+    Assertions.assertEquals(
+        expectedData.get("Hololive Friends").toString(),
+        actualOrganizationData.get("Hololive Friends").toString());
   }
 
   // Delete everything
@@ -181,6 +207,7 @@ public class ReaderUnitTest {
           postWriter.removeClient(1);
           postWriter.removeManager(1);
           postWriter.removeInstructor(1);
+          postWriter.removeOrganization("HololiveEN");
         });
   }
 }
