@@ -171,6 +171,7 @@ public class HealthHubModelIntegrationTest {
 
   // Testing of unique ID system
   @Test
+  @Disabled
   @Order(11)
   void testCIMUniqueIdSystem() {
 
@@ -280,16 +281,25 @@ public class HealthHubModelIntegrationTest {
   void testAddOrganization() throws EmptyQueryException {
 
     JSONObject expectedOrgData = new JSONObject();
-    expectedOrgData.put("Owner","Yagoo");
+    expectedOrgData.put("Owner", "Yagoo");
 
-    Assertions.assertEquals(200,testHHM.createOrganization("Hololive", expectedOrgData));
+    Assertions.assertEquals(200, testHHM.createOrganization("Hololive", expectedOrgData));
 
     JSONObject actualData = testHHM.testGetDatabase().readOrganizationData("Hololive");
 
-    Assertions.assertEquals(expectedOrgData.get("Owner").toString(),actualData.get("Owner").toString());
-    Assertions.assertEquals("Hololive",actualData.get("_id").toString());
+    Assertions.assertEquals(
+        expectedOrgData.get("Owner").toString(), actualData.get("Owner").toString());
+    Assertions.assertEquals("Hololive", actualData.get("_id").toString());
   }
 
+  @Test
+  @Order(14)
+  void testDuplicateAddOrganization() {
+    JSONObject expectedOrgData = new JSONObject();
+    expectedOrgData.put("Owner", "Yagoo");
+
+    Assertions.assertEquals(500, testHHM.createOrganization("Hololive", expectedOrgData));
+  }
   //  @Test
   //  @Order(2)
   //  void testAddInstructor() {
