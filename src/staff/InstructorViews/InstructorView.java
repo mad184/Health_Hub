@@ -1,20 +1,11 @@
 package staff.InstructorViews;
 
-import API.FoodItem;
-import Client.ClientView.ClientMainViewController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.json.JSONException;
 import staff.Controllers.InstructorController;
-import staff.Interfaces.InstructorViewInterface;
-import staff.Interfaces.StaffInterface;
-import javafx.scene.image.Image;
-import org.json.JSONObject;
-import com.google.gson.Gson;
-import API.FoodItem;
 import staff.Models.InstructorModel;
 import staff.UserID;
 
@@ -53,7 +44,7 @@ public class InstructorView extends Application {
     controller.model.db.createInstructor(controller.getId(), controller.model.toJson());
 
     // Load main scene
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("InstructorMainView.fxml"));
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("instructorMainView.fxml"));
     Parent root = loader.load();
 
     // Get controller for main scene

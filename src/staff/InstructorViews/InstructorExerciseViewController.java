@@ -21,7 +21,7 @@ public class InstructorExerciseViewController {
 
   public void onBackButtonPressed(ActionEvent event) throws IOException {
     // Loads Scene for main view
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("clientMainView.fxml"));
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("instructorMainView.fxml"));
     Parent root = loader.load();
 
     // Gets main view controller and passes client to it

@@ -1,22 +1,16 @@
 package staff.InstructorViews;
 
-import Client.ClientController;
-import Client.ClientView.ClientMainViewController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
 import staff.Controllers.InstructorController;
-import database.Dbms;
 import database.EmptyQueryException;
 import database.JsonObjectException;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextInputDialog;
 import javafx.stage.Stage;
 import java.io.IOException;
 
@@ -93,7 +87,7 @@ public class InstructorSettingViewController {
     // Goes to main view scene when back button is pushed
     public void onBackButtonPressed(ActionEvent event) throws IOException {
         // Loads Scene for main view
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("InstructorMainView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("instructorMainView.fxml"));
         Parent root = loader.load();
 
         // Gets main view controller and passes client to it
