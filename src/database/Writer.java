@@ -198,7 +198,7 @@ public class Writer implements ServerInterface, WriteInterface {
   }
 
   /**
-   * Create an Manager data within the Manager collection
+   * Create an Manager data within the Manager collection.
    *
    * @param uniqueMid unique manager id
    * @param value JSON data that refers to the specific Manager id
