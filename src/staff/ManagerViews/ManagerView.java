@@ -23,19 +23,19 @@ public class ManagerView extends Application {
 
   public ManagerController controller = new ManagerController(
           new ManagerModel(
-                  "John Wick",
+                  "Manager",
                   21,
-                  "john@usask.ca",
+                  "manager@usask.ca",
                   "306-555-5555",
                   175,
                   160,
                   "Average Joes",
-                  1,
+                  5,
                   new ArrayList<UserID>(),
                   "Remington",
                   "Instructor1",
                   "Dev-Remington-Db",
-                  "Instructors") );
+                  "Managers") );
 
   public static void main(String[] args) {
     launch(args);
@@ -52,7 +52,7 @@ public class ManagerView extends Application {
     controller.model.db.createManager(controller.getId(), controller.model.toJson());
 
     // Load main scene
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("OwnerMainView.fxml"));
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("ManagerMainView.fxml"));
     Parent root = loader.load();
 
     // Get controller for main scene
@@ -61,7 +61,7 @@ public class ManagerView extends Application {
     viewController.setupScene(controller);
 
     // Show scene in window
-    stage.setTitle("Instructor View");
+    stage.setTitle("Manager View");
     stage.setScene(new Scene(root, 600, 400));
     stage.show();
   }
@@ -69,7 +69,7 @@ public class ManagerView extends Application {
   /** Runs when application is closed */
   @Override
   public void stop() {
-    controller.model.db.removeInstructor(controller.getId()); // Removes test instructor at end of application
+    controller.model.db.removeManager(controller.getId()); // Removes test instructor at end of application
     System.out.println("Health Hub application exited");
   }
 }
