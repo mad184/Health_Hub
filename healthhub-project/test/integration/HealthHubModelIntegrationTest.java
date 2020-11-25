@@ -45,7 +45,7 @@ public class HealthHubModelIntegrationTest {
         Assertions.assertEquals(403, testValue);
     }
 
-    // Test whether adding a client that does not email will throw exceptions
+    // Test whether adding a client that does not have an email will throw exceptions
     @Test
     @Order(3)
     void testInvalidKeyAddClient(){
@@ -63,7 +63,7 @@ public class HealthHubModelIntegrationTest {
         JSONObject testInstructor = new JSONObject();
         testInstructor.put("email","Kiara@Hololive.en");
 
-        int testValue = testHHM.addClient(testInstructor);
+        int testValue = testHHM.addInstructor(testInstructor);
 
         createdUniqueIds.add(testValue);
 
@@ -81,22 +81,22 @@ public class HealthHubModelIntegrationTest {
         JSONObject testInstructor = new JSONObject();
         testInstructor.put("email","Kiara@Hololive.en");
 
-        int testValue = testHHM.addClient(testInstructor);
+        int testValue = testHHM.addInstructor(testInstructor);
 
         createdUniqueIds.add(testValue);
 
         Assertions.assertEquals(403, testValue);
     }
-//
-//    // Test whether adding a client that does not email will throw exceptions
-//    @Test
-//    @Order(3)
-//    void testInvalidKeyAddClient(){
-//        JSONObject testClient = new JSONObject();
-//        testClient.put("NoEmail","Gura@Hololive.en");
-//
-//        Assertions.assertThrows(Exception.class, () ->testHHM.addClient(testClient));
-//    }
+
+    // Test whether adding an instructor that does not have an email will throw exceptions
+    @Test
+    @Order(6)
+    void testInvalidKeyAddInstructor(){
+        JSONObject testInstructor = new JSONObject();
+        testInstructor.put("NoEmail","Gura@Hololive.en");
+
+        Assertions.assertThrows(Exception.class, () ->testHHM.addInstructor(testInstructor));
+    }
 
 //  @Test
 //  @Order(2)
@@ -204,7 +204,7 @@ public class HealthHubModelIntegrationTest {
       for(Integer each: createdUniqueIds){
           testHHM.getDatabase().removeClient(each);
           testHHM.getDatabase().removeInstructor(each);
-          testHHM.getDatabase().removeManager(each);
+          //testHHM.getDatabase().removeManager(each);
       }
 
     }
