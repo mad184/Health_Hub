@@ -35,7 +35,7 @@ public class HealthHubModel {
       // Make sures unique ID is not within of the status codes
       // May cause heisenbugg in the future
       do{
-        uniqueId = randomID.nextInt(2147483647);
+        uniqueId = randomID.nextInt(3); //Should be changed back to a max int value
       } while(uniqueId == 400
               || uniqueId == 500
               || uniqueId == 403
