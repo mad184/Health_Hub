@@ -26,7 +26,7 @@ public class HealthHubModel {
     return database;
   }
 
-  public int testGetRandomBound(){
+  public int testGetRandomBound() {
     return RANDOMBOUND;
   }
 
@@ -39,7 +39,7 @@ public class HealthHubModel {
   }
 
   public void setProductionRandomBound() {
-    RANDOMBOUND = 1000;
+    RANDOMBOUND = 500;
   }
 
   /**
@@ -84,7 +84,7 @@ public class HealthHubModel {
           }
         }
       }
-      }
+    }
 
     return uniqueId;
   }
