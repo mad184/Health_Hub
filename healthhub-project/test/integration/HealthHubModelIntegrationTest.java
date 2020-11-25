@@ -387,6 +387,23 @@ public class HealthHubModelIntegrationTest {
         testHHM.systemLogin("managerShrimp2@mail.com", "ms2", "Manager"));
   }
 
+  // Test Invalid Credentials
+  @Test
+  @Order(16)
+  void testInValidCredentialLogin() {
+    preCreateSystemLogin(); // Uncomment if standalone running the test Case
+
+    Assertions.assertEquals(
+            401,
+            testHHM.systemLogin("clientShrimp1@mail.com", "fakePassword", "Client"));
+    Assertions.assertEquals(
+            401,
+            testHHM.systemLogin("instrShrimp1@mail.com", "fakepassword", "Instructor"));
+    Assertions.assertEquals(
+            401,
+            testHHM.systemLogin("managerShrimp1@mail.com", "fakepassword", "Manager"));
+  }
+
   //  @Test
   //  @Order(2)
   //  void testAddInstructor() {
