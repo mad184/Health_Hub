@@ -17,6 +17,14 @@ public class HealthHubModel {
   }
 
   /**
+   * Special method for testing where it returns the database
+   * @return
+   */
+  public Dbms getDatabase(){
+    return database;
+  }
+
+  /**
    * This method determines the unique id that will be used to write within the database The
    * database will throw exception if the query returned nothing when reading. Thus, I am using that
    * to determine the uniqueness of the ID. If the read does return something, its not unique If the
@@ -34,13 +42,14 @@ public class HealthHubModel {
 
       // Make sures unique ID is not within of the status codes
       // May cause heisenbugg in the future
-      do{
-        uniqueId = randomID.nextInt(3); //Should be changed back to a max int value
-      } while(uniqueId == 400
-              || uniqueId == 500
-              || uniqueId == 403
-              || uniqueId == 404
-              || uniqueId == 401);
+      do {
+        uniqueId = randomID.nextInt(5); // Should be changed back to a max int value
+      } while (uniqueId == 400
+          || uniqueId == 500
+          || uniqueId == 403
+          || uniqueId == 404
+          || uniqueId == 401
+          || uniqueId == 0);
 
       try {
         database.readClientData(uniqueId);
