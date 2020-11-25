@@ -79,7 +79,7 @@ public class InstructorSignUpController {
         else if (!(phoneNumber.length() > 0) || phoneNumber.matches("^ *$")) {
             JOptionPane.showMessageDialog(null, "A phone number is required");
         }
-        else if((!HealthHubController.organizationExists(organization))){
+        else if((!HealthHubController.organizationExists())){
             JOptionPane.showMessageDialog(null, "A valid organization must be given");
         }
 
@@ -94,13 +94,27 @@ public class InstructorSignUpController {
 //        System.out.println("passWord: " + passWord);
 //        System.out.println("finsished manual input testing");
 
-        //TODO: Uncomment after merge
-//        ClientMainViewController viewController = loader.getController();
-//        viewController.setupScene(clientController.getClientID());
 
-        InstructorModel instructor = new InstructorModel(name,age,email,phoneNumber,0,0,organization,0,null,null,passWord,null,null);
-        int returnedSuccess = HealthHubController.addInstructor(instructor);
+        int instructorId = HealthHubController.getUniqueID();
 
-        View.goToView("InstructorView.fxml", event);
+        InstructorModel instructor = new InstructorModel(name,age,email,phoneNumber,0,0,organization,
+                instructorId,null,null,passWord,null,null);
+
+        int databaseAdditionSuccessCode = HealthHubController.addInstructor(instructor);
+
+        switch(databaseAdditionSuccessCode){
+            case 403:
+                JOptionPane.showMessageDialog(null, "ERROR: Email " + email + " has already been used");
+                break;
+            case 500:
+                JOptionPane.showMessageDialog(null, "ERROR: Server Error");
+                break;
+            case 200:
+                //TODO: Uncomment after merge, ensure file names/controller names are correct
+//                InstructorMainViewController viewController = loader.getController();
+//                viewController.setupScene(instructorController.instructorID);
+//                View.goToView("InstructorView.fxml", event);
+        }
+
     }
 }
