@@ -23,8 +23,8 @@ public class ClientSignUpViewController {
      * @throws IOException: for View.gotoView()
      */
     @FXML
-    public void backButtonPushed(ActionEvent event) throws IOException{
-        View.goToView("LoginView.fxml",event);
+    public void backButtonPushed(ActionEvent event) throws IOException {
+        View.goToView("LoginView.fxml", event);
     }
 
 
@@ -44,44 +44,44 @@ public class ClientSignUpViewController {
         String passWord = this.Password.getText();
         int age = 0;
 
-        try{
+        try {
             age = Integer.parseInt(ageString);
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "age could not be read");
         }
         //regex looks for any number of white space
-        if(!(name.length() > 0) || name.matches("^ *$")){
+        if (!(name.length() > 0) || name.matches("^ *$")) {
             JOptionPane.showMessageDialog(null, "A Name is required");
         }
 
-        //regex
-        else if(!(age > 0) || !(age < 150)){
+
+        else if (!(age > 0) || !(age < 150)) {
             JOptionPane.showMessageDialog(null, "Right now only ages 1 - 149 are accepted");
         }
 
         //regex looks for empty spaces entered
-        else if(!(email.length() > 0) || email.matches("^ *$")){
+        else if (!(email.length() > 0) || email.matches("^ *$")) {
             JOptionPane.showMessageDialog(null, "A Email is required");
         }
 
         //regex looks for empty spaces entered
-        else if(!(phoneNumber.length() > 0) || phoneNumber.matches("^ *$")){
+        else if (!(phoneNumber.length() > 0) || phoneNumber.matches("^ *$")) {
             JOptionPane.showMessageDialog(null, "A userName is required");
         }
 
         //regex looks for empty spaces entered
-        else if(!(passWord.length() > 0) || passWord.matches("^ *$")){
+        else if (!(passWord.length() > 0) || passWord.matches("^ *$")) {
             JOptionPane.showMessageDialog(null, "A Password is required");
         }
 
 //        //For testing the outputs manually
-//        System.out.println("Start Manual output Test");
+//        System.out.println("Start Manual output Test for clinet sign up");
 //        System.out.println("name: " + name);
 //        System.out.println("age: " + age);
 //        System.out.println("phoneNumber: " + phoneNumber);
 //        System.out.println("email: " + email);
 //        System.out.println("passWord: " + passWord);
+//        System.out.println("finished manual output tesing");
 
         Client client = new Client(
                 name,
@@ -107,7 +107,7 @@ public class ClientSignUpViewController {
         HealthHubController.addClient(client);
 
 
-         //TODO: Uncomment after merge
+        //TODO: Uncomment after merge
 //        ClientMainViewController viewController = loader.getController();
 //        viewController.setupScene(clientController.getClientID());
 
