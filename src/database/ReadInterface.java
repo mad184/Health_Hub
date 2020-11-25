@@ -11,13 +11,9 @@ interface ReadInterface {
 
   JSONObject readManagerData(int uniqueMid) throws EmptyQueryException;
 
-  JSONObject readOrganizationData(String uniqueOrgString) throws EmptyQueryException;
-
   JSONArray getAllClients();
 
   JSONArray getAllInstructors();
 
   JSONArray getAllManagers();
-
-  JSONArray getAllOrganization();
 }
