@@ -3,6 +3,7 @@ package integration;
 import com.mongodb.MongoException;
 import database.EmptyQueryException;
 import healthhub.HealthHubModel;
+import org.json.JSONArray;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.json.JSONObject;
@@ -300,6 +301,92 @@ public class HealthHubModelIntegrationTest {
 
     Assertions.assertEquals(500, testHHM.createOrganization("Hololive", expectedOrgData));
   }
+
+  JSONArray preCreateSystemLogin() {
+
+    testHHM.setProductionRandomBound();
+
+    JSONObject clientShrimpUser1 = new JSONObject();
+    clientShrimpUser1.put("email", "clientShrimp1@mail.com");
+    clientShrimpUser1.put("password", "cs1");
+
+    JSONObject clientShrimpUser2 = new JSONObject();
+    clientShrimpUser2.put("email", "clientShrimp2@mail.com");
+    clientShrimpUser2.put("password", "cs2");
+
+    JSONObject instrShrimpUser1 = new JSONObject();
+    instrShrimpUser1.put("email", "instrShrimp1@mail.com");
+    instrShrimpUser1.put("password", "is1");
+
+    JSONObject instrShrimpUser2 = new JSONObject();
+    instrShrimpUser2.put("email", "instrShrimp2@mail.com");
+    instrShrimpUser2.put("password", "is2");
+
+    JSONObject managerShrimpUser1 = new JSONObject();
+    managerShrimpUser1.put("email", "managerShrimp1@mail.com");
+    managerShrimpUser1.put("password", "ms1");
+
+    JSONObject managerShrimpUser2 = new JSONObject();
+    managerShrimpUser2.put("email", "managerShrimp2@mail.com");
+    managerShrimpUser2.put("password", "ms2");
+
+    JSONArray validCredentials = new JSONArray();
+
+    int clientUserId1 = testHHM.addClient(clientShrimpUser1);
+    validCredentials.put(new JSONObject().put("clientShrimpUserId1", clientUserId1));
+    createdUniqueIds.add(clientUserId1);
+
+    int clientUserId2 = testHHM.addClient(clientShrimpUser2);
+    validCredentials.put(new JSONObject().put("clientShrimpUserId2", clientUserId2));
+    createdUniqueIds.add(clientUserId2);
+
+    int instrUserId1 = testHHM.addInstructor(instrShrimpUser1);
+    validCredentials.put(new JSONObject().put("instrShrimpUserId1", instrUserId1));
+    createdUniqueIds.add(instrUserId1);
+
+    int instrUserId2 = testHHM.addInstructor(instrShrimpUser2);
+    validCredentials.put(new JSONObject().put("instrShrimpUserId2", instrUserId2));
+    createdUniqueIds.add(instrUserId2);
+
+    int managerUserId1 = testHHM.addManager(managerShrimpUser1);
+    validCredentials.put(new JSONObject().put("managerShrimpUserId1", managerUserId1));
+    createdUniqueIds.add(managerUserId1);
+
+    int managerUserId2 = testHHM.addManager(managerShrimpUser2);
+    validCredentials.put(new JSONObject().put("managerShrimpUserId2", managerUserId2));
+    createdUniqueIds.add(managerUserId2);
+
+    testHHM.testRevertRandomBound();
+
+    return validCredentials;
+  }
+
+  // Test Valid Credentials
+  @Test
+  @Order(15)
+  void testValidCredentialLogin() {
+    JSONArray validCredentials = preCreateSystemLogin();
+
+    Assertions.assertEquals(
+        validCredentials.getJSONObject(0).get("clientShrimpUserId1"),
+        testHHM.systemLogin("clientShrimp1@mail.com", "cs1", "Client"));
+    Assertions.assertEquals(
+        validCredentials.getJSONObject(1).get("clientShrimpUserId2"),
+        testHHM.systemLogin("clientShrimp2@mail.com", "cs2", "Client"));
+    Assertions.assertEquals(
+        validCredentials.getJSONObject(2).get("instrShrimpUserId1"),
+        testHHM.systemLogin("instrShrimp1@mail.com", "is1", "Instructor"));
+    Assertions.assertEquals(
+        validCredentials.getJSONObject(3).get("instrShrimpUserId2"),
+        testHHM.systemLogin("instrShrimp2@mail.com", "is2", "Instructor"));
+    Assertions.assertEquals(
+        validCredentials.getJSONObject(4).get("managerShrimpUserId1"),
+        testHHM.systemLogin("managerShrimp1@mail.com", "ms1", "Manager"));
+    Assertions.assertEquals(
+        validCredentials.getJSONObject(5).get("managerShrimpUserId2"),
+        testHHM.systemLogin("managerShrimp2@mail.com", "ms2", "Manager"));
+  }
+
   //  @Test
   //  @Order(2)
   //  void testAddInstructor() {
