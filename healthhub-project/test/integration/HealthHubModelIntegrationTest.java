@@ -361,9 +361,22 @@ public class HealthHubModelIntegrationTest {
     return validCredentials;
   }
 
-  // Test Valid Credentials
+  // Testing when attempting login with literally no data within the database
   @Test
   @Order(15)
+  void testNonExistentSystem() {
+
+    Assertions.assertEquals(
+        404, testHHM.systemLogin("I do not exist yet", "I do not exist yet either", "Client"));
+    Assertions.assertEquals(
+        404, testHHM.systemLogin("I do not exist yet", "I do not exist yet either", "Instructor"));
+    Assertions.assertEquals(
+        404, testHHM.systemLogin("I do not exist yet", "I do not exist yet either", "Manager"));
+  }
+
+  // Test Valid Credentials
+  @Test
+  @Order(16)
   void testValidCredentialLogin() {
     JSONArray validCredentials = preCreateSystemLogin();
 
@@ -389,19 +402,28 @@ public class HealthHubModelIntegrationTest {
 
   // Test Invalid Credentials
   @Test
-  @Order(16)
+  @Order(17)
   void testInValidCredentialLogin() {
     preCreateSystemLogin(); // Uncomment if standalone running the test Case
 
     Assertions.assertEquals(
-            401,
-            testHHM.systemLogin("clientShrimp1@mail.com", "fakePassword", "Client"));
+        401, testHHM.systemLogin("clientShrimp1@mail.com", "fakePassword", "Client"));
     Assertions.assertEquals(
-            401,
-            testHHM.systemLogin("instrShrimp1@mail.com", "fakepassword", "Instructor"));
+        401, testHHM.systemLogin("instrShrimp1@mail.com", "fakepassword", "Instructor"));
     Assertions.assertEquals(
-            401,
-            testHHM.systemLogin("managerShrimp1@mail.com", "fakepassword", "Manager"));
+        401, testHHM.systemLogin("managerShrimp1@mail.com", "fakepassword", "Manager"));
+  }
+
+  // Testing of attempting to login for non existent Credential when the database has data
+  @Test
+  @Order(18)
+  void testNonExistentCredentials() {
+
+    preCreateSystemLogin(); // Uncomment if standalone running the test Case
+
+    Assertions.assertEquals(404, testHHM.systemLogin("I do not exist", "cs1", "Client"));
+    Assertions.assertEquals(404, testHHM.systemLogin("I do not exist", "is2", "Instructor"));
+    Assertions.assertEquals(404, testHHM.systemLogin("I do not exist", "ms1", "Manager"));
   }
 
   //  @Test
