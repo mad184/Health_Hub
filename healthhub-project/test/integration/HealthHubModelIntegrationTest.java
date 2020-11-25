@@ -1,5 +1,7 @@
 package integration;
 
+import com.mongodb.MongoException;
+import database.EmptyQueryException;
 import healthhub.HealthHubModel;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
@@ -272,6 +274,22 @@ public class HealthHubModelIntegrationTest {
     testHHM.testRevertRandomBound();
   }
 
+  // Test that adding organization has no issues
+  @Test
+  @Order(13)
+  void testAddOrganization() throws EmptyQueryException {
+
+    JSONObject expectedOrgData = new JSONObject();
+    expectedOrgData.put("Owner","Yagoo");
+
+    Assertions.assertEquals(200,testHHM.createOrganization("Hololive", expectedOrgData));
+
+    JSONObject actualData = testHHM.testGetDatabase().readOrganizationData("Hololive");
+
+    Assertions.assertEquals(expectedOrgData.get("Owner").toString(),actualData.get("Owner").toString());
+    Assertions.assertEquals("Hololive",actualData.get("_id").toString());
+  }
+
   //  @Test
   //  @Order(2)
   //  void testAddInstructor() {
@@ -386,5 +404,7 @@ public class HealthHubModelIntegrationTest {
       testHHM.testGetDatabase().removeInstructor(each);
       testHHM.testGetDatabase().removeManager(each);
     }
+
+    testHHM.testGetDatabase().removeOrganization("Hololive");
   }
 }
