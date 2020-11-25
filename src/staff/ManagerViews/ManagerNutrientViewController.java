@@ -9,8 +9,6 @@ import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import staff.Controllers.ManagerController;
-import staff.ManagerViews.FoodSearchViewController;
-import staff.ManagerViews.ManagerMainViewController;
 
 import java.io.IOException;
 import java.net.URL;

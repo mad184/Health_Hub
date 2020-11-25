@@ -9,12 +9,13 @@ import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import staff.Controllers.InstructorController;
+import staff.InstructorViews.FoodSearchView.FoodSearchViewController;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class InstructorNutrienController implements Initializable {
+public class InstructorNutrientController implements Initializable {
 
     private InstructorController controller;
 
@@ -48,7 +49,7 @@ public class InstructorNutrienController implements Initializable {
         // Get controller for search scene
         FoodSearchViewController viewController = loader.getController();
         // setup scene
-        viewController.setUpScene(controller);
+        viewController.setupScene(controller);
 
         // Create popup window/stage and make it a sub-window of the main stage
         final Stage foodSearchStage = new Stage();

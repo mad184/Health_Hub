@@ -9,7 +9,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import staff.Controllers.InstructorController;
 
@@ -96,7 +95,7 @@ public class InstructorMainViewController {
     Parent root = loader.load();
 
     // Gets nutrient view controller and passes client to it
-    InstructorNutrienController NutrienViewController = loader.getController();
+    InstructorNutrientController NutrienViewController = loader.getController();
     NutrienViewController.setupScene(controller);
 
     Scene viewScene = new Scene(root);
