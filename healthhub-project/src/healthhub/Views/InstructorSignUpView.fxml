@@ -11,7 +11,7 @@
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="healthhub.ViewControllers.InstructorSignUpController">
     <children>
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2a0033" height="400.0" stroke="BLACK" strokeType="INSIDE" width="600.0" />
-        <Label layoutX="151.0" layoutY="109.0" prefHeight="32.0" prefWidth="98.0" text="BirthDate" textFill="#c9c1c1">
+        <Label layoutX="151.0" layoutY="109.0" prefHeight="32.0" prefWidth="98.0" text="Age" textFill="#c9c1c1">
             <font>
                 <Font size="14.0" />
             </font>
@@ -31,9 +31,9 @@
                 <Font size="14.0" />
             </font>
         </Label>
-        <TextField fx:id="BirthDate" layoutX="259.0" layoutY="112.0" promptText="dd-mm-yyyy" />
+        <TextField fx:id="age" layoutX="259.0" layoutY="112.0" promptText="dd-mm-yyyy" />
         <TextField fx:id="Email" layoutX="257.0" layoutY="213.0" />
-        <TextField fx:id="UserName" layoutX="259.0" layoutY="159.0" />
+        <TextField fx:id="organziation" layoutX="259.0" layoutY="159.0" />
         <TextField fx:id="Password" layoutX="257.0" layoutY="267.0" />
         <Button layoutX="313.0" layoutY="328.0" mnemonicParsing="false" onAction="#onSignUpButtonPushed" prefHeight="33.0" prefWidth="75.0" style="-fx-border-color: #9643A9; -fx-border-radius: 10; -fx-background-color: #2A0033; -fx-background-radius: 10;" text="Sign Up" textFill="#ddd9d9" />
         <Button layoutX="215.0" layoutY="328.0" mnemonicParsing="false" onAction="#backButtonPushed" prefHeight="33.0" prefWidth="75.0" style="-fx-border-color: #9643A9; -fx-border-radius: 10; -fx-background-color: #2A0033; -fx-background-radius: 10;" text="Back" textFill="#ddd9d9" />
@@ -43,7 +43,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Text layoutX="199.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0"  text="Sign Up as an Instructor" fill="#c9c1c1">
+      <Text fill="#c9c1c1" layoutX="199.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign Up as an Instructor">
          <font>
             <Font size="19.0" />
          </font>
