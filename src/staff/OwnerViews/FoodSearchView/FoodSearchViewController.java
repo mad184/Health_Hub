@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import staff.Controllers.InstructorController;
+import staff.Controllers.OwnerController;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,17 +36,17 @@ public class FoodSearchViewController {
   @FXML Label thirdResultCals = new Label();
 
   // Controller to hold client information
-  private InstructorController instructorController = new InstructorController(null);
+  private OwnerController ownerController = new OwnerController(null);
 
   //Array list initialized for results
   ArrayList<FoodItem> results = new ArrayList<>();
 
   /**
    * Setups scene
-   * @param instructor InstructorController for client
+   * @param owner OwnerController for owner
    */
-  public void setupScene(InstructorController instructor) {
-    instructorController = instructor;
+  public void setupScene(OwnerController owner) {
+    ownerController = owner;
   }
 
   /**
@@ -66,7 +67,7 @@ public class FoodSearchViewController {
   /**
    * Changes scene to foodTypeSelectView scene
    * @param event of add button being clicked
-   * @param food food to be added to instructor
+   * @param food food to be added to owner
    */
   private void changeScene(ActionEvent event, FoodItem food) throws IOException {
     // Loads Scene for main view
@@ -75,7 +76,7 @@ public class FoodSearchViewController {
 
     // Gets main view controller and passes client to it
     FoodTypeSelectViewController viewController = loader.getController();
-    viewController.setupScene(instructorController, food);
+    viewController.setupScene(ownerController, food);
 
     Scene viewScene = new Scene(root);
     // Gets stage information
@@ -85,7 +86,7 @@ public class FoodSearchViewController {
   }
 
   /**
-   * Goes to food type select view to add food to instructor
+   * Goes to food type select view to add food to owner
    * @param event first result add button clicked
    */
   public void topResultAddButton(ActionEvent event) throws IOException {
@@ -93,7 +94,7 @@ public class FoodSearchViewController {
   }
 
   /**
-   * Goes to food type select view to add food to instructor
+   * Goes to food type select view to add food to owner
    * @param event second result add button clicked
    */
   public void secondResultAddButton(ActionEvent event) throws IOException {
@@ -101,7 +102,7 @@ public class FoodSearchViewController {
   }
 
   /**
-   * Goes to food type select view to add food to instructor
+   * Goes to food type select view to add food to owner
    * @param event third result add button clicked
    */
   public void thirdResultAddButton(ActionEvent event) throws IOException {

@@ -67,7 +67,7 @@ public class FoodSearchViewController {
   /**
    * Changes scene to foodTypeSelectView scene
    * @param event of add button being clicked
-   * @param food food to be added to instructor
+   * @param food food to be added to manager
    */
   private void changeScene(ActionEvent event, FoodItem food) throws IOException {
     // Loads Scene for main view
@@ -86,7 +86,7 @@ public class FoodSearchViewController {
   }
 
   /**
-   * Goes to food type select view to add food to instructor
+   * Goes to food type select view to add food to manager
    * @param event first result add button clicked
    */
   public void topResultAddButton(ActionEvent event) throws IOException {
@@ -94,7 +94,7 @@ public class FoodSearchViewController {
   }
 
   /**
-   * Goes to food type select view to add food to instructor
+   * Goes to food type select view to add food to manager
    * @param event second result add button clicked
    */
   public void secondResultAddButton(ActionEvent event) throws IOException {
@@ -102,7 +102,7 @@ public class FoodSearchViewController {
   }
 
   /**
-   * Goes to food type select view to add food to instructor
+   * Goes to food type select view to add food to manager
    * @param event third result add button clicked
    */
   public void thirdResultAddButton(ActionEvent event) throws IOException {

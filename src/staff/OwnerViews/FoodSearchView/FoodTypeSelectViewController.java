@@ -8,13 +8,14 @@ import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 import staff.Controllers.InstructorController;
+import staff.Controllers.OwnerController;
 
 public class FoodTypeSelectViewController {
   // Database connection
   ClientToDB DB = new ClientToDB();
 
   // Controller for client
-  private InstructorController instructorController = new InstructorController(null);
+  private OwnerController ownerController = new OwnerController(null);
 
   // Food item to be added to client
   private FoodItem food;
@@ -22,11 +23,11 @@ public class FoodTypeSelectViewController {
   /**
    * Setups of scene
    *
-   * @param instructor the InstructorController
+   * @param owner the OwnerController
    * @param food food to be added to client
    */
-  public void setupScene(InstructorController instructor, FoodItem food) {
-    instructorController = instructor;
+  public void setupScene(OwnerController owner, FoodItem food) {
+    ownerController = owner;
     this.food = food;
   }
 
@@ -38,7 +39,7 @@ public class FoodTypeSelectViewController {
   public void breakfastButtonPressed(ActionEvent event)
       throws JsonObjectException, EmptyQueryException {
     //instructorController.(food);
-    DB.updateClient(instructorController.getId(), instructorController.model.toJson());
+    DB.updateClient(ownerController.getId(), ownerController.model.toJson());
     closeWindow(event);
   }
 
@@ -50,7 +51,7 @@ public class FoodTypeSelectViewController {
   public void lunchButtonPressed(ActionEvent event)
       throws JsonObjectException, EmptyQueryException {
     //instructorController.addClientLunchFood(food);
-    DB.updateClient(instructorController.getId(), instructorController.model.toJson());
+    DB.updateClient(ownerController.getId(), ownerController.model.toJson());
     closeWindow(event);
   }
 
@@ -62,7 +63,7 @@ public class FoodTypeSelectViewController {
   public void dinnerButtonPressed(ActionEvent event)
       throws JsonObjectException, EmptyQueryException {
     // instructorController.addClientDinnerFood(food);
-    DB.updateClient(instructorController.getId(), instructorController.model.toJson());
+    DB.updateClient(ownerController.getId(), ownerController.model.toJson());
     closeWindow(event);
   }
 
@@ -74,7 +75,7 @@ public class FoodTypeSelectViewController {
   public void snackButtonPressed(ActionEvent event)
       throws JsonObjectException, EmptyQueryException {
     // instructorController.addClientSnackFood(food);
-    DB.updateClient(instructorController.getId(), instructorController.model.toJson());
+    DB.updateClient(ownerController.getId(), ownerController.model.toJson());
     closeWindow(event);
   }
 
