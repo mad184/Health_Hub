@@ -28,4 +28,13 @@ public class Dbms {
     public JSONArray getAllManager() {
         return new JSONArray();
     }
+
+    public void readClientData(int uniqueId) throws EmptyQueryException{
+    }
+
+    public void readInstructorData(int uniqueId) throws EmptyQueryException{
+    }
+
+    public void readManagerData(int uniqueId) throws EmptyQueryException{
+    }
 }
