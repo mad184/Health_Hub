@@ -157,15 +157,14 @@ public class HealthHubModelIntegrationTest {
     existingManager.put("email", "Ina@Hololive.en");
 
     // We are going to mix up the adds to make sure it is still checking that email is unique
-    Assertions.assertEquals(403,testHHM.addClient(existingInstructor));
-    Assertions.assertEquals(403,testHHM.addClient(existingManager));
+    Assertions.assertEquals(403, testHHM.addClient(existingInstructor));
+    Assertions.assertEquals(403, testHHM.addClient(existingManager));
 
-    Assertions.assertEquals(403,testHHM.addInstructor(existingClient));
-    Assertions.assertEquals(403,testHHM.addInstructor(existingManager));
+    Assertions.assertEquals(403, testHHM.addInstructor(existingClient));
+    Assertions.assertEquals(403, testHHM.addInstructor(existingManager));
 
-    Assertions.assertEquals(403,testHHM.addManager(existingClient));
-    Assertions.assertEquals(403,testHHM.addManager(existingInstructor));
-
+    Assertions.assertEquals(403, testHHM.addManager(existingClient));
+    Assertions.assertEquals(403, testHHM.addManager(existingInstructor));
   }
 
   // Testing of unique ID system
@@ -177,7 +176,7 @@ public class HealthHubModelIntegrationTest {
     testHHM.setProductionRandomBound();
 
     // Loop with the range of the Production Random Bound
-    for(int iteration=1;iteration<=100;iteration++){
+    for (int iteration = 1; iteration <= 100; iteration++) {
 
       JSONObject testClientData = new JSONObject();
       testClientData.put("email", iteration + "@client.com");
@@ -190,16 +189,86 @@ public class HealthHubModelIntegrationTest {
 
       int clientStatusValue = testHHM.addClient(testClientData);
       createdUniqueIds.add(clientStatusValue);
-      Assertions.assertNotEquals(500,clientStatusValue);
+      Assertions.assertNotEquals(500, clientStatusValue);
 
       int instructorStatusValue = testHHM.addInstructor(testInstructorData);
       createdUniqueIds.add(instructorStatusValue);
-      Assertions.assertNotEquals(500,testHHM.addInstructor(testInstructorData));
+      Assertions.assertNotEquals(500, testHHM.addInstructor(testInstructorData));
 
       int managerStatusValue = testHHM.addManager(testManagerData);
       createdUniqueIds.add(managerStatusValue);
-      Assertions.assertNotEquals(500,testHHM.addManager(testManagerData));
+      Assertions.assertNotEquals(500, testHHM.addManager(testManagerData));
     }
+    testHHM.testRevertRandomBound();
+  }
+
+  void deleteAll() {
+    for (Integer each : createdUniqueIds) {
+      testHHM.testGetDatabase().removeClient(each);
+      testHHM.testGetDatabase().removeInstructor(each);
+      testHHM.testGetDatabase().removeManager(each);
+    }
+  }
+
+  // Testing of unique email system. Really slow testing by the way
+  @Test
+  @Disabled
+  @Order(12)
+  void testUniqueEmailSystem() {
+
+    deleteAll();
+
+    testHHM.setProductionRandomBound();
+
+    JSONObject testClientData = new JSONObject();
+    testClientData.put("email", "gura@client.com");
+
+    JSONObject testInstructorData = new JSONObject();
+    testInstructorData.put("email", "Kiara@instructor.com");
+
+    JSONObject testManagerData = new JSONObject();
+    testManagerData.put("email", "Ina@manager.com");
+
+    int testManagerValueM1 = testHHM.addManager(testManagerData);
+    createdUniqueIds.add(testManagerValueM1);
+    Assertions.assertNotEquals(403, testManagerValueM1);
+
+    int testInstructorValueI1 = testHHM.addInstructor(testInstructorData);
+    createdUniqueIds.add(testInstructorValueI1);
+    Assertions.assertNotEquals(403, testInstructorValueI1);
+
+    int testClientValueC1 = testHHM.addClient(testClientData);
+    createdUniqueIds.add(testClientValueC1);
+    Assertions.assertNotEquals(403, testClientValueC1);
+
+    deleteAll();
+
+    int testInstructorValueI2 = testHHM.addInstructor(testInstructorData);
+    createdUniqueIds.add(testInstructorValueI2);
+    Assertions.assertNotEquals(403, testInstructorValueI2);
+
+    int testManagerValueM2 = testHHM.addManager(testManagerData);
+    createdUniqueIds.add(testManagerValueM2);
+    Assertions.assertNotEquals(403, testManagerValueM2);
+
+    int testClientValueC2 = testHHM.addClient(testClientData);
+    createdUniqueIds.add(testClientValueC2);
+    Assertions.assertNotEquals(403, testClientValueC2);
+
+    deleteAll();
+
+    int testInstructorValueI3 = testHHM.addInstructor(testInstructorData);
+    createdUniqueIds.add(testInstructorValueI3);
+    Assertions.assertNotEquals(403, testInstructorValueI3);
+
+    int testClientValueC3 = testHHM.addClient(testClientData);
+    createdUniqueIds.add(testClientValueC3);
+    Assertions.assertNotEquals(403, testClientValueC3);
+
+    int testManagerValueM3 = testHHM.addManager(testManagerData);
+    createdUniqueIds.add(testManagerValueM3);
+    Assertions.assertNotEquals(403, testManagerValueM3);
+
     testHHM.testRevertRandomBound();
   }
 
