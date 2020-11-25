@@ -67,6 +67,7 @@ public class HealthHubModel {
           || uniqueId == 403
           || uniqueId == 404
           || uniqueId == 401
+          || uniqueId == 200
           || uniqueId == 0);
 
       try {
