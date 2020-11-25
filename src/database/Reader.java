@@ -156,10 +156,10 @@ public class Reader implements ServerInterface, ReadInterface {
   }
 
   /**
-   * Reads the Manager data for the specified unique manager id
+   * Reads the ManagerView data for the specified unique manager id
    *
    * @param uniqueMid: unique manager id to read
-   * @return JSONObject of the Manager data.
+   * @return JSONObject of the ManagerView data.
    */
   public JSONObject readManagerData(int uniqueMid) throws EmptyQueryException {
     return createJsonData(new JSONObject(), readData(uniqueMid, "ManagerCollection"));

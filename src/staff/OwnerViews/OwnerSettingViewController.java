@@ -1,10 +1,5 @@
 package staff.OwnerViews;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextInputDialog;
-import staff.Controllers.OwnerController;
-import database.Dbms;
 import database.EmptyQueryException;
 import database.JsonObjectException;
 import javafx.event.ActionEvent;
@@ -16,6 +11,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
 import javafx.stage.Stage;
+import staff.Controllers.InstructorController;
+import staff.Controllers.OwnerController;
+
 import java.io.IOException;
 
 public class OwnerSettingViewController {
@@ -91,7 +89,7 @@ public class OwnerSettingViewController {
     // Goes to main view scene when back button is pushed
     public void onBackButtonPressed(ActionEvent event) throws IOException {
         // Loads Scene for main view
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("instructorMainView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ownerMainView.fxml"));
         Parent root = loader.load();
 
         // Gets main view controller and passes client to it

@@ -1,51 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Accordion?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.Font?>
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="staff.OwnerViews.OwnerMainViewController">
+<?import javafx.scene.text.*?>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="staff.InstructorViews.InstructorMainViewController">
     <children>
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2a0033" height="400.0" stroke="BLACK" strokeType="INSIDE" width="602.0" />
         <Pane layoutX="14.0" layoutY="14.0" style="-fx-border-color: #9643A9 #9643A9 #9643A9 #9643A9 #9643A9 #9643A9 #9643A9 ##9643A9;">
             <children>
                 <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="80.0" stroke="#9643a9" strokeType="INSIDE" width="80.0" />
-                <ImageView fitHeight="70.0" fitWidth="70.0" layoutX="5.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@Assets/add-user.png" />
-                    </image>
-                </ImageView>
                 <Button layoutY="-1.0" mnemonicParsing="false" prefHeight="81.0" prefWidth="80.0" style="-fx-background-color: #ffffff00;" textFill="TRANSPARENT" />
             </children></Pane>
-        <Pane layoutX="99.0" prefHeight="70.0" prefWidth="502.0">
+        <Pane layoutX="100.0" layoutY="20.0" prefHeight="70.0" prefWidth="502.0">
             <children>
                 <Button layoutX="430.0" layoutY="1.0" mnemonicParsing="false" onAction="#onSettingsButtonPushed" prefHeight="27.0" prefWidth="62.0" style="-fx-background-color: #2A0033 #2A0033 #2A0033 #2A0033 #2A0033 #2A0033 #2A0033 #2A0033;" text="Settings" textFill="#ddd9d9">
                     <font>
                         <Font size="12.0" />
                     </font>
                 </Button>
-                <Label fx:id="nameLabel" layoutY="6.0" prefHeight="16.0" prefWidth="151.0" text="Instructor Name" textFill="#ddd9d9">
+                <Label fx:id="nameLabel" alignment="CENTER" layoutY="6.0" prefHeight="16.0" prefWidth="89.0" text="Instructor Name" textFill="#ddd9d9">
                     <font>
                         <Font size="12.0" />
                     </font>
                 </Label>
-                <Button layoutX="4.0" layoutY="22.0" mnemonicParsing="false" onAction="#onProfileButtonPushed" prefHeight="27.0" prefWidth="54.0" style="-fx-background-color: #2A0033 #2A0033 #2A0033 #2A0033 #2A0033 #2A0033 #2A0033 #2A0033;" text="Profile" textFill="#ddd9d9">
+                <Button layoutY="22.0" mnemonicParsing="false" onAction="#onProfileButtonPushed" prefHeight="27.0" prefWidth="49.0" style="-fx-background-color: #2A0033 #2A0033 #2A0033 #2A0033 #2A0033 #2A0033 #2A0033 #2A0033;" text="Profile" textFill="#ddd9d9">
                     <font>
                         <Font size="12.0" />
                     </font>
                 </Button>
             </children>
         </Pane>
-        <HBox layoutX="50.0" layoutY="101.0" spacing="10.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="101.0">
+        <HBox layoutX="52.0" layoutY="110.0" spacing="10.0" AnchorPane.leftAnchor="52.0" AnchorPane.rightAnchor="48.0" AnchorPane.topAnchor="110.0">
             <children>
                 <Button alignment="CENTER" mnemonicParsing="false" onAction="#onProgressButtonPushed" prefHeight="90.0" prefWidth="160.0" style="-fx-background-color: #2A0033; -fx-border-color: #9643A9; -fx-border-radius: 10;" text="Progress" textFill="#ddd9d9">
                     <font>
@@ -64,7 +51,7 @@
                 </Button>
             </children>
         </HBox>
-        <Pane layoutX="52.0" layoutY="200.0" prefHeight="80.0" prefWidth="502.0" style="-fx-border-radius: 10; -fx-background-color: #9643A9 #9643A9 #9643A9 #9643A9 #9643A9 #9643A9 #9643A9 #9643A9; -fx-border-color: #ddd9d9; -fx-background-radius: 10;">
+        <Pane layoutX="52.0" layoutY="218.0" prefHeight="80.0" prefWidth="502.0" style="-fx-border-radius: 10; -fx-background-color: #9643A9 #9643A9 #9643A9 #9643A9 #9643A9 #9643A9 #9643A9 #9643A9; -fx-border-color: #ddd9d9; -fx-background-radius: 10;">
             <children>
                 <Label fx:id="nameLabel1" layoutX="14.0" layoutY="14.0" prefHeight="16.0" prefWidth="97.0" text="Recommendations:" textFill="#ddd9d9">
                     <font>
@@ -77,7 +64,7 @@
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
             </padding>
         </Pane>
-        <Accordion layoutX="147.0" layoutY="290.0" />
-        <ComboBox fx:id="ClientComboBox" layoutX="226.0" layoutY="316.0" prefWidth="150.0" promptText="test" />
+      <Accordion layoutX="147.0" layoutY="290.0" />
+      <ComboBox fx:id="ClientComboBox" layoutX="228.0" layoutY="317.0" prefWidth="150.0" promptText="test" />
     </children>
 </AnchorPane>

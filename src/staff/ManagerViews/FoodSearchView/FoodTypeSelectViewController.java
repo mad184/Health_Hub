@@ -15,7 +15,7 @@ public class FoodTypeSelectViewController {
   ClientToDB DB = new ClientToDB();
 
   // Controller for client
-  private ManagerController managerController = new ManagerController(null);
+  private ManagerController controller = new ManagerController(null);
 
   // Food item to be added to client
   private FoodItem food;
@@ -23,11 +23,11 @@ public class FoodTypeSelectViewController {
   /**
    * Setups of scene
    *
-   * @param manager the managerController
+   * @param manager the ManagerController
    * @param food food to be added to client
    */
   public void setupScene(ManagerController manager, FoodItem food) {
-    managerController = manager;
+    controller = manager;
     this.food = food;
   }
 
@@ -39,7 +39,7 @@ public class FoodTypeSelectViewController {
   public void breakfastButtonPressed(ActionEvent event)
       throws JsonObjectException, EmptyQueryException {
     //instructorController.(food);
-    DB.updateClient(managerController.getId(), managerController.model.toJson());
+    DB.updateClient(controller.getId(), controller.model.toJson());
     closeWindow(event);
   }
 
@@ -51,7 +51,7 @@ public class FoodTypeSelectViewController {
   public void lunchButtonPressed(ActionEvent event)
       throws JsonObjectException, EmptyQueryException {
     //instructorController.addClientLunchFood(food);
-    DB.updateClient(managerController.getId(), managerController.model.toJson());
+    DB.updateClient(controller.getId(), controller.model.toJson());
     closeWindow(event);
   }
 
@@ -63,7 +63,7 @@ public class FoodTypeSelectViewController {
   public void dinnerButtonPressed(ActionEvent event)
       throws JsonObjectException, EmptyQueryException {
     // instructorController.addClientDinnerFood(food);
-    DB.updateClient(managerController.getId(), managerController.model.toJson());
+    DB.updateClient(controller.getId(), controller.model.toJson());
     closeWindow(event);
   }
 
@@ -75,7 +75,7 @@ public class FoodTypeSelectViewController {
   public void snackButtonPressed(ActionEvent event)
       throws JsonObjectException, EmptyQueryException {
     // instructorController.addClientSnackFood(food);
-    DB.updateClient(managerController.getId(), managerController.model.toJson());
+    DB.updateClient(controller.getId(), controller.model.toJson());
     closeWindow(event);
   }
 

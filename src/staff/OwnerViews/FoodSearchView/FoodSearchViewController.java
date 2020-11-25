@@ -36,7 +36,7 @@ public class FoodSearchViewController {
   @FXML Label thirdResultCals = new Label();
 
   // Controller to hold client information
-  private OwnerController ownerController = new OwnerController(null);
+  private OwnerController controller = new OwnerController(null);
 
   //Array list initialized for results
   ArrayList<FoodItem> results = new ArrayList<>();
@@ -46,7 +46,7 @@ public class FoodSearchViewController {
    * @param owner OwnerController for owner
    */
   public void setupScene(OwnerController owner) {
-    ownerController = owner;
+    controller = owner;
   }
 
   /**
@@ -76,7 +76,7 @@ public class FoodSearchViewController {
 
     // Gets main view controller and passes client to it
     FoodTypeSelectViewController viewController = loader.getController();
-    viewController.setupScene(ownerController, food);
+    viewController.setupScene(controller, food);
 
     Scene viewScene = new Scene(root);
     // Gets stage information

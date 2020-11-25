@@ -134,7 +134,7 @@ public class Writer implements ServerInterface, WriteInterface {
    * @throws NullPointerException when updatedData is null ( not empty ), this exception will be
    *     thrown
    * @throws JsonObjectException when the updatedData is empty ( not null ), this exception will be
-   *     thrown to prevent users from updating empty data to Manager
+   *     thrown to prevent users from updating empty data to ManagerView
    * @throws EmptyQueryException when the unique Id does not exist within the list of instructors
    *     this exception will be thrown
    */
@@ -198,10 +198,10 @@ public class Writer implements ServerInterface, WriteInterface {
   }
 
   /**
-   * Create an Manager data within the Manager collection
+   * Create an ManagerView data within the ManagerView collection
    *
    * @param uniqueMid unique manager id
-   * @param value JSON data that refers to the specific Manager id
+   * @param value JSON data that refers to the specific ManagerView id
    * @throws NullPointerException when value is null ( not empty ), this exception will be thrown
    */
   public void createManager(int uniqueMid, JSONObject value) throws NullPointerException {
@@ -246,15 +246,15 @@ public class Writer implements ServerInterface, WriteInterface {
   }
 
   /**
-   * Update Manager data inside the Manager Collection Does not allow updates for non-existing
+   * Update ManagerView data inside the ManagerView Collection Does not allow updates for non-existing
    * instructors within the database
    *
    * @param uniqueMid: unique manager id to find
    * @param updatedData: updated data to store
    * @throws NullPointerException when value is null ( not empty ), this exception will be thrown
    * @throws JsonObjectException when the updatedData is empty ( not null ), this exception will be
-   *     thrown to prevent users from updating empty data to Manager
-   * @throws EmptyQueryException when the unique Manager Id does not exist within the list of
+   *     thrown to prevent users from updating empty data to ManagerView
+   * @throws EmptyQueryException when the unique ManagerView Id does not exist within the list of
    *     managers this exception will be thrown
    */
   public void updateManager(int uniqueMid, JSONObject updatedData)
@@ -283,7 +283,7 @@ public class Writer implements ServerInterface, WriteInterface {
   }
 
   /**
-   * Removes Manager Information inside the Manager Collection If the manager id does not exist
+   * Removes ManagerView Information inside the ManagerView Collection If the manager id does not exist
    * within the database, no update will be performed on the database
    *
    * @param uniqueMid: unique manager id to remove

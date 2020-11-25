@@ -85,7 +85,7 @@ public class DbmsIntegrationTest {
       JSONObject expectedJson = new JSONObject();
       expectedJson.put("Name", name);
       expectedJson.put("Age", expectedAges.get(counter));
-      expectedJson.put("Manager", expectedManager);
+      expectedJson.put("ManagerView", expectedManager);
       expectedJson.put("Active", true);
       expectedJson.put("Retired", false);
       expectedJson.put("Nicknames", expectedNicknames.get(counter));
@@ -162,7 +162,7 @@ public class DbmsIntegrationTest {
     }
   }
 
-  // Test data reading for Client, Instructor and Manager
+  // Test data reading for Client, Instructor and ManagerView
   @Order(6)
   @Test
   void testDataRead() throws EmptyQueryException {
@@ -178,21 +178,21 @@ public class DbmsIntegrationTest {
       // Checking the client data
       Assertions.assertEquals(expectedData.get("Name"), actualClientData.get("Name"));
       Assertions.assertEquals(expectedData.get("Age"), actualClientData.get("Age"));
-      Assertions.assertEquals(expectedData.get("Manager"), actualClientData.get("Manager"));
+      Assertions.assertEquals(expectedData.get("ManagerView"), actualClientData.get("ManagerView"));
       Assertions.assertEquals(expectedData.get("Active"), actualClientData.get("Active"));
       Assertions.assertEquals(expectedData.get("Retired"), actualClientData.get("Retired"));
 
       // Checking the instructor data
       Assertions.assertEquals(expectedData.get("Name"), actualInstrData.get("Name"));
       Assertions.assertEquals(expectedData.get("Age"), actualInstrData.get("Age"));
-      Assertions.assertEquals(expectedData.get("Manager"), actualInstrData.get("Manager"));
+      Assertions.assertEquals(expectedData.get("ManagerView"), actualInstrData.get("ManagerView"));
       Assertions.assertEquals(expectedData.get("Active"), actualInstrData.get("Active"));
       Assertions.assertEquals(expectedData.get("Retired"), actualInstrData.get("Retired"));
 
-      // Checking the Manager Data
+      // Checking the ManagerView Data
       Assertions.assertEquals(expectedData.get("Name"), actualManagerData.get("Name"));
       Assertions.assertEquals(expectedData.get("Age"), actualManagerData.get("Age"));
-      Assertions.assertEquals(expectedData.get("Manager"), actualManagerData.get("Manager"));
+      Assertions.assertEquals(expectedData.get("ManagerView"), actualManagerData.get("ManagerView"));
       Assertions.assertEquals(expectedData.get("Active"), actualManagerData.get("Active"));
       Assertions.assertEquals(expectedData.get("Retired"), actualManagerData.get("Retired"));
 
@@ -273,7 +273,7 @@ public class DbmsIntegrationTest {
     expectedUpdatedInstrData.put("Instructor Removed", true);
 
     JSONObject expectedUpdatedManagerData = new JSONObject();
-    expectedUpdatedManagerData.put("Manager Removed", true);
+    expectedUpdatedManagerData.put("ManagerView Removed", true);
 
     // perform the updates
     realDbms.updateClient(0, expectedUpdatedClientData);
@@ -295,7 +295,7 @@ public class DbmsIntegrationTest {
           Assertions.assertNotEquals(
               expectedFullData.getJSONObject(1).get("Instructor Removed"), actualInstrData);
           Assertions.assertNotEquals(
-              expectedFullData.getJSONObject(2).get("Manager Removed"), actualManagerData);
+              expectedFullData.getJSONObject(2).get("ManagerView Removed"), actualManagerData);
         });
 
     // Testing it that it is equal now to the updated data
@@ -306,8 +306,8 @@ public class DbmsIntegrationTest {
         expectedUpdatedInstrData.get("Instructor Removed"),
         actualInstrData.get("Instructor Removed"));
     Assertions.assertEquals(
-        expectedUpdatedManagerData.get("Manager Removed"),
-        actualManagerData.get("Manager Removed"));
+        expectedUpdatedManagerData.get("ManagerView Removed"),
+        actualManagerData.get("ManagerView Removed"));
   }
 
   // post delete of all the created data. This acts as test for deletion too

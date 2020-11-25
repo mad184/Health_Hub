@@ -53,7 +53,7 @@ public class Dbms implements WriteInterface, ReadInterface {
 
     /**
      * Calls the createManager from the writer initialization. This should be called when creating a
-     * new Manager within the healthhub application
+     * new ManagerView within the healthhub application
      *
      * @param uniqueMid:      unique manager id to create
      * @param newManagerInfo: new manager information to create
@@ -86,10 +86,10 @@ public class Dbms implements WriteInterface, ReadInterface {
 
     /**
      * Calls the removeInstructor from the writer initialiozation. This method should be called when
-     * removing a Manager from the healthhub-application Take note that no deletion will be made if
+     * removing a ManagerView from the healthhub-application Take note that no deletion will be made if
      * the manager does not exist
      *
-     * @param uniqueMid: unique Manager id to remove
+     * @param uniqueMid: unique ManagerView id to remove
      */
     public void removeManager(int uniqueMid) {
         DBWRITER.removeManager(uniqueMid);
@@ -131,14 +131,14 @@ public class Dbms implements WriteInterface, ReadInterface {
 
     /**
      * calls the updateManager from the writer initialization. This should be called when updating
-     * Manager information inside the database.
+     * ManagerView information inside the database.
      *
      * @param uniqueMid:          unique manager id to find
-     * @param managerUpdatedData: Manager updated data to store
+     * @param managerUpdatedData: ManagerView updated data to store
      * @throws NullPointerException when value is null ( not empty ), this exception will be thrown
      * @throws JsonObjectException  when the managerUpdatedData is empty ( not null ), this exception
-     *                              will be thrown to prevent users from updating empty data to Manager
-     * @throws EmptyQueryException  when the unique Manager Id does not exist within the list of
+     *                              will be thrown to prevent users from updating empty data to ManagerView
+     * @throws EmptyQueryException  when the unique ManagerView Id does not exist within the list of
      *                              managers this exception will be thrown
      */
     public void updateManager(int uniqueMid, JSONObject managerUpdatedData)

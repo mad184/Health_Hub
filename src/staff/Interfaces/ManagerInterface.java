@@ -6,25 +6,25 @@ import database.EmptyQueryException;
 import org.json.JSONObject;
 import staff.UserID;
 
-/** An interface for Manager class */
+/** An interface for ManagerView class */
 public interface ManagerInterface {
 
   /**
-   * Returns the Instructors (via UserIDs) that are assigned to the Manager
+   * Returns the Instructors (via UserIDs) that are assigned to the ManagerView
    *
    * @return List of UserIDs for the Instructors
    */
   public List<UserID> getInstructors();
 
   /**
-   * Adds an Instructor to the Manager's list.
+   * Adds an Instructor to the ManagerView's list.
    *
    * @param instructor: UserID of Instructor
    */
   public void addInstructor(UserID instructor);
 
   /**
-   * Removes an Instructor from the Manager's list.
+   * Removes an Instructor from the ManagerView's list.
    *
    * @param instructor: UserID of Instructor
    */

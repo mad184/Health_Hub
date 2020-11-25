@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import staff.Controllers.InstructorController;
 import staff.Controllers.ManagerController;
 import staff.ManagerViews.FoodSearchView.FoodSearchViewController;
 
@@ -26,7 +27,7 @@ public class ManagerNutrientViewController implements Initializable {
     // Goes to main view scene when back button is pushed
     public void onBackButtonPressed(ActionEvent event) throws IOException {
         // Loads Scene for main view
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("clientMainView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("managerMainView.fxml"));
         Parent root = loader.load();
 
         // Gets main view controller and passes client to it

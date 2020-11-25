@@ -1,30 +1,22 @@
 package staff.ManagerViews;
 
-import API.FoodItem;
-import com.google.gson.Gson;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import org.json.JSONException;
-import org.json.JSONObject;
-import staff.Controllers.ManagerController;
-import staff.ManagerViews.ManagerMainViewController;
-import staff.Interfaces.ManagerViewInterface;
-import staff.Interfaces.StaffInterface;
-import staff.Models.ManagerModel;
+import staff.Controllers.InstructorController;
+import staff.Models.InstructorModel;
 import staff.UserID;
 
 import java.util.ArrayList;
 
 public class ManagerView extends Application {
 
-  public ManagerController controller = new ManagerController(
-          new ManagerModel(
-                  "John Wick",
-                  21,
+  public InstructorController controller = new InstructorController(
+          new InstructorModel(
+            "John Wick",
+            21,
                   "john@usask.ca",
                   "306-555-5555",
                   175,
@@ -32,11 +24,11 @@ public class ManagerView extends Application {
                   "Average Joes",
                   1,
                   new ArrayList<UserID>(),
-                  "Remington",
+          "Remington",
                   "Instructor1",
                   "Dev-Remington-Db",
                   "Instructors") );
-
+  
   public static void main(String[] args) {
     launch(args);
   }
@@ -49,10 +41,10 @@ public class ManagerView extends Application {
   @Override
   public void start(Stage stage) throws Exception {
     // Add client to database for testing purpose
-    controller.model.db.createManager(controller.getId(), controller.model.toJson());
+    controller.model.db.createInstructor(controller.getId(), controller.model.toJson());
 
     // Load main scene
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("OwnerMainView.fxml"));
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("managerMainView.fxml"));
     Parent root = loader.load();
 
     // Get controller for main scene
@@ -73,4 +65,3 @@ public class ManagerView extends Application {
     System.out.println("Health Hub application exited");
   }
 }
-

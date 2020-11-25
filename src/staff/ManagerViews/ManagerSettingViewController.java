@@ -1,10 +1,5 @@
 package staff.ManagerViews;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextInputDialog;
-import staff.Controllers.ManagerController;
-import database.Dbms;
 import database.EmptyQueryException;
 import database.JsonObjectException;
 import javafx.event.ActionEvent;
@@ -16,11 +11,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
 import javafx.stage.Stage;
-import staff.ManagerViews.ManagerMainViewController;
+import staff.Controllers.InstructorController;
+import staff.Controllers.ManagerController;
 
 import java.io.IOException;
 
-public class ManagerSettingsViewController {
+public class ManagerSettingViewController {
 
     // Label to display Instructor information
     @FXML public Label nameLabel = new Label();
@@ -39,8 +35,8 @@ public class ManagerSettingsViewController {
     // Controller for Instructor
     private ManagerController controller = new ManagerController(null);
 
-    public void setupScene(ManagerController Manager) {
-        controller = Manager;
+    public void setupScene(ManagerController instructor) {
+        controller = instructor;
         nameLabel.setText(controller.getName());
         ageLabel.setText(String.valueOf(controller.getAge()));
         heightLabel.setText(String.valueOf(controller.getHeight()) + "cm");
@@ -93,7 +89,7 @@ public class ManagerSettingsViewController {
     // Goes to main view scene when back button is pushed
     public void onBackButtonPressed(ActionEvent event) throws IOException {
         // Loads Scene for main view
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("instructorMainView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("managerMainView.fxml"));
         Parent root = loader.load();
 
         // Gets main view controller and passes client to it

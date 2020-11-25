@@ -67,9 +67,9 @@ public class OwnerModel extends ManagerModel implements OwnerInterface {
   }
 
   /**
-   * Adds a Manager (UserID) to the Manager list.
+   * Adds a ManagerView (UserID) to the ManagerView list.
    *
-   * @param manager: UserID of the new Manager
+   * @param manager: UserID of the new ManagerView
    */
   @Override
   public void addManager(UserID manager) {
@@ -77,9 +77,9 @@ public class OwnerModel extends ManagerModel implements OwnerInterface {
   }
 
   /**
-   * Removes a Manager (UserID) from the Manager list.
+   * Removes a ManagerView (UserID) from the ManagerView list.
    *
-   * @param manager: UserID of the Manager
+   * @param manager: UserID of the ManagerView
    */
   @Override
   public void removeManager(UserID manager) {
@@ -98,10 +98,10 @@ public class OwnerModel extends ManagerModel implements OwnerInterface {
   }
 
   /**
-   * Gets the information about a Manager from the database.
+   * Gets the information about a ManagerView from the database.
    *
-   * @param manager: UserID of the Manager
-   * @return JSONObject representation of the Manager
+   * @param manager: UserID of the ManagerView
+   * @return JSONObject representation of the ManagerView
    */
   @Override
   public JSONObject getManagerInfo(UserID manager) throws EmptyQueryException {

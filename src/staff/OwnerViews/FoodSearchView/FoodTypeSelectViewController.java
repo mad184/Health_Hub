@@ -15,7 +15,7 @@ public class FoodTypeSelectViewController {
   ClientToDB DB = new ClientToDB();
 
   // Controller for client
-  private OwnerController ownerController = new OwnerController(null);
+  private OwnerController controller = new OwnerController(null);
 
   // Food item to be added to client
   private FoodItem food;
@@ -27,7 +27,7 @@ public class FoodTypeSelectViewController {
    * @param food food to be added to client
    */
   public void setupScene(OwnerController owner, FoodItem food) {
-    ownerController = owner;
+    controller = owner;
     this.food = food;
   }
 
@@ -39,7 +39,7 @@ public class FoodTypeSelectViewController {
   public void breakfastButtonPressed(ActionEvent event)
       throws JsonObjectException, EmptyQueryException {
     //instructorController.(food);
-    DB.updateClient(ownerController.getId(), ownerController.model.toJson());
+    DB.updateClient(controller.getId(), controller.model.toJson());
     closeWindow(event);
   }
 
@@ -51,7 +51,7 @@ public class FoodTypeSelectViewController {
   public void lunchButtonPressed(ActionEvent event)
       throws JsonObjectException, EmptyQueryException {
     //instructorController.addClientLunchFood(food);
-    DB.updateClient(ownerController.getId(), ownerController.model.toJson());
+    DB.updateClient(controller.getId(), controller.model.toJson());
     closeWindow(event);
   }
 
@@ -63,7 +63,7 @@ public class FoodTypeSelectViewController {
   public void dinnerButtonPressed(ActionEvent event)
       throws JsonObjectException, EmptyQueryException {
     // instructorController.addClientDinnerFood(food);
-    DB.updateClient(ownerController.getId(), ownerController.model.toJson());
+    DB.updateClient(controller.getId(), controller.model.toJson());
     closeWindow(event);
   }
 
@@ -75,7 +75,7 @@ public class FoodTypeSelectViewController {
   public void snackButtonPressed(ActionEvent event)
       throws JsonObjectException, EmptyQueryException {
     // instructorController.addClientSnackFood(food);
-    DB.updateClient(ownerController.getId(), ownerController.model.toJson());
+    DB.updateClient(controller.getId(), controller.model.toJson());
     closeWindow(event);
   }
 

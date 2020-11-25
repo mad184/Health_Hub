@@ -9,7 +9,7 @@ import com.google.gson.Gson;
 import staff.Interfaces.ManagerInterface;
 import staff.UserID;
 
-/** Storage class for Manager users. */
+/** Storage class for ManagerView users. */
 public class ManagerModel extends StaffModel implements ManagerInterface {
   private List<UserID> instructors;
 
@@ -57,7 +57,7 @@ public class ManagerModel extends StaffModel implements ManagerInterface {
   }
 
   /**
-   * Gets the Instructor list (as UserIDs) for the Manager
+   * Gets the Instructor list (as UserIDs) for the ManagerView
    *
    * @return List of UserIDs for Instructors
    */
@@ -99,7 +99,7 @@ public class ManagerModel extends StaffModel implements ManagerInterface {
   /**
    * Converts the ManagerModel to a JSON representation.
    *
-   * @return JSON representation of a Manager
+   * @return JSON representation of a ManagerView
    */
 
   public JSONObject toJson() throws JSONException {

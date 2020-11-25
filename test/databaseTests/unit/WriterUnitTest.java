@@ -130,7 +130,7 @@ public class WriterUnitTest {
 
     // JSONObject with String key - String value
     JSONObject testStrStr = new JSONObject();
-    testStrStr.append("Data", "Client/Manager/Instructor Data");
+    testStrStr.append("Data", "Client/ManagerView/Instructor Data");
 
     // Test Creation of data
     Assertions.assertDoesNotThrow(
@@ -145,7 +145,7 @@ public class WriterUnitTest {
   @Order(5)
   void testCreationDuplicate() {
     JSONObject test_add = new JSONObject();
-    test_add.append("Data", "Client/Manager/Instructor Data");
+    test_add.append("Data", "Client/ManagerView/Instructor Data");
 
     // Test Creation of duplicated data
     Assertions.assertThrows(MongoWriteException.class, () -> realCon.createClient(1, test_add));
@@ -300,7 +300,7 @@ public class WriterUnitTest {
 
     // JSONObject with String key - String value
     JSONObject testStrStr = new JSONObject();
-    testStrStr.append("UpdatedData", "Updated Client/Manager/Instructor Data");
+    testStrStr.append("UpdatedData", "Updated Client/ManagerView/Instructor Data");
 
     // Test Update of data
     Assertions.assertDoesNotThrow(
@@ -408,7 +408,7 @@ public class WriterUnitTest {
   @Order(17)
   void testDneUpdate() {
     JSONObject testUpdate = new JSONObject();
-    testUpdate.append("Another Data", "Another Client/Manager/Instructor Data");
+    testUpdate.append("Another Data", "Another Client/ManagerView/Instructor Data");
 
     // Test of updating a client that does not exist
     Assertions.assertThrows(
