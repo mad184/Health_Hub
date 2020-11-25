@@ -6,6 +6,8 @@ import healthhub.Views.View;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import staff.InstructorModel;
+import staff.Manager;
 
 import javax.swing.JOptionPane;
 import java.io.IOException;
@@ -13,9 +15,7 @@ import java.io.IOException;
 public class OrganizationSignUpController {
 
     @FXML
-    private TextField organizationName, ownerName, BirthDate, Email, UserName, Password;
-
-
+    private TextField organizationName, ownerName, age, email, phoneNumber, Password;
 
 
     /**
@@ -25,75 +25,104 @@ public class OrganizationSignUpController {
      * @throws IOException: for View.gotoView()
      */
     @FXML
-    public void backButtonPushed(ActionEvent event) throws IOException{
-        View.goToView("SignUpOptionsPageView.fxml",event);
+    public void backButtonPushed(ActionEvent event) throws IOException {
+        View.goToView("SignUpOptionsPageView.fxml", event);
     }
 
     /**
      * When the Create Organization button is pressed,
-     *  - if the organization has already been created display a message and go back to the LoginView.fxml
-     *  - otherwise gather/check all the information from the textbox input, create the organization and go to the
-     *    owners view
+     * - if the organization has already been created display a message and go back to the LoginView.fxml
+     * - otherwise gather/check all the information from the textbox input, create the organization and go to the
+     * owners view
      *
      * @param event: the ActionEvent that occured
      * @throws IOException: for View.gotoView()
      */
     @FXML
     public void onCreateOrganizationButtonPushed(ActionEvent event) throws IOException {
+
         if (HealthHubAccessSingleton.isOrganizationCreated()) {
             JOptionPane.showMessageDialog(null, "Organization has already been created");
             View.goToView("LoginView.fxml", event);
         }
-        else{
+
+        else {
             // check that our inputs were properly entered
             String organizationName = this.organizationName.getText();
             String ownerName = this.ownerName.getText();
-            String birthDate = this.BirthDate.getText();
-            String email = this.Email.getText();
-            String userName = this.UserName.getText();
+            String ageString = this.age.getText();
+            String email = this.email.getText();
+            String phoneNumber = this.phoneNumber.getText();
             String passWord = this.Password.getText();
+            int age = 0;
 
-            //regex looks for any number of white space
-            if(!(ownerName.length() > 0) || ownerName.matches("^ *$")){
-                JOptionPane.showMessageDialog(null, "A Name is required");
+            //in case a error occurs while changing age from string to int
+            try {
+                age = Integer.parseInt(ageString);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "age could not be read");
             }
 
-            //regex will reject anything that doesn't match dd-mm-yyyy format
-            else if(!(birthDate.length() > 0) || !birthDate.matches("^([0]?[1-9]|[1|2][0-9]|[3][0|1])[-]([0]?[1-9]" +
-                    "|[1][0-2])[-]([0-9]{4}|[0-9]{2})$")){
-                JOptionPane.showMessageDialog(null, "BirthDate is required to be an integer " +
-                        "sequence in  dd-mm-yyyy format");
+            //regex looks for any number of white space
+            if (!(ownerName.length() > 0) || ownerName.matches("^ *$")) {
+                JOptionPane.showMessageDialog(null, "A Name is required");
+            } else if (!(organizationName.length() > 0) || organizationName.matches("^ *$")) {
+                JOptionPane.showMessageDialog(null, "A Name is required");
+            } else if (HealthHubController.organizationExists()) {
+                JOptionPane.showMessageDialog(null, "Organization Is already Created/Name is taken");
+            } else if (!(age > 0) || !(age < 150)) {
+                JOptionPane.showMessageDialog(null, "Right now only ages 1 - 149 are accepted");
             }
 
             //regex looks for empty spaces entered
-            else if(!(email.length() > 0) || email.matches("^ *$")){
+            else if (!(email.length() > 0) || email.matches("^ *$")) {
                 JOptionPane.showMessageDialog(null, "A Email is required");
             }
 
             //regex looks for empty spaces entered
-            else if(!(userName.length() > 0) || userName.matches("^ *$")){
+            else if (!(phoneNumber.length() > 0) || phoneNumber.matches("^ *$")) {
                 JOptionPane.showMessageDialog(null, "A userName is required");
             }
 
             //regex looks for empty spaces entered
-            else if(!(passWord.length() > 0) || passWord.matches("^ *$")){
+            else if (!(passWord.length() > 0) || passWord.matches("^ *$")) {
                 JOptionPane.showMessageDialog(null, "A Password is required");
             }
+//            //For testing the outputs manually
+//            System.out.println("Start Manual output Test for Organization Sign Up input");
+//            System.out.println("Organization Name: " + organizationName);
+//            System.out.println("Owner Name: " + ownerName);
+//            System.out.println("Owner Age: " + age);
+//            System.out.println("phoneNumber: " + phoneNumber);
+//            System.out.println("email: " + email);
+//            System.out.println("passWord: " + passWord);
+//            System.out.println("finished manual input testing");
 
-            /*
-            ToDO:
-             - figure out addManager:
-               I shouldn't make a call to the staff package but there is not other way to add a manager to the
-               database right now
-             */
-
-            if(!HealthHubController.createOrganization(organizationName, ownerName)){
-                JOptionPane.showMessageDialog(null, "Organization failed to be created");
+           /*
+          ToDO:
+           - ensure we are passing the owner as a manager and storing as such
+           - get controller name to pass the unique id of the owner
+           - ensure file names are correct
+            */
+//
+//            int ownerId = HealthHubController.getUniqueID();
+//
+//            OwnerModel owner = new OwnerModel(ownerName, age, email, phoneNumber, 0, 0, organizationName,
+//                    ownerIdId, null, null, passWord, null, null);
+//
+//            int databaseAdditionSuccessCode = HealthHubController.addManager((ManagerModel) owner);
+//            switch (databaseAdditionSuccessCode) {
+//                case 403:
+//                    JOptionPane.showMessageDialog(null, "ERROR: Email " + email + " has already been used");
+//                    break;
+//                case 500:
+//                    JOptionPane.showMessageDialog(null, "ERROR: Server Error");
+//                    break;
+//                case 200:
+//                    //TODO: Uncomment after merge, ensure file names/controller names are correct
+//                InstructorMainViewController viewController = loader.getController();
+//                viewController.setupScene(instructorController.instructorID);
+//                View.goToView("OwnerView.fxml", event);
             }
-
-//            healthHubController.addManager(ownerName, birthDate, email, userName, passWord);
-
-            View.goToView("OwnerView.fxml", event);
         }
     }
-}
