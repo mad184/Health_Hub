@@ -19,7 +19,7 @@ public class Reader implements ServerInterface, ReadInterface {
   private final MongoClient SERVER; // server initiation
   private MongoDatabase mongoDb; // database initiation
   private MongoCollection<Document>
-      collectionTable; // collection initiation ( i.e Table to initiate )
+          collectionTable; // collection initiation ( i.e Table to initiate )
 
   /**
    * Constructs the Reader class by instantiating connection to a uriString.
@@ -108,6 +108,31 @@ public class Reader implements ServerInterface, ReadInterface {
   }
 
   /**
+   * OVERLOADED FUNCTION Looks for the unique String within the specified Collection inside the
+   * database. The iteration will only return the first result as Strings are suppose to be unique
+   * within Collections
+   *
+   * @param uniqueString unique String to search/read
+   * @param readCollection collection to find the unique String data
+   * @return Document object that corresponds to the specified unique String
+   * @throws EmptyQueryException when the unique String does not exist within the collection, this
+   *     exception is thrown
+   */
+  private Document readData(String uniqueString, String readCollection) throws EmptyQueryException {
+    MongoCollection<Document> previousCollection = getCollectionTable();
+    setCollectionTable(readCollection);
+    try {
+      Document readResult = collectionTable.find(eq("_id", uniqueString)).first();
+      assert readResult != null;
+      return readResult;
+    } catch (AssertionError eqe) {
+      throw new EmptyQueryException();
+    } finally {
+      setCollectionTable(previousCollection);
+    }
+  }
+
+  /**
    * Retrieve all data within the collection
    *
    * @param collectionRetrieve: collection where we retrieve all data
@@ -156,13 +181,23 @@ public class Reader implements ServerInterface, ReadInterface {
   }
 
   /**
-   * Reads the ManagerView data for the specified unique manager id
+   * Reads the Manager data for the specified unique manager id
    *
    * @param uniqueMid: unique manager id to read
-   * @return JSONObject of the ManagerView data.
+   * @return JSONObject of the Manager data.
    */
   public JSONObject readManagerData(int uniqueMid) throws EmptyQueryException {
     return createJsonData(new JSONObject(), readData(uniqueMid, "ManagerCollection"));
+  }
+
+  /**
+   * Reads the Manager data for the specified unique manager id
+   *
+   * @param uniqueOrgString: unique organization String to read
+   * @return JSONObject of the Organization data.
+   */
+  public JSONObject readOrganizationData(String uniqueOrgString) throws EmptyQueryException {
+    return createJsonData(new JSONObject(), readData(uniqueOrgString, "OrganizationCollection"));
   }
 
   /**
@@ -190,5 +225,14 @@ public class Reader implements ServerInterface, ReadInterface {
    */
   public JSONArray getAllManagers() {
     return retrieveAllData("ManagerCollection");
+  }
+
+  /**
+   * Gets all the Organization available in the Organization table
+   *
+   * @return returns a JSONarray of all the Organization and their data, null if no data
+   */
+  public JSONArray getAllOrganization() {
+    return retrieveAllData("OrganizationCollection");
   }
 }

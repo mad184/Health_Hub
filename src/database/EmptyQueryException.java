@@ -11,3 +11,4 @@ public class EmptyQueryException extends Exception{
         return exceptionMessage;
     }
 }
+

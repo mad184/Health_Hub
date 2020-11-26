@@ -11,9 +11,9 @@ public class Dbms implements WriteInterface, ReadInterface {
      * Initializes the cloud database to be used for the healthhub application. if db does not exist,
      * it will not work if table does not exist, it will create a new table
      *
-     * @param userName:  username credential to connect to cloud
-     * @param passWord:  passWord credential to connect to cloud(NOT SECURE!)
-     * @param dbName:    cloud database to connect. Need to exist
+     * @param userName: username credential to connect to cloud
+     * @param passWord: passWord credential to connect to cloud(NOT SECURE!)
+     * @param dbName: cloud database to connect. Need to exist
      * @param tableName: table inside the cloud database to connect
      */
     public Dbms(String userName, String passWord, String dbName, String tableName) {
@@ -33,7 +33,7 @@ public class Dbms implements WriteInterface, ReadInterface {
      * Calls the createClient from the writer initialization. This should be called when creating a
      * new client within the healthhub application
      *
-     * @param uniqueCid:     unique client id to create
+     * @param uniqueCid: unique client id to create
      * @param newClientInfo: new client information to create
      */
     public void createClient(int uniqueCid, JSONObject newClientInfo) {
@@ -44,7 +44,7 @@ public class Dbms implements WriteInterface, ReadInterface {
      * Calls the createInstructor from the writer initialization. This should be called when creating
      * a new instructor within the healthhub application
      *
-     * @param uniqueIid:         unique instructor id to create
+     * @param uniqueIid: unique instructor id to create
      * @param newInstructorInfo: new instructor information to create
      */
     public void createInstructor(int uniqueIid, JSONObject newInstructorInfo) {
@@ -53,13 +53,24 @@ public class Dbms implements WriteInterface, ReadInterface {
 
     /**
      * Calls the createManager from the writer initialization. This should be called when creating a
-     * new ManagerView within the healthhub application
+     * new Manager within the healthhub application
      *
-     * @param uniqueMid:      unique manager id to create
+     * @param uniqueMid: unique manager id to create
      * @param newManagerInfo: new manager information to create
      */
     public void createManager(int uniqueMid, JSONObject newManagerInfo) {
         DBWRITER.createManager(uniqueMid, newManagerInfo);
+    }
+
+    /**
+     * Calls the createOrganization from the writer initialization. This should be called when
+     * creating a new Organization within the healthhub application
+     *
+     * @param uniqueOrgName: unique Organization name to create
+     * @param newOrgInfo: new Organization information to create
+     */
+    public void createOrganization(String uniqueOrgName, JSONObject newOrgInfo) {
+        DBWRITER.createOrganization(uniqueOrgName, newOrgInfo);
     }
 
     /**
@@ -85,27 +96,38 @@ public class Dbms implements WriteInterface, ReadInterface {
     }
 
     /**
-     * Calls the removeInstructor from the writer initialiozation. This method should be called when
-     * removing a ManagerView from the healthhub-application Take note that no deletion will be made if
+     * Calls the removeInstructor from the writer initialization. This method should be called when
+     * removing a Manager from the healthhub-application Take note that no deletion will be made if
      * the manager does not exist
      *
-     * @param uniqueMid: unique ManagerView id to remove
+     * @param uniqueMid: unique Manager id to remove
      */
     public void removeManager(int uniqueMid) {
         DBWRITER.removeManager(uniqueMid);
     }
 
     /**
+     * Calls the removeOrganization from the writer initialization. This method should be called when
+     * removing an Organization from the healthhub-application Take note that no deletion will be made
+     * if the Organization does not exist
+     *
+     * @param uniqueOrgName: unique Organization Name to remove
+     */
+    public void removeOrganization(String uniqueOrgName) {
+        DBWRITER.removeOrganization(uniqueOrgName);
+    }
+
+    /**
      * calls the updateClient from the writer initialization. This should be called when updating
      * client information inside the database.
      *
-     * @param uniqueCid:         Unique Client Id
+     * @param uniqueCid: Unique Client Id
      * @param clientUpdatedData: client updated data to use in replacing
      * @throws NullPointerException when value is null ( not empty ), this exception will be thrown
-     * @throws JsonObjectException  when the clientUpdatedData is empty ( not null ), this exception
-     *                              will be thrown to prevent users from updating empty data to Client
-     * @throws EmptyQueryException  when the unique Client Id does not exist within the list of clients
-     *                              this exception will be thrown
+     * @throws JsonObjectException when the clientUpdatedData is empty ( not null ), this exception
+     *     will be thrown to prevent users from updating empty data to Client
+     * @throws EmptyQueryException when the unique Client Id does not exist within the list of clients
+     *     this exception will be thrown
      */
     public void updateClient(int uniqueCid, JSONObject clientUpdatedData)
             throws JsonObjectException, EmptyQueryException, NullPointerException {
@@ -116,13 +138,13 @@ public class Dbms implements WriteInterface, ReadInterface {
      * calls the updateInstructor from the writer initialization. This should be called when updating
      * instructor information inside the database.
      *
-     * @param uniqueIid:        Unique id for instructors
+     * @param uniqueIid: Unique id for instructors
      * @param instrUpdatedData: Instructor updated to be use in replacing
      * @throws NullPointerException when value is null ( not empty ), this exception will be thrown
-     * @throws JsonObjectException  when the instrUpdatedData is empty ( not null ), this exception
-     *                              will be thrown to prevent users from updating empty data to Instructor
-     * @throws EmptyQueryException  when the unique Instructor Id does not exist within the list of
-     *                              instructors this exception will be thrown
+     * @throws JsonObjectException when the instrUpdatedData is empty ( not null ), this exception
+     *     will be thrown to prevent users from updating empty data to Instructor
+     * @throws EmptyQueryException when the unique Instructor Id does not exist within the list of
+     *     instructors this exception will be thrown
      */
     public void updateInstructor(int uniqueIid, JSONObject instrUpdatedData)
             throws JsonObjectException, EmptyQueryException, NullPointerException {
@@ -131,19 +153,36 @@ public class Dbms implements WriteInterface, ReadInterface {
 
     /**
      * calls the updateManager from the writer initialization. This should be called when updating
-     * ManagerView information inside the database.
+     * Manager information inside the database.
      *
-     * @param uniqueMid:          unique manager id to find
-     * @param managerUpdatedData: ManagerView updated data to store
+     * @param uniqueMid: unique manager id to find
+     * @param managerUpdatedData: Manager updated data to store
      * @throws NullPointerException when value is null ( not empty ), this exception will be thrown
-     * @throws JsonObjectException  when the managerUpdatedData is empty ( not null ), this exception
-     *                              will be thrown to prevent users from updating empty data to ManagerView
-     * @throws EmptyQueryException  when the unique ManagerView Id does not exist within the list of
-     *                              managers this exception will be thrown
+     * @throws JsonObjectException when the managerUpdatedData is empty ( not null ), this exception
+     *     will be thrown to prevent users from updating empty data to Manager
+     * @throws EmptyQueryException when the unique Manager Id does not exist within the list of
+     *     managers this exception will be thrown
      */
     public void updateManager(int uniqueMid, JSONObject managerUpdatedData)
             throws JsonObjectException, EmptyQueryException, NullPointerException {
         DBWRITER.updateManager(uniqueMid, managerUpdatedData);
+    }
+
+    /**
+     * calls the updateOrganization from the writer initialization. This should be called when
+     * updating Organization information inside the database.
+     *
+     * @param uniqueOrgName: unique Organization Name to find
+     * @param orgUpdatedData: Manager updated data to store
+     * @throws NullPointerException when value is null ( not empty ), this exception will be thrown
+     * @throws JsonObjectException when the managerUpdatedData is empty ( not null ), this exception
+     *     will be thrown to prevent users from updating empty data to Organization
+     * @throws EmptyQueryException when the unique Organization Name does not exist within the list of
+     *     organization, this exception will be thrown
+     */
+    public void updateOrganization(String uniqueOrgName, JSONObject orgUpdatedData)
+            throws JsonObjectException, EmptyQueryException, NullPointerException {
+        DBWRITER.updateOrganization(uniqueOrgName, orgUpdatedData);
     }
 
     /**
@@ -153,7 +192,7 @@ public class Dbms implements WriteInterface, ReadInterface {
      * @param uniqueCid: unique client it to read
      * @return JSONObject of the client data.
      * @throws EmptyQueryException when the unique client id does not exist within the list of
-     *                             clients, this exception is thrown
+     *     clients, this exception is thrown
      */
     public JSONObject readClientData(int uniqueCid) throws EmptyQueryException {
         return DBREADER.readClientData(uniqueCid);
@@ -166,7 +205,7 @@ public class Dbms implements WriteInterface, ReadInterface {
      * @param uniqueIid Unique instructor id to read
      * @return JSONObject of the instructor data
      * @throws EmptyQueryException when the unique instructor id does not exist within the list of
-     *                             instructors, this exception is thrown
+     *     instructors, this exception is thrown
      */
     public JSONObject readInstructorData(int uniqueIid) throws EmptyQueryException {
         return DBREADER.readInstructorData(uniqueIid);
@@ -179,10 +218,23 @@ public class Dbms implements WriteInterface, ReadInterface {
      * @param uniqueMid Unique manager id to read
      * @return JSONObject of the manager data
      * @throws EmptyQueryException when the unique manager id does not exist within the list of
-     *                             managers, this exception is thrown
+     *     managers, this exception is thrown
      */
     public JSONObject readManagerData(int uniqueMid) throws EmptyQueryException {
         return DBREADER.readManagerData(uniqueMid);
+    }
+
+    /**
+     * calls the readOrganization Data from the reader initialization. This should be called when reading
+     * organization data of specified unique organization id
+     *
+     * @param uniqueOrgString Unique organization String used to read
+     * @return JSONObject of the organization data
+     * @throws EmptyQueryException when the unique string does not exist within the list of
+     *     organization, this exception is thrown
+     */
+    public JSONObject readOrganizationData(String uniqueOrgString) throws EmptyQueryException {
+        return DBREADER.readOrganizationData(uniqueOrgString);
     }
 
     /**
@@ -210,5 +262,14 @@ public class Dbms implements WriteInterface, ReadInterface {
      */
     public JSONArray getAllManagers() {
         return DBREADER.getAllManagers();
+    }
+
+    /**
+     * Gets all the organization available in the organization collection
+     *
+     * @return returns a JSONArray of all the organization and their data, null if no data
+     */
+    public JSONArray getAllOrganization() {
+        return DBREADER.getAllOrganization();
     }
 }

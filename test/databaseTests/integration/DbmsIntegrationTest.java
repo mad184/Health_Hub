@@ -85,7 +85,7 @@ public class DbmsIntegrationTest {
       JSONObject expectedJson = new JSONObject();
       expectedJson.put("Name", name);
       expectedJson.put("Age", expectedAges.get(counter));
-      expectedJson.put("ManagerView", expectedManager);
+      expectedJson.put("Manager", expectedManager);
       expectedJson.put("Active", true);
       expectedJson.put("Retired", false);
       expectedJson.put("Nicknames", expectedNicknames.get(counter));
@@ -108,6 +108,12 @@ public class DbmsIntegrationTest {
             realDbms.createManager(finalUniqueId, expectedFullData.getJSONObject(finalUniqueId));
           });
     }
+
+    Assertions.assertDoesNotThrow(
+        () -> {
+          realDbms.createOrganization("Hololive", expectedFullData.getJSONObject(0));
+          realDbms.createOrganization("Hololive2", expectedFullData.getJSONObject(1));
+        });
   }
 
   // Tests for duplicates. Repeated tests are done as different random combination will be used
@@ -146,8 +152,17 @@ public class DbmsIntegrationTest {
                 generator.nextInt(19), expectedFullData.getJSONObject(generator.nextInt(19))));
   }
 
-  // Test that reading data does not throw unnecessary exceptions
+  // Tests for duplicates. Repeated tests are done as different random combination will be used
   @Order(5)
+  void testDuplicateOrganizationCreate() {
+
+    Assertions.assertThrows(
+        MongoWriteException.class,
+        () -> realDbms.createOrganization("Hololive", expectedFullData.getJSONObject(0)));
+  }
+
+  // Test that reading data does not throw unnecessary exceptions
+  @Order(6)
   @Test
   void testCIMRead() {
 
@@ -160,10 +175,12 @@ public class DbmsIntegrationTest {
             realDbms.readManagerData(finalUniqueId);
           });
     }
+
+    Assertions.assertDoesNotThrow(() -> realDbms.readOrganizationData("Hololive"));
   }
 
-  // Test data reading for Client, Instructor and ManagerView
-  @Order(6)
+  // Test data reading for Client, Instructor and Manager
+  @Order(7)
   @Test
   void testDataRead() throws EmptyQueryException {
 
@@ -178,21 +195,21 @@ public class DbmsIntegrationTest {
       // Checking the client data
       Assertions.assertEquals(expectedData.get("Name"), actualClientData.get("Name"));
       Assertions.assertEquals(expectedData.get("Age"), actualClientData.get("Age"));
-      Assertions.assertEquals(expectedData.get("ManagerView"), actualClientData.get("ManagerView"));
+      Assertions.assertEquals(expectedData.get("Manager"), actualClientData.get("Manager"));
       Assertions.assertEquals(expectedData.get("Active"), actualClientData.get("Active"));
       Assertions.assertEquals(expectedData.get("Retired"), actualClientData.get("Retired"));
 
       // Checking the instructor data
       Assertions.assertEquals(expectedData.get("Name"), actualInstrData.get("Name"));
       Assertions.assertEquals(expectedData.get("Age"), actualInstrData.get("Age"));
-      Assertions.assertEquals(expectedData.get("ManagerView"), actualInstrData.get("ManagerView"));
+      Assertions.assertEquals(expectedData.get("Manager"), actualInstrData.get("Manager"));
       Assertions.assertEquals(expectedData.get("Active"), actualInstrData.get("Active"));
       Assertions.assertEquals(expectedData.get("Retired"), actualInstrData.get("Retired"));
 
-      // Checking the ManagerView Data
+      // Checking the Manager Data
       Assertions.assertEquals(expectedData.get("Name"), actualManagerData.get("Name"));
       Assertions.assertEquals(expectedData.get("Age"), actualManagerData.get("Age"));
-      Assertions.assertEquals(expectedData.get("ManagerView"), actualManagerData.get("ManagerView"));
+      Assertions.assertEquals(expectedData.get("Manager"), actualManagerData.get("Manager"));
       Assertions.assertEquals(expectedData.get("Active"), actualManagerData.get("Active"));
       Assertions.assertEquals(expectedData.get("Retired"), actualManagerData.get("Retired"));
 
@@ -228,8 +245,39 @@ public class DbmsIntegrationTest {
     }
   }
 
+  // Test data reading for Organization
+  @Order(8)
+  @Test
+  void testDataOrganizationRead() throws EmptyQueryException {
+
+    JSONObject expectedData = expectedFullData.getJSONObject(0);
+    JSONObject actualOrganizationData = realDbms.readOrganizationData("Hololive");
+
+    // Checking the client data
+    Assertions.assertEquals(expectedData.get("Name"), actualOrganizationData.get("Name"));
+    Assertions.assertEquals(expectedData.get("Age"), actualOrganizationData.get("Age"));
+    Assertions.assertEquals(expectedData.get("Manager"), actualOrganizationData.get("Manager"));
+    Assertions.assertEquals(expectedData.get("Active"), actualOrganizationData.get("Active"));
+    Assertions.assertEquals(expectedData.get("Retired"), actualOrganizationData.get("Retired"));
+
+    // Testing the array within array. I recommend using JSONArrays for arrays
+    if (((JSONArray) expectedData.get("Nicknames")).isEmpty()) {
+      Assertions.assertEquals(
+          expectedData.get("Nicknames").toString(),
+          actualOrganizationData.get("Nicknames").toString());
+    } else {
+
+      // Special for loop for nicknames which is an array within an array
+      for (int each = 0; each < ((JSONArray) expectedData.get("Nicknames")).length(); each++) {
+        Assertions.assertEquals(
+            ((JSONArray) expectedData.get("Nicknames")).get(each),
+            ((List<String>) actualOrganizationData.get("Nicknames")).get(each));
+      }
+    }
+  }
+
   // Tests on getting all data for clients, instructors and managers
-  @Order(7)
+  @Order(9)
   @Test
   void testGetAllData() {
 
@@ -260,8 +308,30 @@ public class DbmsIntegrationTest {
     }
   }
 
+  // Tests on getting all data for organization
+  @Order(10)
+  @Test
+  void testGetAllOrgData() {
+
+    JSONObject expectedArrayElement = expectedFullData.getJSONObject(0);
+    JSONObject expectedArrayElement1 = expectedFullData.getJSONObject(1);
+
+    JSONObject actualAllOrganization = realDbms.getAllOrganization().getJSONObject(0);
+    JSONObject actualAllOrganization1 = realDbms.getAllOrganization().getJSONObject(1);
+
+    // Compare each key value with expected data key-value
+    for (String eachKey : expectedArrayElement.keySet()) {
+      Assertions.assertEquals(
+          expectedArrayElement.get(eachKey).toString(),
+          actualAllOrganization.get(eachKey).toString());
+      Assertions.assertEquals(
+          expectedArrayElement1.get(eachKey).toString(),
+          actualAllOrganization1.get(eachKey).toString());
+    }
+  }
+
   // Testing for updating client, manager and instructor
-  @Order(8)
+  @Order(11)
   @Test
   void testDataUpdate() throws EmptyQueryException, JsonObjectException {
 
@@ -273,17 +343,22 @@ public class DbmsIntegrationTest {
     expectedUpdatedInstrData.put("Instructor Removed", true);
 
     JSONObject expectedUpdatedManagerData = new JSONObject();
-    expectedUpdatedManagerData.put("ManagerView Removed", true);
+    expectedUpdatedManagerData.put("Manager Removed", true);
+
+    JSONObject expectedUpdatedOrgData = new JSONObject();
+    expectedUpdatedOrgData.put("Organization Removed", true);
 
     // perform the updates
     realDbms.updateClient(0, expectedUpdatedClientData);
     realDbms.updateInstructor(1, expectedUpdatedInstrData);
     realDbms.updateManager(2, expectedUpdatedManagerData);
+    realDbms.updateOrganization("Hololive", expectedUpdatedOrgData);
 
     // read the actual data updated
     JSONObject actualUpdatedClientData = realDbms.readClientData(0);
     JSONObject actualInstrData = realDbms.readInstructorData(1);
     JSONObject actualManagerData = realDbms.readManagerData(2);
+    JSONObject actualOrgData = realDbms.readOrganizationData("Hololive");
 
     // Testing the asserted data not equal to previous value
     Assertions.assertThrows(
@@ -295,7 +370,8 @@ public class DbmsIntegrationTest {
           Assertions.assertNotEquals(
               expectedFullData.getJSONObject(1).get("Instructor Removed"), actualInstrData);
           Assertions.assertNotEquals(
-              expectedFullData.getJSONObject(2).get("ManagerView Removed"), actualManagerData);
+              expectedFullData.getJSONObject(2).get("Manager Removed"), actualManagerData);
+          Assertions.assertNotEquals(expectedFullData.getJSONObject(3).get("ENma"), actualOrgData);
         });
 
     // Testing it that it is equal now to the updated data
@@ -306,13 +382,17 @@ public class DbmsIntegrationTest {
         expectedUpdatedInstrData.get("Instructor Removed"),
         actualInstrData.get("Instructor Removed"));
     Assertions.assertEquals(
-        expectedUpdatedManagerData.get("ManagerView Removed"),
-        actualManagerData.get("ManagerView Removed"));
+        expectedUpdatedManagerData.get("Manager Removed"),
+        actualManagerData.get("Manager Removed"));
+    Assertions.assertEquals(
+        expectedUpdatedOrgData.get("Organization Removed"),
+        actualOrgData.get("Organization Removed"));
   }
 
-  // post delete of all the created data. This acts as test for deletion too
-  @AfterAll
-  static void postDataDeletion() {
+  // Test of Client, Instructor, Manager and Organization deletion
+  @Test
+  @Order(12)
+  void testCIMODeletion() {
     for (int uniqueId = 0; uniqueId < 19; uniqueId++) {
       int finalUniqueId = uniqueId;
       Assertions.assertDoesNotThrow(
@@ -322,7 +402,17 @@ public class DbmsIntegrationTest {
             realDbms.removeManager(finalUniqueId);
           });
     }
+    Assertions.assertDoesNotThrow(
+        () -> {
+          realDbms.removeOrganization("Hololive");
+          realDbms.removeOrganization("Hololive2");
+        });
+  }
 
+  // Test of post Client, Instructor, Manager and Organization deletion
+  @Test
+  @Order(13)
+  void testPostCIMODeletion() {
     for (int uniqueId = 0; uniqueId < 19; uniqueId++) {
       int finalUniqueId = uniqueId;
       Assertions.assertThrows(
@@ -333,5 +423,24 @@ public class DbmsIntegrationTest {
             realDbms.readManagerData(finalUniqueId);
           });
     }
+    Assertions.assertThrows(
+        EmptyQueryException.class,
+        () -> {
+          realDbms.readOrganizationData("Hololive");
+          realDbms.readOrganizationData("Hololive2");
+        });
+  }
+
+  // post delete all the created Data
+  @AfterAll
+  static void postDataDeletion() {
+    for (int uniqueId = 0; uniqueId < 19; uniqueId++) {
+      int finalUniqueId = uniqueId;
+      realDbms.removeClient(finalUniqueId);
+      realDbms.removeInstructor(finalUniqueId);
+      realDbms.removeManager(finalUniqueId);
+    }
+    realDbms.removeOrganization("Hololive");
+    realDbms.removeOrganization("Hololive2");
   }
 }
