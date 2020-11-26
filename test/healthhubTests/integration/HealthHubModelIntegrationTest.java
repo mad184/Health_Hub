@@ -1,6 +1,7 @@
 package healthhubTests.integration;
 
 
+import database.EmptyQueryException;
 import healthhub.HealthHubModel;
 import org.json.JSONArray;
 import org.junit.jupiter.api.Assertions;
