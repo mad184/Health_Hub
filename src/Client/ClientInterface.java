@@ -52,8 +52,6 @@ public interface ClientInterface {
 
   int getCalories();
 
-  // void controller(Controller);
-
   void setCalories(int calories);
 
   ArrayList<String> getAllergies();
