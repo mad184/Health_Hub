@@ -7,7 +7,7 @@ import org.json.JSONObject;
 
 public class ClientToDB {
 
-    Dbms DB = new Dbms("Justyn", "Staff1", "Test-Justyn-Db", "testCollection");
+    Dbms DB = new Dbms("test-user", "healthhub1", "Test-General-Database", "testCollection");
 
     /**
      * Creates client in database from json object

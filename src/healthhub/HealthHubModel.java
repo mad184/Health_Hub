@@ -14,7 +14,7 @@ public class HealthHubModel {
 
   public HealthHubModel() {
     // Need to be changed in the future. This is for Development
-    database = new Dbms("test-user", "healthhub1", "Test-General-Database", "testCollection");
+  database = new Dbms("test-user", "healthhub1", "Test-General-Database", "testCollection");
   }
 
   /**
@@ -183,7 +183,9 @@ public class HealthHubModel {
    *     successful creations
    */
   public int addClient(JSONObject clientInitialData) {
-    int clientId = determineUniqueId();
+    Random randomID = new Random();
+    int clientId = randomID.nextInt(RANDOMBOUND);
+    //int clientId = determineUniqueId();
     boolean emailUnique = determineUniqueEmail(clientInitialData.getString("email"));
 
     if (!emailUnique) {
@@ -191,6 +193,7 @@ public class HealthHubModel {
     }
 
     try {
+      clientInitialData.put("id", clientId);
       database.createClient(clientId, clientInitialData);
       return clientId;
     } catch (MongoException me) {

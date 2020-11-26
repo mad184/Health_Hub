@@ -2,14 +2,21 @@ package healthhub.ViewControllers;
 
 //for switching windows
 
+import Client.ClientView.ClientMainViewController;
+import database.EmptyQueryException;
 import healthhub.HealthHubController;
 import healthhub.Views.View;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 // for alerting the user of invalid or valid password
 import javax.swing.JOptionPane;
@@ -56,7 +63,7 @@ public class LogInViewController {
      * @throws IOException: For the FXMLLoader .load() function
      */
     @FXML
-    public void onLoginButtonPushed(ActionEvent event) throws IOException {
+    public void onLoginButtonPushed(ActionEvent event) throws IOException, EmptyQueryException {
         String userType = (String) userTypeComboBox.getValue();
 
         //send the heathHub Controller the login text
@@ -70,11 +77,62 @@ public class LogInViewController {
              - change .fxml file names to proper file names
              - pass the email to the controller so they can construct the object on the other side
             */
-            switch (userType) {
-                case "Client" -> View.goToView("ClientView.fxml", event);
-                case "Instructor" -> View.goToView("InstructorView.fxml", event);
-                case "Manager" -> View.goToView("ManagerView.fxml", event);
-                case "Owner" -> View.goToView("OwnerView.fxml", event);
+            if (userType == "Client") {
+                // Loads Scene for main view
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("../../Client/ClientView/clientMainView.fxml"));
+                Parent root = loader.load();
+
+                // Gets main view controller and passes client to it
+                ClientMainViewController viewController = loader.getController();
+                viewController.setupScene(loginSuccessCode);
+
+                Scene viewScene = new Scene(root);
+                // Gets stage information
+                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                window.setScene(viewScene);
+                window.show();
+            } else if (userType == "Instructor") {
+                // Loads Scene for main view
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("../../Staff/InstructorViews/instructorMainView.fxml"));
+                Parent root = loader.load();
+
+                // Gets main view controller and passes client to it
+                ClientMainViewController viewController = loader.getController();
+                viewController.setupScene(loginSuccessCode);
+
+                Scene viewScene = new Scene(root);
+                // Gets stage information
+                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                window.setScene(viewScene);
+                window.show();
+            } else if (userType == "Manager") {
+                // Loads Scene for main view
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("../../Staff/ManagerViews/managerMainView.fxml"));
+                Parent root = loader.load();
+
+                // Gets main view controller and passes client to it
+                ClientMainViewController viewController = loader.getController();
+                viewController.setupScene(loginSuccessCode);
+
+                Scene viewScene = new Scene(root);
+                // Gets stage information
+                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                window.setScene(viewScene);
+                window.show();
+            } else if (userType == "Owner") {
+                // Loads Scene for main view
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("../../Staff/OwnerViews/ownerMainView.fxml"));
+                Parent root = loader.load();
+
+                // Gets main view controller and passes client to it
+                ClientMainViewController viewController = loader.getController();
+                viewController.setupScene(loginSuccessCode);
+
+                Scene viewScene = new Scene(root);
+                // Gets stage information
+                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                window.setScene(viewScene);
+                window.show();
             }
         }
 

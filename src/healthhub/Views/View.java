@@ -26,4 +26,11 @@ public class View {
         stage.setScene(newScene);
         stage.show();
     }
+
+    public static void goToView(String fxmlFileName, ActionEvent event, Parent root) throws IOException {
+        Scene newScene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(newScene);
+        stage.show();
+    }
 }

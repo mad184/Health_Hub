@@ -1,14 +1,22 @@
 package healthhub.ViewControllers;
 
 
+import Client.Client;
+import Client.ClientView.ClientMainViewController;
+import database.EmptyQueryException;
 import healthhub.HealthHubController;
 import healthhub.Views.View;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import org.json.JSONObject;
 
-import javax.swing.JOptionPane;
+import javax.swing.*;
 import java.io.IOException;
 
 public class ClientSignUpViewController {
@@ -37,7 +45,7 @@ public class ClientSignUpViewController {
      * @throws IOException: For the FXMLLoader .load() function
      */
     @FXML
-    public void onSignUpButtonPushed(ActionEvent event) throws IOException {
+    public void onSignUpButtonPushed(ActionEvent event) throws IOException, EmptyQueryException {
         String name = this.Name.getText();
         String ageString = this.age.getText();
         String email = this.Email.getText();
@@ -83,24 +91,49 @@ public class ClientSignUpViewController {
 //        System.out.println("finished manual output tesing");
 
 
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("name", name);
-        jsonObject.put("email", email);
-        jsonObject.put("password", passWord);
-        jsonObject.put("age", age);
-        jsonObject.put("phoneNumber", phoneNumber);
+        Client newClient = new Client(name,
+                email,
+                passWord,
+                "none",
+                "none",
+                0,
+                age,
+                0,
+                0,
+                phoneNumber,
+                0,
+                0,
+                0,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null);
 
-        //Add clinet to the database, we will either get back a error code or a uniuqe id
-        int errorOrUniqueID = HealthHubController.addClient(jsonObject);
+        //Add client to the database, we will either get back a error code or a uniuqe id
+        int errorOrUniqueID = HealthHubController.addClient(newClient.toJSON());
 
-        switch (errorOrUniqueID) {
-            case 403 -> JOptionPane.showMessageDialog(null, "ERROR: Email " + email + " has already been used");
-            case 500 -> JOptionPane.showMessageDialog(null, "ERROR: Server Error");
-            default -> {
-//                ClientMainViewController viewController = loader.getController();
-//                viewController.setupScene(clientController.getClientID());
-//                View.goToView("ClientMainView.fxml", event);
-            }
+        if (errorOrUniqueID == 403) {
+            JOptionPane.showMessageDialog(null, "ERROR: Email " + email + " has already been used");
+        } else if (errorOrUniqueID == 500){
+            JOptionPane.showMessageDialog(null, "ERROR: Server Error");
+        } else {
+            // Loads Scene for main view
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../../Client/ClientView/clientMainView.fxml"));
+            Parent root = loader.load();
+
+            // Gets main view controller and passes client to it
+            ClientMainViewController viewController = loader.getController();
+            viewController.setupScene(errorOrUniqueID);
+
+            Scene viewScene = new Scene(root);
+            // Gets stage information
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(viewScene);
+            window.show();
         }
+
     }
 }
