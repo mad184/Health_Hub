@@ -1,10 +1,7 @@
 package healthhub;
 
-import client.Client;
 import org.json.JSONObject;
-import staff.InstructorModel;
-import staff.Manager;
-import staff.OwnerModel;
+
 
 public class HealthHubController {
     private static final HealthHubModel model = new HealthHubModel();
@@ -42,8 +39,8 @@ public class HealthHubController {
      *     true -> the organization has been created
      *     false -> the organziation has already been created
      */
-    public static int createOrganization(String OrgName, OwnerModel owner){
-        return model.createOrganization(OrgName, owner.getJSONData());
+    public static int createOrganization(String OrgName, JSONObject owner){
+        return model.createOrganization(OrgName, owner);
     }
 
   /**
