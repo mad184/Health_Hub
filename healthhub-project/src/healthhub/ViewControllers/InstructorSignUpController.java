@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 import javafx.scene.control.TextField;
+import org.json.JSONObject;
 import staff.InstructorModel;
 
 
@@ -95,24 +96,28 @@ public class InstructorSignUpController {
 //        System.out.println("finsished manual input testing");
 
 
-        int instructorId = HealthHubController.getUniqueID();
+        JSONObject instructroJsonObject = new JSONObject();
+        instructroJsonObject.put("name", name);
+        instructroJsonObject.put("email", email);
+        instructroJsonObject.put("password", passWord);
+        instructroJsonObject.put("age", age);
+        instructroJsonObject.put("phoneNumber", phoneNumber);
+        instructroJsonObject.put("organization", organization);
 
-        InstructorModel instructor = new InstructorModel(name,age,email,phoneNumber,0,0,organization,
-                instructorId,null,null,passWord,null,null);
 
-        int databaseAdditionSuccessCode = HealthHubController.addInstructor(instructor);
+        int errorOrUniqueID = HealthHubController.addInstructor(instructroJsonObject);
 
-        switch(databaseAdditionSuccessCode){
+        switch(errorOrUniqueID){
             case 403:
                 JOptionPane.showMessageDialog(null, "ERROR: Email " + email + " has already been used");
                 break;
             case 500:
                 JOptionPane.showMessageDialog(null, "ERROR: Server Error");
                 break;
-            case 200:
+            default:
                 //TODO: Uncomment after merge, ensure file names/controller names are correct
 //                InstructorMainViewController viewController = loader.getController();
-//                viewController.setupScene(instructorController.instructorID);
+//                viewController.setupScene(instructorController.errorOrUniqueID);
 //                View.goToView("InstructorView.fxml", event);
         }
 
