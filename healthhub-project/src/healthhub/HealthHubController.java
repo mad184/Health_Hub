@@ -3,6 +3,7 @@ package healthhub;
 import client.Client;
 import staff.InstructorModel;
 import staff.Manager;
+import staff.OwnerModel;
 
 public class HealthHubController {
     private static final HealthHubModel model = new HealthHubModel();
@@ -39,9 +40,7 @@ public class HealthHubController {
      * @param manager: of type Manager
      */
     public static int addManager(Manager manager){
-         //ToDO: uncomment and replace return method
-//        return model.addManager(manager.getJSONData());
-        return 0;
+        return model.addManager(manager.getJSONData());
     }
 
     /**
@@ -52,9 +51,8 @@ public class HealthHubController {
      *     true -> the organization has been created
      *     false -> the organziation has already been created
      */
-    public static int createOrganization(String name, String ownerName){
-//        int success = model.CreateOrgnaization(name, owner.json());
-        return 0;
+    public static int createOrganization(String OrgName, OwnerModel owner){
+        return model.createOrganization(OrgName, owner.getJSONData());
     }
 
   /**
@@ -81,5 +79,9 @@ public class HealthHubController {
 
   public static int getUniqueID(){
       return model.determineUniqueId();
+  }
+
+  public static boolean uniqueEmail(String email){
+      return model.determineUniqueEmail(email);
   }
 }
