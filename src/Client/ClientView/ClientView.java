@@ -34,10 +34,10 @@ public class ClientView extends Application {
               null,
               null,
               null,
-              new ArrayList<FoodItem>(),
-              new ArrayList<FoodItem>(),
-              new ArrayList<FoodItem>(),
-              new ArrayList<FoodItem>()));
+              null,
+                  null,
+                  null,
+                  null));
 
   // DB object (Currently setup to test db)
   ClientToDB DB = new ClientToDB();
@@ -56,6 +56,7 @@ public class ClientView extends Application {
     // Add client to database for testing purpose
     DB.createClient(clientController.getClientID(), clientController.clientToJson());
 
+    clientController.jsonToClient(DB.getClient(clientController.getClientID()));
     // Load main scene
     FXMLLoader loader = new FXMLLoader(getClass().getResource("clientMainView.fxml"));
     Parent root = loader.load();
@@ -63,7 +64,7 @@ public class ClientView extends Application {
     // Get controller for main scene
     ClientMainViewController viewController = loader.getController();
     // setup scene
-    viewController.setupScene(clientController);
+    viewController.setupScene(clientController.getClientID());
 
     // Show scene in window
     stage.setTitle("Client View");
