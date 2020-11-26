@@ -1,7 +1,5 @@
 package healthhub;
 
-import staff.Manager;
-
 public class HealthHub {
     String organizationName;
     String owner;
