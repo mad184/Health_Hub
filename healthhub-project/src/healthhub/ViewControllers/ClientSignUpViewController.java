@@ -99,7 +99,6 @@ public class ClientSignUpViewController {
             case 403 -> JOptionPane.showMessageDialog(null, "ERROR: Email " + email + " has already been used");
             case 500 -> JOptionPane.showMessageDialog(null, "ERROR: Server Error");
             default -> {
-//                client.setId(errorOrUniqueID);
 //                ClientMainViewController viewController = loader.getController();
 //                viewController.setupScene(clientController.getClientID());
 //                View.goToView("ClientMainView.fxml", event);
