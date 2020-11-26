@@ -13,26 +13,16 @@ public class HealthHubController {
      * @param client: client object
      */
     public static int addClient(Client client){
-
-        //ToDO:change return mehtod
-//        return model.addClient(client.getJSONData());
-        return 0; //to prevent error
+        return model.addClient(client.getJSONData());
     }
 
     /**
      * Makes call the model to pass it the client created
      * @param instructor : Instructor object
-     * @return
+     * @return error code or unique id from model
      */
     public static int addInstructor(InstructorModel instructor){
-        /*TODO:
-            make model take a method with these params
-            -either we can return the client id and pass that to the client vew or figure out a way to pass the cleint
-             object
-         */
-
-//        model.addInstructor(instructor.getJSONData());
-        return 0;
+        return model.addInstructor(instructor.getJSONData());
     }
 
     /**
@@ -46,7 +36,7 @@ public class HealthHubController {
     /**
      * A method to create the Organization,
      *
-     * @param name: the name of the organization we want to create
+     * @param OrgName: the name of the organization we want to create
      * @return
      *     true -> the organization has been created
      *     false -> the organziation has already been created
