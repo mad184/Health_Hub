@@ -1,6 +1,7 @@
 package healthhub;
 
 import client.Client;
+import org.json.JSONObject;
 import staff.InstructorModel;
 import staff.Manager;
 import staff.OwnerModel;
@@ -12,8 +13,8 @@ public class HealthHubController {
      * Makes call the model to pass it the client created
      * @param client: client object
      */
-    public static int addClient(Client client){
-        return model.addClient(client.getJSONData());
+    public static int addClient(JSONObject client){
+        return model.addClient(client);
     }
 
     /**
@@ -21,16 +22,16 @@ public class HealthHubController {
      * @param instructor : Instructor object
      * @return error code or unique id from model
      */
-    public static int addInstructor(InstructorModel instructor){
-        return model.addInstructor(instructor.getJSONData());
+    public static int addInstructor(JSONObject instructor){
+        return model.addInstructor(instructor);
     }
 
     /**
      * Makes call the model to pass it the manager created
      * @param manager: of type Manager
      */
-    public static int addManager(Manager manager){
-        return model.addManager(manager.getJSONData());
+    public static int addManager(JSONObject manager){
+        return model.addManager(manager);
     }
 
     /**
@@ -65,13 +66,5 @@ public class HealthHubController {
 
   public static boolean organizationExists(){
       return HealthHubAccessSingleton.isOrganizationCreated();
-  }
-
-  public static int getUniqueID(){
-      return model.determineUniqueId();
-  }
-
-  public static boolean uniqueEmail(String email){
-      return model.determineUniqueEmail(email);
   }
 }
