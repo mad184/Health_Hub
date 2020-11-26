@@ -2,13 +2,14 @@ package staff.Models;
 
 import java.util.List;
 
+import database.EmptyQueryException;
 import org.json.JSONException;
 import org.json.JSONObject;
 import com.google.gson.Gson;
 import staff.Interfaces.ManagerInterface;
 import staff.UserID;
 
-/** Storage class for Manager users. */
+/** Storage class for ManagerView users. */
 public class ManagerModel extends StaffModel implements ManagerInterface {
   private List<UserID> instructors;
 
@@ -56,7 +57,7 @@ public class ManagerModel extends StaffModel implements ManagerInterface {
   }
 
   /**
-   * Gets the Instructor list (as UserIDs) for the Manager
+   * Gets the Instructor list (as UserIDs) for the ManagerView
    *
    * @return List of UserIDs for Instructors
    */
@@ -91,14 +92,14 @@ public class ManagerModel extends StaffModel implements ManagerInterface {
    * @param instructor : UserID of the Instructor
    */
   @Override
-  public JSONObject getInstructorInfo(UserID instructor) {
+  public JSONObject getInstructorInfo(UserID instructor) throws EmptyQueryException {
     return this.db.readInstructorData(instructor.getId());
   }
 
   /**
    * Converts the ManagerModel to a JSON representation.
    *
-   * @return JSON representation of a Manager
+   * @return JSON representation of a ManagerView
    */
 
   public JSONObject toJson() throws JSONException {

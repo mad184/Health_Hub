@@ -1,5 +1,6 @@
 package staff.Controllers;
 
+import database.EmptyQueryException;
 import org.json.JSONObject;
 import staff.Interfaces.ManagerInterface;
 import staff.Interfaces.StaffInterface;
@@ -10,7 +11,11 @@ import java.util.List;
 
 public class ManagerController implements ManagerInterface, StaffInterface {
 
-  private ManagerModel model;
+  public ManagerModel model;
+
+  public ManagerController(ManagerModel model) {
+    this.model = model;
+  }
 
   @Override
   public List<UserID> getInstructors() {
@@ -23,7 +28,7 @@ public class ManagerController implements ManagerInterface, StaffInterface {
   }
 
   @Override
-  public JSONObject getInstructorInfo(UserID instructor) {
+  public JSONObject getInstructorInfo(UserID instructor) throws EmptyQueryException {
     return model.getInstructorInfo(instructor);
   }
 
@@ -60,6 +65,16 @@ public class ManagerController implements ManagerInterface, StaffInterface {
   @Override
   public int getWeight() {
     return model.getWeight();
+  }
+
+  @Override
+  public int getCalories() {
+    return model.getCalories();
+  }
+
+  @Override
+  public int getCaloriesGoal() {
+    return model.getCaloriesGoal();
   }
 
   @Override
@@ -100,6 +115,16 @@ public class ManagerController implements ManagerInterface, StaffInterface {
   @Override
   public void setWeight(int weight) {
     model.setWeight(weight);
+  }
+
+  @Override
+  public void setCalories(int calories) {
+    model.setCalories(calories);
+  }
+
+  @Override
+  public void setGoalCal(int goalCal) {
+    model.setGoalCal(goalCal);
   }
 
   @Override

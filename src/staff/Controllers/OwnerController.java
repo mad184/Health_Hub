@@ -1,5 +1,6 @@
 package staff.Controllers;
 
+import database.EmptyQueryException;
 import org.json.JSONObject;
 import staff.Interfaces.StaffInterface;
 import staff.Models.OwnerModel;
@@ -10,7 +11,7 @@ import java.util.List;
 
 public class OwnerController implements OwnerInterface, StaffInterface {
 
-  private OwnerModel model;
+  public OwnerModel model;
 
   public OwnerController(OwnerModel model) {
     this.model = model;
@@ -32,7 +33,7 @@ public class OwnerController implements OwnerInterface, StaffInterface {
   }
 
   @Override
-  public JSONObject getManagerInfo(UserID manager) {
+  public JSONObject getManagerInfo(UserID manager) throws EmptyQueryException {
     return model.getManagerInfo(manager);
   }
 
@@ -64,6 +65,16 @@ public class OwnerController implements OwnerInterface, StaffInterface {
   @Override
   public int getWeight() {
     return model.getWeight();
+  }
+
+  @Override
+  public int getCalories() {
+    return model.getCalories();
+  }
+
+  @Override
+  public int getCaloriesGoal() {
+    return model.getCaloriesGoal();
   }
 
   @Override
@@ -104,6 +115,16 @@ public class OwnerController implements OwnerInterface, StaffInterface {
   @Override
   public void setWeight(int weight) {
     model.setWeight(weight);
+  }
+
+  @Override
+  public void setCalories(int calories) {
+    model.setCalories(calories);
+  }
+
+  @Override
+  public void setGoalCal(int goalCal) {
+    model.setGoalCal(goalCal);
   }
 
   @Override

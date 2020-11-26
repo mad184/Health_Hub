@@ -4,6 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import com.google.gson.Gson;
 import staff.Interfaces.StaffInterface;
+import database.Dbms;
 
 /** Storage class for Staff users. */
 public class StaffModel implements StaffInterface {
@@ -15,7 +16,8 @@ public class StaffModel implements StaffInterface {
   private int weight;
   private String organization;
   private int id;
-  protected Dbms db;
+  public Dbms db;
+  private int calories;
 
   /**
    * Constructs a new StaffModel object.
@@ -51,6 +53,7 @@ public class StaffModel implements StaffInterface {
     this.weight = weight;
     this.organization = organization;
     this.id = id;
+    this.calories = 0;
     this.db = new Dbms(username, password, dbName, tableName);
   }
 
@@ -60,7 +63,7 @@ public class StaffModel implements StaffInterface {
    * @param staff: JSONObject representation of a StaffModel object
    * @return a StaffModel object
    */
-  static StaffModel fromJson(JSONObject staff) {
+  public static StaffModel fromJson(JSONObject staff) {
     Gson converter = new Gson();
     System.out.println(String.valueOf(staff));
     return converter.fromJson(String.valueOf(staff), StaffModel.class);
@@ -124,6 +127,26 @@ public class StaffModel implements StaffInterface {
   @Override
   public int getWeight() {
     return this.weight;
+  }
+
+  /**
+   * Gets the calories of the user
+   *
+   * @return client calorie
+   */
+  @Override
+  public int getCalories() {
+    return this.calories;
+  }
+
+  /**
+   * Gets the goal calorie of the client
+   *
+   * @return the goal set for calories
+   */
+  @Override
+  public int getCaloriesGoal() {
+    return 0;
   }
 
   /**
@@ -204,6 +227,26 @@ public class StaffModel implements StaffInterface {
   @Override
   public void setWeight(int weight) {
     this.weight = weight;
+  }
+
+  /**
+   * Sets calorie of the user
+   *
+   * @param calories calories
+   */
+  @Override
+  public void setCalories(int calories) {
+
+  }
+
+  /**
+   * Sets the goal calorie
+   *
+   * @param goalCal the calorie that is the goal
+   */
+  @Override
+  public void setGoalCal(int goalCal) {
+
   }
 
   /**

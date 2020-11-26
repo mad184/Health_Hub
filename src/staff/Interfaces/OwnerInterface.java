@@ -1,5 +1,6 @@
 package staff.Interfaces;
 
+import database.EmptyQueryException;
 import org.json.JSONObject;
 import staff.UserID;
 
@@ -16,24 +17,24 @@ public interface OwnerInterface {
   public List<UserID> getManagers();
 
   /**
-   * Adds a Manager to the organization.
+   * Adds a ManagerView to the organization.
    *
-   * @param manager: UserID of the new Manager
+   * @param manager: UserID of the new ManagerView
    */
   public void addManager(UserID manager);
 
   /**
-   * Removes a Manager from the organization.
+   * Removes a ManagerView from the organization.
    *
-   * @param manager: UserID of the Manager
+   * @param manager: UserID of the ManagerView
    */
   public void removeManager(UserID manager);
 
   /**
-   * Gets the information about a Manager from the database.
+   * Gets the information about a ManagerView from the database.
    *
-   * @param manager: UserID of the Manager
-   * @return JSONObject representation of the Manager
+   * @param manager: UserID of the ManagerView
+   * @return JSONObject representation of the ManagerView
    */
-  public JSONObject getManagerInfo(UserID manager);
+  public JSONObject getManagerInfo(UserID manager) throws EmptyQueryException;
 }

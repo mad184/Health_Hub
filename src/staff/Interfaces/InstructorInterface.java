@@ -1,5 +1,7 @@
 package staff.Interfaces;
 
+import database.EmptyQueryException;
+import database.JsonObjectException;
 import org.json.JSONException;
 import org.json.JSONObject;
 import staff.ClientNotFoundException;
@@ -39,7 +41,7 @@ public interface InstructorInterface {
    * @param client: Client receiving the comment
    * @param comment: The comment itself
    */
-  void addComment(UserID client, String comment) throws JSONException;
+  void addComment(UserID client, String comment) throws JSONException, JsonObjectException, EmptyQueryException;
 
   /**
    * Removes a comment on the Client's profile. Client must be in the Instructor's client list.
@@ -47,7 +49,7 @@ public interface InstructorInterface {
    * @param client: Client whose profile the comment is on
    * @param comment: The comment itself
    */
-  void removeComment(UserID client, String comment) throws JSONException;
+  void removeComment(UserID client, String comment) throws JSONException, JsonObjectException, EmptyQueryException;
 
   /**
    * Gets all information about a Client. Client must be in the Instructor's Client list.
@@ -55,5 +57,5 @@ public interface InstructorInterface {
    * @param client: Client to fetch
    * @return Information about the Client
    */
-  JSONObject getClientInfo(UserID client);
+  JSONObject getClientInfo(UserID client) throws EmptyQueryException;
 }
