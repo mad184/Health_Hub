@@ -1,4 +1,4 @@
-package database.main;
+package database;
 
 public class EmptyQueryException extends Exception{
     final String exceptionMessage;
