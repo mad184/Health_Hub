@@ -2,15 +2,15 @@ package healthhubTests.unit;
 
 import healthhub.HealthHub;
 
-import staff.Manager;
+
 import healthhub.HealthHubAccessSingleton;
 
-import org.junit.Rule;
+//import org.junit.Rule;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-import org.junit.rules.ExpectedException;
+//import org.junit.rules.ExpectedException;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -26,8 +26,8 @@ public class HealthHubAccessSingletonTest {
         String owner;
         HealthHub organization;
 
-        @Rule
-        public final ExpectedException expectedException = ExpectedException.none();
+        //@Rule
+        //public final ExpectedException expectedException = ExpectedException.none();
 
         // try to get an instance of an organization that hasn't been created yet, expect a RuntimeException
 
