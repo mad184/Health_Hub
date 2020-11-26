@@ -6,16 +6,16 @@ public class HealthHub {
     String organizationName;
     String owner;
 
-    protected HealthHub(String organizationName, String ownerName){
+    protected HealthHub(String organizationName, String ownerName) {
         this.organizationName = organizationName;
         this.owner = ownerName;
     }
 
-    protected String getOrganizationName(){
+    protected String getOrganizationName() {
         return this.organizationName;
     }
 
-    protected String getOwner(){
+    protected String getOwner() {
         return this.owner;
     }
 

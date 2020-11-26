@@ -54,9 +54,7 @@ public class ClientSignUpViewController {
         //regex looks for any number of white space
         if (!(name.length() > 0) || name.matches("^ *$")) {
             JOptionPane.showMessageDialog(null, "A Name is required");
-        }
-
-        else if (!(age > 0) || !(age < 150) ) {
+        } else if (!(age > 0) || !(age < 150)) {
             JOptionPane.showMessageDialog(null, "Right now only ages 1 - 149 are accepted");
         }
 

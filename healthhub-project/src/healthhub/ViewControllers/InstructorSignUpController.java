@@ -49,16 +49,13 @@ public class InstructorSignUpController {
 
         try {
             age = Integer.parseInt(ageString);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "age could not be read");
         }
         //regex looks for any number of white space
         if (!(name.length() > 0) || name.matches("^ *$")) {
             JOptionPane.showMessageDialog(null, "A Name is required");
-        }
-
-        else if (!(age > 0) || !(age < 150)) {
+        } else if (!(age > 0) || !(age < 150)) {
             JOptionPane.showMessageDialog(null, "Right now only ages 1 - 149 are accepted");
         }
 
@@ -79,8 +76,7 @@ public class InstructorSignUpController {
         //regex looks for empty spaces entered
         else if (!(phoneNumber.length() > 0) || phoneNumber.matches("^ *$")) {
             JOptionPane.showMessageDialog(null, "A phone number is required");
-        }
-        else if((!HealthHubController.organizationExists())){
+        } else if ((!HealthHubController.organizationExists())) {
             JOptionPane.showMessageDialog(null, "A valid organization must be given");
         }
 
@@ -107,7 +103,7 @@ public class InstructorSignUpController {
 
         int errorOrUniqueID = HealthHubController.addInstructor(instructroJsonObject);
 
-        switch(errorOrUniqueID){
+        switch (errorOrUniqueID) {
             case 403:
                 JOptionPane.showMessageDialog(null, "ERROR: Email " + email + " has already been used");
                 break;

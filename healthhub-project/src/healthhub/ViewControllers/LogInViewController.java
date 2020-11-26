@@ -80,7 +80,7 @@ public class LogInViewController {
 
         // send account not found to LogInView
         else if (loginSuccessCode == 404) {
-                JOptionPane.showMessageDialog(null, "Account Not Found");
+            JOptionPane.showMessageDialog(null, "Account Not Found");
         }
         // send account exists, password is not correct to LogInView
         else if (loginSuccessCode == 401) {

@@ -15,8 +15,8 @@ public class SignUpOptionsPageController {
      * @throws IOException: for View.gotoView()
      */
     @FXML
-    public void backButtonPushed(ActionEvent event) throws IOException{
-        View.goToView("LoginView.fxml",event);
+    public void backButtonPushed(ActionEvent event) throws IOException {
+        View.goToView("LoginView.fxml", event);
     }
 
 
