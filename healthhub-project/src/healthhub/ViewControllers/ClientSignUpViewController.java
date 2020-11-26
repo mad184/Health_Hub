@@ -1,12 +1,12 @@
 package healthhub.ViewControllers;
 
-import client.Client;
+
 import healthhub.HealthHubController;
 import healthhub.Views.View;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import staff.InstructorModel;
+import org.json.JSONObject;
 
 import javax.swing.JOptionPane;
 import java.io.IOException;
@@ -84,49 +84,25 @@ public class ClientSignUpViewController {
 //        System.out.println("passWord: " + passWord);
 //        System.out.println("finished manual output tesing");
 
-        int clientID = HealthHubController.getUniqueID();
 
-        Client client = new Client(
-                name,
-                email,
-                passWord,
-                null,
-                null,
-                clientID,
-                age,
-                0,
-                0,
-                phoneNumber,
-                0,
-                0,
-                0,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("name", name);
+        jsonObject.put("email", email);
+        jsonObject.put("password", passWord);
+        jsonObject.put("age", age);
+        jsonObject.put("phoneNumber", phoneNumber);
 
-        if(!HealthHubController.uniqueEmail(email)){
-            JOptionPane.showMessageDialog(null, "ERROR: Email " + email + " has already been used");
-        }
-        else {
-            int databaseAdditionSuccessCode = HealthHubController.addClient(client);
+        //Add clinet to the database, we will either get back a error code or a uniuqe id
+        int errorOrUniqueID = HealthHubController.addClient(jsonObject);
 
-            switch (databaseAdditionSuccessCode) {
-                case 403:
-                    JOptionPane.showMessageDialog(null, "ERROR: Email " + email + " has already been used");
-                    break;
-                case 500:
-                    JOptionPane.showMessageDialog(null, "ERROR: Server Error");
-                    break;
-                case 200:
-                    //TODO: Uncomment after merge
-                    // - check file names are correct
-//        ClientMainViewController viewController = loader.getController();
-//        viewController.setupScene(clientController.getClientID());
-//        View.goToView("ClientMainView.fxml", event);
+        switch (errorOrUniqueID) {
+            case 403 -> JOptionPane.showMessageDialog(null, "ERROR: Email " + email + " has already been used");
+            case 500 -> JOptionPane.showMessageDialog(null, "ERROR: Server Error");
+            default -> {
+//                client.setId(errorOrUniqueID);
+//                ClientMainViewController viewController = loader.getController();
+//                viewController.setupScene(clientController.getClientID());
+//                View.goToView("ClientMainView.fxml", event);
             }
         }
     }
