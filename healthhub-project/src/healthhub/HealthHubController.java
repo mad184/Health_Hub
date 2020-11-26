@@ -35,12 +35,11 @@ public class HealthHubController {
      * A method to create the Organization,
      *
      * @param OrgName: the name of the organization we want to create
-     * @return
-     *     true -> the organization has been created
-     *     false -> the organziation has already been created
+     * @return true -> the organization has been created
+     * false -> the organziation has already been created
      */
-    public static int createOrganization(String OrgName, JSONObject owner){
-        return model.createOrganization(OrgName, owner);
+    public static int createOrganization(String OrgName, JSONObject organziationData) {
+        return model.createOrganization(OrgName, organziationData);
     }
 
   /**
