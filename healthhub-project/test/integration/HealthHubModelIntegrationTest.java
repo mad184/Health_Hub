@@ -1,11 +1,15 @@
 package integration;
 
-import com.mongodb.MongoException;
 import database.EmptyQueryException;
 import healthhub.HealthHubModel;
 import org.json.JSONArray;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -14,7 +18,8 @@ import java.util.ArrayList;
 public class HealthHubModelIntegrationTest {
 
   static HealthHubModel testHHM = new HealthHubModel();
-  static ArrayList<Integer> createdUniqueIds = new ArrayList<>();
+  static ArrayList<Integer> createdUniqueIds =
+      new ArrayList<>(); // Storage of all uniqueIds to be deleted
 
   // Test if creating the client will not result to any of the error codes
   @Test
@@ -172,12 +177,11 @@ public class HealthHubModelIntegrationTest {
 
   // Testing of unique ID system
   @Test
-  @Disabled
   @Order(11)
   void testCIMUniqueIdSystem() {
 
     // At this stage, the DB should have Gura - Client, Kiara - Instructor and Ina - Manager
-    testHHM.setProductionRandomBound();
+    testHHM.setProductionRandomBound(); // Make sure we are at production Random Bound
 
     // Loop with the range of the Production Random Bound
     for (int iteration = 1; iteration <= 100; iteration++) {
@@ -191,6 +195,7 @@ public class HealthHubModelIntegrationTest {
       JSONObject testManagerData = new JSONObject();
       testManagerData.put("email", iteration + "@manager.com");
 
+      // Test the creation of data whether it will fail or not
       int clientStatusValue = testHHM.addClient(testClientData);
       createdUniqueIds.add(clientStatusValue);
       Assertions.assertNotEquals(500, clientStatusValue);
@@ -203,9 +208,10 @@ public class HealthHubModelIntegrationTest {
       createdUniqueIds.add(managerStatusValue);
       Assertions.assertNotEquals(500, testHHM.addManager(testManagerData));
     }
-    testHHM.testRevertRandomBound();
+    testHHM.testRevertRandomBound(); // revert to the safest RANDOMBOUND for this test code
   }
 
+  /** This method is called for deleting all within the database */
   void deleteAll() {
     for (Integer each : createdUniqueIds) {
       testHHM.testGetDatabase().removeClient(each);
@@ -216,14 +222,14 @@ public class HealthHubModelIntegrationTest {
 
   // Testing of unique email system. Really slow testing by the way
   @Test
-  @Disabled
   @Order(12)
   void testUniqueEmailSystem() {
 
-    deleteAll();
+    deleteAll(); // delete all pre-existing data
 
     testHHM.setProductionRandomBound();
 
+    // Create the unique emails
     JSONObject testClientData = new JSONObject();
     testClientData.put("email", "gura@client.com");
 
@@ -233,6 +239,7 @@ public class HealthHubModelIntegrationTest {
     JSONObject testManagerData = new JSONObject();
     testManagerData.put("email", "Ina@manager.com");
 
+    // Test the Unique Emails with different Combinations of how it will be added
     int testManagerValueM1 = testHHM.addManager(testManagerData);
     createdUniqueIds.add(testManagerValueM1);
     Assertions.assertNotEquals(403, testManagerValueM1);
@@ -273,7 +280,9 @@ public class HealthHubModelIntegrationTest {
     createdUniqueIds.add(testManagerValueM3);
     Assertions.assertNotEquals(403, testManagerValueM3);
 
-    testHHM.testRevertRandomBound();
+    deleteAll();
+
+    testHHM.testRevertRandomBound(); // revert to the safest RANDOMBOUND for this test code
   }
 
   // Test that adding organization has no issues
@@ -293,6 +302,7 @@ public class HealthHubModelIntegrationTest {
     Assertions.assertEquals("Hololive", actualData.get("_id").toString());
   }
 
+  // Test for duplication any organization
   @Test
   @Order(14)
   void testDuplicateAddOrganization() {
@@ -302,10 +312,16 @@ public class HealthHubModelIntegrationTest {
     Assertions.assertEquals(500, testHHM.createOrganization("Hololive", expectedOrgData));
   }
 
+  /**
+   * Special method the preCreates Data for systemLogin
+   *
+   * @return JSONArray containing valid credentials
+   */
   JSONArray preCreateSystemLogin() {
 
     testHHM.setProductionRandomBound();
 
+    // Prepare the necessary data
     JSONObject clientShrimpUser1 = new JSONObject();
     clientShrimpUser1.put("email", "clientShrimp1@mail.com");
     clientShrimpUser1.put("password", "cs1");
@@ -332,6 +348,7 @@ public class HealthHubModelIntegrationTest {
 
     JSONArray validCredentials = new JSONArray();
 
+    // Create the data within the database
     int clientUserId1 = testHHM.addClient(clientShrimpUser1);
     validCredentials.put(new JSONObject().put("clientShrimpUserId1", clientUserId1));
     createdUniqueIds.add(clientUserId1);
@@ -404,7 +421,7 @@ public class HealthHubModelIntegrationTest {
   @Test
   @Order(17)
   void testInValidCredentialLogin() {
-    preCreateSystemLogin(); // Uncomment if standalone running the test Case
+    // preCreateSystemLogin(); // Uncomment if standalone running the test Case
 
     Assertions.assertEquals(
         401, testHHM.systemLogin("clientShrimp1@mail.com", "fakePassword", "Client"));
@@ -419,119 +436,13 @@ public class HealthHubModelIntegrationTest {
   @Order(18)
   void testNonExistentCredentials() {
 
-    preCreateSystemLogin(); // Uncomment if standalone running the test Case
+    // preCreateSystemLogin(); // Uncomment if standalone running the test Case
 
     Assertions.assertEquals(404, testHHM.systemLogin("I do not exist", "cs1", "Client"));
     Assertions.assertEquals(404, testHHM.systemLogin("I do not exist", "is2", "Instructor"));
     Assertions.assertEquals(404, testHHM.systemLogin("I do not exist", "ms1", "Manager"));
   }
 
-  //  @Test
-  //  @Order(2)
-  //  void testAddInstructor() {
-  //
-  //    Assertions.assertDoesNotThrow(
-  //        () -> {
-  //          testHHM.addInstructor(testInstructor);
-  //        });
-  //  }
-  //
-  //  @Test
-  //  @Order(3)
-  //  void testAddManager() {
-  //    Assertions.assertDoesNotThrow(
-  //        () -> {
-  //          testHHM.addManager(testManager);
-  //        });
-  //  }
-  //
-  //  @Test
-  //  @Order(4)
-  //  void testLoginRunning() {
-  //    Assertions.assertDoesNotThrow(
-  //        () -> {
-  //          testHHM.systemLogin("usertest", "userpw", "Client");
-  //          testHHM.systemLogin("usertest", "userpw", "Instructor");
-  //          testHHM.systemLogin("usertest", "userpw", "Manager");
-  //        });
-  //  }
-  //
-  //  @Test
-  //  // @Disabled
-  //  @Order(5)
-  //  void testLoginValidCredentials() {
-  //    System.out.println("Expected Error if no database connected");
-  //    int returnedClientCode = testHHM.systemLogin("validLogin", "validPassword", "Client");
-  //    int returnedInstrCode = testHHM.systemLogin("validLogin", "validPassword", "Instructor");
-  //    int returnedManagerCode = testHHM.systemLogin("validLogin", "validPassword", "Manager");
-  //
-  //    Assertions.assertEquals(200, returnedClientCode);
-  //    Assertions.assertEquals(200, returnedInstrCode);
-  //    Assertions.assertEquals(200, returnedManagerCode);
-  //  }
-  //
-  //  @Test
-  //  // @Disabled
-  //  @Order(6)
-  //  void testLoginInvalidCredentials() {
-  //    System.out.println("Expected Error if no database connected");
-  //    int returnedClientCode = testHHM.systemLogin("InvalidLogin", "InvalidPassword", "Client");
-  //    int returnedInstrCode = testHHM.systemLogin("InvalidLogin", "InvalidPassword",
-  // "Instructor");
-  //    int returnedManagerCode = testHHM.systemLogin("InvalidLogin", "InvalidPassword", "Manager");
-  //
-  //    Assertions.assertEquals(401, returnedClientCode);
-  //    Assertions.assertEquals(401, returnedInstrCode);
-  //    Assertions.assertEquals(401, returnedManagerCode);
-  //  }
-  //
-  //  @Test
-  //  // @Disabled
-  //  @Order(7)
-  //  void testLoginCIMNotFound() {
-  //    int returnedClientCode = testHHM.systemLogin("Who is this guy?", "validPassword", "Client");
-  //    int returnedInstrCode = testHHM.systemLogin("Who is this guy", "validPassword",
-  // "Instructor");
-  //    int returnedManagerCode = testHHM.systemLogin("Who is this guy", "validPassword",
-  // "Manager");
-  //
-  //    Assertions.assertEquals(404, returnedClientCode);
-  //    Assertions.assertEquals(404, returnedInstrCode);
-  //    Assertions.assertEquals(404, returnedManagerCode);
-  //  }
-  //
-  //  @Test
-  //  // @Disabled
-  //  @Order(8)
-  //  void testLoginSelectionInvalid() {
-  //    System.out.println("Expected Error if no database connected");
-  //    int returnedClientCode = testHHM.systemLogin("Who is this guy?", "validPassword", "Hacker");
-  //    int returnedInstrCode = testHHM.systemLogin("Who is this guy", "validPassword", "Vtuber");
-  //    int returnedManagerCode = testHHM.systemLogin("Who is this guy", "validPassword", "Shrimp");
-  //
-  //    Assertions.assertEquals(-1, returnedClientCode);
-  //    Assertions.assertEquals(-1, returnedInstrCode);
-  //    Assertions.assertEquals(-1, returnedManagerCode);
-  //  }
-  //
-  //  @Test
-  //  // @Disabled
-  //  @Order(9)
-  //  void testLoginServerIssues() {
-  //    // You can test this by removing your internet connection. That should give you a server
-  // issue.
-  //    // Although database needs to be connected
-  //    System.out.println("Expected Error if no database connected");
-  //    int returnedClientCode = testHHM.systemLogin("Who is this guy?", "validPassword", "Client");
-  //    int returnedInstrCode = testHHM.systemLogin("Who is this guy", "validPassword",
-  // "Instructor");
-  //    int returnedManagerCode = testHHM.systemLogin("Who is this guy", "validPassword",
-  // "Manager");
-  //
-  //    Assertions.assertEquals(500, returnedClientCode);
-  //    Assertions.assertEquals(500, returnedInstrCode);
-  //    Assertions.assertEquals(500, returnedManagerCode);
-  //  }
   @AfterAll
   static void postDelete() {
 
