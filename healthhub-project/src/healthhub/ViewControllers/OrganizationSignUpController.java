@@ -6,8 +6,7 @@ import healthhub.Views.View;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import staff.InstructorModel;
-import staff.Manager;
+import org.json.JSONObject;
 
 import javax.swing.JOptionPane;
 import java.io.IOException;
@@ -44,9 +43,7 @@ public class OrganizationSignUpController {
         if (HealthHubAccessSingleton.isOrganizationCreated()) {
             JOptionPane.showMessageDialog(null, "Organization has already been created");
             View.goToView("LoginView.fxml", event);
-        }
-
-        else {
+        } else {
             // check that our inputs were properly entered
             String organizationName = this.organizationName.getText();
             String ownerName = this.ownerName.getText();
@@ -104,25 +101,46 @@ public class OrganizationSignUpController {
            - get controller name to pass the unique id of the owner
            - ensure file names are correct
             */
-//
-//            int ownerId = HealthHubController.getUniqueID();
-//
-//            OwnerModel owner = new OwnerModel(ownerName, age, email, phoneNumber, 0, 0, organizationName,
-//                    ownerIdId, null, null, passWord, null, null);
-//
-//            int databaseAdditionSuccessCode = HealthHubController.addManager((ManagerModel) owner);
-//            switch (databaseAdditionSuccessCode) {
-//                case 403:
-//                    JOptionPane.showMessageDialog(null, "ERROR: Email " + email + " has already been used");
-//                    break;
-//                case 500:
-//                    JOptionPane.showMessageDialog(null, "ERROR: Server Error");
-//                    break;
-//                case 200:
-//                    //TODO: Uncomment after merge, ensure file names/controller names are correct
-//                InstructorMainViewController viewController = loader.getController();
-//                viewController.setupScene(instructorController.instructorID);
-//                View.goToView("OwnerView.fxml", event);
+
+
+            //create barebones json to add to database
+            JSONObject ownerJson = new JSONObject();
+            ownerJson.put("name", ownerName);
+            ownerJson.put("email", email);
+            ownerJson.put("password", passWord);
+            ownerJson.put("age", age);
+            ownerJson.put("phoneNumber", phoneNumber);
+            ownerJson.put("organization", organizationName);
+
+            //create organization json to add to database
+            JSONObject organizationJson = new JSONObject();
+            organizationJson.put("organizationName", organizationName);
+            organizationJson.put("ownerName", ownerName);
+
+            int errorOrUniqueId = HealthHubController.addManager(ownerJson);
+
+            switch (errorOrUniqueId) {
+                case 403 -> JOptionPane.showMessageDialog(null, "ERROR: Email " + email + " has already been used");
+
+                case 500 -> JOptionPane.showMessageDialog(null, "ERROR: Server Error");
+
+                default -> {
+                    int successCode = HealthHubController.createOrganization(organizationName, organizationJson);
+                    switch (successCode) {
+                        case 500:
+                            JOptionPane.showMessageDialog(null, "ERROR: Server Error");
+                            break;
+                        case -1:
+                            JOptionPane.showMessageDialog(null, "ERROR: Unknown Error");
+                            break;
+                        case 200:
+                            //TODO: Uncomment after merge, ensure file names/controller names are correct
+//                          InstructorMainViewController viewController = loader.getController();
+//                           viewController.setupScene(instructorController.instructorID);
+//                           View.goToView("OwnerView.fxml", event);
+                    }
+                }
             }
         }
     }
+}
