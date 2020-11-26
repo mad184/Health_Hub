@@ -1,8 +1,8 @@
 package healthhub;
 
-import database.EmptyQueryException;
 import com.mongodb.MongoException;
 import database.Dbms;
+import database.EmptyQueryException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
