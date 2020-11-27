@@ -27,6 +27,7 @@ public class Dbms implements WriteInterface, ReadInterface {
             + "?retryWrites=true&w=majority";
     DBWRITER = new Writer(uriString, dbName, tableName);
     DBREADER = new Reader(uriString, dbName, tableName);
+    DBWRITER.initializeUniqueId(); // initialize the unique id system
   }
 
   /**
