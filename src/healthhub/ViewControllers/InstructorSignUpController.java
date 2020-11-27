@@ -61,36 +61,39 @@ public class InstructorSignUpController {
             age = Integer.parseInt(ageString);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "age could not be read");
+            View.goToView("../../Staff/InstructorViews/instructorMainView.fxml", event);
         }
         //regex looks for any number of white space
         if (!(name.length() > 0) || name.matches("^ *$")) {
             JOptionPane.showMessageDialog(null, "A Name is required");
+            View.goToView("../../Staff/InstructorViews/instructorMainView.fxml", event);
         } else if (!(age > 0) || !(age < 150)) {
             JOptionPane.showMessageDialog(null, "Right now only ages 1 - 149 are accepted");
+            View.goToView("../../Staff/InstructorViews/instructorMainView.fxml", event);
         }
 
         //regex looks for empty spaces entered
         else if (!(email.length() > 0) || email.matches("^ *$")) {
             JOptionPane.showMessageDialog(null, "A Email is required");
+            View.goToView("../../Staff/InstructorViews/instructorMainView.fxml", event);
         }
 
         //regex looks for empty spaces entered
         else if (!(organization.length() > 0) || organization.matches("^ *$")) {
             JOptionPane.showMessageDialog(null, "A userName is required");
+            View.goToView("../../Staff/InstructorViews/instructorMainView.fxml", event);
         }
 
         //regex looks for empty spaces entered
         else if (!(passWord.length() > 0) || passWord.matches("^ *$")) {
             JOptionPane.showMessageDialog(null, "A Password is required");
+            View.goToView("../../Staff/InstructorViews/instructorMainView.fxml", event);
         }
         //regex looks for empty spaces entered
         else if (!(phoneNumber.length() > 0) || phoneNumber.matches("^ *$")) {
             JOptionPane.showMessageDialog(null, "A phone number is required");
-        } else if ((!HealthHubController.organizationExists())) {
-            JOptionPane.showMessageDialog(null, "A valid organization must be given");
+            View.goToView("../../Staff/InstructorViews/instructorMainView.fxml", event);
         }
-
-
 ////        //For testing the outputs manually
 //        System.out.println("Start Manual output Test for Instructor Sign Up input");
 //        System.out.println("name: " + name);
@@ -101,7 +104,7 @@ public class InstructorSignUpController {
 //        System.out.println("passWord: " + passWord);
 //        System.out.println("finsished manual input testing");
 
-
+        int uniqueId = HealthHubController.getUniqueID();
         InstructorModel newInstructor = new InstructorModel(name,
                 age,
                 email,
@@ -109,7 +112,7 @@ public class InstructorSignUpController {
                 0,
                 0,
                 "none",
-                0,
+                uniqueId,
                 null,
                 "test-user",
                 "healthhub1",
@@ -117,26 +120,19 @@ public class InstructorSignUpController {
                 "Test-General-Database");
 
 
-        int errorOrUniqueID = HealthHubController.addInstructor(newInstructor.toJson());
+        int successCode = HealthHubController.addInstructor(uniqueId, newInstructor.toJson());
 
-        if (errorOrUniqueID == 403) {
+        if (successCode == 403) {
             JOptionPane.showMessageDialog(null, "ERROR: Email " + email + " has already been used");
-        } else if (errorOrUniqueID == 500){
+            View.goToView("../../Staff/InstructorViews/instructorMainView.fxml", event);
+        } else if (successCode == 500) {
             JOptionPane.showMessageDialog(null, "ERROR: Server Error");
+            View.goToView("../../Staff/InstructorViews/instructorMainView.fxml", event);
+        } else if (successCode == 200) {
+            View.goToViewWithUniqueID("../../Staff/InstructorViews/instructorMainView.fxml", event, uniqueId, "Instructor");
         } else {
-            // Loads Scene for main view
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../../Staff/InstructorViews/instructorMainView.fxml"));
-            Parent root = loader.load();
-
-            // Gets main view controller and passes client to it
-            InstructorMainViewController viewController = loader.getController();
-            //viewController.setupScene(errorOrUniqueID);
-
-            Scene viewScene = new Scene(root);
-            // Gets stage information
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(viewScene);
-            window.show();
+            JOptionPane.showMessageDialog(null, "ERROR: Sorry a unknown error occured");
+            View.goToView("../../Staff/InstructorViews/instructorMainView.fxml", event);
         }
     }
 }

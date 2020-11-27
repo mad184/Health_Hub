@@ -4,25 +4,26 @@ import org.json.JSONObject;
 
 
 public class HealthHubController {
-    private static final HealthHubModel model = new HealthHubModel();
+    //for development
+    private static final HealthHubModel model = new HealthHubModel("test-user", "healthhub1", "Test-General-Database");
 
     /**
      * Makes call the model to pass it the client created
      *
      * @param client: client object
      */
-    public static int addClient(JSONObject client) {
-        return model.addClient(client);
+    public static int addClient(int uniqueCId, JSONObject client) {
+        return model.addClient(uniqueCId, client);
     }
 
     /**
      * Makes call the model to pass it the client created
      *
      * @param instructor : Instructor object
-     * @return error code or unique id from model
+     * @return error success or error code
      */
-    public static int addInstructor(JSONObject instructor) {
-        return model.addInstructor(instructor);
+    public static int addInstructor(int uniqueIId, JSONObject instructor) {
+        return model.addInstructor(uniqueIId, instructor);
     }
 
     /**
@@ -30,8 +31,8 @@ public class HealthHubController {
      *
      * @param manager: of type Manager
      */
-    public static int addManager(JSONObject manager) {
-        return model.addManager(manager);
+    public static int addManager(int uniqueMId, JSONObject manager) {
+        return model.addManager(uniqueMId, manager);
     }
 
     /**
@@ -62,7 +63,8 @@ public class HealthHubController {
         return model.systemLogin(userName, passWord, userType);
     }
 
-    public static boolean organizationExists() {
-        return HealthHubAccessSingleton.isOrganizationCreated();
+    public static int getUniqueID() {
+        return model.getUniqueId();
     }
+
 }

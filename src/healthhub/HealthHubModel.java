@@ -238,8 +238,12 @@ public class HealthHubModel {
     return database.getUniqueId();
   }
 
-  /** EXPERIMENTAL: Reset the unique ID system within the database */
+  /**
+   * EXPERIMENTAL: Reset the unique ID system within the database
+   */
   public void resetUniqueID() {
     database.resetUniqueId();
   }
+
+
 }
