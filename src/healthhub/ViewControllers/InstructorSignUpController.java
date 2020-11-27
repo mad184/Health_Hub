@@ -93,11 +93,7 @@ public class InstructorSignUpController {
         else if (!(phoneNumber.length() > 0) || phoneNumber.matches("^ *$")) {
             JOptionPane.showMessageDialog(null, "A phone number is required");
             View.goToView("../../Staff/InstructorViews/instructorMainView.fxml", event);
-        } else if ((!HealthHubController.organizationExists())) {
-            JOptionPane.showMessageDialog(null, "A valid organization must be given");
-            View.goToView("../../Staff/InstructorViews/instructorMainView.fxml", event);
         }
-
 ////        //For testing the outputs manually
 //        System.out.println("Start Manual output Test for Instructor Sign Up input");
 //        System.out.println("name: " + name);
