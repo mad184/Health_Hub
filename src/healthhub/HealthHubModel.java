@@ -2,11 +2,9 @@ package healthhub;
 
 import com.mongodb.MongoException;
 import database.Dbms;
-import database.EmptyQueryException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.Random;
 
 public class HealthHubModel {
   private final Dbms database; // actual database that the healthhub model connects
@@ -136,11 +134,10 @@ public class HealthHubModel {
    *
    * @param managerInitialData: JSONObject that contains the data from the new instructor to be
    *     created
-   * @return 403 if the email is not unique, 500 for server errors and "Unique Manager ID" for
-   *     successful Creation
+   * @param uniqueMId: Unique Manager Id to use
+   * @return 403 if the email is not unique, 500 for server errors and 200 for successful Creation
    */
-  public int addManager(JSONObject managerInitialData) {
-    int managerId = determineUniqueId();
+  public int addManager(int uniqueMId, JSONObject managerInitialData) {
     boolean emailUnique = determineUniqueEmail(managerInitialData.getString("email"));
 
     if (!emailUnique) {
@@ -148,8 +145,8 @@ public class HealthHubModel {
     }
 
     try {
-      database.createManager(managerId, managerInitialData);
-      return managerId;
+      database.createManager(uniqueMId, managerInitialData);
+      return 200;
     } catch (MongoException me) {
       return 500;
     }
@@ -165,7 +162,7 @@ public class HealthHubModel {
    *     you logging in as
    * @throws IllegalArgumentException: when the loginSelection is invalid. It needs to be Client,
    *     Manager or Instructor
-   * @return: 200 for successful found. 401 for incorrect password. 404 for not found
+   * @return: Unique Id for successful found. 401 for incorrect password. 404 for not found
    */
   public int systemLogin(String emailUserName, String realPassword, String loginSelection)
       throws IllegalArgumentException {
