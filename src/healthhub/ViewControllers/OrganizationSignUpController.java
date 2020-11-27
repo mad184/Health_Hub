@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.json.JSONObject;
+import staff.OwnerViews.OwnerMainViewController;
 
 import javax.swing.JOptionPane;
 import java.io.IOException;
@@ -135,7 +136,9 @@ public class OrganizationSignUpController {
                 Parent root = loader.load();
 
                 // Gets main view controller and passes client to it
-                ClientMainViewController viewController = loader.getController();
+                OwnerMainViewController viewController = loader.getController();
+
+                //TODO: fix setup scene in organization controller
 //                viewController.setupScene(errorOrUniqueID);
 
                 Scene viewScene = new Scene(root);
