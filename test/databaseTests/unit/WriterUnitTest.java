@@ -80,7 +80,6 @@ public class WriterUnitTest {
   // Tests fake and real credentials for writer
   @Test
   @Order(1)
-  @Disabled
   void testCredentials() {
 
     String fakeUserName = "fakeUdesu";
@@ -106,7 +105,6 @@ public class WriterUnitTest {
   // Tests deletion of client, manager and instructor
   @RepeatedTest(3)
   @Order(2)
-  @Disabled
   void testDeletion() {
 
     // Test deletion of data
@@ -121,7 +119,6 @@ public class WriterUnitTest {
 
   @Test
   @Order(3)
-  @Disabled
   void testCreationNull() {
 
     // Test Creation of data with nulls
@@ -137,7 +134,6 @@ public class WriterUnitTest {
 
   @Test
   @Order(4)
-  @Disabled
   void testStrStrCreate() {
 
     // JSONObject with String key - String value
@@ -157,7 +153,6 @@ public class WriterUnitTest {
 
   @Test
   @Order(5)
-  @Disabled
   void testCreationDuplicate() {
     JSONObject test_add = new JSONObject();
     test_add.append("Data", "Client/Manager/Instructor Data");
@@ -173,7 +168,6 @@ public class WriterUnitTest {
 
   @Test
   @Order(6)
-  @Disabled
   void TestStrJArrCreate() {
 
     // JSONObject with String key - JSONArray value
@@ -198,7 +192,6 @@ public class WriterUnitTest {
 
   @Test
   @Order(7)
-  @Disabled
   void TestStrJArrNullCreate() {
 
     // JSONObject with String key - JSONArray JSONObject.Null value
@@ -221,7 +214,6 @@ public class WriterUnitTest {
 
   @Test
   @Order(8)
-  @Disabled
   void TestStrBoolCreate() {
 
     // JSONObject with String key - Bool value
@@ -242,7 +234,6 @@ public class WriterUnitTest {
 
   @Test
   @Order(9)
-  @Disabled
   void TestStrNullCreate() {
 
     /*
@@ -268,7 +259,6 @@ public class WriterUnitTest {
 
   @Test
   @Order(10)
-  @Disabled
   void TestStrArrayCreate() {
 
     /*
@@ -294,7 +284,6 @@ public class WriterUnitTest {
 
   @Test
   @Order(11)
-  @Disabled
   void TestStrListCreate() {
 
     /*
@@ -326,7 +315,6 @@ public class WriterUnitTest {
 
   @Test
   @Order(12)
-  @Disabled
   void testStrStrUpdate() {
 
     // JSONObject with String key - String value
@@ -345,7 +333,6 @@ public class WriterUnitTest {
 
   @Test
   @Order(13)
-  @Disabled
   void TestStrJArrUpdate() {
 
     // JSONObject with String key - JSONArray value
@@ -370,7 +357,6 @@ public class WriterUnitTest {
 
   @Test
   @Order(14)
-  @Disabled
   void TestStrJArrNullUpdate() {
 
     // JSONObject with String key - JSONArray JSONObject.Null value
@@ -393,7 +379,6 @@ public class WriterUnitTest {
 
   @Test
   @Order(14)
-  @Disabled
   void TestStrBoolUpdate() {
 
     // JSONObject with String key - Bool value
@@ -414,7 +399,6 @@ public class WriterUnitTest {
 
   @Test
   @Order(15)
-  @Disabled
   void testUpdateNull() {
 
     // Test of updating a client with null updated data
@@ -430,7 +414,6 @@ public class WriterUnitTest {
 
   @Test
   @Order(16)
-  @Disabled
   void testUpdateEmpty() {
 
     JSONObject emptyUpdate = new JSONObject();
@@ -447,7 +430,6 @@ public class WriterUnitTest {
   }
 
   @Test
-  @Disabled
   @Order(17)
   void testDneUpdate() {
     JSONObject testUpdate = new JSONObject();
@@ -462,6 +444,20 @@ public class WriterUnitTest {
           realCon.updateInstructor(52, testUpdate);
           realCon.updateOrganization("HololivePH", testUpdate);
         });
+  }
+
+  // Test if initializing and setting the next ID throws exception
+  @Test
+  @Order(18)
+  void testSetUniqueId(){
+      realCon.deleteData(0,"CounterCollection");
+
+      Assertions.assertDoesNotThrow(()->{
+          realCon.initializeUniqueId();
+          realCon.setNextUniqueId();
+      });
+
+      realCon.deleteData(0,"CounterCollection");
   }
 
   @AfterAll
