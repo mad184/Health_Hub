@@ -3,6 +3,7 @@ package database;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.FindIterable;
 import org.json.JSONArray;
@@ -234,5 +235,22 @@ public class Reader implements ServerInterface, ReadInterface {
    */
   public JSONArray getAllOrganization() {
     return retrieveAllData("OrganizationCollection");
+  }
+
+  /**
+   * gets the unique id from the database.
+   * @return int value of the unique id
+   */
+  public int getUniqueId(){
+    MongoCollection<Document> previousCollection = getCollectionTable();
+    setCollectionTable("CounterCollection");
+
+    FindIterable<Document> iterable = getCollectionTable().find();
+
+    MongoCursor<Document> cursor = iterable.iterator();
+
+    setCollectionTable(previousCollection);
+
+    return (int) cursor.next().get("nextUniqueId");
   }
 }
