@@ -38,6 +38,7 @@ public class Dbms implements WriteInterface, ReadInterface {
    */
   public void createClient(int uniqueCid, JSONObject newClientInfo) {
     DBWRITER.createClient(uniqueCid, newClientInfo);
+    DBWRITER.setNextUniqueId();
   }
 
   /**
@@ -49,6 +50,7 @@ public class Dbms implements WriteInterface, ReadInterface {
    */
   public void createInstructor(int uniqueIid, JSONObject newInstructorInfo) {
     DBWRITER.createInstructor(uniqueIid, newInstructorInfo);
+    DBWRITER.setNextUniqueId();
   }
 
   /**
@@ -60,6 +62,7 @@ public class Dbms implements WriteInterface, ReadInterface {
    */
   public void createManager(int uniqueMid, JSONObject newManagerInfo) {
     DBWRITER.createManager(uniqueMid, newManagerInfo);
+    DBWRITER.setNextUniqueId();
   }
 
   /**
@@ -275,9 +278,10 @@ public class Dbms implements WriteInterface, ReadInterface {
 
   /**
    * This method is used to get the unique id from the database
+   *
    * @return unique id from the database.
    */
-  public int getUniqueId(){
+  public int getUniqueId() {
     return DBREADER.getUniqueId();
   }
 }
