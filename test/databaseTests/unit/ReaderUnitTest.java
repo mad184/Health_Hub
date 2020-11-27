@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -61,6 +62,7 @@ public class ReaderUnitTest {
 
   @Test
   @Order(1)
+  @Disabled
   void testCredentials() {
 
     String fakeUserName = "fakeUdesu";
@@ -86,6 +88,7 @@ public class ReaderUnitTest {
   // Tests that EmptyQueryException thrown when reading non-existing unique id
   @Test
   @Order(2)
+  @Disabled
   void testDnExistReads() {
     Assertions.assertThrows(EmptyQueryException.class, () -> realCon.readClientData(2));
     Assertions.assertThrows(EmptyQueryException.class, () -> realCon.readInstructorData(2));
@@ -97,6 +100,7 @@ public class ReaderUnitTest {
   // Tests the actual reading by comparing to pre-created data for client, manager and instructor
   @Test
   @Order(3)
+  @Disabled
   void testCIMDataReading() throws EmptyQueryException {
     Assertions.assertDoesNotThrow(
         () -> {
@@ -151,6 +155,7 @@ public class ReaderUnitTest {
   // Tests the get all methods and compare with pre-created data
   @Test
   @Order(4)
+  @Disabled
   void testGetAllCIM() {
     Assertions.assertDoesNotThrow(
         () -> {
