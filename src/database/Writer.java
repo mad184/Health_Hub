@@ -219,12 +219,12 @@ public class Writer implements ServerInterface, WriteInterface {
   /**
    * deletes everything ( including the unique id ) of the the specified unique id within a
    * collection. If the unique id does not exist within the database, no update will be performed on
-   * the database
+   * the database. CAN BE USED TO DELETE THE UNIQUE ID SYSTEM NOW
    *
    * @param uniqueId unique id to delete
    * @param collectionDelete collection to where the unique id exist
    */
-  private void deleteData(int uniqueId, String collectionDelete) {
+  public void deleteData(int uniqueId, String collectionDelete) {
     MongoCollection<Document> previousCollection = getCollectionTable();
     setCollectionTable(collectionDelete);
     collectionTable.deleteOne(eq("_id", uniqueId));
