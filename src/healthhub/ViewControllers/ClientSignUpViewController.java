@@ -90,13 +90,14 @@ public class ClientSignUpViewController {
 //        System.out.println("passWord: " + passWord);
 //        System.out.println("finished manual output tesing");
 
+        int clientUniqueID = HealthHubController.getUniqueID();
 
         Client newClient = new Client(name,
                 email,
                 passWord,
                 "none",
                 "none",
-                0,
+                clientUniqueID,
                 age,
                 0,
                 0,
@@ -113,26 +114,28 @@ public class ClientSignUpViewController {
                 null);
 
         //Add client to the database, we will either get back a error code or a uniuqe id
-        int errorOrUniqueID = HealthHubController.addClient(newClient.toJSON());
+        int signUpSuccessCode = HealthHubController.addClient(clientUniqueID, newClient.toJSON());
 
-        if (errorOrUniqueID == 403) {
+        if (signUpSuccessCode == 403) {
             JOptionPane.showMessageDialog(null, "ERROR: Email " + email + " has already been used");
-        } else if (errorOrUniqueID == 500){
+        } else if (signUpSuccessCode == 500) {
             JOptionPane.showMessageDialog(null, "ERROR: Server Error");
-        } else {
+        } else if (signUpSuccessCode == 200) {
             // Loads Scene for main view
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../../Client/ClientView/clientMainView.fxml"));
             Parent root = loader.load();
 
             // Gets main view controller and passes client to it
             ClientMainViewController viewController = loader.getController();
-            viewController.setupScene(errorOrUniqueID);
+            viewController.setupScene(signUpSuccessCode);
 
             Scene viewScene = new Scene(root);
             // Gets stage information
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
             window.setScene(viewScene);
             window.show();
+        } else {
+            JOptionPane.showMessageDialog(null, "ERROR: Sorry, a unknown error occurred");
         }
 
     }

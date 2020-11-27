@@ -112,7 +112,7 @@ public class OrganizationSignUpController {
            - ensure file names are correct
             */
 
-
+            int uniqeID = HealthHubController.getUniqueID();
             OwnerModel newInstructor = new OwnerModel(ownerName,
                     age,
                     email,
@@ -120,7 +120,7 @@ public class OrganizationSignUpController {
                     0,
                     0,
                     organizationName,
-                    0,
+                    uniqeID,
                     null,
                     null,
                     "test-user",
@@ -129,13 +129,13 @@ public class OrganizationSignUpController {
                     "Test-General-Database");
 
 
-            int errorOrUniqueID = HealthHubController.addInstructor(newInstructor.toJson());
+            int successCode = HealthHubController.addInstructor(uniqeID, newInstructor.toJson());
 
-            if (errorOrUniqueID == 403) {
+            if (successCode == 403) {
                 JOptionPane.showMessageDialog(null, "ERROR: Email " + email + " has already been used");
-            } else if (errorOrUniqueID == 500){
+            } else if (successCode == 500) {
                 JOptionPane.showMessageDialog(null, "ERROR: Server Error");
-            } else {
+            } else if (successCode == 200) {
                 // Loads Scene for main view
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("../../Staff/OwnerViews/OwnerMainView.fxml"));
                 Parent root = loader.load();
@@ -149,6 +149,8 @@ public class OrganizationSignUpController {
                 Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 window.setScene(viewScene);
                 window.show();
+            } else {
+                JOptionPane.showMessageDialog(null, "ERROR: Sorry a unknown error occurred");
             }
         }
     }

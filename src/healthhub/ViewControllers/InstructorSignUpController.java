@@ -101,7 +101,7 @@ public class InstructorSignUpController {
 //        System.out.println("passWord: " + passWord);
 //        System.out.println("finsished manual input testing");
 
-
+        int uniqueId = HealthHubController.getUniqueID();
         InstructorModel newInstructor = new InstructorModel(name,
                 age,
                 email,
@@ -109,7 +109,7 @@ public class InstructorSignUpController {
                 0,
                 0,
                 "none",
-                0,
+                uniqueId,
                 null,
                 "test-user",
                 "healthhub1",
@@ -117,13 +117,13 @@ public class InstructorSignUpController {
                 "Test-General-Database");
 
 
-        int errorOrUniqueID = HealthHubController.addInstructor(newInstructor.toJson());
+        int successCode = HealthHubController.addInstructor(uniqueId, newInstructor.toJson());
 
-        if (errorOrUniqueID == 403) {
+        if (successCode == 403) {
             JOptionPane.showMessageDialog(null, "ERROR: Email " + email + " has already been used");
-        } else if (errorOrUniqueID == 500){
+        } else if (successCode == 500) {
             JOptionPane.showMessageDialog(null, "ERROR: Server Error");
-        } else {
+        } else if (successCode == 200) {
             // Loads Scene for main view
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../../Staff/InstructorViews/instructorMainView.fxml"));
             Parent root = loader.load();
@@ -137,6 +137,8 @@ public class InstructorSignUpController {
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
             window.setScene(viewScene);
             window.show();
+        } else {
+            JOptionPane.showMessageDialog(null, "ERROR: Sorry a unknown error occured");
         }
     }
 }
