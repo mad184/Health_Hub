@@ -94,9 +94,19 @@ public class DbmsIntegrationTest {
     }
   }
 
-  // Test for creating data within the Dbms
   @Test
   @Order(1)
+  void testInitialUniqueIdSystem() {
+
+    // No Id exist in testing yet therefore it should be zero
+    Assertions.assertEquals(1, realDbms.getUniqueId());
+
+    // Reset the counter of the unique id system
+  }
+
+  // Test for creating data within the Dbms
+  @Test
+  @Order(2)
   void testCIMCreate() {
 
     for (int uniqueId = 0; uniqueId < 19; uniqueId++) {
@@ -117,7 +127,7 @@ public class DbmsIntegrationTest {
   }
 
   // Tests for duplicates. Repeated tests are done as different random combination will be used
-  @Order(2)
+  @Order(3)
   @RepeatedTest(50)
   void testDuplicateClientCreate() {
 
@@ -129,7 +139,7 @@ public class DbmsIntegrationTest {
   }
 
   // Tests for duplicates. Repeated tests are done as different random combination will be used
-  @Order(3)
+  @Order(4)
   @RepeatedTest(50)
   void testDuplicateInstrCreate() {
 
@@ -141,7 +151,7 @@ public class DbmsIntegrationTest {
   }
 
   // Tests for duplicates. Repeated tests are done as different random combination will be used
-  @Order(4)
+  @Order(5)
   @RepeatedTest(50)
   void testDuplicateManagerCreate() {
 
@@ -153,7 +163,7 @@ public class DbmsIntegrationTest {
   }
 
   // Tests for duplicates. Repeated tests are done as different random combination will be used
-  @Order(5)
+  @Order(6)
   void testDuplicateOrganizationCreate() {
 
     Assertions.assertThrows(
@@ -162,7 +172,7 @@ public class DbmsIntegrationTest {
   }
 
   // Test that reading data does not throw unnecessary exceptions
-  @Order(6)
+  @Order(7)
   @Test
   void testCIMRead() {
 
@@ -180,7 +190,7 @@ public class DbmsIntegrationTest {
   }
 
   // Test data reading for Client, Instructor and Manager
-  @Order(7)
+  @Order(8)
   @Test
   void testDataRead() throws EmptyQueryException {
 
@@ -246,7 +256,7 @@ public class DbmsIntegrationTest {
   }
 
   // Test data reading for Organization
-  @Order(8)
+  @Order(9)
   @Test
   void testDataOrganizationRead() throws EmptyQueryException {
 
@@ -277,7 +287,7 @@ public class DbmsIntegrationTest {
   }
 
   // Tests on getting all data for clients, instructors and managers
-  @Order(9)
+  @Order(10)
   @Test
   void testGetAllData() {
 
@@ -309,7 +319,7 @@ public class DbmsIntegrationTest {
   }
 
   // Tests on getting all data for organization
-  @Order(10)
+  @Order(11)
   @Test
   void testGetAllOrgData() {
 
@@ -331,7 +341,7 @@ public class DbmsIntegrationTest {
   }
 
   // Testing for updating client, manager and instructor
-  @Order(11)
+  @Order(12)
   @Test
   void testDataUpdate() throws EmptyQueryException, JsonObjectException {
 
@@ -391,7 +401,7 @@ public class DbmsIntegrationTest {
 
   // Test of Client, Instructor, Manager and Organization deletion
   @Test
-  @Order(12)
+  @Order(13)
   void testCIMODeletion() {
     for (int uniqueId = 0; uniqueId < 19; uniqueId++) {
       int finalUniqueId = uniqueId;
@@ -411,7 +421,7 @@ public class DbmsIntegrationTest {
 
   // Test of post Client, Instructor, Manager and Organization deletion
   @Test
-  @Order(13)
+  @Order(14)
   void testPostCIMODeletion() {
     for (int uniqueId = 0; uniqueId < 19; uniqueId++) {
       int finalUniqueId = uniqueId;
@@ -432,7 +442,7 @@ public class DbmsIntegrationTest {
   }
 
   @Test
-  @Order(14)
+  @Order(15)
   void testFinalUniqueIdSystem() {
 
     // There is only 19*3 creation so it is expected to have 58 as the next unique id
