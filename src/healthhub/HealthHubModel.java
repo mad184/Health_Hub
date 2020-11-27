@@ -8,9 +8,9 @@ import org.json.JSONObject;
 public class HealthHubModel {
   private final Dbms database; // actual database that the healthhub model connects
 
-  public HealthHubModel() {
-    // Need to be changed in the future. This is for Development
-    database = new Dbms("test-user", "healthhub1", "Test-General-Database", "testCollection");
+  public HealthHubModel(String username, String passWord, String dbName) {
+    // DATABASE IS NOW DICTATED BY THE CONTROLLER
+    database = new Dbms(username, passWord, dbName, "testCollection");
   }
 
   /**
@@ -236,5 +236,10 @@ public class HealthHubModel {
    */
   public int getUniqueId() {
     return database.getUniqueId();
+  }
+
+  /** EXPERIMENTAL: Reset the unique ID system within the database */
+  public void resetUniqueID() {
+    database.resetUniqueId();
   }
 }
