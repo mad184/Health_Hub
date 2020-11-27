@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.json.JSONObject;
+import staff.InstructorViews.InstructorMainViewController;
 
 
 import javax.swing.JOptionPane;
@@ -117,7 +118,9 @@ public class InstructorSignUpController {
             Parent root = loader.load();
 
             // Gets main view controller and passes client to it
-            ClientMainViewController viewController = loader.getController();
+            InstructorMainViewController viewController = loader.getController();
+
+            //TODO: fix error caused by passing unique ID
 //                viewController.setupScene(errorOrUniqueID);
 
             Scene viewScene = new Scene(root);

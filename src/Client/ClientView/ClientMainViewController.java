@@ -47,7 +47,7 @@ public class ClientMainViewController {
 
     // Add comment to client for testing
     ArrayList<String> comment = new ArrayList<String>();
-    comment.add("Get up lazy fuck");
+    comment.add("If you got time to sit, you have time to squat");
 
     // Sets clients comments label to none if there are no comments, else sets to first comment
     clientController.setClientComment(comment);
