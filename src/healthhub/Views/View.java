@@ -44,22 +44,25 @@ public class View {
         FXMLLoader loader = new FXMLLoader(View.class.getResource(fxmlFileName));
         Parent root = loader.load();
 
-        if (userType.equals("Client")) {
-            // Gets main view controller and passes client to it
-            ClientMainViewController viewController = loader.getController();
-            viewController.setupScene(UniqueIDCode);
-        } else if (userType.equals("instructor")) {
-            // Gets main view controller and passes client to it
-            InstructorMainViewController viewController = loader.getController();
-//            viewController.setupScene(UniqueIDCode);
-        } else if (userType.equals("manager")) {
-            // Gets main view controller and passes client to it
-            InstructorMainViewController viewController = loader.getController();
-//            viewController.setupScene(UniqueIDCode);
-        } else {
+        if (userType.equals("Owner")) {
             // Gets main view controller and passes client to it
             OwnerMainViewController viewController = loader.getController();
 //            viewController.setupScene(UniqueIDCode);
+
+        } else if (userType.equals("Instructor")) {
+            // Gets main view controller and passes client to it
+            InstructorMainViewController viewController = loader.getController();
+//            viewController.setupScene(UniqueIDCode);
+        } else if (userType.equals("Manager")) {
+            // Gets main view controller and passes client to it
+            InstructorMainViewController viewController = loader.getController();
+//            viewController.setupScene(UniqueIDCode);
+        }
+        //assume its a client if others aren't met (least security measures required)
+        else {
+            // Gets main view controller and passes client to it
+            ClientMainViewController viewController = loader.getController();
+            viewController.setupScene(UniqueIDCode);
         }
 
         Scene viewScene = new Scene(root);
