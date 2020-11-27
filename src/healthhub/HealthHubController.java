@@ -67,7 +67,4 @@ public class HealthHubController {
         return model.getUniqueId();
     }
 
-    public static boolean organizationExists() {
-        return (HealthHubAccessSingleton.isOrganizationCreated() || model.organizationExistsInDB());
-    }
 }
