@@ -246,11 +246,4 @@ public class HealthHubModel {
   }
 
 
-  // EXPERIMENTAL: Reset the unique ID system within the database
-  public boolean organizationExistsInDB() {
-    if (database.getAllOrganization() == null) {
-      return false;
-    }
-    return (database.getAllOrganization().length() > 0);
-  }
 }
