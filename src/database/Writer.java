@@ -7,6 +7,7 @@ import com.mongodb.client.MongoDatabase;
 import org.json.JSONObject;
 import org.bson.Document;
 
+import javax.print.Doc;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -246,6 +247,21 @@ public class Writer implements ServerInterface, WriteInterface {
     MongoCollection<Document> previousCollection = getCollectionTable();
     setCollectionTable(collectionDelete);
     collectionTable.deleteOne(eq("_id", uniqueString));
+    setCollectionTable(previousCollection);
+  }
+
+  public void initializeUniqueId(){
+
+    MongoCollection<Document> previousCollection = getCollectionTable();
+    setCollectionTable("CounterCollection");
+
+    if(getCollectionTable().countDocuments() == 0){
+
+      Document newDocument = new Document("_id", 0);
+      newDocument.put("nextUniqueId",1);
+      collectionTable.insertOne(newDocument);
+    }
+
     setCollectionTable(previousCollection);
   }
 
