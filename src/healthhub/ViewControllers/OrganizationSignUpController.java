@@ -1,11 +1,17 @@
 package healthhub.ViewControllers;
 
+import Client.ClientView.ClientMainViewController;
 import healthhub.HealthHubAccessSingleton;
 import healthhub.HealthHubController;
 import healthhub.Views.View;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import org.json.JSONObject;
 
 import javax.swing.JOptionPane;
@@ -119,27 +125,24 @@ public class OrganizationSignUpController {
 
             int errorOrUniqueId = HealthHubController.addManager(ownerJson);
 
-            switch (errorOrUniqueId) {
-                case 403 -> JOptionPane.showMessageDialog(null, "ERROR: Email " + email + " has already been used");
 
-                case 500 -> JOptionPane.showMessageDialog(null, "ERROR: Server Error");
+            if (errorOrUniqueId == 403) {
+                JOptionPane.showMessageDialog(null, "ERROR: Email " + email + " has already been used");
+            } else if (errorOrUniqueId == 500) {
+                JOptionPane.showMessageDialog(null, "ERROR: Server Error");
+            } else {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("../../Staff/OwnerViews/ownerMainView.fxml"));
+                Parent root = loader.load();
 
-                default -> {
-                    int successCode = HealthHubController.createOrganization(organizationName, organizationJson);
-                    switch (successCode) {
-                        case 500:
-                            JOptionPane.showMessageDialog(null, "ERROR: Server Error");
-                            break;
-                        case -1:
-                            JOptionPane.showMessageDialog(null, "ERROR: Unknown Error");
-                            break;
-                        case 200:
-                            //TODO: Uncomment after merge, ensure file names/controller names are correct
-//                          InstructorMainViewController viewController = loader.getController();
-//                           viewController.setupScene(instructorController.instructorID);
-//                           View.goToView("OwnerView.fxml", event);
-                    }
-                }
+                // Gets main view controller and passes client to it
+                ClientMainViewController viewController = loader.getController();
+//                viewController.setupScene(errorOrUniqueID);
+
+                Scene viewScene = new Scene(root);
+                // Gets stage information
+                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                window.setScene(viewScene);
+                window.show();
             }
         }
     }
