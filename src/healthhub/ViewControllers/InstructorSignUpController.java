@@ -1,6 +1,8 @@
 package healthhub.ViewControllers;
 
+import Client.Client;
 import Client.ClientView.ClientMainViewController;
+import database.EmptyQueryException;
 import healthhub.HealthHubController;
 import healthhub.Views.View;
 import javafx.event.ActionEvent;
@@ -13,7 +15,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.json.JSONObject;
+import staff.Controllers.InstructorController;
 import staff.InstructorViews.InstructorMainViewController;
+import staff.Models.InstructorModel;
 
 
 import javax.swing.JOptionPane;
@@ -43,7 +47,7 @@ public class InstructorSignUpController {
      * @throws IOException: For the FXMLLoader .load() function
      */
     @FXML
-    public void onSignUpButtonPushed(ActionEvent event) throws IOException {
+    public void onSignUpButtonPushed(ActionEvent event) throws IOException, EmptyQueryException {
         // check that our inputs were properly entered
         String name = this.Name.getText();
         String ageString = this.age.getText();
@@ -98,30 +102,35 @@ public class InstructorSignUpController {
 //        System.out.println("finsished manual input testing");
 
 
-        JSONObject instructroJsonObject = new JSONObject();
-        instructroJsonObject.put("name", name);
-        instructroJsonObject.put("email", email);
-        instructroJsonObject.put("password", passWord);
-        instructroJsonObject.put("age", age);
-        instructroJsonObject.put("phoneNumber", phoneNumber);
-        instructroJsonObject.put("organization", organization);
+        InstructorModel newInstructor = new InstructorModel(name,
+                age,
+                email,
+                phoneNumber,
+                0,
+                0,
+                "none",
+                0,
+                null,
+                "test-user",
+                "healthhub1",
+                "test-user",
+                "Test-General-Database");
 
 
-        int errorOrUniqueID = HealthHubController.addInstructor(instructroJsonObject);
+        int errorOrUniqueID = HealthHubController.addInstructor(newInstructor.toJson());
 
         if (errorOrUniqueID == 403) {
             JOptionPane.showMessageDialog(null, "ERROR: Email " + email + " has already been used");
-        } else if (errorOrUniqueID == 500) {
+        } else if (errorOrUniqueID == 500){
             JOptionPane.showMessageDialog(null, "ERROR: Server Error");
         } else {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../../Instructor/InstructorView/instructorMainView.fxml"));
+            // Loads Scene for main view
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../../Staff/InstructorViews/instructorMainView.fxml"));
             Parent root = loader.load();
 
             // Gets main view controller and passes client to it
             InstructorMainViewController viewController = loader.getController();
-
-            //TODO: fix error caused by passing unique ID
-//                viewController.setupScene(errorOrUniqueID);
+            //viewController.setupScene(errorOrUniqueID);
 
             Scene viewScene = new Scene(root);
             // Gets stage information

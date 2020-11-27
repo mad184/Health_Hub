@@ -45,6 +45,7 @@ public class FoodTypeSelectViewController {
   public void breakfastButtonPressed(ActionEvent event)
           throws JsonObjectException, EmptyQueryException, IOException {
     clientController.addClientBreakfastFood(food);
+    clientController.setClientCals(clientController.getClientCals() + food.getCalories());
     DB.updateClient(clientController.getClientID(), clientController.clientToJson());
     nutrientView(event);
   }
@@ -57,6 +58,7 @@ public class FoodTypeSelectViewController {
   public void lunchButtonPressed(ActionEvent event)
           throws JsonObjectException, EmptyQueryException, IOException {
     clientController.addClientLunchFood(food);
+    clientController.setClientCals(clientController.getClientCals() + food.getCalories());
     DB.updateClient(clientController.getClientID(), clientController.clientToJson());
     nutrientView(event);
   }
@@ -69,6 +71,7 @@ public class FoodTypeSelectViewController {
   public void dinnerButtonPressed(ActionEvent event)
           throws JsonObjectException, EmptyQueryException, IOException {
     clientController.addClientDinnerFood(food);
+    clientController.setClientCals(clientController.getClientCals() + food.getCalories());
     DB.updateClient(clientController.getClientID(), clientController.clientToJson());
     nutrientView(event);
   }
@@ -81,6 +84,7 @@ public class FoodTypeSelectViewController {
   public void snackButtonPressed(ActionEvent event)
           throws JsonObjectException, EmptyQueryException, IOException {
     clientController.addClientSnackFood(food);
+    clientController.setClientCals(clientController.getClientCals() + food.getCalories());
     DB.updateClient(clientController.getClientID(), clientController.clientToJson());
     nutrientView(event);
   }

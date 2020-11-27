@@ -28,7 +28,7 @@ public class OwnerMainViewController {
 
   public void setupScene(OwnerController owner) {
     // Sets client to client controller for scene
-    controller = owner;
+    //controller.model.DB.getOwner(instructorID);
 
     // Changes name label to clients name
     nameLabel.setText(controller.getName());

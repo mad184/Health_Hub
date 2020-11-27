@@ -13,6 +13,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.json.JSONObject;
+import staff.InstructorViews.InstructorMainViewController;
+import staff.Models.InstructorModel;
+import staff.Models.OwnerModel;
 import staff.OwnerViews.OwnerMainViewController;
 
 import javax.swing.JOptionPane;
@@ -110,36 +113,36 @@ public class OrganizationSignUpController {
             */
 
 
-            //create barebones json to add to database
-            JSONObject ownerJson = new JSONObject();
-            ownerJson.put("name", ownerName);
-            ownerJson.put("email", email);
-            ownerJson.put("password", passWord);
-            ownerJson.put("age", age);
-            ownerJson.put("phoneNumber", phoneNumber);
-            ownerJson.put("organization", organizationName);
+            OwnerModel newInstructor = new OwnerModel(ownerName,
+                    age,
+                    email,
+                    phoneNumber,
+                    0,
+                    0,
+                    organizationName,
+                    0,
+                    null,
+                    null,
+                    "test-user",
+                    "healthhub1",
+                    "test-user",
+                    "Test-General-Database");
 
-            //create organization json to add to database
-            JSONObject organizationJson = new JSONObject();
-            organizationJson.put("organizationName", organizationName);
-            organizationJson.put("ownerName", ownerName);
 
-            int errorOrUniqueId = HealthHubController.addManager(ownerJson);
+            int errorOrUniqueID = HealthHubController.addInstructor(newInstructor.toJson());
 
-
-            if (errorOrUniqueId == 403) {
+            if (errorOrUniqueID == 403) {
                 JOptionPane.showMessageDialog(null, "ERROR: Email " + email + " has already been used");
-            } else if (errorOrUniqueId == 500) {
+            } else if (errorOrUniqueID == 500){
                 JOptionPane.showMessageDialog(null, "ERROR: Server Error");
             } else {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("../../Staff/OwnerViews/ownerMainView.fxml"));
+                // Loads Scene for main view
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("../../Staff/OwnerViews/OwnerMainView.fxml"));
                 Parent root = loader.load();
 
                 // Gets main view controller and passes client to it
                 OwnerMainViewController viewController = loader.getController();
-
-                //TODO: fix setup scene in organization controller
-//                viewController.setupScene(errorOrUniqueID);
+                //viewController.setupScene(errorOrUniqueID);
 
                 Scene viewScene = new Scene(root);
                 // Gets stage information
