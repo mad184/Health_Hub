@@ -5,7 +5,6 @@ import database.Dbms;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-
 public class HealthHubModel {
   private final Dbms database; // actual database that the healthhub model connects
 
@@ -228,5 +227,14 @@ public class HealthHubModel {
     } catch (Exception e) {
       return -1;
     }
+  }
+
+  /**
+   * This method gets the next unique id within the Database
+   *
+   * @return next available unique id
+   */
+  public int getUniqueId() {
+    return database.getUniqueId();
   }
 }
