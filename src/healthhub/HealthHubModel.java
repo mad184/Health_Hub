@@ -245,9 +245,8 @@ public class HealthHubModel {
     database.resetUniqueId();
   }
 
-  /**
-   * Experiemntal: see if one organziation exists in the database
-   */
+
+  // EXPERIMENTAL: Reset the unique ID system within the database
   public boolean organizationExistsInDB() {
     return (database.getAllOrganization().length() == 1);
   }
