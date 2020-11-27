@@ -17,6 +17,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import staff.Controllers.OwnerController;
+import staff.InstructorViews.InstructorMainViewController;
+import staff.ManagerViews.ManagerMainViewController;
+import staff.OwnerViews.OwnerMainViewController;
 
 // for alerting the user of invalid or valid password
 import javax.swing.JOptionPane;
@@ -67,66 +71,32 @@ public class LogInViewController {
         String userType = (String) userTypeComboBox.getValue();
 
         //send the heathHub Controller the login text
-        int loginSuccessCode = HealthHubController.LogIn(this.email.getText(), this.passWord.getText(), userType);
+        int loginSuccessCodeOrUniqueId = HealthHubController.LogIn(this.email.getText(), this.passWord.getText(), userType);
 
-        //go to the different view depending on which user we are
 
-        if (loginSuccessCode == 200) {
-            /*
-            ToDO:
-             - change .fxml file names to proper file names
-             - pass the email to the controller so they can construct the object on the other side
-            */
-            if (userType == "Client") {
+        // send account not found to LogInView
+        if (loginSuccessCodeOrUniqueId == 404) {
+            JOptionPane.showMessageDialog(null, "Account Not Found");
+        }
+        // send account exists, password is not correct to LogInView
+        else if (loginSuccessCodeOrUniqueId == 401) {
+            JOptionPane.showMessageDialog(null, "Account Exists, password was incorrect");
+        }
+        // send server error to LogInView
+        else if (loginSuccessCodeOrUniqueId == 500) {
+            JOptionPane.showMessageDialog(null, "Server Error Occurred");
+        }
+
+        else {
+
+            if (userType.equals("Client")) {
                 // Loads Scene for main view
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("../../Client/ClientView/clientMainView.fxml"));
                 Parent root = loader.load();
 
                 // Gets main view controller and passes client to it
                 ClientMainViewController viewController = loader.getController();
-                viewController.setupScene(loginSuccessCode);
-
-                Scene viewScene = new Scene(root);
-                // Gets stage information
-                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                window.setScene(viewScene);
-                window.show();
-            } else if (userType == "Instructor") {
-                // Loads Scene for main view
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("../../Staff/InstructorViews/instructorMainView.fxml"));
-                Parent root = loader.load();
-
-                // Gets main view controller and passes client to it
-                ClientMainViewController viewController = loader.getController();
-                viewController.setupScene(loginSuccessCode);
-
-                Scene viewScene = new Scene(root);
-                // Gets stage information
-                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                window.setScene(viewScene);
-                window.show();
-            } else if (userType == "Manager") {
-                // Loads Scene for main view
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("../../Staff/ManagerViews/managerMainView.fxml"));
-                Parent root = loader.load();
-
-                // Gets main view controller and passes client to it
-                ClientMainViewController viewController = loader.getController();
-                viewController.setupScene(loginSuccessCode);
-
-                Scene viewScene = new Scene(root);
-                // Gets stage information
-                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                window.setScene(viewScene);
-                window.show();
-            } else if (userType == "Owner") {
-                // Loads Scene for main view
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("../../Staff/OwnerViews/ownerMainView.fxml"));
-                Parent root = loader.load();
-
-                // Gets main view controller and passes client to it
-                ClientMainViewController viewController = loader.getController();
-                viewController.setupScene(loginSuccessCode);
+                viewController.setupScene(loginSuccessCodeOrUniqueId);
 
                 Scene viewScene = new Scene(root);
                 // Gets stage information
@@ -134,23 +104,49 @@ public class LogInViewController {
                 window.setScene(viewScene);
                 window.show();
             }
-        }
+            else if (userType.equals("Instructor")) {
+                // Loads Scene for main view
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("../../Staff/InstructorViews/instructorMainView.fxml"));
+                Parent root = loader.load();
 
-        // send account not found to LogInView
-        else if (loginSuccessCode == 404) {
-            JOptionPane.showMessageDialog(null, "Account Not Found");
-        }
-        // send account exists, password is not correct to LogInView
-        else if (loginSuccessCode == 401) {
-            JOptionPane.showMessageDialog(null, "Account Exists, password was incorrect");
-        }
-        // send server error to LogInView
-        else if (loginSuccessCode == 500) {
-            JOptionPane.showMessageDialog(null, "Server Error Occurred");
-        }
-        //unknown error
-        else {
-            JOptionPane.showMessageDialog(null, "Sorry, an unknown error occurred");
+                // Gets main view controller and passes client to it
+                InstructorMainViewController viewController = loader.getController();
+//                viewController.setupScene(loginSuccessCodeOrUniqueId);
+
+                Scene viewScene = new Scene(root);
+                // Gets stage information
+                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                window.setScene(viewScene);
+                window.show();
+            } else if (userType.equals("Manager")) {
+                // Loads Scene for main view
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("../../Staff/ManagerViews/managerMainView.fxml"));
+                Parent root = loader.load();
+
+                // Gets main view controller and passes client to it
+                ManagerMainViewController viewController = loader.getController();
+//                viewController.setupScene(loginSuccessCodeOrUniqueId);
+
+                Scene viewScene = new Scene(root);
+                // Gets stage information
+                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                window.setScene(viewScene);
+                window.show();
+            } else if (userType.equals("Owner")) {
+                // Loads Scene for main view
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("../../Staff/OwnerViews/ownerMainView.fxml"));
+                Parent root = loader.load();
+
+                // Gets main view controller and passes client to it
+                OwnerMainViewController viewController = loader.getController();
+//                viewController.setupScene(loginSuccessCodeOrUniqueId);
+
+                Scene viewScene = new Scene(root);
+                // Gets stage information
+                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                window.setScene(viewScene);
+                window.show();
+            }
         }
     }
 }
