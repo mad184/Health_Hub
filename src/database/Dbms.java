@@ -272,4 +272,12 @@ public class Dbms implements WriteInterface, ReadInterface {
   public JSONArray getAllOrganization() {
     return DBREADER.getAllOrganization();
   }
+
+  /**
+   * This method is used to get the unique id from the database
+   * @return unique id from the database.
+   */
+  public int getUniqueId(){
+    return DBREADER.getUniqueId();
+  }
 }
