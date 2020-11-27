@@ -51,7 +51,7 @@ public class OrganizationSignUpController {
     @FXML
     public void onCreateOrganizationButtonPushed(ActionEvent event) throws IOException, EmptyQueryException {
 
-        if (HealthHubAccessSingleton.isOrganizationCreated()) {
+        if (HealthHubController.organizationExists()) {
             JOptionPane.showMessageDialog(null, "Organization has already been created");
             View.goToView("LoginView.fxml", event);
         } else {
@@ -114,15 +114,9 @@ public class OrganizationSignUpController {
 //            System.out.println("passWord: " + passWord);
 //            System.out.println("finished manual input testing");
 
-           /*
-          ToDO:
-           - ensure we are passing the owner as a manager and storing as such
-           - get controller name to pass the unique id of the owner
-           - ensure file names are correct
-            */
 
             int uniqeID = HealthHubController.getUniqueID();
-            OwnerModel newInstructor = new OwnerModel(ownerName,
+            OwnerModel newOwner = new OwnerModel(ownerName,
                     age,
                     email,
                     phoneNumber,
@@ -137,21 +131,33 @@ public class OrganizationSignUpController {
                     "test-user",
                     "Test-General-Database");
 
+            //add owner
+            int successCodeAddOwner = HealthHubController.addManager(uniqeID, newOwner.toJson());
 
-            int successCode = HealthHubController.addInstructor(uniqeID, newInstructor.toJson());
+            //add orgianziaiton
+            JSONObject jsonOrganization = new JSONObject();
+            jsonOrganization.put("name", organizationName);
+            int successCodeAddOrganization = HealthHubController.createOrganization(organizationName, jsonOrganization);
 
-            if (successCode == 403) {
-                JOptionPane.showMessageDialog(null, "ERROR: Email " + email + " has already been used");
+            //check returned success codes
+            if (successCodeAddOwner == 403) {
+                JOptionPane.showMessageDialog(null, "ERROR: Email " + email);
                 View.goToView("OrganizationSignUpView.fxml", event);
-            } else if (successCode == 500) {
-                JOptionPane.showMessageDialog(null, "ERROR: Server Error");
+
+            } else if (successCodeAddOwner == 500 || successCodeAddOrganization == 500) {
+                JOptionPane.showMessageDialog(null, "ERROR: Server Error, check terminal for error codes");
+                System.out.println("Error code add owner: " + successCodeAddOwner);
+                System.out.println("Error code add Organziation " + successCodeAddOrganization);
                 View.goToView("OrganizationSignUpView.fxml", event);
 
-            } else if (successCode == 200) {
+            } else if (successCodeAddOwner == 200 && successCodeAddOrganization == 200) {
+                System.out.println("Added Owner + org successfully");
                 View.goToViewWithUniqueID("../../Staff/OwnerViews/OwnerMainView.fxml", event, uniqeID, "Owner");
 
             } else {
-                JOptionPane.showMessageDialog(null, "ERROR: Sorry a unknown error occurred");
+                JOptionPane.showMessageDialog(null, "ERROR: Sorry a unknown error occurred, check terminal for error codes");
+                System.out.println("Error code add owner: " + successCodeAddOwner);
+                System.out.println("Error code add Organziation " + successCodeAddOrganization);
                 View.goToView("OrganizationSignUpView.fxml", event);
             }
         }
