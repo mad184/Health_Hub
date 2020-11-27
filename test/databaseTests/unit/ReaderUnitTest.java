@@ -62,7 +62,6 @@ public class ReaderUnitTest {
 
   @Test
   @Order(1)
-  @Disabled
   void testCredentials() {
 
     String fakeUserName = "fakeUdesu";
@@ -88,7 +87,6 @@ public class ReaderUnitTest {
   // Tests that EmptyQueryException thrown when reading non-existing unique id
   @Test
   @Order(2)
-  @Disabled
   void testDnExistReads() {
     Assertions.assertThrows(EmptyQueryException.class, () -> realCon.readClientData(2));
     Assertions.assertThrows(EmptyQueryException.class, () -> realCon.readInstructorData(2));
@@ -100,7 +98,6 @@ public class ReaderUnitTest {
   // Tests the actual reading by comparing to pre-created data for client, manager and instructor
   @Test
   @Order(3)
-  @Disabled
   void testCIMDataReading() throws EmptyQueryException {
     Assertions.assertDoesNotThrow(
         () -> {
@@ -155,7 +152,6 @@ public class ReaderUnitTest {
   // Tests the get all methods and compare with pre-created data
   @Test
   @Order(4)
-  @Disabled
   void testGetAllCIM() {
     Assertions.assertDoesNotThrow(
         () -> {
@@ -200,6 +196,14 @@ public class ReaderUnitTest {
     Assertions.assertEquals(
         expectedData.get("Hololive Friends").toString(),
         actualOrganizationData.get("Hololive Friends").toString());
+  }
+
+  @Test
+  @Order(5)
+  void testReadUniqueId(){
+    Assertions.assertDoesNotThrow(()->{
+      realCon.getUniqueId();
+    });
   }
 
   // Delete everything
