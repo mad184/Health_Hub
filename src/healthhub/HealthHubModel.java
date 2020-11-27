@@ -88,9 +88,10 @@ public class HealthHubModel {
    * for ALL the instructor,client and Manager within the database
    *
    * @param clientInitialData: JSONObject that contains the data from the new client to be created
+   * @param uniqueCId: Unique Client id to use to create the client
    * @return 403 if the email is not unique, 500 for server errors and 200 for successful creations
    */
-  public int addClient(int uniqueId, JSONObject clientInitialData) {
+  public int addClient(int uniqueCId, JSONObject clientInitialData) {
     boolean emailUnique = determineUniqueEmail(clientInitialData.getString("email"));
 
     if (!emailUnique) {
@@ -98,7 +99,7 @@ public class HealthHubModel {
     }
 
     try {
-      database.createClient(uniqueId, clientInitialData);
+      database.createClient(uniqueCId, clientInitialData);
       return 200;
     } catch (MongoException me) {
       return 500;
@@ -106,16 +107,15 @@ public class HealthHubModel {
   }
 
   /**
-   * This method adds/creates the instructor within the database It checks for uniqueness of the ID
-   * and Email for ALL the instructor,client and Manager within the database
+   * This method adds/creates the instructor within the database It checks for uniqueness of Email
+   * for ALL the instructor,client and Manager within the database
    *
    * @param instrInitialData: JSONObject that contains the data from the new instructor to be
    *     created
-   * @return 403 if the email is not unique, 500 for server errors and "Unique Instructor Id" for
-   *     successful creation
+   * @param uniqueIId: unique Instructor id to use to add
+   * @return 403 if the email is not unique, 500 for server errors and 200 for successful creation
    */
-  public int addInstructor(JSONObject instrInitialData) {
-    int instructorId = determineUniqueId();
+  public int addInstructor(int uniqueIId, JSONObject instrInitialData) {
     boolean emailUnique = determineUniqueEmail(instrInitialData.getString("email"));
 
     if (!emailUnique) {
@@ -123,8 +123,8 @@ public class HealthHubModel {
     }
 
     try {
-      database.createInstructor(instructorId, instrInitialData);
-      return instructorId;
+      database.createInstructor(uniqueIId, instrInitialData);
+      return 200;
     } catch (MongoException me) {
       return 500;
     }
