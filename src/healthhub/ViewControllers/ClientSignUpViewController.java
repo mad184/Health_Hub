@@ -64,21 +64,25 @@ public class ClientSignUpViewController {
             JOptionPane.showMessageDialog(null, "A Name is required");
         } else if (!(age > 0) || !(age < 150)) {
             JOptionPane.showMessageDialog(null, "Right now only ages 1 - 149 are accepted");
+            View.goToView("ClientSignUpView.fxml", event);
         }
 
         //regex looks for empty spaces entered
         else if (!(email.length() > 0) || email.matches("^ *$")) {
             JOptionPane.showMessageDialog(null, "A Email is required");
+            View.goToView("ClientSignUpView.fxml", event);
         }
 
         //regex looks for empty spaces entered
         else if (!(phoneNumber.length() > 0) || phoneNumber.matches("^ *$")) {
             JOptionPane.showMessageDialog(null, "A userName is required");
+            View.goToView("ClientSignUpView.fxml", event);
         }
 
         //regex looks for empty spaces entered
         else if (!(passWord.length() > 0) || passWord.matches("^ *$")) {
             JOptionPane.showMessageDialog(null, "A Password is required");
+            View.goToView("ClientSignUpView.fxml", event);
         }
 
 //        //For testing the outputs manually
@@ -89,54 +93,54 @@ public class ClientSignUpViewController {
 //        System.out.println("email: " + email);
 //        System.out.println("passWord: " + passWord);
 //        System.out.println("finished manual output tesing");
+        else {
+            int clientUniqueID = HealthHubController.getUniqueID();
 
-        int clientUniqueID = HealthHubController.getUniqueID();
+            Client newClient = new Client(name,
+                    email,
+                    passWord,
+                    "none",
+                    "none",
+                    clientUniqueID,
+                    age,
+                    0,
+                    0,
+                    phoneNumber,
+                    0,
+                    0,
+                    0,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null);
 
-        Client newClient = new Client(name,
-                email,
-                passWord,
-                "none",
-                "none",
-                clientUniqueID,
-                age,
-                0,
-                0,
-                phoneNumber,
-                0,
-                0,
-                0,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null);
+            //Add client to the database, we will either get back a error code or a uniuqe id
+            int signUpSuccessCode = HealthHubController.addClient(clientUniqueID, newClient.toJSON());
 
-        //Add client to the database, we will either get back a error code or a uniuqe id
-        int signUpSuccessCode = HealthHubController.addClient(clientUniqueID, newClient.toJSON());
+            if (signUpSuccessCode == 403) {
+                JOptionPane.showMessageDialog(null, "ERROR: Email " + email + " has already been used");
+            } else if (signUpSuccessCode == 500) {
+                JOptionPane.showMessageDialog(null, "ERROR: Server Error");
+            } else if (signUpSuccessCode == 200) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("../../Client/ClientView/clientMainView.fxml"));
+                Parent root = loader.load();
 
-        if (signUpSuccessCode == 403) {
-            JOptionPane.showMessageDialog(null, "ERROR: Email " + email + " has already been used");
-        } else if (signUpSuccessCode == 500) {
-            JOptionPane.showMessageDialog(null, "ERROR: Server Error");
-        } else if (signUpSuccessCode == 200) {
-            // Loads Scene for main view
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../../Client/ClientView/clientMainView.fxml"));
-            Parent root = loader.load();
+                // Gets main view controller and passes client to it
+                ClientMainViewController viewController = loader.getController();
+                viewController.setupScene(clientUniqueID);
 
-            // Gets main view controller and passes client to it
-            ClientMainViewController viewController = loader.getController();
-            viewController.setupScene(signUpSuccessCode);
+                Scene viewScene = new Scene(root);
+                // Gets stage information
+                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                window.setScene(viewScene);
+                window.show();
 
-            Scene viewScene = new Scene(root);
-            // Gets stage information
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(viewScene);
-            window.show();
-        } else {
-            JOptionPane.showMessageDialog(null, "ERROR: Sorry, a unknown error occurred");
+            } else {
+                JOptionPane.showMessageDialog(null, "ERROR: Sorry, a unknown error occurred");
+            }
         }
-
     }
 }
