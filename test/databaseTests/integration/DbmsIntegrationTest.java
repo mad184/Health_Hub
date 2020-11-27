@@ -431,6 +431,17 @@ public class DbmsIntegrationTest {
         });
   }
 
+  @Test
+  @Order(14)
+  void testFinalUniqueIdSystem() {
+
+    // There is only 19*3 creation so it is expected to have 58 as the next unique id
+    Assertions.assertEquals(58, realDbms.getUniqueId());
+
+    // Reset the counter of the unique id system
+    realDbms.resetUniqueId();
+  }
+
   // post delete all the created Data
   @AfterAll
   static void postDataDeletion() {
