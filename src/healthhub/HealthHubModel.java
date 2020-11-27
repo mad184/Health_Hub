@@ -10,7 +10,6 @@ import java.util.Random;
 
 public class HealthHubModel {
   private final Dbms database; // actual database that the healthhub model connects
-  private int RANDOMBOUND = 500; // this is the maximum random number unique id can generate
 
   public HealthHubModel() {
     // Need to be changed in the future. This is for Development
@@ -25,96 +24,6 @@ public class HealthHubModel {
    */
   public Dbms testGetDatabase() {
     return database;
-  }
-
-  /**
-   * TEST METHOD: This method is used for integration testing with Database It retrieves the current
-   * maximum bound that the unique id can be generated
-   *
-   * @return int value of the RANDOMBOUND
-   */
-  public int testGetRandomBound() {
-    return RANDOMBOUND;
-  }
-
-  /**
-   * TEST METHOD: This method is used for integration testing with Database It sets the Maximum
-   * random bound that the healthhub can generate for maximum unique ID
-   *
-   * @param newBound: new RANDOMBOUND to set
-   */
-  public void testSetRandomBound(int newBound) {
-    RANDOMBOUND = newBound;
-  }
-
-  /**
-   * TEST METHOD: This method is used for integration testing with Database This is the safest
-   * minimum bound that can be used within the Integration testing Without breaking the test
-   * scenario.
-   */
-  public void testRevertRandomBound() {
-    RANDOMBOUND = 50;
-  }
-
-  /**
-   * This sets the MAXIMUM POSSIBLE RANDOM UNIQUE ID in the system. Take note, the closer you are to
-   * the maximum bound, the higher chance it will go into infinite loop
-   */
-  public void setProductionRandomBound() {
-    RANDOMBOUND = 500;
-  }
-
-  /**
-   * This method determines the unique id that will be used to write within the database The
-   * database will throw exception if the query returned nothing when reading. Thus, I am using that
-   * to determine the uniqueness of the ID. If the read does return something, its not unique If the
-   * read does not return and throws exception, that means that the chosen id is unique, thus we use
-   * that to determine the uniqueness of the id NOTE: The unique id system is set up in the way that
-   * the "UNIQUE ID" will be unique for all managers, clients and Instructor
-   *
-   * <p>SPECIAL NOTE: The number of unique ID within the database causes it to create an infinite
-   * loop IF THE NUMBER OF UNIQUE IDS ~= RANDOMBOUND. This is a design limitation Take note, weird
-   * bugs will come out due to this
-   *
-   * @return uniqueId: unique id that is within the range of RANDOMBOUNDS. This value is unique to
-   *     all manager,client and instructor
-   */
-  protected int determineUniqueId() {
-    Random randomID = new Random();
-    int uniqueId;
-    while (true) {
-
-      // Make sures unique ID is not within of the status codes
-      // May cause heisenbug in the future
-      do {
-        uniqueId = randomID.nextInt(RANDOMBOUND); // Should be changed back to a max int value
-      } while (uniqueId == 400
-          || uniqueId == 500
-          || uniqueId == 403
-          || uniqueId == 404
-          || uniqueId == 401
-          || uniqueId == 200
-          || uniqueId == 0);
-
-      // This is the best approach I can imagine to break the loop to determine the ID is unique.
-      try {
-        database.readClientData(uniqueId);
-      } catch (EmptyQueryException eqe) {
-
-        try {
-          database.readInstructorData(uniqueId);
-        } catch (EmptyQueryException eqe2) {
-
-          try {
-            database.readManagerData(uniqueId);
-          } catch (EmptyQueryException eqe3) {
-            break;
-          }
-        }
-      }
-    }
-
-    return uniqueId;
   }
 
   /**
@@ -182,7 +91,7 @@ public class HealthHubModel {
    * @return 403 if the email is not unique, 500 for server errors and "Unique Client ID" for
    *     successful creations
    */
-  public int addClient(JSONObject clientInitialData) {
+  public int addClient(int uniqueId, JSONObject clientInitialData) {
     Random randomID = new Random();
     int clientId = randomID.nextInt(RANDOMBOUND);
     //int clientId = determineUniqueId();
