@@ -286,12 +286,11 @@ public class Dbms implements WriteInterface, ReadInterface {
   }
 
   /**
-   * EXPERIMENTAL: This method can be used to reset the Unique ID into 0,
-   * Be careful as it only reset the unique Id counter to 0.
-   * To ensure, it will work.
-   * I heavily recommend to delete all the client, instructor and manager data
+   * EXPERIMENTAL: This method can be used to reset the Unique ID into 0, Be careful as it only
+   * reset the unique Id counter to 0. To ensure, it will work. I heavily recommend to delete all
+   * the client, instructor and manager data
    */
-  public void resetUniqueId(){
+  public void resetUniqueId() {
     DBWRITER.deleteData(0, "CounterCollection");
   }
 }
