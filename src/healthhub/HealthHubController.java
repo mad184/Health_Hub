@@ -4,7 +4,8 @@ import org.json.JSONObject;
 
 
 public class HealthHubController {
-    private static final HealthHubModel model = new HealthHubModel("username", "password", "dbname");
+    //for development
+    private static final HealthHubModel model = new HealthHubModel("test-user", "healthhub1", "Test-General-Database");
 
     /**
      * Makes call the model to pass it the client created
