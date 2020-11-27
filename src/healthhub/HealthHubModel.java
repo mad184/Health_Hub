@@ -248,6 +248,6 @@ public class HealthHubModel {
 
   // EXPERIMENTAL: Reset the unique ID system within the database
   public boolean organizationExistsInDB() {
-    return (database.getAllOrganization().length() == 1);
+    return (database.getAllOrganization().length() > 1);
   }
 }
