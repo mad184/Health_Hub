@@ -13,7 +13,7 @@ public class HealthHubModel {
 
   public HealthHubModel() {
     // Need to be changed in the future. This is for Development
-  database = new Dbms("test-user", "healthhub1", "Test-General-Database", "testCollection");
+    database = new Dbms("test-user", "healthhub1", "Test-General-Database", "testCollection");
   }
 
   /**
@@ -84,17 +84,13 @@ public class HealthHubModel {
   }
 
   /**
-   * This method adds/creates the client within the database. It checks for uniqueness of the ID and
-   * Email for ALL the instructor,client and Manager within the database
+   * This method adds/creates the client within the database. It checks for uniqueness of the Email
+   * for ALL the instructor,client and Manager within the database
    *
    * @param clientInitialData: JSONObject that contains the data from the new client to be created
-   * @return 403 if the email is not unique, 500 for server errors and "Unique Client ID" for
-   *     successful creations
+   * @return 403 if the email is not unique, 500 for server errors and 200 for successful creations
    */
   public int addClient(int uniqueId, JSONObject clientInitialData) {
-    Random randomID = new Random();
-    int clientId = randomID.nextInt(RANDOMBOUND);
-    //int clientId = determineUniqueId();
     boolean emailUnique = determineUniqueEmail(clientInitialData.getString("email"));
 
     if (!emailUnique) {
@@ -102,9 +98,8 @@ public class HealthHubModel {
     }
 
     try {
-      clientInitialData.put("id", clientId);
-      database.createClient(clientId, clientInitialData);
-      return clientId;
+      database.createClient(uniqueId, clientInitialData);
+      return 200;
     } catch (MongoException me) {
       return 500;
     }
