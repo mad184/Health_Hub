@@ -88,65 +88,53 @@ public class LogInViewController {
         }
 
         else {
-
+            Parent root;
             if (userType.equals("Client")) {
                 // Loads Scene for main view
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("../../Client/ClientView/clientMainView.fxml"));
-                Parent root = loader.load();
+                root = loader.load();
 
                 // Gets main view controller and passes client to it
                 ClientMainViewController viewController = loader.getController();
                 viewController.setupScene(loginSuccessCodeOrUniqueId);
 
-                Scene viewScene = new Scene(root);
-                // Gets stage information
-                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                window.setScene(viewScene);
-                window.show();
+
             }
             else if (userType.equals("Instructor")) {
                 // Loads Scene for main view
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("../../Staff/InstructorViews/instructorMainView.fxml"));
-                Parent root = loader.load();
+                root = loader.load();
 
                 // Gets main view controller and passes client to it
                 InstructorMainViewController viewController = loader.getController();
 //                viewController.setupScene(loginSuccessCodeOrUniqueId);
 
-                Scene viewScene = new Scene(root);
-                // Gets stage information
-                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                window.setScene(viewScene);
-                window.show();
+
             } else if (userType.equals("Manager")) {
                 // Loads Scene for main view
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("../../Staff/ManagerViews/managerMainView.fxml"));
-                Parent root = loader.load();
+                root = loader.load();
 
                 // Gets main view controller and passes client to it
                 ManagerMainViewController viewController = loader.getController();
 //                viewController.setupScene(loginSuccessCodeOrUniqueId);
 
-                Scene viewScene = new Scene(root);
-                // Gets stage information
-                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                window.setScene(viewScene);
-                window.show();
-            } else if (userType.equals("Owner")) {
+
+            } else {
                 // Loads Scene for main view
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("../../Staff/OwnerViews/ownerMainView.fxml"));
-                Parent root = loader.load();
+                root = loader.load();
 
                 // Gets main view controller and passes client to it
                 OwnerMainViewController viewController = loader.getController();
 //                viewController.setupScene(loginSuccessCodeOrUniqueId);
 
-                Scene viewScene = new Scene(root);
-                // Gets stage information
-                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                window.setScene(viewScene);
-                window.show();
             }
+            Scene viewScene = new Scene(root);
+            // Gets stage information
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(viewScene);
+            window.show();
         }
     }
 }
