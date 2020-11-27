@@ -1,5 +1,6 @@
 package database;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
@@ -17,7 +18,7 @@ public class Writer implements ServerInterface, WriteInterface {
   private final MongoClient SERVER; // server initiation
   private MongoDatabase mongoDb; // database initiation
   private MongoCollection<Document>
-          collectionTable; // collection initiation ( i.e Table to initiate )
+      collectionTable; // collection initiation ( i.e Table to initiate )
 
   /**
    * Construct a writer connection to the mongoDb local database
@@ -104,9 +105,8 @@ public class Writer implements ServerInterface, WriteInterface {
   }
 
   /**
-   * OVERLOADED FUNCTION:
-   * Creates data based on the unique id within the specified collection It takes a JSONObject value
-   * which it uses to create data.
+   * OVERLOADED FUNCTION: Creates data based on the unique id within the specified collection It
+   * takes a JSONObject value which it uses to create data.
    *
    * @param uniqueId unique id within a collection
    * @param collectionInsert collection to create/insert new data
@@ -114,7 +114,7 @@ public class Writer implements ServerInterface, WriteInterface {
    * @throws NullPointerException when dataValue is null, it will throw this exception
    */
   private void createData(int uniqueId, String collectionInsert, JSONObject dataValue)
-          throws NullPointerException {
+      throws NullPointerException {
     MongoCollection<Document> previousCollection = getCollectionTable();
     setCollectionTable(collectionInsert);
     Document newDocument = new Document("_id", uniqueId);
@@ -124,9 +124,8 @@ public class Writer implements ServerInterface, WriteInterface {
   }
 
   /**
-   * OVERLOADED FUNCTION:
-   * Creates data based on the unique String within the specified collection It takes a JSONObject value
-   * which it uses to create data.
+   * OVERLOADED FUNCTION: Creates data based on the unique String within the specified collection It
+   * takes a JSONObject value which it uses to create data.
    *
    * @param uniqueString unique String within a collection
    * @param collectionInsert collection to create/insert new data
@@ -134,7 +133,7 @@ public class Writer implements ServerInterface, WriteInterface {
    * @throws NullPointerException when dataValue is null, it will throw this exception
    */
   private void createData(String uniqueString, String collectionInsert, JSONObject dataValue)
-          throws NullPointerException {
+      throws NullPointerException {
     MongoCollection<Document> previousCollection = getCollectionTable();
     setCollectionTable(collectionInsert);
     Document newDocument = new Document("_id", uniqueString);
@@ -156,11 +155,11 @@ public class Writer implements ServerInterface, WriteInterface {
    *     thrown
    * @throws JsonObjectException when the updatedData is empty ( not null ), this exception will be
    *     thrown to prevent users updating to empty data
-   * @throws EmptyQueryException when the unique Id does not exist within the collection
-   *     this exception will be thrown
+   * @throws EmptyQueryException when the unique Id does not exist within the collection this
+   *     exception will be thrown
    */
   private void updateData(int uniqueId, String collectionUpdate, JSONObject updatedData)
-          throws JsonObjectException, EmptyQueryException, NullPointerException {
+      throws JsonObjectException, EmptyQueryException, NullPointerException {
     if (updatedData.isEmpty()) {
       throw new JsonObjectException();
     }
@@ -181,10 +180,9 @@ public class Writer implements ServerInterface, WriteInterface {
   }
 
   /**
-   * OVERLOADED and DUPLICATED FUNCTION
-   * Updates data based on the unique String within the specified collection. It takes a JSONObject
-   * value which it writes as an updated data for the specified unique id It will throw an exception
-   * if unique id does not exist
+   * OVERLOADED and DUPLICATED FUNCTION Updates data based on the unique String within the specified
+   * collection. It takes a JSONObject value which it writes as an updated data for the specified
+   * unique id It will throw an exception if unique id does not exist
    *
    * @param uniqueString unique String to update
    * @param collectionUpdate collection where the unique id is located
@@ -194,11 +192,11 @@ public class Writer implements ServerInterface, WriteInterface {
    *     thrown
    * @throws JsonObjectException when the updatedData is empty ( not null ), this exception will be
    *     thrown to prevent users updating to empty data
-   * @throws EmptyQueryException when the unique Id does not exist within the collection
-   *     this exception will be thrown
+   * @throws EmptyQueryException when the unique Id does not exist within the collection this
+   *     exception will be thrown
    */
   private void updateData(String uniqueString, String collectionUpdate, JSONObject updatedData)
-          throws JsonObjectException, EmptyQueryException, NullPointerException {
+      throws JsonObjectException, EmptyQueryException, NullPointerException {
     if (updatedData.isEmpty()) {
       throw new JsonObjectException();
     }
@@ -221,12 +219,12 @@ public class Writer implements ServerInterface, WriteInterface {
   /**
    * deletes everything ( including the unique id ) of the the specified unique id within a
    * collection. If the unique id does not exist within the database, no update will be performed on
-   * the database
+   * the database. CAN BE USED TO DELETE THE UNIQUE ID SYSTEM NOW
    *
    * @param uniqueId unique id to delete
    * @param collectionDelete collection to where the unique id exist
    */
-  private void deleteData(int uniqueId, String collectionDelete) {
+  public void deleteData(int uniqueId, String collectionDelete) {
     MongoCollection<Document> previousCollection = getCollectionTable();
     setCollectionTable(collectionDelete);
     collectionTable.deleteOne(eq("_id", uniqueId));
@@ -234,10 +232,9 @@ public class Writer implements ServerInterface, WriteInterface {
   }
 
   /**
-   * OVERLOADED FUNCTION
-   * deletes everything ( including the unique String ) of the the specified unique String within a
-   * collection. If the unique String does not exist within the database, no update will be performed on
-   * the database
+   * OVERLOADED FUNCTION deletes everything ( including the unique String ) of the the specified
+   * unique String within a collection. If the unique String does not exist within the database, no
+   * update will be performed on the database
    *
    * @param uniqueString unique id to delete
    * @param collectionDelete collection to where the unique String exist
@@ -246,6 +243,37 @@ public class Writer implements ServerInterface, WriteInterface {
     MongoCollection<Document> previousCollection = getCollectionTable();
     setCollectionTable(collectionDelete);
     collectionTable.deleteOne(eq("_id", uniqueString));
+    setCollectionTable(previousCollection);
+  }
+
+  /** Initializes the unique ID system within the database. */
+  public void initializeUniqueId() {
+
+    MongoCollection<Document> previousCollection = getCollectionTable();
+    setCollectionTable("CounterCollection");
+
+    if (getCollectionTable().countDocuments() == 0) {
+
+      Document newDocument = new Document("_id", 0);
+      newDocument.put("nextUniqueId", 1);
+      collectionTable.insertOne(newDocument);
+    }
+
+    setCollectionTable(previousCollection);
+  }
+
+  /** sets the Next unique id available in the system. */
+  public void setNextUniqueId() {
+
+    MongoCollection<Document> previousCollection = getCollectionTable();
+    setCollectionTable("CounterCollection");
+
+    Document newUpdate = new Document("nextUniqueId", 1);
+    BasicDBObject updateCommand = new BasicDBObject();
+    updateCommand.put("$inc", newUpdate);
+
+    getCollectionTable().findOneAndUpdate(eq("_id", 0), updateCommand);
+
     setCollectionTable(previousCollection);
   }
 
@@ -291,7 +319,8 @@ public class Writer implements ServerInterface, WriteInterface {
    * @param value JSON data that refers to the specific Organization
    * @throws NullPointerException when value is null ( not empty ), this exception will be thrown
    */
-  public void createOrganization(String uniqueOrgName, JSONObject value) throws NullPointerException {
+  public void createOrganization(String uniqueOrgName, JSONObject value)
+      throws NullPointerException {
 
     createData(uniqueOrgName, "OrganizationCollection", value);
   }
@@ -309,7 +338,7 @@ public class Writer implements ServerInterface, WriteInterface {
    *     this exception will be thrown
    */
   public void updateClient(int uniqueCid, JSONObject updatedData)
-          throws NullPointerException, JsonObjectException, EmptyQueryException {
+      throws NullPointerException, JsonObjectException, EmptyQueryException {
 
     updateData(uniqueCid, "ClientCollection", updatedData);
   }
@@ -327,7 +356,7 @@ public class Writer implements ServerInterface, WriteInterface {
    *     instructors this exception will be thrown
    */
   public void updateInstructor(int uniqueIid, JSONObject updatedData)
-          throws NullPointerException, JsonObjectException, EmptyQueryException {
+      throws NullPointerException, JsonObjectException, EmptyQueryException {
 
     updateData(uniqueIid, "InstructorCollection", updatedData);
   }
@@ -345,26 +374,25 @@ public class Writer implements ServerInterface, WriteInterface {
    *     managers this exception will be thrown
    */
   public void updateManager(int uniqueMid, JSONObject updatedData)
-          throws NullPointerException, JsonObjectException, EmptyQueryException {
+      throws NullPointerException, JsonObjectException, EmptyQueryException {
     updateData(uniqueMid, "ManagerCollection", updatedData);
   }
 
   /**
-   * Update Organization data inside the Organization Collection Does not allow updates for non-existing
-   * Organization within the database
+   * Update Organization data inside the Organization Collection Does not allow updates for
+   * non-existing Organization within the database
    *
    * @param uniqueOrgName: unique Organization Name to use to identify
    * @param updatedData: updated data to store
    * @throws NullPointerException when value is null ( not empty ), this exception will be thrown
    * @throws JsonObjectException when the updatedData is empty ( not null ), this exception will be
    *     thrown to prevent users updating to empty data
-   * @throws EmptyQueryException when the unique Id does not exist within the collection
-   *     this exception will be thrown
+   * @throws EmptyQueryException when the unique Id does not exist within the collection this
+   *     exception will be thrown
    */
   public void updateOrganization(String uniqueOrgName, JSONObject updatedData)
-          throws NullPointerException, JsonObjectException, EmptyQueryException {
+      throws NullPointerException, JsonObjectException, EmptyQueryException {
     updateData(uniqueOrgName, "OrganizationCollection", updatedData);
-
   }
 
   /**
@@ -398,8 +426,8 @@ public class Writer implements ServerInterface, WriteInterface {
   }
 
   /**
-   * Removes Organization Information inside the Organization Collection. If the organization does not exist
-   * within the database, no update will be performed on the database
+   * Removes Organization Information inside the Organization Collection. If the organization does
+   * not exist within the database, no update will be performed on the database
    *
    * @param uniqueOrgName: unique organization to remove
    */

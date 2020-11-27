@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -443,6 +444,20 @@ public class WriterUnitTest {
           realCon.updateInstructor(52, testUpdate);
           realCon.updateOrganization("HololivePH", testUpdate);
         });
+  }
+
+  // Test if initializing and setting the next ID throws exception
+  @Test
+  @Order(18)
+  void testSetUniqueId(){
+      realCon.deleteData(0,"CounterCollection");
+
+      Assertions.assertDoesNotThrow(()->{
+          realCon.initializeUniqueId();
+          realCon.setNextUniqueId();
+      });
+
+      realCon.deleteData(0,"CounterCollection");
   }
 
   @AfterAll

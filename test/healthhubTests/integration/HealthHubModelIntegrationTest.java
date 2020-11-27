@@ -1,42 +1,41 @@
 package healthhubTests.integration;
 
-
 import database.EmptyQueryException;
 import healthhub.HealthHubModel;
 import org.json.JSONArray;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 @TestMethodOrder(OrderAnnotation.class)
 public class HealthHubModelIntegrationTest {
 
-  static HealthHubModel testHHM = new HealthHubModel();
-  static ArrayList<Integer> createdUniqueIds =
-      new ArrayList<>(); // Storage of all uniqueIds to be deleted
+  private static HealthHubModel testHHM =
+      new HealthHubModel("test-user", "healthhub1", "Test-General-Database");
 
   // Test if creating the client will not result to any of the error codes
   @Test
   @Order(1)
   void testNewAddClient() {
-
+    // testHHM.resetUniqueID(); // Reset the system
     JSONObject testClient = new JSONObject();
     testClient.put("email", "Gura@Hololive.en");
 
-    int testValue = testHHM.addClient(testClient);
-    createdUniqueIds.add(testValue);
+    int testValue = testHHM.addClient(testHHM.getUniqueId(), testClient);
 
+    // None of the status code should be triggered
     Assertions.assertNotEquals(500, testValue);
     Assertions.assertNotEquals(404, testValue);
     Assertions.assertNotEquals(403, testValue);
     Assertions.assertNotEquals(401, testValue);
+
+    // The only status code that should be triggered
+    Assertions.assertEquals(200, testValue);
   }
 
   // Test if creating email duplicated client will result to 403 error codes
@@ -47,9 +46,7 @@ public class HealthHubModelIntegrationTest {
     JSONObject testClient = new JSONObject();
     testClient.put("email", "Gura@Hololive.en");
 
-    int testValue = testHHM.addClient(testClient);
-
-    createdUniqueIds.add(testValue);
+    int testValue = testHHM.addClient(testHHM.getUniqueId(), testClient);
 
     Assertions.assertEquals(403, testValue);
   }
@@ -61,7 +58,8 @@ public class HealthHubModelIntegrationTest {
     JSONObject testClient = new JSONObject();
     testClient.put("NoEmail", "Gura@Hololive.en");
 
-    Assertions.assertThrows(Exception.class, () -> testHHM.addClient(testClient));
+    Assertions.assertThrows(
+        Exception.class, () -> testHHM.addClient(testHHM.getUniqueId(), testClient));
   }
 
   // Test if creating the instructor will not result to any of the error codes
@@ -72,14 +70,16 @@ public class HealthHubModelIntegrationTest {
     JSONObject testInstructor = new JSONObject();
     testInstructor.put("email", "Kiara@Hololive.en");
 
-    int testValue = testHHM.addInstructor(testInstructor);
+    int testValue = testHHM.addInstructor(testHHM.getUniqueId(), testInstructor);
 
-    createdUniqueIds.add(testValue);
-
+    // None of the status code should be triggered
     Assertions.assertNotEquals(500, testValue);
     Assertions.assertNotEquals(404, testValue);
     Assertions.assertNotEquals(403, testValue);
     Assertions.assertNotEquals(401, testValue);
+
+    // Only successful write should happen
+    Assertions.assertEquals(200, testValue);
   }
 
   // Test if creating email duplicated instructor will result to 403 error codes
@@ -90,9 +90,7 @@ public class HealthHubModelIntegrationTest {
     JSONObject testInstructor = new JSONObject();
     testInstructor.put("email", "Kiara@Hololive.en");
 
-    int testValue = testHHM.addInstructor(testInstructor);
-
-    createdUniqueIds.add(testValue);
+    int testValue = testHHM.addInstructor(testHHM.getUniqueId(), testInstructor);
 
     Assertions.assertEquals(403, testValue);
   }
@@ -104,7 +102,8 @@ public class HealthHubModelIntegrationTest {
     JSONObject testInstructor = new JSONObject();
     testInstructor.put("NoEmail", "Gura@Hololive.en");
 
-    Assertions.assertThrows(Exception.class, () -> testHHM.addInstructor(testInstructor));
+    Assertions.assertThrows(
+        Exception.class, () -> testHHM.addInstructor(testHHM.getUniqueId(), testInstructor));
   }
 
   // Test if creating the manager will not result to any of the error codes
@@ -115,14 +114,16 @@ public class HealthHubModelIntegrationTest {
     JSONObject testManager = new JSONObject();
     testManager.put("email", "Ina@Hololive.en");
 
-    int testValue = testHHM.addManager(testManager);
+    int testValue = testHHM.addManager(testHHM.getUniqueId(), testManager);
 
-    createdUniqueIds.add(testValue);
-
+    // No status code should be returned
     Assertions.assertNotEquals(500, testValue);
     Assertions.assertNotEquals(404, testValue);
     Assertions.assertNotEquals(403, testValue);
     Assertions.assertNotEquals(401, testValue);
+
+    // Only status code should be returned
+    Assertions.assertEquals(200, testValue);
   }
 
   // Test if creating email duplicated manager will result to 403 error codes
@@ -133,9 +134,7 @@ public class HealthHubModelIntegrationTest {
     JSONObject testManager = new JSONObject();
     testManager.put("email", "Ina@Hololive.en");
 
-    int testValue = testHHM.addManager(testManager);
-
-    createdUniqueIds.add(testValue);
+    int testValue = testHHM.addManager(testHHM.getUniqueId(), testManager);
 
     Assertions.assertEquals(403, testValue);
   }
@@ -147,7 +146,8 @@ public class HealthHubModelIntegrationTest {
     JSONObject testManager = new JSONObject();
     testManager.put("NoEmail", "Ina@Hololive.en");
 
-    Assertions.assertThrows(Exception.class, () -> testHHM.addManager(testManager));
+    Assertions.assertThrows(
+        Exception.class, () -> testHHM.addManager(testHHM.getUniqueId(), testManager));
   }
 
   // Testing of CIM Adding where the user attempts to use an email that exists within different
@@ -166,69 +166,31 @@ public class HealthHubModelIntegrationTest {
     existingManager.put("email", "Ina@Hololive.en");
 
     // We are going to mix up the adds to make sure it is still checking that email is unique
-    Assertions.assertEquals(403, testHHM.addClient(existingInstructor));
-    Assertions.assertEquals(403, testHHM.addClient(existingManager));
+    Assertions.assertEquals(403, testHHM.addClient(testHHM.getUniqueId(), existingInstructor));
+    Assertions.assertEquals(403, testHHM.addClient(testHHM.getUniqueId(), existingManager));
 
-    Assertions.assertEquals(403, testHHM.addInstructor(existingClient));
-    Assertions.assertEquals(403, testHHM.addInstructor(existingManager));
+    Assertions.assertEquals(403, testHHM.addInstructor(testHHM.getUniqueId(), existingClient));
+    Assertions.assertEquals(403, testHHM.addInstructor(testHHM.getUniqueId(), existingManager));
 
-    Assertions.assertEquals(403, testHHM.addManager(existingClient));
-    Assertions.assertEquals(403, testHHM.addManager(existingInstructor));
-  }
-
-  // Testing of unique ID system
-  @Test
-  @Order(11)
-  void testCIMUniqueIdSystem() {
-
-    // At this stage, the DB should have Gura - Client, Kiara - Instructor and Ina - Manager
-    testHHM.setProductionRandomBound(); // Make sure we are at production Random Bound
-
-    // Loop with the range of the Production Random Bound
-    for (int iteration = 1; iteration <= 100; iteration++) {
-
-      JSONObject testClientData = new JSONObject();
-      testClientData.put("email", iteration + "@client.com");
-
-      JSONObject testInstructorData = new JSONObject();
-      testInstructorData.put("email", iteration + "@instructor.com");
-
-      JSONObject testManagerData = new JSONObject();
-      testManagerData.put("email", iteration + "@manager.com");
-
-      // Test the creation of data whether it will fail or not
-      int clientStatusValue = testHHM.addClient(testClientData);
-      createdUniqueIds.add(clientStatusValue);
-      Assertions.assertNotEquals(500, clientStatusValue);
-
-      int instructorStatusValue = testHHM.addInstructor(testInstructorData);
-      createdUniqueIds.add(instructorStatusValue);
-      Assertions.assertNotEquals(500, testHHM.addInstructor(testInstructorData));
-
-      int managerStatusValue = testHHM.addManager(testManagerData);
-      createdUniqueIds.add(managerStatusValue);
-      Assertions.assertNotEquals(500, testHHM.addManager(testManagerData));
-    }
-    testHHM.testRevertRandomBound(); // revert to the safest RANDOMBOUND for this test code
+    Assertions.assertEquals(403, testHHM.addManager(testHHM.getUniqueId(), existingClient));
+    Assertions.assertEquals(403, testHHM.addManager(testHHM.getUniqueId(), existingInstructor));
   }
 
   /** This method is called for deleting all within the database */
   void deleteAll() {
-    for (Integer each : createdUniqueIds) {
-      testHHM.testGetDatabase().removeClient(each);
-      testHHM.testGetDatabase().removeInstructor(each);
-      testHHM.testGetDatabase().removeManager(each);
+    for (int i = 0; i <= 50; i++) {
+      testHHM.testGetDatabase().removeClient(i);
+      testHHM.testGetDatabase().removeInstructor(i);
+      testHHM.testGetDatabase().removeManager(i);
     }
   }
 
   // Testing of unique email system. Really slow testing by the way
   @Test
-  @Order(12)
+  @Order(11)
   void testUniqueEmailSystem() {
 
     deleteAll(); // delete all pre-existing data
-
-    testHHM.setProductionRandomBound();
 
     // Create the unique emails
     JSONObject testClientData = new JSONObject();
@@ -241,54 +203,43 @@ public class HealthHubModelIntegrationTest {
     testManagerData.put("email", "Ina@manager.com");
 
     // Test the Unique Emails with different Combinations of how it will be added
-    int testManagerValueM1 = testHHM.addManager(testManagerData);
-    createdUniqueIds.add(testManagerValueM1);
+    int testManagerValueM1 = testHHM.addManager(testHHM.getUniqueId(), testManagerData);
     Assertions.assertNotEquals(403, testManagerValueM1);
 
-    int testInstructorValueI1 = testHHM.addInstructor(testInstructorData);
-    createdUniqueIds.add(testInstructorValueI1);
+    int testInstructorValueI1 = testHHM.addInstructor(testHHM.getUniqueId(), testInstructorData);
     Assertions.assertNotEquals(403, testInstructorValueI1);
 
-    int testClientValueC1 = testHHM.addClient(testClientData);
-    createdUniqueIds.add(testClientValueC1);
+    int testClientValueC1 = testHHM.addClient(testHHM.getUniqueId(), testClientData);
     Assertions.assertNotEquals(403, testClientValueC1);
 
     deleteAll();
 
-    int testInstructorValueI2 = testHHM.addInstructor(testInstructorData);
-    createdUniqueIds.add(testInstructorValueI2);
+    int testInstructorValueI2 = testHHM.addInstructor(testHHM.getUniqueId(), testInstructorData);
     Assertions.assertNotEquals(403, testInstructorValueI2);
 
-    int testManagerValueM2 = testHHM.addManager(testManagerData);
-    createdUniqueIds.add(testManagerValueM2);
+    int testManagerValueM2 = testHHM.addManager(testHHM.getUniqueId(), testManagerData);
     Assertions.assertNotEquals(403, testManagerValueM2);
 
-    int testClientValueC2 = testHHM.addClient(testClientData);
-    createdUniqueIds.add(testClientValueC2);
+    int testClientValueC2 = testHHM.addClient(testHHM.getUniqueId(), testClientData);
     Assertions.assertNotEquals(403, testClientValueC2);
 
     deleteAll();
 
-    int testInstructorValueI3 = testHHM.addInstructor(testInstructorData);
-    createdUniqueIds.add(testInstructorValueI3);
+    int testInstructorValueI3 = testHHM.addInstructor(testHHM.getUniqueId(), testInstructorData);
     Assertions.assertNotEquals(403, testInstructorValueI3);
 
-    int testClientValueC3 = testHHM.addClient(testClientData);
-    createdUniqueIds.add(testClientValueC3);
+    int testClientValueC3 = testHHM.addClient(testHHM.getUniqueId(), testClientData);
     Assertions.assertNotEquals(403, testClientValueC3);
 
-    int testManagerValueM3 = testHHM.addManager(testManagerData);
-    createdUniqueIds.add(testManagerValueM3);
+    int testManagerValueM3 = testHHM.addManager(testHHM.getUniqueId(), testManagerData);
     Assertions.assertNotEquals(403, testManagerValueM3);
 
     deleteAll();
-
-    testHHM.testRevertRandomBound(); // revert to the safest RANDOMBOUND for this test code
   }
 
   // Test that adding organization has no issues
   @Test
-  @Order(13)
+  @Order(12)
   void testAddOrganization() throws EmptyQueryException {
 
     JSONObject expectedOrgData = new JSONObject();
@@ -305,7 +256,7 @@ public class HealthHubModelIntegrationTest {
 
   // Test for duplication any organization
   @Test
-  @Order(14)
+  @Order(13)
   void testDuplicateAddOrganization() {
     JSONObject expectedOrgData = new JSONObject();
     expectedOrgData.put("Owner", "Yagoo");
@@ -313,14 +264,8 @@ public class HealthHubModelIntegrationTest {
     Assertions.assertEquals(500, testHHM.createOrganization("Hololive", expectedOrgData));
   }
 
-  /**
-   * Special method the preCreates Data for systemLogin
-   *
-   * @return JSONArray containing valid credentials
-   */
-  JSONArray preCreateSystemLogin() {
-
-    testHHM.setProductionRandomBound();
+  /** Special method the preCreates Data for systemLogin */
+  void preCreateSystemLogin() {
 
     // Prepare the necessary data
     JSONObject clientShrimpUser1 = new JSONObject();
@@ -347,41 +292,23 @@ public class HealthHubModelIntegrationTest {
     managerShrimpUser2.put("email", "managerShrimp2@mail.com");
     managerShrimpUser2.put("password", "ms2");
 
-    JSONArray validCredentials = new JSONArray();
-
     // Create the data within the database
-    int clientUserId1 = testHHM.addClient(clientShrimpUser1);
-    validCredentials.put(new JSONObject().put("clientShrimpUserId1", clientUserId1));
-    createdUniqueIds.add(clientUserId1);
+    testHHM.addClient(testHHM.getUniqueId(), clientShrimpUser1);
 
-    int clientUserId2 = testHHM.addClient(clientShrimpUser2);
-    validCredentials.put(new JSONObject().put("clientShrimpUserId2", clientUserId2));
-    createdUniqueIds.add(clientUserId2);
+    testHHM.addClient(testHHM.getUniqueId(), clientShrimpUser2);
 
-    int instrUserId1 = testHHM.addInstructor(instrShrimpUser1);
-    validCredentials.put(new JSONObject().put("instrShrimpUserId1", instrUserId1));
-    createdUniqueIds.add(instrUserId1);
+    testHHM.addInstructor(testHHM.getUniqueId(), instrShrimpUser1);
 
-    int instrUserId2 = testHHM.addInstructor(instrShrimpUser2);
-    validCredentials.put(new JSONObject().put("instrShrimpUserId2", instrUserId2));
-    createdUniqueIds.add(instrUserId2);
+    testHHM.addInstructor(testHHM.getUniqueId(), instrShrimpUser2);
 
-    int managerUserId1 = testHHM.addManager(managerShrimpUser1);
-    validCredentials.put(new JSONObject().put("managerShrimpUserId1", managerUserId1));
-    createdUniqueIds.add(managerUserId1);
+    testHHM.addManager(testHHM.getUniqueId(), managerShrimpUser1);
 
-    int managerUserId2 = testHHM.addManager(managerShrimpUser2);
-    validCredentials.put(new JSONObject().put("managerShrimpUserId2", managerUserId2));
-    createdUniqueIds.add(managerUserId2);
-
-    testHHM.testRevertRandomBound();
-
-    return validCredentials;
+    testHHM.addManager(testHHM.getUniqueId(), managerShrimpUser2);
   }
 
   // Testing when attempting login with literally no data within the database
   @Test
-  @Order(15)
+  @Order(14)
   void testNonExistentSystem() {
 
     Assertions.assertEquals(
@@ -394,35 +321,26 @@ public class HealthHubModelIntegrationTest {
 
   // Test Valid Credentials
   @Test
-  @Order(16)
+  @Order(15)
   void testValidCredentialLogin() {
-    JSONArray validCredentials = preCreateSystemLogin();
+    preCreateSystemLogin();
 
-    Assertions.assertEquals(
-        validCredentials.getJSONObject(0).get("clientShrimpUserId1"),
-        testHHM.systemLogin("clientShrimp1@mail.com", "cs1", "Client"));
-    Assertions.assertEquals(
-        validCredentials.getJSONObject(1).get("clientShrimpUserId2"),
-        testHHM.systemLogin("clientShrimp2@mail.com", "cs2", "Client"));
-    Assertions.assertEquals(
-        validCredentials.getJSONObject(2).get("instrShrimpUserId1"),
-        testHHM.systemLogin("instrShrimp1@mail.com", "is1", "Instructor"));
-    Assertions.assertEquals(
-        validCredentials.getJSONObject(3).get("instrShrimpUserId2"),
-        testHHM.systemLogin("instrShrimp2@mail.com", "is2", "Instructor"));
-    Assertions.assertEquals(
-        validCredentials.getJSONObject(4).get("managerShrimpUserId1"),
-        testHHM.systemLogin("managerShrimp1@mail.com", "ms1", "Manager"));
-    Assertions.assertEquals(
-        validCredentials.getJSONObject(5).get("managerShrimpUserId2"),
-        testHHM.systemLogin("managerShrimp2@mail.com", "ms2", "Manager"));
+    Assertions.assertNotEquals(401, testHHM.systemLogin("clientShrimp1@mail.com", "cs1", "Client"));
+    Assertions.assertNotEquals(401, testHHM.systemLogin("clientShrimp2@mail.com", "cs2", "Client"));
+    Assertions.assertNotEquals(
+        401, testHHM.systemLogin("instrShrimp1@mail.com", "is1", "Instructor"));
+    Assertions.assertNotEquals(
+        401, testHHM.systemLogin("instrShrimp2@mail.com", "is2", "Instructor"));
+    Assertions.assertNotEquals(
+        401, testHHM.systemLogin("managerShrimp1@mail.com", "ms1", "Manager"));
+    Assertions.assertNotEquals(
+        401, testHHM.systemLogin("managerShrimp2@mail.com", "ms2", "Manager"));
   }
 
   // Test Invalid Credentials
   @Test
-  @Order(17)
+  @Order(16)
   void testInValidCredentialLogin() {
-    // preCreateSystemLogin(); // Uncomment if standalone running the test Case
 
     Assertions.assertEquals(
         401, testHHM.systemLogin("clientShrimp1@mail.com", "fakePassword", "Client"));
@@ -434,7 +352,7 @@ public class HealthHubModelIntegrationTest {
 
   // Testing of attempting to login for non existent Credential when the database has data
   @Test
-  @Order(18)
+  @Order(17)
   void testNonExistentCredentials() {
 
     // preCreateSystemLogin(); // Uncomment if standalone running the test Case
@@ -447,12 +365,13 @@ public class HealthHubModelIntegrationTest {
   @AfterAll
   static void postDelete() {
 
-    for (Integer each : createdUniqueIds) {
-      testHHM.testGetDatabase().removeClient(each);
-      testHHM.testGetDatabase().removeInstructor(each);
-      testHHM.testGetDatabase().removeManager(each);
+    for (int i = 0; i < 50; i++) {
+      testHHM.testGetDatabase().removeClient(i);
+      testHHM.testGetDatabase().removeInstructor(i);
+      testHHM.testGetDatabase().removeManager(i);
     }
 
+    testHHM.resetUniqueID();
     testHHM.testGetDatabase().removeOrganization("Hololive");
   }
 }

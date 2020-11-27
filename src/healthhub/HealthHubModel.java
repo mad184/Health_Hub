@@ -2,19 +2,15 @@ package healthhub;
 
 import com.mongodb.MongoException;
 import database.Dbms;
-import database.EmptyQueryException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.Random;
-
 public class HealthHubModel {
   private final Dbms database; // actual database that the healthhub model connects
-  private int RANDOMBOUND = 500; // this is the maximum random number unique id can generate
 
-  public HealthHubModel() {
-    // Need to be changed in the future. This is for Development
-  database = new Dbms("test-user", "healthhub1", "Test-General-Database", "testCollection");
+  public HealthHubModel(String username, String passWord, String dbName) {
+    // DATABASE IS NOW DICTATED BY THE CONTROLLER
+    database = new Dbms(username, passWord, dbName, "testCollection");
   }
 
   /**
@@ -25,96 +21,6 @@ public class HealthHubModel {
    */
   public Dbms testGetDatabase() {
     return database;
-  }
-
-  /**
-   * TEST METHOD: This method is used for integration testing with Database It retrieves the current
-   * maximum bound that the unique id can be generated
-   *
-   * @return int value of the RANDOMBOUND
-   */
-  public int testGetRandomBound() {
-    return RANDOMBOUND;
-  }
-
-  /**
-   * TEST METHOD: This method is used for integration testing with Database It sets the Maximum
-   * random bound that the healthhub can generate for maximum unique ID
-   *
-   * @param newBound: new RANDOMBOUND to set
-   */
-  public void testSetRandomBound(int newBound) {
-    RANDOMBOUND = newBound;
-  }
-
-  /**
-   * TEST METHOD: This method is used for integration testing with Database This is the safest
-   * minimum bound that can be used within the Integration testing Without breaking the test
-   * scenario.
-   */
-  public void testRevertRandomBound() {
-    RANDOMBOUND = 50;
-  }
-
-  /**
-   * This sets the MAXIMUM POSSIBLE RANDOM UNIQUE ID in the system. Take note, the closer you are to
-   * the maximum bound, the higher chance it will go into infinite loop
-   */
-  public void setProductionRandomBound() {
-    RANDOMBOUND = 500;
-  }
-
-  /**
-   * This method determines the unique id that will be used to write within the database The
-   * database will throw exception if the query returned nothing when reading. Thus, I am using that
-   * to determine the uniqueness of the ID. If the read does return something, its not unique If the
-   * read does not return and throws exception, that means that the chosen id is unique, thus we use
-   * that to determine the uniqueness of the id NOTE: The unique id system is set up in the way that
-   * the "UNIQUE ID" will be unique for all managers, clients and Instructor
-   *
-   * <p>SPECIAL NOTE: The number of unique ID within the database causes it to create an infinite
-   * loop IF THE NUMBER OF UNIQUE IDS ~= RANDOMBOUND. This is a design limitation Take note, weird
-   * bugs will come out due to this
-   *
-   * @return uniqueId: unique id that is within the range of RANDOMBOUNDS. This value is unique to
-   *     all manager,client and instructor
-   */
-  protected int determineUniqueId() {
-    Random randomID = new Random();
-    int uniqueId;
-    while (true) {
-
-      // Make sures unique ID is not within of the status codes
-      // May cause heisenbug in the future
-      do {
-        uniqueId = randomID.nextInt(RANDOMBOUND); // Should be changed back to a max int value
-      } while (uniqueId == 400
-          || uniqueId == 500
-          || uniqueId == 403
-          || uniqueId == 404
-          || uniqueId == 401
-          || uniqueId == 200
-          || uniqueId == 0);
-
-      // This is the best approach I can imagine to break the loop to determine the ID is unique.
-      try {
-        database.readClientData(uniqueId);
-      } catch (EmptyQueryException eqe) {
-
-        try {
-          database.readInstructorData(uniqueId);
-        } catch (EmptyQueryException eqe2) {
-
-          try {
-            database.readManagerData(uniqueId);
-          } catch (EmptyQueryException eqe3) {
-            break;
-          }
-        }
-      }
-    }
-
-    return uniqueId;
   }
 
   /**
@@ -175,17 +81,14 @@ public class HealthHubModel {
   }
 
   /**
-   * This method adds/creates the client within the database. It checks for uniqueness of the ID and
-   * Email for ALL the instructor,client and Manager within the database
+   * This method adds/creates the client within the database. It checks for uniqueness of the Email
+   * for ALL the instructor,client and Manager within the database
    *
    * @param clientInitialData: JSONObject that contains the data from the new client to be created
-   * @return 403 if the email is not unique, 500 for server errors and "Unique Client ID" for
-   *     successful creations
+   * @param uniqueCId: Unique Client id to use to create the client
+   * @return 403 if the email is not unique, 500 for server errors and 200 for successful creations
    */
-  public int addClient(JSONObject clientInitialData) {
-    Random randomID = new Random();
-    int clientId = randomID.nextInt(RANDOMBOUND);
-    //int clientId = determineUniqueId();
+  public int addClient(int uniqueCId, JSONObject clientInitialData) {
     boolean emailUnique = determineUniqueEmail(clientInitialData.getString("email"));
 
     if (!emailUnique) {
@@ -193,25 +96,23 @@ public class HealthHubModel {
     }
 
     try {
-      clientInitialData.put("id", clientId);
-      database.createClient(clientId, clientInitialData);
-      return clientId;
+      database.createClient(uniqueCId, clientInitialData);
+      return 200;
     } catch (MongoException me) {
       return 500;
     }
   }
 
   /**
-   * This method adds/creates the instructor within the database It checks for uniqueness of the ID
-   * and Email for ALL the instructor,client and Manager within the database
+   * This method adds/creates the instructor within the database It checks for uniqueness of Email
+   * for ALL the instructor,client and Manager within the database
    *
    * @param instrInitialData: JSONObject that contains the data from the new instructor to be
    *     created
-   * @return 403 if the email is not unique, 500 for server errors and "Unique Instructor Id" for
-   *     successful creation
+   * @param uniqueIId: unique Instructor id to use to add
+   * @return 403 if the email is not unique, 500 for server errors and 200 for successful creation
    */
-  public int addInstructor(JSONObject instrInitialData) {
-    int instructorId = determineUniqueId();
+  public int addInstructor(int uniqueIId, JSONObject instrInitialData) {
     boolean emailUnique = determineUniqueEmail(instrInitialData.getString("email"));
 
     if (!emailUnique) {
@@ -219,8 +120,8 @@ public class HealthHubModel {
     }
 
     try {
-      database.createInstructor(instructorId, instrInitialData);
-      return instructorId;
+      database.createInstructor(uniqueIId, instrInitialData);
+      return 200;
     } catch (MongoException me) {
       return 500;
     }
@@ -232,11 +133,10 @@ public class HealthHubModel {
    *
    * @param managerInitialData: JSONObject that contains the data from the new instructor to be
    *     created
-   * @return 403 if the email is not unique, 500 for server errors and "Unique Manager ID" for
-   *     successful Creation
+   * @param uniqueMId: Unique Manager Id to use
+   * @return 403 if the email is not unique, 500 for server errors and 200 for successful Creation
    */
-  public int addManager(JSONObject managerInitialData) {
-    int managerId = determineUniqueId();
+  public int addManager(int uniqueMId, JSONObject managerInitialData) {
     boolean emailUnique = determineUniqueEmail(managerInitialData.getString("email"));
 
     if (!emailUnique) {
@@ -244,8 +144,8 @@ public class HealthHubModel {
     }
 
     try {
-      database.createManager(managerId, managerInitialData);
-      return managerId;
+      database.createManager(uniqueMId, managerInitialData);
+      return 200;
     } catch (MongoException me) {
       return 500;
     }
@@ -261,7 +161,7 @@ public class HealthHubModel {
    *     you logging in as
    * @throws IllegalArgumentException: when the loginSelection is invalid. It needs to be Client,
    *     Manager or Instructor
-   * @return: 200 for successful found. 401 for incorrect password. 404 for not found
+   * @return: Unique Id for successful found. 401 for incorrect password. 404 for not found
    */
   public int systemLogin(String emailUserName, String realPassword, String loginSelection)
       throws IllegalArgumentException {
@@ -327,5 +227,19 @@ public class HealthHubModel {
     } catch (Exception e) {
       return -1;
     }
+  }
+
+  /**
+   * This method gets the next unique id within the Database
+   *
+   * @return next available unique id
+   */
+  public int getUniqueId() {
+    return database.getUniqueId();
+  }
+
+  /** EXPERIMENTAL: Reset the unique ID system within the database */
+  public void resetUniqueID() {
+    database.resetUniqueId();
   }
 }
