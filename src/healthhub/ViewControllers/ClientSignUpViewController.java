@@ -14,7 +14,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.json.JSONObject;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -57,31 +56,29 @@ public class ClientSignUpViewController {
             age = Integer.parseInt(ageString);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "age could not be read");
+            View.goToView("ClientSignUpView.fxml", event);
         }
 
-        //regex looks for any number of white space
-        if (!(name.length() > 0) || name.matches("^ *$")) {
-            JOptionPane.showMessageDialog(null, "A Name is required");
+        //regex looks for a string space string, meaning users must enter a first and last name
+        if (!(name.length() > 0) || !name.matches("^([a-z]|[A-Z])+\\s([a-z]|[A-Z])+$")) {
+            JOptionPane.showMessageDialog(null, "A first and last name are requried");
         } else if (!(age > 0) || !(age < 150)) {
             JOptionPane.showMessageDialog(null, "Right now only ages 1 - 149 are accepted");
             View.goToView("ClientSignUpView.fxml", event);
         }
 
-        //regex looks for empty spaces entered
-        else if (!(email.length() > 0) || email.matches("^ *$")) {
-            JOptionPane.showMessageDialog(null, "A Email is required");
+        //regex looks for a email in the format of anything@anything.anything
+        else if (!(email.length() > 0) || !email.matches("^.+[@].+[.].+$")) {
+            JOptionPane.showMessageDialog(null, "A Email is required in the format example@js.com or example@js.ca");
+            View.goToView("ClientSignUpView.fxml", event);
+        } else if (!(phoneNumber.length() > 0)) {
+            JOptionPane.showMessageDialog(null, "A phone number the example format 1-306-220-5665 is required");
             View.goToView("ClientSignUpView.fxml", event);
         }
 
-        //regex looks for empty spaces entered
-        else if (!(phoneNumber.length() > 0) || phoneNumber.matches("^ *$")) {
-            JOptionPane.showMessageDialog(null, "A userName is required");
-            View.goToView("ClientSignUpView.fxml", event);
-        }
-
-        //regex looks for empty spaces entered
-        else if (!(passWord.length() > 0) || passWord.matches("^ *$")) {
-            JOptionPane.showMessageDialog(null, "A Password is required");
+        // min length of 6, Regex looks for any spaces in the password that is one string, no spaces w/ special characters,characters,numbers
+        else if (!(passWord.length() > 5) || !passWord.matches("^(\\w|\\D|\\d|\\W)*$")) {
+            JOptionPane.showMessageDialog(null, "A password of at at least 6 characters without spaces is required");
             View.goToView("ClientSignUpView.fxml", event);
         }
 
@@ -93,6 +90,7 @@ public class ClientSignUpViewController {
 //        System.out.println("email: " + email);
 //        System.out.println("passWord: " + passWord);
 //        System.out.println("finished manual output tesing");
+
         else {
             int clientUniqueID = HealthHubController.getUniqueID();
 
@@ -125,19 +123,7 @@ public class ClientSignUpViewController {
             } else if (signUpSuccessCode == 500) {
                 JOptionPane.showMessageDialog(null, "ERROR: Server Error");
             } else if (signUpSuccessCode == 200) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("../../Client/ClientView/clientMainView.fxml"));
-                Parent root = loader.load();
-
-                // Gets main view controller and passes client to it
-                ClientMainViewController viewController = loader.getController();
-                viewController.setupScene(clientUniqueID);
-
-                Scene viewScene = new Scene(root);
-                // Gets stage information
-                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                window.setScene(viewScene);
-                window.show();
-
+                View.goToViewWithUniqueID("../../Client/ClientView/clientMainView.fxml", event, clientUniqueID, "Client");
             } else {
                 JOptionPane.showMessageDialog(null, "ERROR: Sorry, a unknown error occurred");
             }
