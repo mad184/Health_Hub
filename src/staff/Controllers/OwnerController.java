@@ -88,7 +88,7 @@ public class OwnerController implements OwnerInterface, StaffInterface {
   }
 
   @Override
-  public JSONObject getJson() {
+  public JSONObject toJson() {
     return model.toJson();
   }
 

@@ -43,5 +43,5 @@ public interface ManagerInterface {
    *
    * @return Class JSONObject
    */
-  JSONObject getJson();
+  JSONObject toJson();
 }

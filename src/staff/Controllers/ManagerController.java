@@ -88,7 +88,7 @@ public class ManagerController implements ManagerInterface, StaffInterface {
   }
 
   @Override
-  public JSONObject getJson() {
+  public JSONObject toJson() {
     return model.toJson();
   }
 

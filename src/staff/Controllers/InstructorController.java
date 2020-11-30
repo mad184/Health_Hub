@@ -100,7 +100,7 @@ public class InstructorController implements InstructorInterface, StaffInterface
   }
 
   @Override
-  public JSONObject getJson() {
+  public JSONObject toJson() {
     return model.toJson();
   }
 

@@ -65,5 +65,5 @@ public interface InstructorInterface {
    *
    * @return Class JSONObject
    */
-  JSONObject getJson();
+  JSONObject toJson();
 }

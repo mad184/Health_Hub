@@ -44,5 +44,5 @@ public interface OwnerInterface {
    *
    * @return Class JSONObject
    */
-  JSONObject getJson();
+  JSONObject toJson();
 }
