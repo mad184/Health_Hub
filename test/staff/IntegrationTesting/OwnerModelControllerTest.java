@@ -117,7 +117,6 @@ public class OwnerModelControllerTest {
     assertTrue(controller.getManagers().isEmpty());
 
     controller.addManager(manager_1);
-    controller.addManager(manager_1);
     assertFalse(controller.getManagers().isEmpty());
 
     controller.addManager(manager_2);
