@@ -129,7 +129,7 @@ public class StaffModelTest {
     json.put("Weight", 199);
     json.put("Organization", "GloboGym");
     json.put("ID", 1);
-    StaffModel staff2 = StaffModel.fromJson(json);
+   // StaffModel staff2 = StaffModel.fromJson(json);
     //assertEquals(staff.getName(), staff2.getName());
     //assertEquals(staff.getAge(), staff2.getAge());
     //assertEquals(staff.getEmail(), staff2.getEmail());
