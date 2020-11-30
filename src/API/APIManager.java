@@ -21,19 +21,6 @@ public class APIManager {
   }
 
   /**
-   * Gets JSON of all exercises from WGER API
-   *
-   * @return a jsonobject with all exercises
-   */
-  private JSONObject getExerciseJsonFromAPI() throws UnirestException {
-    //Get Http response from api host
-    HttpResponse<String> response =
-            Unirest.get("https://wger.de/api/v2/exercise/?format=json").asString();
-    JSONObject jsonResponse = new JSONObject(response.getBody());
-    return jsonResponse;
-  }
-
-  /**
    * Looks for items from json that contain the string the user is searching for
    *
    * @param searchString exercise user is looking for
@@ -62,6 +49,19 @@ public class APIManager {
       }
     }
     return searchResults;
+  }
+
+  /**
+   * Gets JSON of all exercises from WGER API
+   *
+   * @return a jsonobject with all exercises
+   */
+  private JSONObject getExerciseJsonFromAPI() throws UnirestException {
+    //Get Http response from api host
+    HttpResponse<String> response =
+            Unirest.get("https://wger.de/api/v2/exercise/?format=json").asString();
+    JSONObject jsonResponse = new JSONObject(response.getBody());
+    return jsonResponse;
   }
 
   /**
