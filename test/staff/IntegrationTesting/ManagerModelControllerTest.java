@@ -1,8 +1,9 @@
-package staff;
+package staff.IntegrationTesting;
 
 import org.junit.jupiter.api.Test;
 import staff.Controllers.ManagerController;
 import staff.Models.ManagerModel;
+import staff.UserID;
 
 import java.util.ArrayList;
 
