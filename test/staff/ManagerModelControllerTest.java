@@ -10,6 +10,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ManagerModelControllerTest {
 
+  UserID Instructor_1 = new UserID(147, "Izzy");
+  UserID Instructor_2 = new UserID(258, "Carl");
+  UserID Instructor_3 = new UserID(258, "Jessy");
+  UserID Instructor_4 = new UserID(258, "Aubrey");
+
   ManagerModel model =
       new ManagerModel(
           "Steff",
@@ -90,5 +95,39 @@ public class ManagerModelControllerTest {
   @Test
   void testId() {
     assertEquals(controller.getId(), 3);
+  }
+
+  @Test
+  void ManagerInstructors() {
+    ArrayList<UserID> instructorTestList = new ArrayList<>();
+    instructorTestList.add(Instructor_1);
+    instructorTestList.add(Instructor_2);
+    instructorTestList.add(Instructor_3);
+    instructorTestList.add(Instructor_4);
+
+    controller.addInstructor(Instructor_1);
+    controller.addInstructor(Instructor_2);
+    assertNotNull(controller);
+    assertNotEquals(controller.getInstructors(), instructorTestList);
+
+    controller.addInstructor(Instructor_3);
+    controller.addInstructor(Instructor_4);
+    assertEquals(controller.getInstructors(), instructorTestList);
+
+    controller.removeInstructor(Instructor_1);
+    assertNotEquals(controller.getInstructors(), instructorTestList);
+
+    instructorTestList.remove(Instructor_1);
+    assertEquals(controller.getInstructors(), instructorTestList);
+
+    controller.removeInstructor(Instructor_3);
+    instructorTestList.remove(Instructor_3);
+    assertEquals(controller.getInstructors(), instructorTestList);
+
+    controller.removeInstructor(Instructor_2);
+    assertFalse(controller.getInstructors().contains(Instructor_2));
+    controller.removeInstructor(Instructor_4);
+
+    assertTrue(controller.getInstructors().isEmpty());
   }
 }
