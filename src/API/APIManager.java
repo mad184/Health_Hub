@@ -25,7 +25,7 @@ public class APIManager {
    *
    * @return a jsonobject with all exercises
    */
-  public JSONObject getExerciseJsonFromAPI() throws UnirestException {
+  private JSONObject getExerciseJsonFromAPI() throws UnirestException {
     //Get Http response from api host
     HttpResponse<String> response =
             Unirest.get("https://wger.de/api/v2/exercise/?format=json").asString();
@@ -33,6 +33,12 @@ public class APIManager {
     return jsonResponse;
   }
 
+  /**
+   * Looks for items from json that contain the string the user is searching for
+   *
+   * @param searchString exercise user is looking for
+   * @return a arraylist containing all the exercises found in the json that match what the user is looking for
+   */
   public ArrayList<ExerciseItem> findExerciseSearchMatches(String searchString) throws UnirestException {
     if (searchString.isEmpty()) {
       return null;
