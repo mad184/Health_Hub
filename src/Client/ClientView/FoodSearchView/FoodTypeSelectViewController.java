@@ -3,7 +3,6 @@ package Client.ClientView.FoodSearchView;
 import API.FoodItem;
 import Client.ClientController;
 import Client.ClientToDB;
-import Client.ClientView.ClientMainViewController;
 import Client.ClientView.ClientNutrientViewController;
 import database.EmptyQueryException;
 import database.JsonObjectException;
