@@ -43,5 +43,8 @@ public interface ManagerInterface {
    *
    * @return Class JSONObject
    */
-  JSONObject toJson();
+  public JSONObject toJson();
+
+  /** Get a JSONObject and set it back to a class - Instructor, Manager or owner */
+  public void fromJson(JSONObject staff);
 }
