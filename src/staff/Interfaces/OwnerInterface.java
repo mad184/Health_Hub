@@ -37,4 +37,12 @@ public interface OwnerInterface {
    * @return JSONObject representation of the ManagerView
    */
   public JSONObject getManagerInfo(UserID manager) throws EmptyQueryException;
+
+
+  /**
+   * Get a JSONObject from the class
+   *
+   * @return Class JSONObject
+   */
+  JSONObject getJson();
 }

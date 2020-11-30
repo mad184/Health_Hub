@@ -36,4 +36,12 @@ public interface ManagerInterface {
    * @param instructor: UserID of the Instructor
    */
   public JSONObject getInstructorInfo(UserID instructor) throws EmptyQueryException;
+
+
+  /**
+   * Get a JSONObject from the class
+   *
+   * @return Class JSONObject
+   */
+  JSONObject getJson();
 }

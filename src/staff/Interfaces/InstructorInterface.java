@@ -58,4 +58,12 @@ public interface InstructorInterface {
    * @return Information about the Client
    */
   JSONObject getClientInfo(UserID client) throws EmptyQueryException;
+
+
+  /**
+   * Get a JSONObject from the class
+   *
+   * @return Class JSONObject
+   */
+  JSONObject getJson();
 }
