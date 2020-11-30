@@ -105,6 +105,11 @@ public class InstructorController implements InstructorInterface, StaffInterface
   }
 
   @Override
+  public void fromJson(JSONObject staff) {
+    model.fromJson(staff);
+  }
+
+  @Override
   public void setName(String name) {
     model.setName(name);
   }
