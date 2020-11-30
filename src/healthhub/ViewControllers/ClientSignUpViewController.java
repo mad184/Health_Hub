@@ -77,7 +77,7 @@ public class ClientSignUpViewController {
         }
 
         // min length of 6, Regex looks for any spaces in the password that is one string, no spaces w/ special characters,characters,numbers
-        else if (!(passWord.length() > 5) || passWord.matches("^ *$") || !passWord.matches("^(\\w|\\D|\\d|\\W)*$")) {
+        else if (!(passWord.length() > 5) || !passWord.matches("^(\\w|\\D|\\d|\\W)*$")) {
             JOptionPane.showMessageDialog(null, "A password of at at least 6 characters without spaces is required");
             View.goToView("ClientSignUpView.fxml", event);
         }
