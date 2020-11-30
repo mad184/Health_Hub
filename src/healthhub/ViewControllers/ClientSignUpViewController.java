@@ -67,14 +67,11 @@ public class ClientSignUpViewController {
             View.goToView("ClientSignUpView.fxml", event);
         }
 
-        //regex looks for a email in the format of anything@anything.ca or anything@anything.com
-        else if (!(email.length() > 0) || !email.matches("^.*[@]{1}.*(.ca|.com)$")) {
+        //regex looks for a email in the format of anything@anything.anything
+        else if (!(email.length() > 0) || !email.matches("^.+[@].+[.].+$")) {
             JOptionPane.showMessageDialog(null, "A Email is required in the format example@js.com or example@js.ca");
             View.goToView("ClientSignUpView.fxml", event);
-        }
-
-        //regex looks anyting of the format #-###-###-####
-        else if (!(phoneNumber.length() > 0) || !phoneNumber.matches("^[0-9][-]{1}[0-9]{3}[-]{1}[0-9]{3}[-]{1}[0-9]{4}$")) {
+        } else if (!(phoneNumber.length() > 0)) {
             JOptionPane.showMessageDialog(null, "A phone number the example format 1-306-220-5665 is required");
             View.goToView("ClientSignUpView.fxml", event);
         }
