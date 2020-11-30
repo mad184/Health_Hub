@@ -91,6 +91,7 @@ public class OwnerModel extends ManagerModel implements OwnerInterface {
    *
    * @return JSONObject representation of an OwnerModel
    */
+  @Override
   public JSONObject toJson() throws JSONException {
     JSONObject json = super.toJson();
     json.put("Managers", this.managers);

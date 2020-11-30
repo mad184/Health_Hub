@@ -144,6 +144,7 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
    *
    * @return JSONObject representation of an Instructor
    */
+  @Override
   public JSONObject toJson() throws JSONException {
     JSONObject json = super.toJson();
     json.put("Clients", this.clients);
