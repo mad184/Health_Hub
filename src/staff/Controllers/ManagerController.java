@@ -1,6 +1,7 @@
 package staff.Controllers;
 
 import com.google.gson.Gson;
+import database.Dbms;
 import database.EmptyQueryException;
 import org.json.JSONObject;
 import staff.Interfaces.ManagerInterface;
@@ -141,5 +142,9 @@ public class ManagerController implements ManagerInterface, StaffInterface {
   @Override
   public void setOrganization(String orgName) {
     model.setOrganization(orgName);
+  }
+
+  public Dbms getDbms() {
+    return model.getDbms();
   }
 }
