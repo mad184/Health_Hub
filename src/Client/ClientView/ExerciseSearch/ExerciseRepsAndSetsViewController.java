@@ -32,11 +32,21 @@ public class ExerciseRepsAndSetsViewController {
     // Controller to hold client information
     private ClientController clientController = new ClientController(null);
 
+    /**
+     * Setsup scene for actions
+     * @param controller client info
+     * @param exerciseItem exercise being added to client
+     */
     public void setupScene(ClientController controller, ExerciseItem exerciseItem) {
         clientController = controller;
         this.exerciseItem = exerciseItem;
     }
 
+    /**
+     * Add exercise to client, updates client in database, then goes back to ClientExercise view
+     * @param event of add exercise button being pushed
+     * @throws EmptyQueryException throws when client is not found in database
+     */
     public void addExerciseButtonPushed(ActionEvent event) throws IOException, JsonObjectException, EmptyQueryException {
         this.exerciseItem.setSets(Integer.parseInt(setsInput.getText()));
         this.exerciseItem.setReps(Integer.parseInt(repsInput.getText()));
@@ -45,6 +55,10 @@ public class ExerciseRepsAndSetsViewController {
         goBack(event);
     }
 
+    /**
+     * Goes back to ClientExerciseView
+     * @param event event of add exercise button being pushed
+     */
     public void goBack(ActionEvent event) throws IOException {
         // Load food search scene
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../clientExerciseView.fxml"));
