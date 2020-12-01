@@ -42,10 +42,18 @@ public class ExerciseSearchViewController implements Initializable {
     // Controller to hold client information
     private ClientController clientController = new ClientController(null);
 
+    /**
+     * Sets up viewController for scene
+     * @param controller client info controller
+     */
     public void setupScene(ClientController controller) {
         clientController = controller;
     }
 
+    /**
+     * Searches for exercise from string inputted into textfield, then displays results with add button for each result
+     * @param event of search button being pressed
+     */
     public void onSearchButtonPressed(ActionEvent event) throws UnirestException {
         exerciseNameVBox.getChildren().removeAll();
         addButtonVBox.getChildren().removeAll();
@@ -78,6 +86,11 @@ public class ExerciseSearchViewController implements Initializable {
         }
     }
 
+    /**
+     * Goes to ExerciseRepsAndSetsView, passes client and the exercise being added to the controller for said view
+     * @param event of add button being pressed
+     * @param item exercise item wanting to be added
+     */
     public void addButtonPressed(ActionEvent event, ExerciseItem item) throws IOException {
         // Load food search scene
         FXMLLoader loader = new FXMLLoader(getClass().getResource("exerciseRepsAndSetsView.fxml"));
