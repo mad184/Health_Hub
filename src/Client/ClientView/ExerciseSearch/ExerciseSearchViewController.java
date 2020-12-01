@@ -52,6 +52,7 @@ public class ExerciseSearchViewController implements Initializable {
             exerciseLabel.setTextFill(Color.web("#ddd9d9"));
             Button addButton = new Button();
             addButton.setText("+");
+            addButton.setTextFill(Color.web("#ddd9d9"));
             addButton.setStyle(
                     "-fx-border-color: #9643a9; " +
                             "-fx-border-radius: 30; " +
@@ -71,7 +72,7 @@ public class ExerciseSearchViewController implements Initializable {
     }
 
     public void addButtonPressed(ActionEvent event, ExerciseItem item) {
-        
+
     }
 
     @Override
