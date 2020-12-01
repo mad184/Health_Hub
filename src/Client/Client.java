@@ -280,7 +280,7 @@ public class Client implements ClientInterface {
   @Override
   public void addLunchFood(FoodItem foodItem) {
     if (this.lunchFoods == null) {
-      ArrayList<FoodItem> list = new ArrayList<FoodItem>();
+      ArrayList<FoodItem> list = new ArrayList<>();
       list.add(foodItem);
       this.lunchFoods = list;
     } else {
@@ -291,7 +291,7 @@ public class Client implements ClientInterface {
   @Override
   public void addDinnerFood(FoodItem foodItem) {
     if (this.dinnerFoods == null) {
-      ArrayList<FoodItem> list = new ArrayList<FoodItem>();
+      ArrayList<FoodItem> list = new ArrayList<>();
       list.add(foodItem);
       this.dinnerFoods = list;
     } else {
@@ -302,7 +302,7 @@ public class Client implements ClientInterface {
   @Override
   public void addSnackFood(FoodItem foodItem) {
     if (this.snackFoods == null) {
-      ArrayList<FoodItem> list = new ArrayList<FoodItem>();
+      ArrayList<FoodItem> list = new ArrayList<>();
       list.add(foodItem);
       this.snackFoods = list;
     } else {
@@ -322,8 +322,15 @@ public class Client implements ClientInterface {
 
   @Override
   public void addExercise(ExerciseItem exerciseItem) {
-    this.exercises.add(exerciseItem);
+    if (this.exercises == null) {
+      ArrayList<ExerciseItem> list = new ArrayList<>();
+      list.add(exerciseItem);
+      this.exercises = list;
+    } else {
+      this.exercises.add(exerciseItem);
+    }
   }
+
 
   public JSONObject toJSON() {
     Gson json = new Gson();
@@ -471,7 +478,34 @@ public class Client implements ClientInterface {
                         exerciseInfo[0], Integer.parseInt(exerciseInfo[1]), Integer.parseInt(exerciseInfo[2]));
         exerciseList.add(exerciseItem);
       }
-      setSnackFoods(snackFoods);
+      setExercises(exerciseList);
     }
+  }
+
+  @Override
+  public String toString() {
+    return "Client{" +
+            "name='" + name + '\'' +
+            ", email='" + email + '\'' +
+            ", password='" + password + '\'' +
+            ", instructor='" + instructor + '\'' +
+            ", organization='" + organization + '\'' +
+            ", phoneNumber='" + phoneNumber + '\'' +
+            ", id=" + id +
+            ", age=" + age +
+            ", height=" + height +
+            ", weight=" + weight +
+            ", goalWeight=" + goalWeight +
+            ", goalCals=" + goalCals +
+            ", calories=" + calories +
+            ", allergies=" + allergies +
+            ", comment=" + comment +
+            ", profilePicture=" + profilePicture +
+            ", breakfastFoods=" + breakfastFoods +
+            ", lunchFoods=" + lunchFoods +
+            ", dinnerFoods=" + dinnerFoods +
+            ", snackFoods=" + snackFoods +
+            ", exercises=" + exercises +
+            '}';
   }
 }
