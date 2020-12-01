@@ -150,7 +150,11 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
   @Override
   public JSONObject toJson() throws JSONException {
     JSONObject json = super.toJson();
-    json.put("Clients", this.clients);
+    ArrayList<String> clientList = new ArrayList<>();
+    for(UserID user : this.clients) {
+      clientList.add(user.toString());
+    }
+    json.put("Clients", clientList);
     return json;
   }
 
@@ -162,49 +166,15 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
    */
   public Gson fromJson(JSONObject jsonObject) {
     Gson ObjectClass = super.fromJson(jsonObject);
-    String[] ListArray = String.valueOf(jsonObject.get("Clients")).split(" ");
-
+    String[] ListArray = String.valueOf(jsonObject.get("Clients")).split(",");
     for (String item : ListArray) {
-      String[] clientInfo = item.split(",");
-      UserID userClient = new UserID(Integer.parseInt(clientInfo[0]), clientInfo[1]);
+      String stripped = item.replace("\"", "");
+      String bare = stripped.replace("[", "");
+      String done = bare.replace("]", "");
+      String[] clientInfo = done.split(";");
+      UserID userClient = new UserID(Integer.parseInt(clientInfo[1]), clientInfo[0]);
       addClient(userClient);
     }
     return ObjectClass;
   }
-
-  /**
-   * Gets the calories of the user
-   *
-   * @return client calorie
-   */
-  @Override
-  public int getCalories() {
-    return this.getCaloriesGoal();
-  }
-
-  /**
-   * Gets the goal calorie of the client
-   *
-   * @return the goal set for calories
-   */
-  @Override
-  public int getCaloriesGoal() {
-    return 0;
-  }
-
-  /**
-   * Sets calorie of the user
-   *
-   * @param calories calories
-   */
-  @Override
-  public void setCalories(int calories) {}
-
-  /**
-   * Sets the goal calorie
-   *
-   * @param goalCal the calorie that is the goal
-   */
-  @Override
-  public void setGoalCal(int goalCal) {}
 }

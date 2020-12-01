@@ -57,11 +57,12 @@ public class InstructorModelControllerTest {
     controller.setOrganization("");
     controller.setPhoneNumber("306-444-4444");
 
+    System.out.println(controller.getCaloriesGoal());
     assertEquals(controller.getCaloriesGoal(), 120);
     assertEquals(controller.getCalories(), 100);
     assertEquals(controller.getAge(), 20);
     assertEquals(controller.getName(), "Jones");
-    assertEquals(controller.getEmail(), "Jones@usas.ca");
+    assertEquals(controller.getEmail(), "Jones@usask.ca");
     assertEquals(controller.getOrganization(), "");
     assertEquals(controller.getPhoneNumber(), "306-444-4444");
   }
