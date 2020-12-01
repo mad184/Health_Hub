@@ -11,14 +11,14 @@
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2a0033" height="400.0" stroke="BLACK" strokeType="INSIDE"
                  width="600.0"/>
-      <TextField alignment="CENTER" layoutX="207.0" layoutY="14.0" promptText="Search for exercise"
+      <TextField fx:id="searchBar" alignment="CENTER" layoutX="207.0" layoutY="14.0" promptText="Search for exercise"
                  style="-fx-background-color: #ffffff; -fx-border-color: #9643A9; -fx-background-radius: 10; -fx-border-radius: 10;">
          <font>
             <Font size="15.0"/>
          </font>
       </TextField>
       <Button alignment="CENTER" layoutX="429.0" layoutY="16.0" mnemonicParsing="false"
-              style="-fx-background-color: #2a0033;" text="Search" textFill="#ddd9d9">
+              onAction="#onSearchButtonPressed" style="-fx-background-color: #2a0033;" text="Search" textFill="#ddd9d9">
          <font>
             <Font size="14.0"/>
          </font>
