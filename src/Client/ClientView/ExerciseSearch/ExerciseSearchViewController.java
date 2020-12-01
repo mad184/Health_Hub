@@ -7,13 +7,19 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -24,14 +30,11 @@ public class ExerciseSearchViewController implements Initializable {
     private final APIManager apiManager = new APIManager();
 
     // TextField
-    private @FXML
-    final TextField searchBar = new TextField();
+    @FXML TextField searchBar = new TextField();
 
     //VBoxes for results
-    @FXML
-    private final VBox exerciseNameVBox = new VBox();
-    @FXML
-    private final VBox addButtonVBox = new VBox();
+    @FXML VBox exerciseNameVBox = new VBox();
+    @FXML VBox addButtonVBox = new VBox();
 
     //Array list initialized for results
     private ArrayList<ExerciseItem> results = new ArrayList<>();
@@ -63,7 +66,11 @@ public class ExerciseSearchViewController implements Initializable {
             addButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent e) {
-                    addButtonPressed(e, results.get(finalI));
+                    try {
+                        addButtonPressed(e, results.get(finalI));
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
                 }
             });
             exerciseNameVBox.getChildren().add(exerciseLabel);
@@ -71,8 +78,21 @@ public class ExerciseSearchViewController implements Initializable {
         }
     }
 
-    public void addButtonPressed(ActionEvent event, ExerciseItem item) {
+    public void addButtonPressed(ActionEvent event, ExerciseItem item) throws IOException {
+        // Load food search scene
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("exerciseRepsAndSetsView.fxml"));
+        Parent root = loader.load();
 
+        // Get controller for search scene
+        ExerciseRepsAndSetsViewController viewController = loader.getController();
+        // setup scene
+        viewController.setupScene(clientController, item);
+
+        Scene viewScene = new Scene(root);
+        // Gets stage information
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(viewScene);
+        window.show();
     }
 
     @Override
