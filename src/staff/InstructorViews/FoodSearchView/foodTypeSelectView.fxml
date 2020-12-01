@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
-<AnchorPane prefHeight="267.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.ClientView.FoodSearchView.FoodTypeSelectViewController">
+<AnchorPane prefHeight="267.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="staff.InstructorViews.FoodSearchView.FoodTypeSelectViewController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2a0033" height="267.0" stroke="BLACK" strokeType="INSIDE" width="400.0" />
       <Label layoutX="78.0" layoutY="43.0" text="Select what type of meal" textFill="#ddd9d9">

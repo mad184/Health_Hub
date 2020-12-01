@@ -31,7 +31,7 @@ public class InstructorMainViewController {
   public void setupScene(InstructorController instructorID) {
     // Sets client to client controller for scene
     //controller.model.DB.getInstructor(instructorID);
-
+    this.controller = instructorID;
     // Changes name label to clients name
     nameLabel.setText(controller.getName());
 
