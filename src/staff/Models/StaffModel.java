@@ -18,6 +18,7 @@ public class StaffModel implements StaffInterface {
   private int id;
   public Dbms db;
   private int calories;
+  private int calorieGoal;
 
   /**
    * Constructs a new StaffModel object.
@@ -54,6 +55,7 @@ public class StaffModel implements StaffInterface {
     this.organization = organization;
     this.id = id;
     this.calories = 0;
+    this.calorieGoal = 0;
     this.db = new Dbms(username, password, dbName, tableName);
   }
 
@@ -147,7 +149,7 @@ public class StaffModel implements StaffInterface {
    */
   @Override
   public int getCaloriesGoal() {
-    return 0;
+    return this.calorieGoal;
   }
 
   /**
@@ -237,7 +239,7 @@ public class StaffModel implements StaffInterface {
    */
   @Override
   public void setCalories(int calories) {
-
+    this.calories = calories;
   }
 
   /**
@@ -247,7 +249,7 @@ public class StaffModel implements StaffInterface {
    */
   @Override
   public void setGoalCal(int goalCal) {
-
+    this.calorieGoal = goalCal;
   }
 
   /**

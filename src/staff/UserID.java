@@ -5,6 +5,11 @@ public class UserID {
   private int id;
   private String name;
 
+
+  public String toString() {
+    return this.name + ";" + this.id;
+  }
+
   /**
    * Constructs a UserID object.
    *
