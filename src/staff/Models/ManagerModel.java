@@ -2,6 +2,7 @@ package staff.Models;
 
 import java.util.List;
 
+
 import database.EmptyQueryException;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,12 +37,24 @@ public class ManagerModel extends StaffModel implements ManagerInterface {
       String organization,
       int id,
       List<UserID> instructors,
-      String username,  // For connection to Dbms
-      String password,  // For connection to Dbms
-      String dbName,    // For connection to Dbms
+      String username, // For connection to Dbms
+      String password, // For connection to Dbms
+      String dbName, // For connection to Dbms
       String tableName) // For connection to Dbms)
-       {
-    super(name, age, email, phoneNumber, height, weight, organization, id, username, password, dbName, tableName);
+      {
+    super(
+        name,
+        age,
+        email,
+        phoneNumber,
+        height,
+        weight,
+        organization,
+        id,
+        username,
+        password,
+        dbName,
+        tableName);
     this.instructors = instructors;
   }
 
@@ -50,11 +63,9 @@ public class ManagerModel extends StaffModel implements ManagerInterface {
    *
    * @param manager: JSONObject of the manager
    * @return ManagerModel object
+   *     <p>public static ManagerModel fromJson(JSONObject manager) { Gson converter = new Gson();
+   *     return converter.fromJson(String.valueOf(manager), ManagerModel.class); }
    */
-  public static ManagerModel fromJson(JSONObject manager) {
-    Gson converter = new Gson();
-    return converter.fromJson(String.valueOf(manager), ManagerModel.class);
-  }
 
   /**
    * Gets the Instructor list (as UserIDs) for the ManagerView
@@ -104,7 +115,19 @@ public class ManagerModel extends StaffModel implements ManagerInterface {
   @Override
   public JSONObject toJson() throws JSONException {
     JSONObject json = super.toJson();
-    json.put("Clients", this.instructors);
+    json.put("Instructors", this.instructors);
     return json;
+  }
+
+  public Gson fromJson(JSONObject jsonObject) {
+    Gson ObjectClass = super.fromJson(jsonObject);
+    String[] ListArray = String.valueOf(jsonObject.get("Instructors")).split(" ");
+
+    for (String item : ListArray) {
+      String[] InstructorInfo = item.split(",");
+      UserID userClient = new UserID(Integer.parseInt(InstructorInfo[0]), InstructorInfo[1]);
+      addInstructor(userClient);
+    }
+    return ObjectClass;
   }
 }
