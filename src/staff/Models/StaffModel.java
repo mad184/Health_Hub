@@ -288,13 +288,13 @@ public class StaffModel implements StaffInterface {
 
   public Gson fromJson(JSONObject jsonObject){
     Gson ObjectClass = new Gson();
-    setName(ObjectClass.fromJson(String.valueOf(jsonObject.get("name")), String.class));
+    setName(ObjectClass.fromJson(String.valueOf(jsonObject.get("Name")), String.class));
     setAge(ObjectClass.fromJson(String.valueOf(jsonObject.get("Age")), int.class));
     setEmail(ObjectClass.fromJson(String.valueOf(jsonObject.get("email")), String.class));
     setPhoneNumber(ObjectClass.fromJson(String.valueOf(jsonObject.get("Phone Number")), String.class));
     setHeight(ObjectClass.fromJson(String.valueOf(jsonObject.get("Height")), int.class));
     setWeight(ObjectClass.fromJson(String.valueOf(jsonObject.get("Weight")), int.class));
-    setOrganization(ObjectClass.fromJson(String.valueOf(jsonObject.get("Organization")), String.class));
+    //setOrganization(ObjectClass.fromJson(String.valueOf(jsonObject.get("Organization")), String.class));
     return ObjectClass;
   }
 }
