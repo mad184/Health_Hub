@@ -1,5 +1,6 @@
 package staff.Models;
 
+import java.util.ArrayList;
 import java.util.List;
 import database.Dbms;
 import database.EmptyQueryException;
@@ -62,11 +63,12 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
    *
    * @param instructor: JSONObject of the instructor
    * @return InstructorModel object
-   */
+   *
   public static InstructorModel fromJson(JSONObject instructor) {
     Gson converter = new Gson();
     return converter.fromJson(String.valueOf(instructor), InstructorModel.class);
   }
+   */
 
   /**
    * Gets the Client list for the Instructor.
@@ -149,6 +151,18 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
     JSONObject json = super.toJson();
     json.put("Clients", this.clients);
     return json;
+  }
+
+  public Gson fromJson(JSONObject jsonObject){
+    Gson ObjectClass =  super.fromJson(jsonObject);
+    String[] ListArray = String.valueOf(jsonObject.get("Clients")).split(" ");
+
+    for (String item: ListArray){
+      String[] clientInfo = item.split(",");
+      UserID userClient = new UserID(Integer.parseInt(clientInfo[0]), clientInfo[1]);
+      addClient(userClient);
+    }
+    return ObjectClass;
   }
 
   /**
