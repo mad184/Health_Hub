@@ -2,6 +2,10 @@ package Client.ClientView.ExerciseSearch;
 
 import API.ExerciseItem;
 import Client.ClientController;
+import Client.ClientToDB;
+import Client.ClientView.ClientExerciseViewController;
+import database.EmptyQueryException;
+import database.JsonObjectException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +18,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class ExerciseRepsAndSetsViewController {
+
+    //Database connection
+    ClientToDB DB = new ClientToDB();
 
     //Exercise Item
     ExerciseItem exerciseItem;
@@ -30,20 +37,21 @@ public class ExerciseRepsAndSetsViewController {
         this.exerciseItem = exerciseItem;
     }
 
-    public void addExerciseButtonPushed(ActionEvent event) throws IOException {
+    public void addExerciseButtonPushed(ActionEvent event) throws IOException, JsonObjectException, EmptyQueryException {
         this.exerciseItem.setSets(Integer.parseInt(setsInput.getText()));
         this.exerciseItem.setReps(Integer.parseInt(repsInput.getText()));
-        clientController.addExercise(this.exerciseItem);
+        clientController.addExercise(exerciseItem);
+        DB.updateClient(clientController.getClientID(), clientController.clientToJson());
         goBack(event);
     }
 
     public void goBack(ActionEvent event) throws IOException {
         // Load food search scene
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("exerciseSearchView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../clientExerciseView.fxml"));
         Parent root = loader.load();
 
         // Get controller for search scene
-        ExerciseSearchViewController viewController = loader.getController();
+        ClientExerciseViewController viewController = loader.getController();
         // setup scene
         viewController.setupScene(clientController);
 
