@@ -1,5 +1,6 @@
 package staff.IntegrationTesting;
 
+import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 
 import staff.Controllers.InstructorController;
@@ -110,5 +111,17 @@ public class InstructorModelControllerTest {
     assertEquals(client_1.getName(), "Jimmy");
     assertEquals(client_2.getName(), "Pam");
     assertEquals(client_3.getName(), "Nick");
+  }
+
+  @Test
+  void testToJason(){
+    controller.addClient(client_1);
+    controller.addClient(client_2);
+    JSONObject JsonInstructor = controller.toJson();
+    assertNotNull(JsonInstructor);
+    controller.setName("Not the right name");
+    controller.fromJson(JsonInstructor);
+    assertEquals(controller.getName(), "John");
+
   }
 }
