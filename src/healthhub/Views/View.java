@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import staff.InstructorViews.InstructorMainViewController;
 import staff.OwnerViews.OwnerMainViewController;
@@ -32,12 +33,6 @@ public class View {
         stage.show();
     }
 
-    public static void goToView(String fxmlFileName, ActionEvent event, Parent root) throws IOException {
-        Scene newScene = new Scene(root);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(newScene);
-        stage.show();
-    }
 
     public static void goToViewWithUniqueID(String fxmlFileName, ActionEvent event, int UniqueIDCode, String userType) throws EmptyQueryException, IOException {
         try {
@@ -78,5 +73,11 @@ public class View {
             JOptionPane.showMessageDialog(null, "Error: EmptyQueryExeption From view.java");
             View.goToView("LoginView.fxml", event);
         }
+    }
+
+    public static void showAlertMessage(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
