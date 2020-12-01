@@ -62,12 +62,13 @@ public class StaffModel implements StaffInterface {
    *
    * @param staff: JSONObject representation of a StaffModel object
    * @return a StaffModel object
-   */
+   *
   public static StaffModel fromJson(JSONObject staff) {
     Gson converter = new Gson();
     System.out.println(String.valueOf(staff));
     return converter.fromJson(String.valueOf(staff), StaffModel.class);
   }
+   */
 
   /**
    * Gets the name of the staff member.
@@ -276,12 +277,24 @@ public class StaffModel implements StaffInterface {
     JSONObject json = new JSONObject();
     json.put("Name", this.name);
     json.put("Age", this.age);
-    json.put("Email", this.email);
+    json.put("email", this.email);
     json.put("Phone Number", this.phoneNumber);
     json.put("Height", this.height);
     json.put("Weight", this.weight);
     json.put("Organization", this.organization);
     json.put("ID", this.id);
     return json;
+  }
+
+  public Gson fromJson(JSONObject jsonObject){
+    Gson ObjectClass = new Gson();
+    setName(ObjectClass.fromJson(String.valueOf(jsonObject.get("name")), String.class));
+    setAge(ObjectClass.fromJson(String.valueOf(jsonObject.get("Age")), int.class));
+    setEmail(ObjectClass.fromJson(String.valueOf(jsonObject.get("email")), String.class));
+    setPhoneNumber(ObjectClass.fromJson(String.valueOf(jsonObject.get("Phone Number")), String.class));
+    setHeight(ObjectClass.fromJson(String.valueOf(jsonObject.get("Height")), int.class));
+    setWeight(ObjectClass.fromJson(String.valueOf(jsonObject.get("Weight")), int.class));
+    setOrganization(ObjectClass.fromJson(String.valueOf(jsonObject.get("Organization")), String.class));
+    return ObjectClass;
   }
 }
