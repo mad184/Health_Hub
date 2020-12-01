@@ -28,6 +28,7 @@ public class ManagerModel extends StaffModel implements ManagerInterface {
    */
   public ManagerModel(
       String name,
+      String userPassword,
       int age,
       String email,
       String phoneNumber,
@@ -43,6 +44,7 @@ public class ManagerModel extends StaffModel implements ManagerInterface {
       {
     super(
         name,
+        userPassword,
         age,
         email,
         phoneNumber,

@@ -48,7 +48,7 @@ public class View {
             } else if (userType.equals("Instructor")) {
                 // Gets main view controller and passes client to it
                 InstructorMainViewController viewController = loader.getController();
-                //            viewController.setupScene(UniqueIDCode);
+                            viewController.setupScene(UniqueIDCode);
             } else if (userType.equals("Manager")) {
                 // Gets main view controller and passes client to it
                 InstructorMainViewController viewController = loader.getController();

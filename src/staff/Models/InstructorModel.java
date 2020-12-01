@@ -30,6 +30,7 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
    */
   public InstructorModel(
       String name,
+      String userPassword,
       int age,
       String email,
       String phoneNumber,
@@ -44,6 +45,7 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
       String tableName) {
     super(
         name,
+        userPassword,
         age,
         email,
         phoneNumber,

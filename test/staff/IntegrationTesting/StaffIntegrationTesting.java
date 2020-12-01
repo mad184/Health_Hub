@@ -28,6 +28,7 @@ public class StaffIntegrationTesting {
   InstructorModel instructorModel =
       new InstructorModel(
           "John",
+          "john1",
           21,
           "john@usask.ca",
           "306-555-5555",
@@ -36,14 +37,15 @@ public class StaffIntegrationTesting {
           "Average Joes",
           1,
           new ArrayList<>(),
-          "Marcos",
-          "Manager1",
-          "Dev-Marcos-Db",
-          "Instructors");
+              "test-user",
+              "healthhub1",
+              "Test-General-Database",
+              "testCollection");
 
   ManagerModel managerModel =
       new ManagerModel(
           "Steff",
+          "steff1",
           33,
           "steff@usask.ca",
           "306-888-8888",
@@ -60,6 +62,7 @@ public class StaffIntegrationTesting {
   OwnerModel ownerModel =
       new OwnerModel(
           "Andrew",
+          "andrew1",
           38,
           "Andrew@usask.ca",
           "306-123-4567",
@@ -108,11 +111,11 @@ public class StaffIntegrationTesting {
 
   @Test
   void testAddInstructorToDb() throws EmptyQueryException {
-
+    //REMOVE FROM DB PLEASE
     assertNotNull(instructorController.toJson());
     dbAccess.createInstructor(instructorController.getId(), instructorController.toJson());
     assertNotNull(dbAccess.getInstructor(instructorController.getId()));
-    dbAccess.removeInstructor(instructorController.getId());
+    //dbAccess.removeInstructor(instructorController.getId());
   }
 
   @Test

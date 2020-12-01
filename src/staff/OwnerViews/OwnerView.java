@@ -18,6 +18,7 @@ public class OwnerView extends Application {
   public OwnerController controller = new OwnerController(
           new OwnerModel(
             "John Wick",
+            "wick1",
             21,
                   "john@usask.ca",
                   "306-555-5555",

@@ -28,6 +28,7 @@ public class OwnerModel extends ManagerModel implements OwnerInterface {
    */
   public OwnerModel(
       String name,
+      String userPassword,
       int age,
       String email,
       String phoneNumber,
@@ -43,6 +44,7 @@ public class OwnerModel extends ManagerModel implements OwnerInterface {
       String tableName) {
     super(
         name,
+        userPassword,
         age,
         email,
         phoneNumber,

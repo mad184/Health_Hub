@@ -20,6 +20,7 @@ public class ManagerView extends Application {
   public ManagerController controller = new ManagerController(
           new ManagerModel(
             "John Wick",
+            "wick1",
             21,
                   "john@usask.ca",
                   "306-555-5555",

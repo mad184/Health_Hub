@@ -22,6 +22,7 @@ public class InstructorModelControllerTest {
   InstructorModel model =
       new InstructorModel(
           "John",
+          "john1",
           21,
           "john@usask.ca",
           "306-555-5555",

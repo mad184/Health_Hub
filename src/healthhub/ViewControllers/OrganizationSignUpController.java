@@ -81,6 +81,7 @@ public class OrganizationSignUpController {
       OwnerModel newOwner =
               new OwnerModel(
                       ownerName,
+                      passWord,
                       age,
                       email,
                       phoneNumber,

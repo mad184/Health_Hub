@@ -76,6 +76,7 @@ public class InstructorSignUpController {
             InstructorModel newInstructor =
                     new InstructorModel(
                             name,
+                            passWord,
                             age,
                             email,
                             phoneNumber,

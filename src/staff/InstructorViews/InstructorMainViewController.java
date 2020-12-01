@@ -11,13 +11,16 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import java.io.IOException;
 
+import org.json.JSONObject;
 import staff.Controllers.InstructorController;
+import staff.Models.InstructorModel;
 import staff.StaffToDB;
 
 public class InstructorMainViewController {
 
   InstructorController controller;
 
+  StaffToDB db;
 
   // Label for Instructor name
   @FXML private Label nameLabel = new Label();
@@ -28,12 +31,36 @@ public class InstructorMainViewController {
   // Label for most recent client comments
   @FXML private Label commentLabel = new Label();
 
-  public void setupScene(InstructorController instructorID) {
+  public void setupScene(int _id) throws EmptyQueryException {
+    this.db = new StaffToDB();
     // Sets client to client controller for scene
     //controller.model.DB.getInstructor(instructorID);
-    this.controller = instructorID;
+    InstructorModel newInstructor =
+            new InstructorModel(
+                    "",
+                    "",
+                    0,
+                    "",
+                    "",
+                    0,
+                    0,
+                    "none",
+                    1,
+                    null,
+                    "test-user",
+                    "healthhub1",
+                    "test-user",
+                    "Test-General-Database");
+
+    InstructorController Instructorcontroller = new InstructorController(newInstructor);
+
+    JSONObject InstructorFromDb = db.getInstructor(_id);
+
+    Instructorcontroller.fromJson(InstructorFromDb);
+
+    this.controller = Instructorcontroller;
     // Changes name label to clients name
-    nameLabel.setText(controller.getName());
+    nameLabel.setText(this.controller.getName());
 
     // Changes recommendation label to client's recommendations
     recommendationLabel.setText("None");

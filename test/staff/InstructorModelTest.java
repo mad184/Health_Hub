@@ -18,6 +18,7 @@ public class InstructorModelTest {
   // It can be changed
   InstructorModel model = new InstructorModel(
           "John",
+          "john1",
           21,
           "john@usask.ca",
           "306-555-5555",
