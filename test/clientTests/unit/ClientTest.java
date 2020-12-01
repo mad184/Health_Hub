@@ -100,6 +100,12 @@ class ClientTest {
   }
 
   @Test
+  void changeCalories(){
+    client1.setCalories(2000);
+    assertEquals(2000, client1.getCalories());
+  }
+
+  @Test
   void addFood(){
     clientController1.addClientBreakfastFood(new FoodItem("Donut", 1.0, 100));
     clientController1.addClientBreakfastFood(new FoodItem("Donut", 1.0, 100));
