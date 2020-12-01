@@ -1,5 +1,6 @@
 package staff.Interfaces;
 
+import com.google.gson.Gson;
 import database.EmptyQueryException;
 import org.json.JSONObject;
 import staff.UserID;
@@ -14,21 +15,21 @@ public interface OwnerInterface {
    *
    * @return List of UserIDs of the Managers
    */
-  public List<UserID> getManagers();
+  List<UserID> getManagers();
 
   /**
    * Adds a ManagerView to the organization.
    *
    * @param manager: UserID of the new ManagerView
    */
-  public void addManager(UserID manager);
+  void addManager(UserID manager);
 
   /**
    * Removes a ManagerView from the organization.
    *
    * @param manager: UserID of the ManagerView
    */
-  public void removeManager(UserID manager);
+  void removeManager(UserID manager);
 
   /**
    * Gets the information about a ManagerView from the database.
@@ -36,5 +37,16 @@ public interface OwnerInterface {
    * @param manager: UserID of the ManagerView
    * @return JSONObject representation of the ManagerView
    */
-  public JSONObject getManagerInfo(UserID manager) throws EmptyQueryException;
+  JSONObject getManagerInfo(UserID manager) throws EmptyQueryException;
+
+
+  /**
+   * Get a JSONObject from the class
+   *
+   * @return Class JSONObject
+   */
+  JSONObject toJson();
+
+  /** Get a JSONObject and set it back to a class - Instructor, Manager or owner */
+  Gson fromJson(JSONObject staff);
 }

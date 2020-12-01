@@ -22,7 +22,7 @@ public class InstructorView extends Application {
                   175,
                   160,
                   "Average Joes",
-                  1,
+                  2,
                   new ArrayList<UserID>(),
           "Remington",
                   "Instructor1",

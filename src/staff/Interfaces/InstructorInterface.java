@@ -1,5 +1,6 @@
 package staff.Interfaces;
 
+import com.google.gson.Gson;
 import database.EmptyQueryException;
 import database.JsonObjectException;
 import org.json.JSONException;
@@ -41,7 +42,8 @@ public interface InstructorInterface {
    * @param client: Client receiving the comment
    * @param comment: The comment itself
    */
-  void addComment(UserID client, String comment) throws JSONException, JsonObjectException, EmptyQueryException;
+  void addComment(UserID client, String comment)
+      throws JSONException, JsonObjectException, EmptyQueryException;
 
   /**
    * Removes a comment on the Client's profile. Client must be in the Instructor's client list.
@@ -49,7 +51,8 @@ public interface InstructorInterface {
    * @param client: Client whose profile the comment is on
    * @param comment: The comment itself
    */
-  void removeComment(UserID client, String comment) throws JSONException, JsonObjectException, EmptyQueryException;
+  void removeComment(UserID client, String comment)
+      throws JSONException, JsonObjectException, EmptyQueryException;
 
   /**
    * Gets all information about a Client. Client must be in the Instructor's Client list.
@@ -58,4 +61,14 @@ public interface InstructorInterface {
    * @return Information about the Client
    */
   JSONObject getClientInfo(UserID client) throws EmptyQueryException;
+
+  /**
+   * Get a JSONObject from the class
+   *
+   * @return Class JSONObject
+   */
+  JSONObject toJson();
+
+  /** Get a JSONObject and set it back to a class - Instructor, Manager or owner */
+  Gson fromJson(JSONObject staff);
 }

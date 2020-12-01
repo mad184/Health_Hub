@@ -41,7 +41,20 @@ public class OwnerModel extends ManagerModel implements OwnerInterface {
       String password,
       String dbName,
       String tableName) {
-    super(name, age, email, phoneNumber, height, weight, organization, id, instructors, username, password, dbName, tableName);
+    super(
+        name,
+        age,
+        email,
+        phoneNumber,
+        height,
+        weight,
+        organization,
+        id,
+        instructors,
+        username,
+        password,
+        dbName,
+        tableName);
     this.managers = managers;
   }
 
@@ -50,11 +63,9 @@ public class OwnerModel extends ManagerModel implements OwnerInterface {
    *
    * @param owner: JSONObject representation of an Owner.
    * @return OwnerModel object
+   *     <p>public static OwnerModel fromJson(JSONObject owner) { Gson converter = new Gson();
+   *     return converter.fromJson(String.valueOf(owner), OwnerModel.class); }
    */
-  public static OwnerModel fromJson(JSONObject owner) {
-    Gson converter = new Gson();
-    return converter.fromJson(String.valueOf(owner), OwnerModel.class);
-  }
 
   /**
    * Gets the list of Managers (UserIDs) for the Owner.
@@ -91,10 +102,29 @@ public class OwnerModel extends ManagerModel implements OwnerInterface {
    *
    * @return JSONObject representation of an OwnerModel
    */
+  @Override
   public JSONObject toJson() throws JSONException {
     JSONObject json = super.toJson();
     json.put("Managers", this.managers);
     return json;
+  }
+
+  /**
+   * A method that sets a JSONObject back to OwnerModel Class
+   *
+   * @param jsonObject Owner class in JSONObject
+   * @return OwnerModel Class
+   */
+  public Gson fromJson(JSONObject jsonObject) {
+    Gson ObjectClass = super.fromJson(jsonObject);
+    String[] ListArray = String.valueOf(jsonObject.get("Managers")).split(" ");
+
+    for (String item : ListArray) {
+      String[] ManagerInfo = item.split(",");
+      UserID userClient = new UserID(Integer.parseInt(ManagerInfo[0]), ManagerInfo[1]);
+      addManager(userClient);
+    }
+    return ObjectClass;
   }
 
   /**

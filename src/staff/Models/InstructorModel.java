@@ -1,5 +1,6 @@
 package staff.Models;
 
+import java.util.ArrayList;
 import java.util.List;
 import database.Dbms;
 import database.EmptyQueryException;
@@ -62,11 +63,9 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
    *
    * @param instructor: JSONObject of the instructor
    * @return InstructorModel object
+   *     <p>public static InstructorModel fromJson(JSONObject instructor) { Gson converter = new
+   *     Gson(); return converter.fromJson(String.valueOf(instructor), InstructorModel.class); }
    */
-  public static InstructorModel fromJson(JSONObject instructor) {
-    Gson converter = new Gson();
-    return converter.fromJson(String.valueOf(instructor), InstructorModel.class);
-  }
 
   /**
    * Gets the Client list for the Instructor.
@@ -105,9 +104,11 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
    * @param comment: The comment itself
    */
   @Override
-  public void addComment(UserID client, String comment) throws JSONException, JsonObjectException, EmptyQueryException {
+  public void addComment(UserID client, String comment)
+      throws JSONException, JsonObjectException, EmptyQueryException {
     JSONObject clientJson = this.getClientInfo(client);
-    List<String> comments = (List<String>) clientJson.get("Comments");  // TODO: Verify with client package
+    List<String> comments =
+        (List<String>) clientJson.get("Comments"); // TODO: Verify with client package
     comments.add(comment);
     clientJson.put("Comments", comments);
     this.db.updateClient(client.getId(), clientJson);
@@ -120,9 +121,11 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
    * @param comment: The comment itself
    */
   @Override
-  public void removeComment(UserID client, String comment) throws JSONException, JsonObjectException, EmptyQueryException {
+  public void removeComment(UserID client, String comment)
+      throws JSONException, JsonObjectException, EmptyQueryException {
     JSONObject clientJson = this.getClientInfo(client);
-    List<String> comments = (List<String>) clientJson.get("Comments");  // TODO: Verify with client package
+    List<String> comments =
+        (List<String>) clientJson.get("Comments"); // TODO: Verify with client package
     comments.remove(comment);
     clientJson.put("Comments", comments);
     this.db.updateClient(client.getId(), clientJson);
@@ -144,49 +147,34 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
    *
    * @return JSONObject representation of an Instructor
    */
+  @Override
   public JSONObject toJson() throws JSONException {
     JSONObject json = super.toJson();
-    json.put("Clients", this.clients);
+    ArrayList<String> clientList = new ArrayList<>();
+    for(UserID user : this.clients) {
+      clientList.add(user.toString());
+    }
+    json.put("Clients", clientList);
     return json;
   }
 
   /**
-   * Gets the calories of the user
+   * A method that sets a JSONObject back to InstructorModel Class
    *
-   * @return client calorie
+   * @param jsonObject InstructorModel class in JSONObject
+   * @return InstructorModel Class
    */
-  @Override
-  public int getCalories() {
-    return this.getCaloriesGoal();
-  }
-
-  /**
-   * Gets the goal calorie of the client
-   *
-   * @return the goal set for calories
-   */
-  @Override
-  public int getCaloriesGoal() {
-    return 0;
-  }
-
-  /**
-   * Sets calorie of the user
-   *
-   * @param calories calories
-   */
-  @Override
-  public void setCalories(int calories) {
-
-  }
-
-  /**
-   * Sets the goal calorie
-   *
-   * @param goalCal the calorie that is the goal
-   */
-  @Override
-  public void setGoalCal(int goalCal) {
-
+  public Gson fromJson(JSONObject jsonObject) {
+    Gson ObjectClass = super.fromJson(jsonObject);
+    String[] ListArray = String.valueOf(jsonObject.get("Clients")).split(",");
+    for (String item : ListArray) {
+      String stripped = item.replace("\"", "");
+      String bare = stripped.replace("[", "");
+      String done = bare.replace("]", "");
+      String[] clientInfo = done.split(";");
+      UserID userClient = new UserID(Integer.parseInt(clientInfo[1]), clientInfo[0]);
+      addClient(userClient);
+    }
+    return ObjectClass;
   }
 }
