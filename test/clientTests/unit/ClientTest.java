@@ -82,6 +82,30 @@ class ClientTest {
   }
 
   @Test
+  void changeWeight(){
+    client1.setWeight(180);
+    assertEquals(180, client1.getWeight());
+  }
+
+  @Test
+  void changeWeightGoal(){
+    client1.setWeightGoal(175);
+    assertEquals(175, client1.getWeightGoal());
+  }
+
+  @Test
+  void changeCalGoal(){
+    client1.setCalGoal(2500);
+    assertEquals(2500, client1.getCalGoal());
+  }
+
+  @Test
+  void changeCalories(){
+    client1.setCalories(2000);
+    assertEquals(2000, client1.getCalories());
+  }
+
+  @Test
   void addFood(){
     clientController1.addClientBreakfastFood(new FoodItem("Donut", 1.0, 100));
     clientController1.addClientBreakfastFood(new FoodItem("Donut", 1.0, 100));
