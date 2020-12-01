@@ -2,7 +2,6 @@ package staff.Models;
 
 import java.util.List;
 
-
 import database.EmptyQueryException;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -119,6 +118,12 @@ public class ManagerModel extends StaffModel implements ManagerInterface {
     return json;
   }
 
+  /**
+   * A method that sets a JSONObject back to ManagerModel Class
+   *
+   * @param jsonObject ManagerModel class in JSONObject
+   * @return ManagerModel Class
+   */
   public Gson fromJson(JSONObject jsonObject) {
     Gson ObjectClass = super.fromJson(jsonObject);
     String[] ListArray = String.valueOf(jsonObject.get("Instructors")).split(" ");

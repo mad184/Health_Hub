@@ -110,10 +110,10 @@ public class OwnerModel extends ManagerModel implements OwnerInterface {
   }
 
   /**
-   * A method that sets a JSONObject back to Owner Class
+   * A method that sets a JSONObject back to OwnerModel Class
    *
    * @param jsonObject Owner class in JSONObject
-   * @return Owner Class
+   * @return OwnerModel Class
    */
   public Gson fromJson(JSONObject jsonObject) {
     Gson ObjectClass = super.fromJson(jsonObject);

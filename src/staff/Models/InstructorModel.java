@@ -63,11 +63,8 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
    *
    * @param instructor: JSONObject of the instructor
    * @return InstructorModel object
-   *
-  public static InstructorModel fromJson(JSONObject instructor) {
-    Gson converter = new Gson();
-    return converter.fromJson(String.valueOf(instructor), InstructorModel.class);
-  }
+   *     <p>public static InstructorModel fromJson(JSONObject instructor) { Gson converter = new
+   *     Gson(); return converter.fromJson(String.valueOf(instructor), InstructorModel.class); }
    */
 
   /**
@@ -107,9 +104,11 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
    * @param comment: The comment itself
    */
   @Override
-  public void addComment(UserID client, String comment) throws JSONException, JsonObjectException, EmptyQueryException {
+  public void addComment(UserID client, String comment)
+      throws JSONException, JsonObjectException, EmptyQueryException {
     JSONObject clientJson = this.getClientInfo(client);
-    List<String> comments = (List<String>) clientJson.get("Comments");  // TODO: Verify with client package
+    List<String> comments =
+        (List<String>) clientJson.get("Comments"); // TODO: Verify with client package
     comments.add(comment);
     clientJson.put("Comments", comments);
     this.db.updateClient(client.getId(), clientJson);
@@ -122,9 +121,11 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
    * @param comment: The comment itself
    */
   @Override
-  public void removeComment(UserID client, String comment) throws JSONException, JsonObjectException, EmptyQueryException {
+  public void removeComment(UserID client, String comment)
+      throws JSONException, JsonObjectException, EmptyQueryException {
     JSONObject clientJson = this.getClientInfo(client);
-    List<String> comments = (List<String>) clientJson.get("Comments");  // TODO: Verify with client package
+    List<String> comments =
+        (List<String>) clientJson.get("Comments"); // TODO: Verify with client package
     comments.remove(comment);
     clientJson.put("Comments", comments);
     this.db.updateClient(client.getId(), clientJson);
@@ -153,11 +154,17 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
     return json;
   }
 
-  public Gson fromJson(JSONObject jsonObject){
-    Gson ObjectClass =  super.fromJson(jsonObject);
+  /**
+   * A method that sets a JSONObject back to InstructorModel Class
+   *
+   * @param jsonObject InstructorModel class in JSONObject
+   * @return InstructorModel Class
+   */
+  public Gson fromJson(JSONObject jsonObject) {
+    Gson ObjectClass = super.fromJson(jsonObject);
     String[] ListArray = String.valueOf(jsonObject.get("Clients")).split(" ");
 
-    for (String item: ListArray){
+    for (String item : ListArray) {
       String[] clientInfo = item.split(",");
       UserID userClient = new UserID(Integer.parseInt(clientInfo[0]), clientInfo[1]);
       addClient(userClient);
@@ -191,9 +198,7 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
    * @param calories calories
    */
   @Override
-  public void setCalories(int calories) {
-
-  }
+  public void setCalories(int calories) {}
 
   /**
    * Sets the goal calorie
@@ -201,7 +206,5 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
    * @param goalCal the calorie that is the goal
    */
   @Override
-  public void setGoalCal(int goalCal) {
-
-  }
+  public void setGoalCal(int goalCal) {}
 }
