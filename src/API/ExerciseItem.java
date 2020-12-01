@@ -4,10 +4,16 @@ public class ExerciseItem {
     private String exerciseName;
     private int reps;
     private int sets;
-    private int caloriesBurned;
+    //private int caloriesBurned;
 
     public ExerciseItem(String exerciseName) {
         this.exerciseName = exerciseName;
+    }
+
+    public ExerciseItem(String exerciseName, int reps, int sets) {
+        this.exerciseName = exerciseName;
+        this.reps = reps;
+        this.sets = sets;
     }
 
     public String getExerciseName() {
@@ -34,11 +40,15 @@ public class ExerciseItem {
         this.sets = sets;
     }
 
-    public int getCaloriesBurned() {
-        return caloriesBurned;
-    }
+    //public int getCaloriesBurned() {
+    //    return caloriesBurned;
+    //}
+    //public void setCaloriesBurned(int caloriesBurned) {
+    //    this.caloriesBurned = caloriesBurned;
+    //}
 
-    public void setCaloriesBurned(int caloriesBurned) {
-        this.caloriesBurned = caloriesBurned;
+    @Override
+    public String toString() {
+        return exerciseName + ";" + sets + ";" + reps + "/";
     }
 }
