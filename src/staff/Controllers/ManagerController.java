@@ -1,5 +1,6 @@
 package staff.Controllers;
 
+import com.google.gson.Gson;
 import database.EmptyQueryException;
 import org.json.JSONObject;
 import staff.Interfaces.ManagerInterface;
@@ -93,8 +94,8 @@ public class ManagerController implements ManagerInterface, StaffInterface {
   }
 
   @Override
-  public void fromJson(JSONObject staff) {
-    model.fromJson(staff);
+  public Gson fromJson(JSONObject staff) {
+    return model.fromJson(staff);
   }
 
   @Override

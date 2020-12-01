@@ -1,5 +1,6 @@
 package staff.Controllers;
 
+import com.google.gson.Gson;
 import database.EmptyQueryException;
 import database.JsonObjectException;
 import org.json.JSONException;
@@ -105,8 +106,8 @@ public class InstructorController implements InstructorInterface, StaffInterface
   }
 
   @Override
-  public void fromJson(JSONObject staff) {
-    model.fromJson(staff);
+  public Gson fromJson(JSONObject staff) {
+    return model.fromJson(staff);
   }
 
   @Override
