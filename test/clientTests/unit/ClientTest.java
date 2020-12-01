@@ -10,8 +10,7 @@ import org.skyscreamer.jsonassert.JSONAssert;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ClientTest {
   Client client1 =
@@ -103,6 +102,15 @@ class ClientTest {
   void changeCalories(){
     client1.setCalories(2000);
     assertEquals(2000, client1.getCalories());
+  }
+
+  @Test
+  void addAllergies(){
+    ArrayList<String> allergyList = new ArrayList<>();
+    allergyList.add("Peanuts");
+    allergyList.add("Shellfish");
+    client1.setAllergies(allergyList);
+    assertEquals(allergyList, client1.getAllergies());
   }
 
   @Test
