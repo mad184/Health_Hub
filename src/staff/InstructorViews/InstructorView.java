@@ -42,7 +42,7 @@ public class InstructorView extends Application {
   public void start(Stage stage) throws Exception {
     // Add client to database for testing purpose
     controller.model.db.createInstructor(controller.getId(), controller.model.toJson());
-    System.out.println(controller);
+
     // Load main scene
     FXMLLoader loader = new FXMLLoader(getClass().getResource("instructorMainView.fxml"));
     Parent root = loader.load();
