@@ -66,14 +66,11 @@ public class InstructorNutrientController implements Initializable {
         // setup scene
         viewController.setupScene(controller);
 
-        // Create popup window/stage and make it a sub-window of the main stage
-        final Stage foodSearchStage = new Stage();
-        foodSearchStage.initModality(Modality.APPLICATION_MODAL);
-        foodSearchStage.initOwner((Stage) ((Node) event.getSource()).getScene().getWindow());
-
-        Scene foodSearchScene = new Scene(root, 400, 267);
-        foodSearchStage.setScene(foodSearchScene);
-        foodSearchStage.show();
+        Scene viewScene = new Scene(root);
+        // Gets stage information
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(viewScene);
+        window.show();
     }
 
     /**
