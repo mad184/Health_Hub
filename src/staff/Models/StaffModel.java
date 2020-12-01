@@ -1,10 +1,14 @@
 package staff.Models;
 
+import API.FoodItem;
 import org.json.JSONException;
 import org.json.JSONObject;
 import com.google.gson.Gson;
 import staff.Interfaces.StaffInterface;
 import database.Dbms;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /** Storage class for Staff users. */
 public class StaffModel implements StaffInterface {
@@ -19,6 +23,10 @@ public class StaffModel implements StaffInterface {
   public Dbms db;
   private int calories;
   private int calorieGoal;
+  private ArrayList<FoodItem> breakfastFoods;
+  private ArrayList<FoodItem> lunchFoods;
+  private ArrayList<FoodItem> dinnerFoods;
+  private ArrayList<FoodItem> snackFoods;
 
   /**
    * Constructs a new StaffModel object.
@@ -57,15 +65,19 @@ public class StaffModel implements StaffInterface {
     this.calories = 0;
     this.calorieGoal = 0;
     this.db = new Dbms(username, password, dbName, tableName);
+    this.breakfastFoods = new ArrayList<>();
+    this.lunchFoods = new ArrayList<>();
+    this.dinnerFoods = new ArrayList<>();
+    this.snackFoods = new ArrayList<>();
   }
 
   /**
    * Converts a JSON representation of a Staff member into a StaffModel object.
    *
-   * @param staff: JSONObject representation of a StaffModel object
+   * @param staff: json representation of a StaffModel object
    * @return a StaffModel object
    *
-  public static StaffModel fromJson(JSONObject staff) {
+  public static StaffModel fromJson(json staff) {
     Gson converter = new Gson();
     System.out.println(String.valueOf(staff));
     return converter.fromJson(String.valueOf(staff), StaffModel.class);
@@ -271,9 +283,117 @@ public class StaffModel implements StaffInterface {
   }
 
   /**
-   * Converts the staff member into a JSONObject representation
+   * Gets the breakfast foods logged by the user.
    *
-   * @return JSONObject representation of a staff member
+   * @return List of foods as FoodItems.
+   */
+  public ArrayList<FoodItem> getBreakfastFoods() {
+    return this.breakfastFoods;
+  }
+
+  /**
+   * Gets the lunch foods logged by the user.
+   *
+   * @return List of foods as FoodItems.
+   */
+  public ArrayList<FoodItem> getLunchFoods() {
+    return this.lunchFoods;
+  }
+
+  /**
+   * Gets the dinner foods logged by the user.
+   *
+   * @return List of foods as FoodItems.
+   */
+  public ArrayList<FoodItem> getDinnerFoods() {
+    return this.dinnerFoods;
+  }
+
+  /**
+   * Gets the snack foods logged by the user.
+   *
+   * @return List of foods as FoodItems.
+   */
+  public ArrayList<FoodItem> getSnackFoods() {
+    return this.snackFoods;
+  }
+
+  /**
+   * Adds an item to the list of Breakfast foods.
+   *
+   * @param food: FoodItem object
+   */
+  public void addBreakfastFood(FoodItem food) {
+    this.breakfastFoods.add(food);
+  }
+
+  /**
+   * Adds an item to the list of Lunch foods.
+   *
+   * @param food: FoodItem object
+   */
+  public void addLunchFood(FoodItem food) {
+    this.lunchFoods.add(food);
+  }
+
+  /**
+   * Adds an item to the list of Dinner foods.
+   *
+   * @param food: FoodItem object
+   */
+  public void addDinnerFood(FoodItem food) {
+    this.dinnerFoods.add(food);
+  }
+
+  /**
+   * Adds an item to the list of Snack foods.
+   *
+   * @param food: FoodItem object
+   */
+  public void addSnackFood(FoodItem food) {
+    this.snackFoods.add(food);
+  }
+
+  /**
+   * Sets the breakfast foods for the Staff member.
+   *
+   * @param breakfast: ArrayList of FoodItems.
+   */
+  public void setBreakfastFoods(ArrayList<FoodItem> breakfast) {
+    this.breakfastFoods = breakfast;
+  }
+
+  /**
+   * Sets the lunch foods for the Staff member.
+   *
+   * @param lunch: ArrayList of FoodItems.
+   */
+  public void setLunchFoods(ArrayList<FoodItem> lunch) {
+    this.lunchFoods = lunch;
+  }
+
+  /**
+   * Sets the dinner foods for the Staff member.
+   *
+   * @param dinner: ArrayList of FoodItems.
+   */
+  public void setDinnerFoods(ArrayList<FoodItem> dinner) {
+    this.dinnerFoods = dinner;
+  }
+
+  /**
+   * Sets the snack foods for the Staff member.
+   *
+   * @param snack: ArrayList of FoodItems
+   */
+  public void setSnackFoods(ArrayList<FoodItem> snack) {
+    this.snackFoods = snack;
+  }
+
+  /**
+   * Converts the staff member into a json representation
+   *
+   * @return json representation of a staff member
    */
   public JSONObject toJson() throws JSONException {
     JSONObject json = new JSONObject();
@@ -285,18 +405,106 @@ public class StaffModel implements StaffInterface {
     json.put("Weight", this.weight);
     json.put("Organization", this.organization);
     json.put("ID", this.id);
+
+    // Converts Array Lists toString
+    if (getBreakfastFoods() == null) {
+      json.put("breakfastFoods", "");
+    } else {
+      json.put(
+              "breakfastFoods",
+              getBreakfastFoods().toString().substring(1, getBreakfastFoods().toString().length() - 1));
+    }
+
+    if (getLunchFoods() == null) {
+      json.put("lunchFoods", "");
+    } else {
+      json.put(
+              "lunchFoods",
+              getLunchFoods().toString().substring(1, getLunchFoods().toString().length() - 1));
+    }
+
+    if (getDinnerFoods() == null) {
+      json.put("dinnerFoods", "");
+    } else {
+      json.put(
+              "dinnerFoods",
+              getDinnerFoods().toString().substring(1, getDinnerFoods().toString().length() - 1));
+    }
+
+    if (getSnackFoods() == null) {
+      json.put("snackFoods", "");
+    } else {
+      json.put(
+              "snackFoods",
+              getSnackFoods().toString().substring(1, getSnackFoods().toString().length() - 1));
+    }
     return json;
   }
 
-  public Gson fromJson(JSONObject jsonObject){
+  public Gson fromJson(JSONObject json){
     Gson ObjectClass = new Gson();
-    setName(ObjectClass.fromJson(String.valueOf(jsonObject.get("Name")), String.class));
-    setAge(ObjectClass.fromJson(String.valueOf(jsonObject.get("Age")), int.class));
-    setEmail(ObjectClass.fromJson(String.valueOf(jsonObject.get("email")), String.class));
-    setPhoneNumber(ObjectClass.fromJson(String.valueOf(jsonObject.get("Phone Number")), String.class));
-    setHeight(ObjectClass.fromJson(String.valueOf(jsonObject.get("Height")), int.class));
-    setWeight(ObjectClass.fromJson(String.valueOf(jsonObject.get("Weight")), int.class));
-    //setOrganization(ObjectClass.fromJson(String.valueOf(jsonObject.get("Organization")), String.class));
+    setName(ObjectClass.fromJson(String.valueOf(json.get("Name")), String.class));
+    setAge(ObjectClass.fromJson(String.valueOf(json.get("Age")), int.class));
+    setEmail(ObjectClass.fromJson(String.valueOf(json.get("email")), String.class));
+    setPhoneNumber(ObjectClass.fromJson(String.valueOf(json.get("Phone Number")), String.class));
+    setHeight(ObjectClass.fromJson(String.valueOf(json.get("Height")), int.class));
+    setWeight(ObjectClass.fromJson(String.valueOf(json.get("Weight")), int.class));
+    //setOrganization(ObjectClass.fromJson(String.valueOf(json.get("Organization")), String.class));
+
+    // Converts String to array list of food items.
+    if (!json.get("breakfastFoods").toString().equals("")) {
+      String list[] = String.valueOf(json.get("breakfastFoods")).split("/");
+      ArrayList<FoodItem> breakfastFoods = new ArrayList<>();
+      for (String item : list) {
+        String foodInfo[] = item.split(";");
+        FoodItem food =
+                new FoodItem(
+                        foodInfo[0], Double.parseDouble(foodInfo[2]), Integer.parseInt(foodInfo[1]));
+        breakfastFoods.add(food);
+      }
+      this.setBreakfastFoods(breakfastFoods);
+    }
+
+    if (!json.get("lunchFoods").toString().equals("")) {
+      String list[] = String.valueOf(json.get("lunchFoods")).split("/");
+      ArrayList<FoodItem> lunchFoods = new ArrayList<>();
+      for (String item : list) {
+        String foodInfo[] = item.split(";");
+        FoodItem food =
+                new FoodItem(
+                        foodInfo[0], Double.parseDouble(foodInfo[2]), Integer.parseInt(foodInfo[1]));
+        lunchFoods.add(food);
+      }
+      setLunchFoods(lunchFoods);
+    }
+    if (!json.get("dinnerFoods").toString().equals("")) {
+      String list[] = String.valueOf(json.get("dinnerFoods")).split("/");
+      ArrayList<FoodItem> dinnerFoods = new ArrayList<>();
+      for (String item : list) {
+        String foodInfo[] = item.split(";");
+        FoodItem food =
+                new FoodItem(
+                        foodInfo[0], Double.parseDouble(foodInfo[2]), Integer.parseInt(foodInfo[1]));
+        dinnerFoods.add(food);
+      }
+      setDinnerFoods(dinnerFoods);
+    }
+    if (!json.get("snackFoods").toString().equals("")) {
+      String list[] = String.valueOf(json.get("snackFoods")).split("/");
+      ArrayList<FoodItem> snackFoods = new ArrayList<>();
+      for (String item : list) {
+        String foodInfo[] = item.split(";");
+        FoodItem food =
+                new FoodItem(
+                        foodInfo[0], Double.parseDouble(foodInfo[2]), Integer.parseInt(foodInfo[1]));
+        snackFoods.add(food);
+      }
+      setSnackFoods(snackFoods);
+    }
     return ObjectClass;
+  }
+
+  public Dbms getDbms() {
+    return this.db;
   }
 }
