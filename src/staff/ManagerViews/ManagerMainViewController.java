@@ -26,8 +26,7 @@ public class ManagerMainViewController {
   @FXML private Label commentLabel = new Label();
 
   public void setupScene(ManagerController managerID) {
-    // Sets client to client controller for scene
-    //controller.model.DB.getInstructor(instructorID);
+    controller = managerID;
 
     // Changes name label to clients name
     nameLabel.setText(controller.getName());

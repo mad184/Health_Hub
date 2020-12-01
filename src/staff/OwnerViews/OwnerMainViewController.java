@@ -27,8 +27,8 @@ public class OwnerMainViewController {
   @FXML private Label commentLabel = new Label();
 
   public void setupScene(OwnerController owner) {
-    // Sets client to client controller for scene
-    //controller.model.DB.getOwner(instructorID);
+    // Sets controller for the view
+    controller = owner;
 
     // Changes name label to clients name
     nameLabel.setText(controller.getName());
