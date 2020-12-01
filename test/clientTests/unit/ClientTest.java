@@ -88,6 +88,12 @@ class ClientTest {
   }
 
   @Test
+  void changeWeightGoal(){
+    client1.setWeightGoal(175);
+    assertEquals(175, client1.getWeightGoal());
+  }
+
+  @Test
   void addFood(){
     clientController1.addClientBreakfastFood(new FoodItem("Donut", 1.0, 100));
     clientController1.addClientBreakfastFood(new FoodItem("Donut", 1.0, 100));
