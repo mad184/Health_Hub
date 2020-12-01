@@ -114,6 +114,18 @@ class ClientTest {
   }
 
   @Test
+  void changeInstructor(){
+    client1.setInstructor("Eddie");
+    assertEquals("Eddie", client1.getInstructor());
+  }
+
+  @Test
+  void changeOrganization(){
+    client1.setOrganization("8th Street");
+    assertEquals("8th Street", client1.getOrganization());
+  }
+
+  @Test
   void addFood(){
     clientController1.addClientBreakfastFood(new FoodItem("Donut", 1.0, 100));
     clientController1.addClientBreakfastFood(new FoodItem("Donut", 1.0, 100));
