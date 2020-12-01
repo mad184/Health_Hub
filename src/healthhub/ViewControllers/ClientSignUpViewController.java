@@ -8,6 +8,7 @@ import healthhub.Views.View;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+
 import java.io.IOException;
 
 public class ClientSignUpViewController {
@@ -29,8 +30,8 @@ public class ClientSignUpViewController {
 
 
     /**
-     * This method take the text box entry from the ClientSignUpView, verifys it and then sends it to the healthHub
-     * Controller to be added to the database, Then switches the view to the clinets view
+     * This method take the text box entry from the ClientSignUpView, verify it and then sends it to the healthHub
+     * Controller to be added to the database, Then switches the view to the clients view
      *
      * @param event: The ActionEvent associated with the button clicked action
      * @throws IOException: For the FXMLLoader .load() function
