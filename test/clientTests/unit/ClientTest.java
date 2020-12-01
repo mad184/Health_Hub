@@ -64,6 +64,11 @@ class ClientTest {
   }
 
   @Test
+  void getName(){
+    assertEquals("John", client1.getName());
+  }
+
+  @Test
   void changeAge() {
     client1.setAge(13);
     assertEquals(13, client1.getAge());
