@@ -1,5 +1,6 @@
 package staff.Interfaces;
 
+import com.google.gson.Gson;
 import database.EmptyQueryException;
 import org.json.JSONObject;
 import staff.UserID;
@@ -47,5 +48,5 @@ public interface OwnerInterface {
   JSONObject toJson();
 
   /** Get a JSONObject and set it back to a class - Instructor, Manager or owner */
-  void fromJson(JSONObject staff);
+  Gson fromJson(JSONObject staff);
 }

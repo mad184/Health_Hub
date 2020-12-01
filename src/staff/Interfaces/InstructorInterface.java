@@ -1,5 +1,6 @@
 package staff.Interfaces;
 
+import com.google.gson.Gson;
 import database.EmptyQueryException;
 import database.JsonObjectException;
 import org.json.JSONException;
@@ -69,5 +70,5 @@ public interface InstructorInterface {
   JSONObject toJson();
 
   /** Get a JSONObject and set it back to a class - Instructor, Manager or owner */
-  void fromJson(JSONObject staff);
+  Gson fromJson(JSONObject staff);
 }
