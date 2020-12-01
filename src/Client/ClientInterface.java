@@ -1,5 +1,6 @@
 package Client;
 
+import API.ExerciseItem;
 import API.FoodItem;
 import javafx.scene.image.Image;
 import org.json.JSONObject;
@@ -99,6 +100,12 @@ public interface ClientInterface {
   void addDinnerFood(FoodItem foodItem);
 
   void addSnackFood(FoodItem foodItem);
+
+  ArrayList<ExerciseItem> getExercises();
+
+  void setExercises(ArrayList<ExerciseItem> exercises);
+
+  void addExercise(ExerciseItem exerciseItem);
 
   JSONObject toJSON();
 

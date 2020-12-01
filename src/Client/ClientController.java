@@ -1,5 +1,6 @@
 package Client;
 
+import API.ExerciseItem;
 import API.FoodItem;
 import javafx.scene.image.Image;
 import org.json.JSONObject;
@@ -35,6 +36,14 @@ public class ClientController {
 
   public void setClientSnackFood(ArrayList<FoodItem> snackFood) {
     model.setSnackFoods(snackFood);
+  }
+
+  public ArrayList<ExerciseItem> getExercises() {
+    return model.getExercises();
+  }
+
+  public void setExercises(ArrayList<ExerciseItem> exercises) {
+    model.setExercises(exercises);
   }
 
   public Client getModel() {
@@ -181,6 +190,10 @@ public class ClientController {
     return model.getSnackFoods();
   }
 
+  public void addExercise(ExerciseItem exercise) {
+    model.addExercise(exercise);
+  }
+
   // Food array methods
   public void addClientBreakfastFood(FoodItem foodItem) {
     model.addBreakfastFood(foodItem);
@@ -197,6 +210,7 @@ public class ClientController {
   public void addClientSnackFood(FoodItem foodItem) {
     model.addSnackFood(foodItem);
   }
+
 
   // JSONObject conversion methods
   public JSONObject clientToJson() {
