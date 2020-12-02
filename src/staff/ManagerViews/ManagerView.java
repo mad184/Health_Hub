@@ -55,7 +55,7 @@ public class ManagerView extends Application {
     // Get controller for main scene
     ManagerMainViewController viewController = loader.getController();
     // setup scene
-    viewController.setupScene(controller);
+    viewController.setupScene(controller.getId());
 
     // Show scene in window
     stage.setTitle("Manager View");
