@@ -1,5 +1,6 @@
 package staff.Controllers;
 
+import API.ExerciseItem;
 import API.FoodItem;
 import com.google.gson.Gson;
 import database.Dbms;
@@ -203,6 +204,18 @@ public class InstructorController implements InstructorInterface, StaffInterface
 
   public void addSnackFood(FoodItem food) {
     model.addSnackFood(food);
+  }
+
+  public ArrayList<ExerciseItem> getExercises() {
+    return model.getExercises();
+  }
+
+  public void setExercises(ArrayList<ExerciseItem> exercises) {
+    model.setExercises(exercises);
+  }
+
+  public void addExercises(ExerciseItem exerciseItem) {
+    model.addExercise(exerciseItem);
   }
 
   public Dbms getDbms() {
