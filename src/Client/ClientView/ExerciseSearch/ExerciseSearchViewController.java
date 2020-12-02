@@ -58,7 +58,7 @@ public class ExerciseSearchViewController implements Initializable {
         exerciseNameVBox.getChildren().removeAll();
         addButtonVBox.getChildren().removeAll();
         results = apiManager.findExerciseSearchMatches(searchBar.getText());
-        if (results.isEmpty()) {
+        if (results.isEmpty() || results == null) {
             //Label for no results
             Label noResultsLabel = new Label("No results have been found");
             noResultsLabel.setTextFill(Color.web("#ddd9d9"));
@@ -72,7 +72,7 @@ public class ExerciseSearchViewController implements Initializable {
                             + "-fx-border-radius: 10; "
                             + "-fx-background-color: #2a0033; "
                             + "-fx-background-radius: 10");
-            addNewButton.setPrefSize(75, 33);
+            addNewButton.setPrefSize(125, 33);
 
             //Setup action for addNewButton
             //Adds action to add button
