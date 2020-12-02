@@ -6,10 +6,27 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="healthhub.ViewControllers.SignUpOptionsPageController">
     <children>
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2a0033" height="400.0" stroke="BLACK" strokeType="INSIDE" width="600.0" />
-        <Button layoutX="41.0" layoutY="171.0" mnemonicParsing="false" onAction="#onClientButtonPushed" prefHeight="33.0" prefWidth="140.0" style="-fx-border-color: #9643A9; -fx-border-radius: 10;                 -fx-background-color: #2A0033; -fx-background-radius: 10;" text="I am a Client" textFill="#ddd9d9" />
-        <Button layoutX="230.0" layoutY="171.0" mnemonicParsing="false" onAction="#onInstructorButtonPushed" prefHeight="33.0" prefWidth="140.0" style="-fx-border-color: #9643A9; -fx-border-radius: 10;                 -fx-background-color: #2A0033; -fx-background-radius: 10;" text="I am a Instructor" textFill="#ddd9d9" />
-        <Button layoutX="420.0" layoutY="171.0" mnemonicParsing="false" onAction="#onOrganizationButtonPushed" prefHeight="33.0" prefWidth="140.0" style="-fx-border-color: #9643A9; -fx-border-radius: 10;                  -fx-background-color: #2A0033; -fx-background-radius: 10;" text="Organization" textFill="#ddd9d9" />
-      <Button layoutX="230.0" layoutY="290.0" mnemonicParsing="false" onAction="#backButtonPushed" prefHeight="33.0" prefWidth="140.0" style="-fx-border-color: #9643A9; -fx-border-radius: 10;                  -fx-background-color: #2A0033; -fx-background-radius: 10;" text="Back" textFill="#ddd9d9" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2a0033" height="400.0" stroke="BLACK" strokeType="INSIDE"
+                   width="600.0"/>
+        <Button layoutX="230.0" layoutY="25.0" mnemonicParsing="false" onAction="#onClientButtonPushed"
+                prefHeight="33.0" prefWidth="140.0"
+                style="-fx-border-color: #9643A9; -fx-border-radius: 10;                 -fx-background-color: #2A0033; -fx-background-radius: 10;"
+                text="I am a Client" textFill="#ddd9d9"/>
+        <Button layoutX="230.0" layoutY="89.0" mnemonicParsing="false" onAction="#onInstructorButtonPushed"
+                prefHeight="33.0" prefWidth="140.0"
+                style="-fx-border-color: #9643A9; -fx-border-radius: 10;                 -fx-background-color: #2A0033; -fx-background-radius: 10;"
+                text="I am a Instructor" textFill="#ddd9d9"/>
+        <Button layoutX="230.0" layoutY="222.0" mnemonicParsing="false" onAction="#onOrganizationButtonPushed"
+                prefHeight="33.0" prefWidth="140.0"
+                style="-fx-border-color: #9643A9; -fx-border-radius: 10;                  -fx-background-color: #2A0033; -fx-background-radius: 10;"
+                text="Organization" textFill="#ddd9d9"/>
+        <Button layoutX="230.0" layoutY="346.0" mnemonicParsing="false" onAction="#backButtonPushed" prefHeight="33.0"
+                prefWidth="140.0"
+                style="-fx-border-color: #9643A9; -fx-border-radius: 10;                  -fx-background-color: #2A0033; -fx-background-radius: 10;"
+                text="Back" textFill="#ddd9d9"/>
+        <Button layoutX="230.0" layoutY="155.0" mnemonicParsing="false" onAction="#onManagerButtonPushed"
+                prefHeight="33.0" prefWidth="140.0"
+                style="-fx-border-color: #9643A9; -fx-border-radius: 10;                  -fx-background-color: #2A0033; -fx-background-radius: 10;"
+                text="I am a Mnager" textFill="#ddd9d9"/>
     </children>
 </AnchorPane>
