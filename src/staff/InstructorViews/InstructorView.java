@@ -16,6 +16,7 @@ public class InstructorView extends Application {
   public InstructorController controller = new InstructorController(
           new InstructorModel(
             "John Wick",
+            "wick1",
             21,
                   "john@usask.ca",
                   "306-555-5555",
@@ -50,7 +51,7 @@ public class InstructorView extends Application {
     // Get controller for main scene
     InstructorMainViewController viewController = loader.getController();
     // setup scene
-    viewController.setupScene(controller);
+    viewController.setupScene(controller.getId());
 
     // Show scene in window
     stage.setTitle("Instructor View");

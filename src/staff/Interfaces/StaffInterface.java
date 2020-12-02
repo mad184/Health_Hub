@@ -65,12 +65,23 @@ public interface StaffInterface {
    */
   String getOrganization();
 
+  String getUserPassword();
+
   /**
    * Gets the database ID for the user
    *
    * @return database ID
    */
   int getId();
+
+  /**
+   * set the database ID for the user
+   *
+   * @return database ID
+   */
+  int setID(int _id);
+
+  void setUserPassword(String password);
 
   /**
    * Sets the name of the Staff member

@@ -99,8 +99,23 @@ public class InstructorController implements InstructorInterface, StaffInterface
   }
 
   @Override
+  public String getUserPassword() {
+    return model.getUserPassword();
+  }
+
+  @Override
   public int getId() {
     return model.getId();
+  }
+
+  @Override
+  public int setID(int _id) {
+    return this.model.setID(_id);
+  }
+
+  @Override
+  public void setUserPassword(String password) {
+    model.setUserPassword(password);
   }
 
   @Override

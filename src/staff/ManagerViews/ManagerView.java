@@ -20,6 +20,7 @@ public class ManagerView extends Application {
   public ManagerController controller = new ManagerController(
           new ManagerModel(
             "John Wick",
+            "wick1",
             21,
                   "john@usask.ca",
                   "306-555-5555",
@@ -54,7 +55,7 @@ public class ManagerView extends Application {
     // Get controller for main scene
     ManagerMainViewController viewController = loader.getController();
     // setup scene
-    viewController.setupScene(controller);
+    viewController.setupScene(controller.getId());
 
     // Show scene in window
     stage.setTitle("Manager View");

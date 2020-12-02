@@ -6,10 +6,11 @@ import healthhub.Views.View;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import staff.Models.InstructorModel;
+import staff.Models.ManagerModel;
+
 import java.io.IOException;
 
-public class InstructorSignUpController {
+public class ManagerSignUpViewController {
     @FXML
     private TextField Name, age, Email, Password, organziation, phoneNumber;
 
@@ -18,7 +19,7 @@ public class InstructorSignUpController {
      * Goes to the back to the previous defined page SignUpOptionsPageView.fxml
      *
      * @param event: the ActionEvent that occured
-     * @throws IOException: for View.gotoView()
+     * @throws IOException : for View.gotoView()
      */
     @FXML
     public void backButtonPushed(ActionEvent event) throws IOException {
@@ -53,7 +54,7 @@ public class InstructorSignUpController {
         if (!(name.length() > 0) || !name.matches("^([a-z]|[A-Z])+\\s([a-z]|[A-Z])+$")) {
             View.showAlertMessage("A first space last name are requried");
 
-        }else if (!(age > 0) || !(age < 150)) {
+        } else if (!(age > 0) || !(age < 150)) {
             View.showAlertMessage("Right now only ages 1 - 149 are accepted");
         }
 
@@ -73,10 +74,16 @@ public class InstructorSignUpController {
         } else if (!(phoneNumber.length() > 0)) {
             View.showAlertMessage("A phone number is required");
         } else {
+            System.out.println("Name:" + name);
+            System.out.println("Password:" + passWord);
+            System.out.println("Age:" + age);
+            System.out.println("email:" + email);
+            System.out.println("phoneNumber:" + phoneNumber);
+            System.out.println("organization:" + organization);
 
             int uniqueId = HealthHubController.getUniqueID();
-            InstructorModel newInstructor =
-                    new InstructorModel(
+            ManagerModel newManager =
+                    new ManagerModel(
                             name,
                             passWord,
                             age,
@@ -92,7 +99,7 @@ public class InstructorSignUpController {
                             "Test-General-Database",
                             "Instructor-Table");
 
-            int successCode = HealthHubController.addInstructor(uniqueId, newInstructor.toJson());
+            int successCode = HealthHubController.addManager(uniqueId, newManager.toJson());
 
             if (successCode == 403) {
                 View.showAlertMessage("ERROR: Email " + email + " has already been used");
@@ -100,7 +107,7 @@ public class InstructorSignUpController {
                 View.showAlertMessage("ERROR: Server Error");
             } else if (successCode == 200) {
                 View.goToViewWithUniqueID(
-                        "../../staff/InstructorViews/instructorMainView.fxml", event, uniqueId, "Instructor");
+                        "../../staff/ManagerViews/managerMainView.fxml", event, uniqueId, "Manager");
             } else {
                 View.showAlertMessage("ERROR: Sorry a unknown error occured");
                 View.goToView("LoginView.fxml", event);

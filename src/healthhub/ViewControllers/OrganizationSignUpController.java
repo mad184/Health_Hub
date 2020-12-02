@@ -57,7 +57,7 @@ public class OrganizationSignUpController {
 
     //regex looks for a string space string, meaning users must enter a first and last name
     if (!(ownerName.length() > 0) || !ownerName.matches("^([a-z]|[A-Z])+\\s([a-z]|[A-Z])+$")) {
-      View.showAlertMessage("A Name is required");
+      View.showAlertMessage("A First space Last name is requried");
     } else if (!(organizationName.length() > 0)) {
       View.showAlertMessage("A Name is required");
     } else if (!(age > 0) || !(age < 150)) {
@@ -73,14 +73,14 @@ public class OrganizationSignUpController {
 
     // min length of 6, Regex looks for any spaces in the password that is one string, no spaces w/ special characters,characters,numbers
     else if (!(passWord.length() > 5) || !passWord.matches("^(\\w|\\D|\\d|\\W)*$")) {
-      View.showAlertMessage("A Password is required");
-      ;
+      View.showAlertMessage("A Password of at least length 6 is required");
     } else {
 
       int uniqeID = HealthHubController.getUniqueID();
       OwnerModel newOwner =
               new OwnerModel(
                       ownerName,
+                      passWord,
                       age,
                       email,
                       phoneNumber,
@@ -93,7 +93,7 @@ public class OrganizationSignUpController {
                       "test-user",
                       "healthhub1",
                       "Test-General-Database",
-                      "");
+                      "Instructor-Table");
 
       // add owner
       int successCodeAddOwner = HealthHubController.addManager(uniqeID, newOwner.toJson());
@@ -108,18 +108,16 @@ public class OrganizationSignUpController {
       // check returned success codes
       if (successCodeAddOwner == 403) {
         View.showAlertMessage("ERROR: Email " + email);
-        View.goToView("OrganizationSignUpView.fxml", event);
 
       } else if (successCodeAddOwner == 500 || successCodeAddOrganization == 500) {
         View.showAlertMessage("ERROR: Server Error, check terminal for error codes");
         System.out.println("Error code add owner: " + successCodeAddOwner);
         System.out.println("Error code add Organziation " + successCodeAddOrganization);
-        View.goToView("OrganizationSignUpView.fxml", event);
 
       } else if (successCodeAddOwner == 200 && successCodeAddOrganization == 200) {
         System.out.println("Added Owner + org successfully");
         View.goToViewWithUniqueID(
-                "../../Staff/OwnerViews/OwnerMainView.fxml", event, uniqeID, "Owner");
+                "../../staff/OwnerViews/ownerMainView.fxml", event, uniqeID, "Owner");
 
       } else {
         View.showAlertMessage(

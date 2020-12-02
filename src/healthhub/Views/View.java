@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import staff.InstructorViews.InstructorMainViewController;
+import staff.ManagerViews.ManagerMainViewController;
 import staff.OwnerViews.OwnerMainViewController;
 
 import javax.swing.JOptionPane;
@@ -43,16 +44,16 @@ public class View {
             if (userType.equals("Owner")) {
                 // Gets main view controller and passes client to it
                 OwnerMainViewController viewController = loader.getController();
-                //            viewController.setupScene(UniqueIDCode);
+                viewController.setupScene(UniqueIDCode);
 
             } else if (userType.equals("Instructor")) {
                 // Gets main view controller and passes client to it
                 InstructorMainViewController viewController = loader.getController();
-                //            viewController.setupScene(UniqueIDCode);
+                viewController.setupScene(UniqueIDCode);
             } else if (userType.equals("Manager")) {
                 // Gets main view controller and passes client to it
-                InstructorMainViewController viewController = loader.getController();
-                //            viewController.setupScene(UniqueIDCode);
+                ManagerMainViewController viewController = loader.getController();
+                viewController.setupScene(UniqueIDCode);
             }
             //assume its a client if others aren't met (least security measures required)
             else {

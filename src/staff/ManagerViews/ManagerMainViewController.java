@@ -1,5 +1,6 @@
 package staff.ManagerViews;
 
+import database.EmptyQueryException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,7 +9,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import org.json.JSONObject;
+import staff.Controllers.InstructorController;
 import staff.Controllers.ManagerController;
+import staff.Models.ManagerModel;
+import staff.StaffToDB;
 
 import java.io.IOException;
 
@@ -17,16 +22,46 @@ public class ManagerMainViewController {
   ManagerController controller;
 
   // Label for Instructor name
-  @FXML private Label nameLabel = new Label();
+  @FXML
+  private Label nameLabel = new Label();
 
   // Label for most recent client recommendations
-  @FXML private Label recommendationLabel = new Label();
+  @FXML
+  private Label recommendationLabel = new Label();
 
   // Label for most recent client comments
-  @FXML private Label commentLabel = new Label();
+  @FXML
+  private Label commentLabel = new Label();
 
-  public void setupScene(ManagerController managerID) {
-    controller = managerID;
+
+  StaffToDB db;
+
+  public void setupScene(int managerID) throws EmptyQueryException {
+    this.db = new StaffToDB();
+
+    ManagerModel newManager = new ManagerModel(
+            "",
+            "",
+            0,
+            "",
+            "",
+            0,
+            0,
+            "none",
+            managerID,
+            null,
+            "test-user",
+            "healthhub1",
+            "Test-General-Database",
+            "Manager-Table");
+
+    ManagerController managerController = new ManagerController(newManager);
+
+    JSONObject managerFromDB = db.getManager(managerID);
+
+    managerController.fromJson(managerFromDB);
+
+    this.controller = managerController;
 
     // Changes name label to clients name
     nameLabel.setText(controller.getName());

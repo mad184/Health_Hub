@@ -14,9 +14,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
-// for alerting the user of invalid or valid password
-import javax.swing.JOptionPane;
-
+import org.json.JSONObject;
+import staff.StaffToDB;
 // for ActionEvent methods
 import java.io.IOException;
 
@@ -60,40 +59,65 @@ public class LogInViewController {
      */
     @FXML
     public void onLoginButtonPushed(ActionEvent event) throws IOException, EmptyQueryException {
+        StaffToDB db = new StaffToDB();
         String userType = (String) userTypeComboBox.getValue();
+        boolean ownerToMangerFlag = false;
+
+
+        //hack part 1: because owners are being stored in the DB as managers
+        if (userType.equals("Owner")) {
+            userType = "Manager";
+            ownerToMangerFlag = true;
+        }
 
         //send the heathHub Controller the login text
         int loginSuccessCodeOrUniqueId = HealthHubController.LogIn(this.email.getText(), this.passWord.getText(), userType);
 
 
+        //hack part 2:need to change it back to go to the proper view
+        if (ownerToMangerFlag) {
+            userType = "Owner";
+        }
+
         // send account not found to LogInView
         if (loginSuccessCodeOrUniqueId == 404) {
-            JOptionPane.showMessageDialog(null, "Account Not Found");
-            View.goToView("LoginView.fxml", event);
+            View.showAlertMessage("Account Not Found");
         }
         // send account exists, password is not correct to LogInView
         else if (loginSuccessCodeOrUniqueId == 401) {
-            JOptionPane.showMessageDialog(null, "Account Exists, password was incorrect");
-            View.goToView("LoginView.fxml", event);
+            View.showAlertMessage("Account Exists, password was incorrect");
         }
         // send server error to LogInView
         else if (loginSuccessCodeOrUniqueId == 500) {
-            JOptionPane.showMessageDialog(null, "Server Error Occurred");
-            View.goToView("LoginView.fxml", event);
+            View.showAlertMessage("Server Error Occurred");
         }
 
         else {
             if (userType.equals("Client")) {
                 View.goToViewWithUniqueID("../../Client/ClientView/clientMainView.fxml", event, loginSuccessCodeOrUniqueId, "Client");
             } else if (userType.equals("Instructor")) {
-                View.goToViewWithUniqueID("../../Staff/InstructorViews/instructorMainView.fxml", event, loginSuccessCodeOrUniqueId, "Client");
-            } else if (userType.equals("Manager")) {
-                View.goToViewWithUniqueID("../../Staff/ManagerViews/managerMainView.fxml", event, loginSuccessCodeOrUniqueId, "Client");
-
-            } else if (userType.equals("Owner")) {
-                View.goToViewWithUniqueID("../../Staff/OwnerViews/ownerMainView.fxml", event, loginSuccessCodeOrUniqueId, "Client");
+                View.goToViewWithUniqueID("../../staff/InstructorViews/instructorMainView.fxml", event, loginSuccessCodeOrUniqueId, "Instructor");
+            }
+            //check to see if the owner is trying to log in as a manager
+            else if (userType.equals("Manager")) {
+                JSONObject ownerManger = db.getManager(loginSuccessCodeOrUniqueId);
+                if (!ownerManger.has("Managers")) {
+                    View.goToViewWithUniqueID("../../staff/ManagerViews/managerMainView.fxml", event, loginSuccessCodeOrUniqueId, "Manager");
+                } else {
+                    View.showAlertMessage("You have ownership permission, please log in as a owner");
+                }
+            }
+            //check to see if it is a manager logging in as a owner
+            else if (userType.equals("Owner")) {
+                //check for this key to make sure that it has the proper permission to be a owner
+                JSONObject ownerManger = db.getManager(loginSuccessCodeOrUniqueId);
+                if (ownerManger.has("Managers")) {
+                    View.goToViewWithUniqueID("../../staff/OwnerViews/ownerMainView.fxml", event, loginSuccessCodeOrUniqueId, "Owner");
+                } else {
+                    View.showAlertMessage("You do not have owner permissions");
+                }
             } else {
-                JOptionPane.showMessageDialog(null, "Unknown login user type");
+                View.showAlertMessage("Unknown login user type");
                 View.goToView("LoginView.fxml", event);
             }
         }
