@@ -2,7 +2,7 @@ package staff.Models;
 
 import java.util.ArrayList;
 import java.util.List;
-import database.Dbms;
+
 import database.EmptyQueryException;
 import database.JsonObjectException;
 import org.json.JSONException;
@@ -153,8 +153,10 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
   public JSONObject toJson() throws JSONException {
     JSONObject json = super.toJson();
     ArrayList<String> clientList = new ArrayList<>();
-    for(UserID user : this.clients) {
-      clientList.add(user.toString());
+    if (this.clients != null) {
+      for (UserID user : this.clients) {
+        clientList.add(user.toString());
+      }
     }
     json.put("Clients", clientList);
     return json;
@@ -169,13 +171,15 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
   public Gson fromJson(JSONObject jsonObject) {
     Gson ObjectClass = super.fromJson(jsonObject);
     String[] ListArray = String.valueOf(jsonObject.get("Clients")).split(",");
-    for (String item : ListArray) {
-      String stripped = item.replace("\"", "");
-      String bare = stripped.replace("[", "");
-      String done = bare.replace("]", "");
-      String[] clientInfo = done.split(";");
-      UserID userClient = new UserID(Integer.parseInt(clientInfo[1]), clientInfo[0]);
-      addClient(userClient);
+    if (ListArray[0].length() > 2) {
+      for (String item : ListArray) {
+        String stripped = item.replace("\"", "");
+        String bare = stripped.replace("[", "");
+        String done = bare.replace("]", "");
+        String[] clientInfo = done.split(";");
+        UserID userClient = new UserID(Integer.parseInt(clientInfo[1]), clientInfo[0]);
+        addClient(userClient);
+      }
     }
     return ObjectClass;
   }
