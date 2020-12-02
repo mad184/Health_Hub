@@ -97,19 +97,21 @@ public class LogInViewController {
                 View.goToViewWithUniqueID("../../Client/ClientView/clientMainView.fxml", event, loginSuccessCodeOrUniqueId, "Client");
             } else if (userType.equals("Instructor")) {
                 View.goToViewWithUniqueID("../../staff/InstructorViews/instructorMainView.fxml", event, loginSuccessCodeOrUniqueId, "Instructor");
-            } else if (userType.equals("Manager")) {
-                JSONObject owner = db.getManager(loginSuccessCodeOrUniqueId);
-                if (!owner.has("Managers")) {
-                    View.goToViewWithUniqueID("../../staff/OwnerViews/ownerMainView.fxml", event, loginSuccessCodeOrUniqueId, "Owner");
+            }
+            //check to see if the owner is trying to log in as a manager
+            else if (userType.equals("Manager")) {
+                JSONObject ownerManger = db.getManager(loginSuccessCodeOrUniqueId);
+                if (!ownerManger.has("Managers")) {
+                    View.goToViewWithUniqueID("../../staff/ManagerViews/managerMainView.fxml", event, loginSuccessCodeOrUniqueId, "Manager");
                 } else {
                     View.showAlertMessage("You have ownership permission, please log in as a owner");
                 }
-                View.goToViewWithUniqueID("../../staff/ManagerViews/managerMainView.fxml", event, loginSuccessCodeOrUniqueId, "Manager");
-
-            } else if (userType.equals("Owner")) {
+            }
+            //check to see if it is a manager logging in as a owner
+            else if (userType.equals("Owner")) {
                 //check for this key to make sure that it has the proper permission to be a owner
-                JSONObject owner = db.getManager(loginSuccessCodeOrUniqueId);
-                if (owner.has("Managers")) {
+                JSONObject ownerManger = db.getManager(loginSuccessCodeOrUniqueId);
+                if (ownerManger.has("Managers")) {
                     View.goToViewWithUniqueID("../../staff/OwnerViews/ownerMainView.fxml", event, loginSuccessCodeOrUniqueId, "Owner");
                 } else {
                     View.showAlertMessage("You do not have owner permissions");
