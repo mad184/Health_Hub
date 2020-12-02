@@ -35,6 +35,11 @@ public class ExerciseAddNewExerciseViewController implements Initializable {
 
     private ClientController controller = new ClientController(null);
 
+    /**
+     * Sets up controller for scene
+     *
+     * @param clientController controller with client info
+     */
     public void setupScene(ClientController clientController) {
         controller = clientController;
     }
@@ -42,6 +47,7 @@ public class ExerciseAddNewExerciseViewController implements Initializable {
 
     /**
      * Goes back to main view
+     *
      * @param event of back button being pushed
      */
     public void onBackButtonPressed(ActionEvent event) throws IOException, EmptyQueryException {
@@ -60,6 +66,12 @@ public class ExerciseAddNewExerciseViewController implements Initializable {
         window.show();
     }
 
+    /**
+     * Adds exercise to client, updates database, goes back to main exercise view
+     *
+     * @param event of add exercise button being pushed
+     * @throws EmptyQueryException thrown if updateClient() cannot find client in database
+     */
     public void onExerciseButtonPushed(ActionEvent event) throws JsonObjectException, EmptyQueryException, IOException {
         //Creates new exercise Item
         ExerciseItem exerciseItem = new ExerciseItem(
@@ -77,6 +89,11 @@ public class ExerciseAddNewExerciseViewController implements Initializable {
         goToExerciseView(event);
     }
 
+    /**
+     * Goes to main exercise view
+     *
+     * @param event event of add exercise view button being pushed
+     */
     public void goToExerciseView(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../clientExerciseView.fxml"));
         Parent root = loader.load();
