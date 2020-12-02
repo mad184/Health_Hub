@@ -132,6 +132,14 @@ class ClientTest {
   }
 
   @Test
+  void testToString(){
+    assertEquals("Client{name='dustin', email='dcr518@usask.ca', password='password', instructor='Rick', " +
+            "organization='Golds', phoneNumber='306-111-1111', id=1, age=29, height=177, weight=182, goalWeight=170, " +
+            "goalCals=3000, calories=2000, allergies=null, comment=null, profilePicture=null, breakfastFoods=[], " +
+            "lunchFoods=[], dinnerFoods=[], snackFoods=[], exercises=[]}", client1.toString());
+  }
+
+  @Test
   void addFood(){
     clientController1.addClientBreakfastFood(new FoodItem("Donut", 1.0, 100));
     clientController1.addClientBreakfastFood(new FoodItem("Donut", 1.0, 100));
