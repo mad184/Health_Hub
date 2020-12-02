@@ -43,16 +43,16 @@ public class View {
             if (userType.equals("Owner")) {
                 // Gets main view controller and passes client to it
                 OwnerMainViewController viewController = loader.getController();
-                //            viewController.setupScene(UniqueIDCode);
+                viewController.setupScene(UniqueIDCode);
 
             } else if (userType.equals("Instructor")) {
                 // Gets main view controller and passes client to it
                 InstructorMainViewController viewController = loader.getController();
-                            viewController.setupScene(UniqueIDCode);
+                viewController.setupScene(UniqueIDCode);
             } else if (userType.equals("Manager")) {
                 // Gets main view controller and passes client to it
                 InstructorMainViewController viewController = loader.getController();
-                //            viewController.setupScene(UniqueIDCode);
+                viewController.setupScene(UniqueIDCode);
             }
             //assume its a client if others aren't met (least security measures required)
             else {
