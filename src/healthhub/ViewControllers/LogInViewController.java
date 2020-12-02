@@ -60,10 +60,23 @@ public class LogInViewController {
     @FXML
     public void onLoginButtonPushed(ActionEvent event) throws IOException, EmptyQueryException {
         String userType = (String) userTypeComboBox.getValue();
+        boolean ownerToMangerFlag = false;
+
+
+        //hack part 1: because owners are being stored in the DB as managers
+        if (userType.equals("Owner")) {
+            userType = "Manager";
+            ownerToMangerFlag = true;
+        }
 
         //send the heathHub Controller the login text
         int loginSuccessCodeOrUniqueId = HealthHubController.LogIn(this.email.getText(), this.passWord.getText(), userType);
 
+
+        //hack part 2:need to change it back to go to the proper view
+        if (ownerToMangerFlag) {
+            userType = "Owner";
+        }
 
         // send account not found to LogInView
         if (loginSuccessCodeOrUniqueId == 404) {
