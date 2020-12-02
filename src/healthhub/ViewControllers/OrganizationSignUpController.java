@@ -93,7 +93,7 @@ public class OrganizationSignUpController {
                       "test-user",
                       "healthhub1",
                       "Test-General-Database",
-                      "");
+                      "Instructor-Table");
 
       // add owner
       int successCodeAddOwner = HealthHubController.addManager(uniqeID, newOwner.toJson());
@@ -117,7 +117,7 @@ public class OrganizationSignUpController {
       } else if (successCodeAddOwner == 200 && successCodeAddOrganization == 200) {
         System.out.println("Added Owner + org successfully");
         View.goToViewWithUniqueID(
-                "../../staff/OwnerViews/OwnerMainView.fxml", event, uniqeID, "Owner");
+                "../../staff/OwnerViews/ownerMainView.fxml", event, uniqeID, "Owner");
 
       } else {
         View.showAlertMessage(
