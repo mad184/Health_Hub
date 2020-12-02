@@ -10,8 +10,7 @@ import org.skyscreamer.jsonassert.JSONAssert;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ClientTest {
   Client client1 =
@@ -79,6 +78,65 @@ class ClientTest {
   void changePhoneNumber() {
     client1.setPhoneNum("306-850-0727");
     assertEquals("306-850-0727", client1.getPhoneNum());
+  }
+
+  @Test
+  void changeWeight(){
+    client1.setWeight(180);
+    assertEquals(180, client1.getWeight());
+  }
+
+  @Test
+  void changeWeightGoal(){
+    client1.setWeightGoal(175);
+    assertEquals(175, client1.getWeightGoal());
+  }
+
+  @Test
+  void changeCalGoal(){
+    client1.setCalGoal(2500);
+    assertEquals(2500, client1.getCalGoal());
+  }
+
+  @Test
+  void changeCalories(){
+    client1.setCalories(2000);
+    assertEquals(2000, client1.getCalories());
+  }
+
+  @Test
+  void addAllergies(){
+    ArrayList<String> allergyList = new ArrayList<>();
+    allergyList.add("Peanuts");
+    allergyList.add("Shellfish");
+    client1.setAllergies(allergyList);
+    assertEquals(allergyList, client1.getAllergies());
+  }
+
+  @Test
+  void changeInstructor(){
+    client1.setInstructor("Eddie");
+    assertEquals("Eddie", client1.getInstructor());
+  }
+
+  @Test
+  void changeOrganization(){
+    client1.setOrganization("8th Street");
+    assertEquals("8th Street", client1.getOrganization());
+  }
+
+  @Test
+  void changePassword(){
+    client1.setPassword("12345");
+    assertEquals("12345", client1.getPassword());
+  }
+
+  @Test
+  void testToString(){
+    assertEquals("Client{name='dustin', email='dcr518@usask.ca', password='password', instructor='Rick', " +
+            "organization='Golds', phoneNumber='306-111-1111', id=1, age=29, height=177, weight=182, goalWeight=170, " +
+            "goalCals=3000, calories=2000, allergies=null, comment=null, profilePicture=null, breakfastFoods=[], " +
+            "lunchFoods=[], dinnerFoods=[], snackFoods=[], exercises=[]}", client1.toString());
   }
 
   @Test

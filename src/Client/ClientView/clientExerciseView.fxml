@@ -17,22 +17,23 @@
             <Font size="36.0"/>
          </font>
       </Label>
-      <Button layoutX="278.0" layoutY="342.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="44.0"
+      <Button layoutX="278.0" layoutY="342.0" mnemonicParsing="false" onAction="#exerciseSearch" prefHeight="44.0"
+              prefWidth="44.0"
               style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-background-color: #2a0033; -fx-border-color: #9643A9;"
               text="+" textFill="#9643a9"/>
       <HBox layoutY="68.0" prefHeight="273.0" prefWidth="600.0">
          <children>
-            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="200.0">
+            <VBox fx:id="exerciseNameVBox" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="200.0">
                <children>
                   <Label text="Exercsie" textFill="#c1c9c9"/>
                </children>
             </VBox>
-            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="200.0">
+            <VBox fx:id="exerciseSetsVBox" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="200.0">
                <children>
                   <Label text="Sets" textFill="#c1c9c9"/>
                </children>
             </VBox>
-            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="200.0">
+            <VBox fx:id="exerciseRepsVBox" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="200.0">
                <children>
                   <Label text="Reps" textFill="#c1c9c9"/>
                </children>
