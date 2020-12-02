@@ -100,10 +100,10 @@ public class InstructorSignUpController {
                 View.showAlertMessage("ERROR: Server Error");
             } else if (successCode == 200) {
                 View.goToViewWithUniqueID(
-                        "../../Staff/InstructorViews/instructorMainView.fxml", event, uniqueId, "Instructor");
+                        "../../staff/InstructorViews/instructorMainView.fxml", event, uniqueId, "Instructor");
             } else {
                 View.showAlertMessage("ERROR: Sorry a unknown error occured");
-                View.goToView("../../Staff/InstructorViews/instructorMainView.fxml", event);
+                View.goToView("LoginView.fxml", event);
             }
         }
     }
