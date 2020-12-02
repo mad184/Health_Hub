@@ -57,7 +57,7 @@ public class OrganizationSignUpController {
 
     //regex looks for a string space string, meaning users must enter a first and last name
     if (!(ownerName.length() > 0) || !ownerName.matches("^([a-z]|[A-Z])+\\s([a-z]|[A-Z])+$")) {
-      View.showAlertMessage("A Name is required");
+      View.showAlertMessage("A First space Last name is requried");
     } else if (!(organizationName.length() > 0)) {
       View.showAlertMessage("A Name is required");
     } else if (!(age > 0) || !(age < 150)) {
@@ -73,8 +73,7 @@ public class OrganizationSignUpController {
 
     // min length of 6, Regex looks for any spaces in the password that is one string, no spaces w/ special characters,characters,numbers
     else if (!(passWord.length() > 5) || !passWord.matches("^(\\w|\\D|\\d|\\W)*$")) {
-      View.showAlertMessage("A Password is required");
-      ;
+      View.showAlertMessage("A Password of at least length 6 is required");
     } else {
 
       int uniqeID = HealthHubController.getUniqueID();

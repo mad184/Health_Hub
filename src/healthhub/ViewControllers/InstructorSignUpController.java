@@ -51,7 +51,7 @@ public class InstructorSignUpController {
 
         //regex looks for a string space string, meaning users must enter a first and last name
         if (!(name.length() > 0) || !name.matches("^([a-z]|[A-Z])+\\s([a-z]|[A-Z])+$")) {
-            View.showAlertMessage("A Name is required");
+            View.showAlertMessage("A first space last name are requried");
 
         }else if (!(age > 0) || !(age < 150)) {
             View.showAlertMessage("Right now only ages 1 - 149 are accepted");
@@ -64,12 +64,12 @@ public class InstructorSignUpController {
 
         //needs to not be empty
         else if (!(organization.length() > 0)) {
-            View.showAlertMessage("A userName is required");
+            View.showAlertMessage("A organization is required");
         }
 
         // min length of 6, Regex looks for any spaces in the password that is one string, no spaces w/ special characters,characters,numbers
         else if (!(passWord.length() > 5) || !passWord.matches("^(\\w|\\D|\\d|\\W)*$")) {
-            View.showAlertMessage("A Password is required");
+            View.showAlertMessage("A Password is of at least length 6 required");
         } else if (!(phoneNumber.length() > 0)) {
             View.showAlertMessage("A phone number is required");
         } else {
