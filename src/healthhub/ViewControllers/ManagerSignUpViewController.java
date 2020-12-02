@@ -99,7 +99,7 @@ public class ManagerSignUpViewController {
                             "Test-General-Database",
                             "Instructor-Table");
 
-            int successCode = HealthHubController.addInstructor(uniqueId, newManager.toJson());
+            int successCode = HealthHubController.addManager(uniqueId, newManager.toJson());
 
             if (successCode == 403) {
                 View.showAlertMessage("ERROR: Email " + email + " has already been used");
