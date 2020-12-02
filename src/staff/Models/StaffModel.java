@@ -464,7 +464,7 @@ public class StaffModel implements StaffInterface {
 
   public Gson fromJson(JSONObject json){
     Gson ObjectClass = new Gson();
-    setName(ObjectClass.fromJson(String.valueOf(json.get("name")), String.class));
+    setName(String.valueOf(json.get("name")));
     setUserPassword(ObjectClass.fromJson(String.valueOf(json.get("password")), String.class));
     setAge(ObjectClass.fromJson(String.valueOf(json.get("age")), int.class));
     setID(ObjectClass.fromJson(String.valueOf(json.get("id")), int.class));
@@ -472,7 +472,7 @@ public class StaffModel implements StaffInterface {
     setPhoneNumber(ObjectClass.fromJson(String.valueOf(json.get("phoneNumber")), String.class));
     setHeight(ObjectClass.fromJson(String.valueOf(json.get("height")), int.class));
     setWeight(ObjectClass.fromJson(String.valueOf(json.get("weight")), int.class));
-    //setOrganization(ObjectClass.fromJson(String.valueOf(json.get("Organization")), String.class));
+    setOrganization(String.valueOf(json.get("organization")));
 
     // Converts String to array list of food items.
     if (!json.get("breakfastFoods").toString().equals("")) {
