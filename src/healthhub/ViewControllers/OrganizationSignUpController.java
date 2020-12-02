@@ -109,18 +109,16 @@ public class OrganizationSignUpController {
       // check returned success codes
       if (successCodeAddOwner == 403) {
         View.showAlertMessage("ERROR: Email " + email);
-        View.goToView("OrganizationSignUpView.fxml", event);
 
       } else if (successCodeAddOwner == 500 || successCodeAddOrganization == 500) {
         View.showAlertMessage("ERROR: Server Error, check terminal for error codes");
         System.out.println("Error code add owner: " + successCodeAddOwner);
         System.out.println("Error code add Organziation " + successCodeAddOrganization);
-        View.goToView("OrganizationSignUpView.fxml", event);
 
       } else if (successCodeAddOwner == 200 && successCodeAddOrganization == 200) {
         System.out.println("Added Owner + org successfully");
         View.goToViewWithUniqueID(
-                "../../Staff/OwnerViews/OwnerMainView.fxml", event, uniqeID, "Owner");
+                "../../staff/OwnerViews/OwnerMainView.fxml", event, uniqeID, "Owner");
 
       } else {
         View.showAlertMessage(
