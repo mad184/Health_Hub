@@ -98,6 +98,12 @@ public class LogInViewController {
             } else if (userType.equals("Instructor")) {
                 View.goToViewWithUniqueID("../../staff/InstructorViews/instructorMainView.fxml", event, loginSuccessCodeOrUniqueId, "Instructor");
             } else if (userType.equals("Manager")) {
+                JSONObject owner = db.getManager(loginSuccessCodeOrUniqueId);
+                if (!owner.has("Managers")) {
+                    View.goToViewWithUniqueID("../../staff/OwnerViews/ownerMainView.fxml", event, loginSuccessCodeOrUniqueId, "Owner");
+                } else {
+                    View.showAlertMessage("You have ownership permission, please log in as a owner");
+                }
                 View.goToViewWithUniqueID("../../staff/ManagerViews/managerMainView.fxml", event, loginSuccessCodeOrUniqueId, "Manager");
 
             } else if (userType.equals("Owner")) {
