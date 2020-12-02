@@ -48,10 +48,12 @@ public class InstructorSignUpController {
         } catch (Exception e) {
             View.showAlertMessage("age could not be read");
         }
+
         //regex looks for a string space string, meaning users must enter a first and last name
         if (!(name.length() > 0) || !name.matches("^([a-z]|[A-Z])+\\s([a-z]|[A-Z])+$")) {
             View.showAlertMessage("A Name is required");
-        } else if (!(age > 0) || !(age < 150)) {
+
+        }else if (!(age > 0) || !(age < 150)) {
             View.showAlertMessage("Right now only ages 1 - 149 are accepted");
         }
 
@@ -82,13 +84,13 @@ public class InstructorSignUpController {
                             phoneNumber,
                             0,
                             0,
-                            "none",
+                            organization,
                             uniqueId,
                             null,
                             "test-user",
                             "healthhub1",
-                            "test-user",
-                            "Test-General-Database");
+                            "Test-General-Database",
+                            "Instructor-Table");
 
             int successCode = HealthHubController.addInstructor(uniqueId, newInstructor.toJson());
 
