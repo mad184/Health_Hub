@@ -3,7 +3,9 @@ package Client.ClientView.ExerciseSearch;
 import API.APIManager;
 import API.ExerciseItem;
 import Client.ClientController;
+import Client.ClientView.ClientExerciseViewController;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import database.EmptyQueryException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -159,6 +161,27 @@ public class ExerciseSearchViewController implements Initializable {
         // Get controller for search scene
         ExerciseAddNewExerciseViewController viewController = loader.getController();
         // setup scene
+        viewController.setupScene(clientController);
+
+        Scene viewScene = new Scene(root);
+        // Gets stage information
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(viewScene);
+        window.show();
+    }
+
+    /**
+     * Goes back to main view
+     *
+     * @param event of back button being pushed
+     */
+    public void onBackButtonPressed(ActionEvent event) throws IOException, EmptyQueryException {
+        // Loads Scene for main view
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../clientExerciseView.fxml"));
+        Parent root = loader.load();
+
+        // Gets main view controller and passes client to it
+        ClientExerciseViewController viewController = loader.getController();
         viewController.setupScene(clientController);
 
         Scene viewScene = new Scene(root);
