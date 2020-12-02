@@ -35,10 +35,10 @@
                 <Font size="14.0" />
             </font>
         </Label>
-        <TextField fx:id="Name" layoutX="215.0" layoutY="67.0" />
+        <TextField fx:id="Name" layoutX="215.0" layoutY="67.0" promptText="FirstName LastName"/>
         <TextField fx:id="age" layoutX="217.0" layoutY="124.0" />
         <TextField fx:id="phoneNumber" layoutX="215.0" layoutY="171.0" />
-        <TextField fx:id="Email" layoutX="217.0" layoutY="228.0" />
+        <TextField fx:id="Email" layoutX="217.0" layoutY="228.0" promptText="example@example.ca"/>
         <TextField fx:id="Password" layoutX="215.0" layoutY="279.0" />
         <Button layoutX="313.0" layoutY="328.0" mnemonicParsing="false" onAction="#onSignUpButtonPushed" prefHeight="33.0" prefWidth="75.0" style="-fx-border-color: #9643A9; -fx-border-radius: 10;                 -fx-background-color: #2A0033; -fx-background-radius: 10;" text="Sign Up" textFill="#ddd9d9" />
       <Button layoutX="215.0" layoutY="328.0" mnemonicParsing="false" onAction="#backButtonPushed" prefHeight="33.0" prefWidth="75.0" style="-fx-border-color: #9643A9; -fx-border-radius: 10;                 -fx-background-color: #2A0033; -fx-background-radius: 10;" text="Back" textFill="#ddd9d9" />
