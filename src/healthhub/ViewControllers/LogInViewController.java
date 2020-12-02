@@ -11,11 +11,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
-// for alerting the user of invalid or valid password
-import javax.swing.JOptionPane;
 
 // for ActionEvent methods
 import java.io.IOException;
@@ -90,7 +89,7 @@ public class LogInViewController {
             } else if (userType.equals("Owner")) {
                 View.goToViewWithUniqueID("../../staff/OwnerViews/ownerMainView.fxml", event, loginSuccessCodeOrUniqueId, "Owner");
             } else {
-                JOptionPane.showMessageDialog(null, "Unknown login user type");
+                View.showAlertMessage("Unknown login user type");
                 View.goToView("LoginView.fxml", event);
             }
         }
