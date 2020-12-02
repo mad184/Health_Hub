@@ -68,30 +68,27 @@ public class LogInViewController {
 
         // send account not found to LogInView
         if (loginSuccessCodeOrUniqueId == 404) {
-            JOptionPane.showMessageDialog(null, "Account Not Found");
-            View.goToView("LoginView.fxml", event);
+            View.showAlertMessage("Account Not Found");
         }
         // send account exists, password is not correct to LogInView
         else if (loginSuccessCodeOrUniqueId == 401) {
-            JOptionPane.showMessageDialog(null, "Account Exists, password was incorrect");
-            View.goToView("LoginView.fxml", event);
+            View.showAlertMessage("Account Exists, password was incorrect");
         }
         // send server error to LogInView
         else if (loginSuccessCodeOrUniqueId == 500) {
-            JOptionPane.showMessageDialog(null, "Server Error Occurred");
-            View.goToView("LoginView.fxml", event);
+            View.showAlertMessage("Server Error Occurred");
         }
 
         else {
             if (userType.equals("Client")) {
                 View.goToViewWithUniqueID("../../Client/ClientView/clientMainView.fxml", event, loginSuccessCodeOrUniqueId, "Client");
             } else if (userType.equals("Instructor")) {
-                View.goToViewWithUniqueID("../../Staff/InstructorViews/instructorMainView.fxml", event, loginSuccessCodeOrUniqueId, "Instructor");
+                View.goToViewWithUniqueID("../../staff/InstructorViews/instructorMainView.fxml", event, loginSuccessCodeOrUniqueId, "Instructor");
             } else if (userType.equals("Manager")) {
-                View.goToViewWithUniqueID("../../Staff/ManagerViews/managerMainView.fxml", event, loginSuccessCodeOrUniqueId, "Manager");
+                View.goToViewWithUniqueID("../../staff/ManagerViews/managerMainView.fxml", event, loginSuccessCodeOrUniqueId, "Manager");
 
             } else if (userType.equals("Owner")) {
-                View.goToViewWithUniqueID("../../Staff/OwnerViews/ownerMainView.fxml", event, loginSuccessCodeOrUniqueId, "Owner");
+                View.goToViewWithUniqueID("../../staff/OwnerViews/ownerMainView.fxml", event, loginSuccessCodeOrUniqueId, "Owner");
             } else {
                 JOptionPane.showMessageDialog(null, "Unknown login user type");
                 View.goToView("LoginView.fxml", event);
