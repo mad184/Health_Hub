@@ -53,11 +53,13 @@ public class ManagerMainViewController {
             "test-user",
             "healthhub1",
             "Test-General-Database",
-            "Instructor-Table");
+            "Manager-Table");
 
     ManagerController managerController = new ManagerController(newManager);
 
     JSONObject managerFromDB = db.getManager(managerID);
+
+    managerController.fromJson(managerFromDB);
 
     this.controller = managerController;
 
