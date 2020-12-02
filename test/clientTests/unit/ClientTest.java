@@ -126,6 +126,12 @@ class ClientTest {
   }
 
   @Test
+  void changePassword(){
+    client1.setPassword("12345");
+    assertEquals("12345", client1.getPassword());
+  }
+
+  @Test
   void addFood(){
     clientController1.addClientBreakfastFood(new FoodItem("Donut", 1.0, 100));
     clientController1.addClientBreakfastFood(new FoodItem("Donut", 1.0, 100));
