@@ -6,6 +6,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class APITest {
 
@@ -29,6 +30,11 @@ public class APITest {
                 + results.get(2).getFoodName()
                 + " ,Calories: "
                 + results.get(2).getCalories());
+  }
+
+  @Test
+  void emptyExerciseSearch() throws UnirestException{
+    assertNull(APISearcher.findExerciseSearchMatches(""));
   }
 
   @Test

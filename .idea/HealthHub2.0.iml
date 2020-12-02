@@ -12,6 +12,7 @@
     <orderEntry type="library" exported="" name="org.json:json:20200518" level="project" />
     <orderEntry type="library" exported="" name="com.google.code.gson:gson:2.8.6" level="project" />
     <orderEntry type="library" exported="" name="com.mashape.unirest:unirest-java:1.4.9" level="project" />
+    <orderEntry type="library" exported="" name="com.mashape.unirest:unirest-java:1.4.91" level="project" />
     <orderEntry type="library" exported="" name="org.mongodb:mongodb-driver-core:3.12.7" level="project" />
     <orderEntry type="library" exported="" name="org.mongodb:bson:3.12.7" level="project" />
     <orderEntry type="library" exported="" name="org.mongodb:mongodb-driver:3.12.7" level="project" />
