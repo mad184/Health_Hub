@@ -54,7 +54,7 @@ public class OwnerView extends Application {
     // Get controller for main scene
     OwnerMainViewController viewController = loader.getController();
     // setup scene
-    viewController.setupScene(controller);
+    viewController.setupScene(controller.getId());
 
     // Show scene in window
     stage.setTitle("Owner View");
