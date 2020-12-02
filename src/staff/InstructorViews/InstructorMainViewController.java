@@ -45,12 +45,12 @@ public class InstructorMainViewController {
                     0,
                     0,
                     "none",
-                    1,
+                    _id,
                     null,
                     "test-user",
                     "healthhub1",
-                    "test-user",
-                    "Test-General-Database");
+                    "Test-General-Database",
+                    "Instructor-Table");
 
     InstructorController Instructorcontroller = new InstructorController(newInstructor);
 
