@@ -58,31 +58,74 @@ public class ExerciseSearchViewController implements Initializable {
         exerciseNameVBox.getChildren().removeAll();
         addButtonVBox.getChildren().removeAll();
         results = apiManager.findExerciseSearchMatches(searchBar.getText());
-        for (int i = 0; i < results.size(); i++) {
-            Label exerciseLabel = new Label(results.get(i).getExerciseName());
-            exerciseLabel.setTextFill(Color.web("#ddd9d9"));
-            Button addButton = new Button();
-            addButton.setText("+");
-            addButton.setTextFill(Color.web("#ddd9d9"));
-            addButton.setStyle(
-                    "-fx-border-color: #9643a9; " +
-                            "-fx-border-radius: 30; " +
-                            "-fx-background-color: #2a0033; " +
-                            "-fx-background-radius: 30");
-            addButton.setPrefSize(33, 33);
-            int finalI = i;
-            addButton.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent e) {
-                    try {
-                        addButtonPressed(e, results.get(finalI));
-                    } catch (IOException ioException) {
-                        ioException.printStackTrace();
-                    }
-                }
-            });
-            exerciseNameVBox.getChildren().add(exerciseLabel);
-            addButtonVBox.getChildren().add(addButton);
+        if (results.isEmpty()) {
+            //Label for no results
+            Label noResultsLabel = new Label("No results have been found");
+            noResultsLabel.setTextFill(Color.web("#ddd9d9"));
+
+            //Button to add own exercise
+            Button addNewButton = new Button();
+            addNewButton.setText("Add exercise");
+            addNewButton.setTextFill(Color.web("#ddd9d9"));
+            addNewButton.setStyle(
+                    "-fx-border-color: #9643a9; "
+                            + "-fx-border-radius: 10; "
+                            + "-fx-background-color: #2a0033; "
+                            + "-fx-background-radius: 10");
+            addNewButton.setPrefSize(75, 33);
+
+            //Setup action for addNewButton
+            //Adds action to add button
+            addNewButton.setOnAction(
+                    new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent e) {
+                            try {
+                                addNewExerciseButtonPressed(e);
+                            } catch (IOException ioException) {
+                                ioException.printStackTrace();
+                            }
+                        }
+                    });
+
+            //Add label and button to screen
+            exerciseNameVBox.getChildren().add(noResultsLabel);
+            addButtonVBox.getChildren().add(addNewButton);
+        } else {
+            for (int i = 0; i < results.size(); i++) {
+                //Setup Label for exercise
+                Label exerciseLabel = new Label(results.get(i).getExerciseName());
+                exerciseLabel.setTextFill(Color.web("#ddd9d9"));
+
+                //Setups add button
+                Button addButton = new Button();
+                addButton.setText("+");
+                addButton.setTextFill(Color.web("#ddd9d9"));
+                addButton.setStyle(
+                        "-fx-border-color: #9643a9; "
+                                + "-fx-border-radius: 30; "
+                                + "-fx-background-color: #2a0033; "
+                                + "-fx-background-radius: 30");
+                addButton.setPrefSize(33, 33);
+                int finalI = i;
+
+                //Adds action to add button
+                addButton.setOnAction(
+                        new EventHandler<ActionEvent>() {
+                            @Override
+                            public void handle(ActionEvent e) {
+                                try {
+                                    addButtonPressed(e, results.get(finalI));
+                                } catch (IOException ioException) {
+                                    ioException.printStackTrace();
+                                }
+                            }
+                        });
+
+                //Adds exercise name and add button to screen
+                exerciseNameVBox.getChildren().add(exerciseLabel);
+                addButtonVBox.getChildren().add(addButton);
+            }
         }
     }
 
@@ -100,6 +143,23 @@ public class ExerciseSearchViewController implements Initializable {
         ExerciseRepsAndSetsViewController viewController = loader.getController();
         // setup scene
         viewController.setupScene(clientController, item);
+
+        Scene viewScene = new Scene(root);
+        // Gets stage information
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(viewScene);
+        window.show();
+    }
+
+    public void addNewExerciseButtonPressed(ActionEvent event) throws IOException {
+        // Load food search scene
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("exerciseAddNewExerciseView.fxml"));
+        Parent root = loader.load();
+
+        // Get controller for search scene
+        ExerciseAddNewExerciseViewController viewController = loader.getController();
+        // setup scene
+        viewController.setupScene(clientController);
 
         Scene viewScene = new Scene(root);
         // Gets stage information

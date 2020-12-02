@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/11.0.1"
+            fx:controller="Client.ClientView.ExerciseSearch.ExerciseAddNewExerciseViewController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2a0033" height="406.0" layoutX="-4.0" layoutY="-3.0"
+                 stroke="BLACK" strokeType="INSIDE" width="606.0"/>
+   </children>
+</AnchorPane>
