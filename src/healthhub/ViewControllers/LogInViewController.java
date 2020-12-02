@@ -11,11 +11,11 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
-import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
-
+import org.json.JSONObject;
+import staff.StaffToDB;
 // for ActionEvent methods
 import java.io.IOException;
 
@@ -59,6 +59,7 @@ public class LogInViewController {
      */
     @FXML
     public void onLoginButtonPushed(ActionEvent event) throws IOException, EmptyQueryException {
+        StaffToDB db = new StaffToDB();
         String userType = (String) userTypeComboBox.getValue();
         boolean ownerToMangerFlag = false;
 
@@ -100,7 +101,13 @@ public class LogInViewController {
                 View.goToViewWithUniqueID("../../staff/ManagerViews/managerMainView.fxml", event, loginSuccessCodeOrUniqueId, "Manager");
 
             } else if (userType.equals("Owner")) {
-                View.goToViewWithUniqueID("../../staff/OwnerViews/ownerMainView.fxml", event, loginSuccessCodeOrUniqueId, "Owner");
+                //check for this key to make sure that it has the proper permission to be a owner
+                JSONObject owner = db.getManager(loginSuccessCodeOrUniqueId);
+                if (owner.has("Managers")) {
+                    View.goToViewWithUniqueID("../../staff/OwnerViews/ownerMainView.fxml", event, loginSuccessCodeOrUniqueId, "Owner");
+                } else {
+                    View.showAlertMessage("You do not have owner permissions");
+                }
             } else {
                 View.showAlertMessage("Unknown login user type");
                 View.goToView("LoginView.fxml", event);
