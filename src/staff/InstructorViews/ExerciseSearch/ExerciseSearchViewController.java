@@ -2,8 +2,6 @@ package staff.InstructorViews.ExerciseSearch;
 
 import API.APIManager;
 import API.ExerciseItem;
-import Client.ClientController;
-import Client.ClientView.ClientExerciseViewController;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import database.EmptyQueryException;
 import javafx.event.ActionEvent;
@@ -20,6 +18,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import staff.Controllers.InstructorController;
+import staff.InstructorViews.InstructorExerciseViewController;
 
 import java.io.IOException;
 import java.net.URL;
@@ -45,15 +45,15 @@ public class ExerciseSearchViewController implements Initializable {
     private ArrayList<ExerciseItem> results = new ArrayList<>();
 
     // Controller to hold client information
-    private ClientController clientController = new ClientController(null);
+    private InstructorController modelController = new InstructorController(null);
 
     /**
      * Sets up viewController for scene
      *
      * @param controller client info controller
      */
-    public void setupScene(ClientController controller) {
-        clientController = controller;
+    public void setupScene(InstructorController controller) {
+        modelController = controller;
     }
 
     /**
@@ -150,7 +150,7 @@ public class ExerciseSearchViewController implements Initializable {
         // Get controller for search scene
         ExerciseRepsAndSetsViewController viewController = loader.getController();
         // setup scene
-        viewController.setupScene(clientController, item);
+        viewController.setupScene(modelController, item);
 
         Scene viewScene = new Scene(root);
         // Gets stage information
@@ -167,7 +167,7 @@ public class ExerciseSearchViewController implements Initializable {
         // Get controller for search scene
         ExerciseAddNewExerciseViewController viewController = loader.getController();
         // setup scene
-        viewController.setupScene(clientController);
+        viewController.setupScene(modelController);
 
         Scene viewScene = new Scene(root);
         // Gets stage information
@@ -183,12 +183,12 @@ public class ExerciseSearchViewController implements Initializable {
      */
     public void onBackButtonPressed(ActionEvent event) throws IOException, EmptyQueryException {
         // Loads Scene for main view
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../clientExerciseView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../instructorExerciseView.fxml"));
         Parent root = loader.load();
 
         // Gets main view controller and passes client to it
-        ClientExerciseViewController viewController = loader.getController();
-        viewController.setupScene(clientController);
+        InstructorExerciseViewController viewController = loader.getController();
+        viewController.setupScene(modelController);
 
         Scene viewScene = new Scene(root);
         // Gets stage information

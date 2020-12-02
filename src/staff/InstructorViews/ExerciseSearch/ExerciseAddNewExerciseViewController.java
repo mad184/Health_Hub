@@ -1,9 +1,7 @@
 package staff.InstructorViews.ExerciseSearch;
 
 import API.ExerciseItem;
-import Client.ClientController;
 import Client.ClientToDB;
-import Client.ClientView.ClientExerciseViewController;
 import database.EmptyQueryException;
 import database.JsonObjectException;
 import javafx.event.ActionEvent;
@@ -15,6 +13,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import staff.Controllers.InstructorController;
+import staff.InstructorViews.InstructorExerciseViewController;
 
 import java.io.IOException;
 import java.net.URL;
@@ -33,15 +33,15 @@ public class ExerciseAddNewExerciseViewController implements Initializable {
     @FXML
     TextField repInput = new TextField();
 
-    private ClientController controller = new ClientController(null);
+    private InstructorController controller = new InstructorController(null);
 
     /**
      * Sets up controller for scene
      *
-     * @param clientController controller with client info
+     * @param controller controller with client info
      */
-    public void setupScene(ClientController clientController) {
-        controller = clientController;
+    public void setupScene(InstructorController controller) {
+        this.controller = controller;
     }
 
 
@@ -80,10 +80,10 @@ public class ExerciseAddNewExerciseViewController implements Initializable {
                 Integer.parseInt(repInput.getText()));
 
         //Adds Exercise to client
-        controller.addExercise(exerciseItem);
+        controller.addExercises(exerciseItem);
 
         //Updates client in database
-        DB.updateClient(controller.getClientID(), controller.clientToJson());
+        DB.updateClient(controller.getId(), controller.toJson());
 
         //Goes back to main exercise view
         goToExerciseView(event);
@@ -95,11 +95,11 @@ public class ExerciseAddNewExerciseViewController implements Initializable {
      * @param event event of add exercise view button being pushed
      */
     public void goToExerciseView(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../clientExerciseView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../instructorExerciseView.fxml"));
         Parent root = loader.load();
 
         // Gets main view controller and passes client to it
-        ClientExerciseViewController viewController = loader.getController();
+        InstructorExerciseViewController viewController = loader.getController();
         viewController.setupScene(controller);
 
         Scene viewScene = new Scene(root);

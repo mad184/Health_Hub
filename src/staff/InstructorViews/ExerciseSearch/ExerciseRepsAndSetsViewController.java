@@ -1,9 +1,6 @@
 package staff.InstructorViews.ExerciseSearch;
 
 import API.ExerciseItem;
-import Client.ClientController;
-import Client.ClientToDB;
-import Client.ClientView.ClientExerciseViewController;
 import database.EmptyQueryException;
 import database.JsonObjectException;
 import javafx.event.ActionEvent;
@@ -14,13 +11,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import staff.Controllers.InstructorController;
+import staff.InstructorViews.InstructorExerciseViewController;
 
 import java.io.IOException;
 
 public class ExerciseRepsAndSetsViewController {
-
-    //Database connection
-    ClientToDB DB = new ClientToDB();
 
     //Exercise Item
     ExerciseItem exerciseItem;
@@ -32,7 +28,7 @@ public class ExerciseRepsAndSetsViewController {
     TextField repsInput = new TextField();
 
     // Controller to hold client information
-    private ClientController clientController = new ClientController(null);
+    private InstructorController controller = new InstructorController(null);
 
     /**
      * Setsup scene for actions
@@ -40,8 +36,8 @@ public class ExerciseRepsAndSetsViewController {
      * @param controller   client info
      * @param exerciseItem exercise being added to client
      */
-    public void setupScene(ClientController controller, ExerciseItem exerciseItem) {
-        clientController = controller;
+    public void setupScene(InstructorController controller, ExerciseItem exerciseItem) {
+        this.controller = controller;
         this.exerciseItem = exerciseItem;
     }
 
@@ -54,8 +50,8 @@ public class ExerciseRepsAndSetsViewController {
     public void addExerciseButtonPushed(ActionEvent event) throws IOException, JsonObjectException, EmptyQueryException {
         this.exerciseItem.setSets(Integer.parseInt(setsInput.getText()));
         this.exerciseItem.setReps(Integer.parseInt(repsInput.getText()));
-        clientController.addExercise(exerciseItem);
-        DB.updateClient(clientController.getClientID(), clientController.clientToJson());
+        controller.addExercises(exerciseItem);
+        controller.toJson();
         goBack(event);
     }
 
@@ -66,13 +62,13 @@ public class ExerciseRepsAndSetsViewController {
      */
     public void goBack(ActionEvent event) throws IOException {
         // Load food search scene
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../clientExerciseView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../instructorExerciseView.fxml"));
         Parent root = loader.load();
 
         // Get controller for search scene
-        ClientExerciseViewController viewController = loader.getController();
+        InstructorExerciseViewController viewController = loader.getController();
         // setup scene
-        viewController.setupScene(clientController);
+        viewController.setupScene(controller);
 
         Scene viewScene = new Scene(root);
         // Gets stage information
