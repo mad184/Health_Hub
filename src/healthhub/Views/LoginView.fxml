@@ -21,7 +21,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="email" layoutX="226.0" layoutY="90.0" />
+      <TextField fx:id="email" layoutX="226.0" layoutY="90.0" promptText="example@example.com"/>
       <TextField fx:id="passWord" layoutX="226.0" layoutY="132.0" />
 
       <Button layoutX="273.0" layoutY="238.0" mnemonicParsing="false" onAction="#onLoginButtonPushed" prefHeight="33.0" prefWidth="57.0" style="-fx-border-color: #9643A9; -fx-border-radius: 10; -fx-background-color: #2A0033;                -fx-background-radius: 10;" text="LogIn" textFill="#ddd9d9" />
