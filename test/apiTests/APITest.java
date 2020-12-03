@@ -38,6 +38,11 @@ public class APITest {
   }
 
   @Test
+  void notExerciseSearch() throws UnirestException{
+    System.out.println(APISearcher.findExerciseSearchMatches("burger").toString());
+  }
+
+  @Test
   void exerciseSearch() throws UnirestException {
     System.out.println(APISearcher.findExerciseSearchMatches("press").toString());
   }
