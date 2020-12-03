@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="staff.InstructorViews.InstructorClientViewController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2a0033" height="400.0" stroke="BLACK" strokeType="INSIDE" width="600.0" />
+      <Label alignment="TOP_CENTER" layoutX="265.0" layoutY="48.0" text="Clients" textFill="#ddd9d9">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="clientSelectComboBox" layoutX="171.0" layoutY="131.0" prefHeight="25.0" prefWidth="258.0" promptText="Client Name" />
+      <Button fx:id="inviteClientButton" layoutX="449.0" layoutY="307.0" mnemonicParsing="false" onAction="#onInviteButtonPressed" prefHeight="25.0" prefWidth="71.0" text="Invite" />
+      <TextField fx:id="inviteEmailField" layoutX="172.0" layoutY="307.0" prefHeight="25.0" prefWidth="258.0" promptText="Client Email" />
+      <Button fx:id="clientViewButton" layoutX="449.0" layoutY="131.0" mnemonicParsing="false" onAction="#onViewClientButtonPressed" prefHeight="25.0" prefWidth="71.0" text="View" />
+      <Button fx:id="backButton" layoutX="36.0" layoutY="36.0" mnemonicParsing="false" onAction="#onBackButtonPressed" prefHeight="35.0" prefWidth="71.0" style="-fx-background-color: transparent; -fx-border-color: #cc9191; -fx-border-radius: 10;" text="Back" textAlignment="CENTER" textFill="#ddd9d9" />
+      <Label layoutX="172.0" layoutY="173.0" text="Current Calories:" textFill="#ddd9d9" />
+      <Label layoutX="172.0" layoutY="200.0" text="Calorie Goal:" textFill="#ddd9d9" />
+      <Label fx:id="currentCalories" layoutX="272.0" layoutY="173.0" textFill="#ddd9d9" />
+      <Label fx:id="goalCalories" layoutX="251.0" layoutY="200.0" textFill="#ddd9d9" />
+   </children>
+</AnchorPane>
