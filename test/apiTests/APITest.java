@@ -126,4 +126,20 @@ public class APITest {
   void exerciseSearch() throws UnirestException {
     System.out.println(APISearcher.findExerciseSearchMatches("press").toString());
   }
+
+  @Test
+  void spaceExerciseSearch() throws UnirestException {
+    System.out.println(APISearcher.findExerciseSearchMatches(" press").toString());
+  }
+
+  @Test
+  void spaceAfterExerciseSearch() throws UnirestException {
+    System.out.println(APISearcher.findExerciseSearchMatches("press ").toString());
+  }
+
+  @Test
+  void doubleSpaceExerciseSearch() throws UnirestException {
+    System.out.println(APISearcher.findExerciseSearchMatches(" press ").toString());
+  }
+
 }
