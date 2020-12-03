@@ -16,7 +16,9 @@
     <orderEntry type="library" exported="" name="org.mongodb:bson:3.12.7" level="project" />
     <orderEntry type="library" exported="" name="org.mongodb:mongodb-driver:3.12.7" level="project" />
     <orderEntry type="library" exported="" name="org.skyscreamer:jsonassert:1.5.0" level="project" />
-    <orderEntry type="library" exported="" name="lib" level="project" />
+    <orderEntry type="library" exported="" name="org.openjfx:javafx-controls:13" level="project" />
+    <orderEntry type="library" exported="" name="org.openjfx:javafx-maven-plugin:0.0.5" level="project" />
+    <orderEntry type="library" exported="" name="org.openjfx:javafx-fxml:11.0.1" level="project" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>
