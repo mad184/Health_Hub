@@ -3,6 +3,7 @@ package staff.ManagerViews.FoodSearchView;
 import API.APIManager;
 import API.FoodItem;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import database.EmptyQueryException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,8 +13,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import staff.Controllers.InstructorController;
 import staff.Controllers.ManagerController;
+import staff.ManagerViews.ManagerNutrientViewController;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,11 +39,12 @@ public class FoodSearchViewController {
   // Controller to hold client information
   private ManagerController controller = new ManagerController(null);
 
-  //Array list initialized for results
+  // Array list initialized for results
   ArrayList<FoodItem> results = new ArrayList<>();
 
   /**
    * Setups scene
+   *
    * @param instructor InstructorController for instructor
    */
   public void setupScene(ManagerController instructor) {
@@ -51,6 +53,7 @@ public class FoodSearchViewController {
 
   /**
    * Searches for food with inputted string
+   *
    * @param event event of search button being pressed
    * @throws UnirestException exception
    */
@@ -66,6 +69,7 @@ public class FoodSearchViewController {
 
   /**
    * Changes scene to foodTypeSelectView scene
+   *
    * @param event of add button being clicked
    * @param food food to be added to instructor
    */
@@ -87,6 +91,7 @@ public class FoodSearchViewController {
 
   /**
    * Goes to food type select view to add food to instructor
+   *
    * @param event first result add button clicked
    */
   public void topResultAddButton(ActionEvent event) throws IOException {
@@ -97,6 +102,7 @@ public class FoodSearchViewController {
 
   /**
    * Goes to food type select view to add food to instructor
+   *
    * @param event second result add button clicked
    */
   public void secondResultAddButton(ActionEvent event) throws IOException {
@@ -107,11 +113,28 @@ public class FoodSearchViewController {
 
   /**
    * Goes to food type select view to add food to instructor
+   *
    * @param event third result add button clicked
    */
   public void thirdResultAddButton(ActionEvent event) throws IOException {
     if (results.size() != 0) {
       changeScene(event, results.get(2));
     }
+  }
+
+  public void onBackButtonPressed(ActionEvent event) throws IOException, EmptyQueryException {
+    // Loads Scene for main view
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("../managerNutrientView.fxml"));
+    Parent root = loader.load();
+
+    // Gets main view controller and passes client to it
+    ManagerNutrientViewController managerNutrientViewController = loader.getController();
+    managerNutrientViewController.setupScene(controller);
+
+    Scene viewScene = new Scene(root);
+    // Gets stage information
+    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    window.setScene(viewScene);
+    window.show();
   }
 }
