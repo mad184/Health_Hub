@@ -51,8 +51,8 @@ public class ManagerSignUpViewController {
         }
 
         //regex looks for a string space string, meaning users must enter a first and last name
-        if (!(name.length() > 0) || !name.matches("^([a-z]|[A-Z])+\\s([a-z]|[A-Z])+$")) {
-            View.showAlertMessage("A first space last name are requried");
+        if (!(name.length() > 0) || name.matches("^\\s+$")) {
+            View.showAlertMessage("name could not be read");
 
         } else if (!(age > 0) || !(age < 150)) {
             View.showAlertMessage("Right now only ages 1 - 149 are accepted");
