@@ -1,5 +1,7 @@
 package staff.InstructorViews;
 
+import Client.Client;
+import com.google.gson.Gson;
 import database.EmptyQueryException;
 import healthhub.Views.View;
 import javafx.beans.InvalidationListener;
@@ -16,6 +18,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.json.JSONObject;
 import staff.Controllers.InstructorController;
 import staff.StaffToDB;
 import staff.UserID;
@@ -32,11 +35,13 @@ public class InstructorClientViewController {
     @FXML Label currentCalories = null;
     @FXML Label goalCalories = null;
     ObservableList<String> clientList = null;
+    ArrayList<UserID> clients = null;
+    JSONObject selectedClient = null;
 
     public void setupScene(InstructorController controller) {
         this.controller = controller;
 
-        ArrayList<UserID> clients = (ArrayList<UserID>) controller.getClients();
+        clients = (ArrayList<UserID>) controller.getClients();
         ArrayList<String> clientNames = new ArrayList<>();
         if (!(clients == null)) {
           for (UserID client : clients) {
@@ -54,8 +59,22 @@ public class InstructorClientViewController {
      *
      * @param event: Event which pressed the button.
      */
-    public void onViewClientButtonPressed(ActionEvent event) throws IOException {
+    public void onViewClientButtonPressed(ActionEvent event) throws IOException, EmptyQueryException {
         System.out.println("You have selected a Client");
+        String clientName = clientSelectComboBox.getValue();
+        if (!(clientName == null)) {
+            for (UserID client : clients) {
+                if (client.getName().equals(clientName)) {
+                    selectedClient = controller.getClientInfo(client);
+                    break;
+                }
+            }
+            Gson gson = new Gson();
+            String currentCal = gson.fromJson(String.valueOf(selectedClient.get("calories")), String.class);
+            String goalCal = gson.fromJson(String.valueOf(selectedClient.get("goalCals")), String.class);
+            currentCalories.setText(currentCal);
+            goalCalories.setText(goalCal);
+        }
     }
 
     /**
