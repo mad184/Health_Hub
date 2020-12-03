@@ -89,7 +89,9 @@ public class FoodSearchViewController {
    * @param event first result add button clicked
    */
   public void topResultAddButton(ActionEvent event) throws IOException {
-    changeScene(event, results.get(0));
+    if (results.size() != 0) {
+      changeScene(event, results.get(0));
+    }
   }
 
   /**
@@ -97,7 +99,9 @@ public class FoodSearchViewController {
    * @param event second result add button clicked
    */
   public void secondResultAddButton(ActionEvent event) throws IOException {
-    changeScene(event, results.get(1));
+    if (results.size() != 0) {
+      changeScene(event, results.get(1));
+    }
   }
 
   /**
@@ -105,6 +109,8 @@ public class FoodSearchViewController {
    * @param event third result add button clicked
    */
   public void thirdResultAddButton(ActionEvent event) throws IOException {
-    changeScene(event, results.get(2));
+    if (results.size() != 0) {
+      changeScene(event, results.get(2));
+    }
   }
 }
