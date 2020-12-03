@@ -19,6 +19,7 @@ public class OwnerModelControllerTest {
   OwnerModel model =
       new OwnerModel(
           "Andrew",
+          "andrew1",
           38,
           "Andrew@usask.ca",
           "306-123-4567",

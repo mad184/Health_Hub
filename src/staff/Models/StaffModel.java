@@ -13,6 +13,7 @@ import java.util.List;
 /** Storage class for Staff users. */
 public class StaffModel implements StaffInterface {
   private String name;
+  private String userPassword;
   private int age;
   private String email;
   private String phoneNumber;
@@ -42,6 +43,7 @@ public class StaffModel implements StaffInterface {
    */
   public StaffModel(
       String name,
+      String userPassword,
       int age,
       String email,
       String phoneNumber,
@@ -55,6 +57,7 @@ public class StaffModel implements StaffInterface {
       String tableName  // For connection to Dbms
       ) {
     this.name = name;
+    this.userPassword = userPassword;
     this.age = age;
     this.email = email;
     this.phoneNumber = phoneNumber;
@@ -174,7 +177,12 @@ public class StaffModel implements StaffInterface {
     return this.organization;
   }
 
-  /**
+    @Override
+    public String getUserPassword() {
+        return this.userPassword;
+    }
+
+    /**
    * Gets the database ID of the staff member.
    *
    * @return database ID
@@ -184,7 +192,18 @@ public class StaffModel implements StaffInterface {
     return this.id;
   }
 
-  /**
+  @Override
+  public int setID(int _id) {
+      return this.id = _id;
+  }
+
+    @Override
+    public void setUserPassword(String password) {
+        this.userPassword = password;
+    }
+
+
+    /**
    * Sets the name of the staff member
    *
    * @param name: Name of the Staff member
@@ -397,14 +416,15 @@ public class StaffModel implements StaffInterface {
    */
   public JSONObject toJson() throws JSONException {
     JSONObject json = new JSONObject();
-    json.put("Name", this.name);
-    json.put("Age", this.age);
+    json.put("name", this.name);
+    json.put("password", this.userPassword);
+    json.put("age", this.age);
     json.put("email", this.email);
-    json.put("Phone Number", this.phoneNumber);
-    json.put("Height", this.height);
-    json.put("Weight", this.weight);
-    json.put("Organization", this.organization);
-    json.put("ID", this.id);
+    json.put("phoneNumber", this.phoneNumber);
+    json.put("height", this.height);
+    json.put("weight", this.weight);
+    json.put("organization", this.organization);
+    json.put("id", this.id);
 
     // Converts Array Lists toString
     if (getBreakfastFoods() == null) {
@@ -438,18 +458,21 @@ public class StaffModel implements StaffInterface {
               "snackFoods",
               getSnackFoods().toString().substring(1, getSnackFoods().toString().length() - 1));
     }
+    System.out.println(json.toString());
     return json;
   }
 
   public Gson fromJson(JSONObject json){
     Gson ObjectClass = new Gson();
-    setName(ObjectClass.fromJson(String.valueOf(json.get("Name")), String.class));
-    setAge(ObjectClass.fromJson(String.valueOf(json.get("Age")), int.class));
+    setName(String.valueOf(json.get("name")));
+    setUserPassword(ObjectClass.fromJson(String.valueOf(json.get("password")), String.class));
+    setAge(ObjectClass.fromJson(String.valueOf(json.get("age")), int.class));
+    setID(ObjectClass.fromJson(String.valueOf(json.get("id")), int.class));
     setEmail(ObjectClass.fromJson(String.valueOf(json.get("email")), String.class));
-    setPhoneNumber(ObjectClass.fromJson(String.valueOf(json.get("Phone Number")), String.class));
-    setHeight(ObjectClass.fromJson(String.valueOf(json.get("Height")), int.class));
-    setWeight(ObjectClass.fromJson(String.valueOf(json.get("Weight")), int.class));
-    //setOrganization(ObjectClass.fromJson(String.valueOf(json.get("Organization")), String.class));
+    setPhoneNumber(ObjectClass.fromJson(String.valueOf(json.get("phoneNumber")), String.class));
+    setHeight(ObjectClass.fromJson(String.valueOf(json.get("height")), int.class));
+    setWeight(ObjectClass.fromJson(String.valueOf(json.get("weight")), int.class));
+    setOrganization(String.valueOf(json.get("organization")));
 
     // Converts String to array list of food items.
     if (!json.get("breakfastFoods").toString().equals("")) {

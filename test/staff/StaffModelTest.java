@@ -10,7 +10,7 @@ import staff.Models.StaffModel;
 /** Testing class for StaffModel class. */
 public class StaffModelTest {
   StaffModel staff =
-      new StaffModel("John", 21, "john@usask.ca", "306-555-5555", 175, 160, "Average Joes", 1, "John", "123456", "test", "test");
+      new StaffModel("John", "john",21, "john@usask.ca", "306-555-5555", 175, 160, "Average Joes", 1, "John", "123456", "test", "test");
 
   /** Tests the constructor for StaffModel. */
   @Test

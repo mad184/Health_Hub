@@ -10,11 +10,58 @@ import java.util.ArrayList;
 
 public class APIManager {
 
+  //public ArrayList<ExerciseItem> SearchForExerciseItems(String searchString) { }
+
+
   public ArrayList<FoodItem> searchForFoodItem(String searchString) throws UnirestException {
     // Getting all food search hits as a json array
-    JSONArray foodArray = getJsonFromAPI(searchString).getJSONArray("branded");
+    JSONArray foodArray = getFoodJsonFromAPI(searchString).getJSONArray("branded");
 
     return topThreeResults(foodArray);
+  }
+
+  /**
+   * Looks for items from json that contain the string the user is searching for
+   *
+   * @param searchString exercise user is looking for
+   * @return a arraylist containing all the exercises found in the json that match what the user is looking for
+   */
+  public ArrayList<ExerciseItem> findExerciseSearchMatches(String searchString) throws UnirestException {
+    if (searchString.isEmpty()) {
+      return null;
+    }
+
+    //Holds exercise items
+    ArrayList<ExerciseItem> searchResults = new ArrayList<>();
+
+    //Exercise Json from API results
+    JSONArray results = getExerciseJsonFromAPI().getJSONArray("results");
+
+    for (int i = 0; i < results.length(); i++) {
+      //Gets item at current index
+      JSONObject item = results.getJSONObject(i);
+
+      if (item.getString("name_original").toLowerCase().contains(searchString) ||
+              item.getString("name_original").toUpperCase().contains(searchString) ||
+              item.getString("name_original").contains(searchString)) {
+        ExerciseItem exerciseItem = new ExerciseItem(item.getString("name_original"));
+        searchResults.add(exerciseItem);
+      }
+    }
+    return searchResults;
+  }
+
+  /**
+   * Gets JSON of all exercises from WGER API
+   *
+   * @return a jsonobject with all exercises
+   */
+  private JSONObject getExerciseJsonFromAPI() throws UnirestException {
+    //Get Http response from api host
+    HttpResponse<String> response =
+            Unirest.get("https://wger.de/api/v2/exercise/?format=json").asString();
+    JSONObject jsonResponse = new JSONObject(response.getBody());
+    return jsonResponse;
   }
 
   /**
@@ -24,18 +71,17 @@ public class APIManager {
    * @return returns a json object of the return json from teh API
    * @throws UnirestException exception
    */
-  private JSONObject getJsonFromAPI(String searchString) throws UnirestException {
+  private JSONObject getFoodJsonFromAPI(String searchString) throws UnirestException {
     // Search Params
     String search = searchString;
     search = search.replace(" ", "%20");
-    String params = "?fields=item_name%2Citem_id%2Cbrand_name%2Cnf_calories%2Cnf_total_fat";
 
     // Get Http response from api host
     HttpResponse<String> response =
-        Unirest.get("https://trackapi.nutritionix.com/v2/search/instant?query=" + search)
-            .header("x-app-id", "c8b5e85e")
-            .header("x-app-key", "c41950348293545fed04adf9a45020b9")
-            .asString();
+            Unirest.get("https://trackapi.nutritionix.com/v2/search/instant?query=" + search)
+                    .header("x-app-id", "c8b5e85e")
+                    .header("x-app-key", "c41950348293545fed04adf9a45020b9")
+                    .asString();
     JSONObject jsonResponse = new JSONObject(response.getBody());
 
     return jsonResponse;

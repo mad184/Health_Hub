@@ -9,7 +9,6 @@ import javafx.scene.control.TextField;
 import org.json.JSONObject;
 import staff.Models.OwnerModel;
 
-import javax.swing.JOptionPane;
 import java.io.IOException;
 
 public class OrganizationSignUpController {
@@ -53,98 +52,80 @@ public class OrganizationSignUpController {
     try {
       age = Integer.parseInt(ageString);
     } catch (Exception e) {
-      JOptionPane.showMessageDialog(null, "age could not be read");
-      View.goToView("OrganizationSignUpView.fxml", event);
+      View.showAlertMessage("age could not be read");
     }
 
-    // regex looks for any number of white space
-    if (!(ownerName.length() > 0) || ownerName.matches("^ *$")) {
-      JOptionPane.showMessageDialog(null, "A Name is required");
-      View.goToView("OrganizationSignUpView.fxml", event);
-    } else if (!(organizationName.length() > 0) || organizationName.matches("^ *$")) {
-      JOptionPane.showMessageDialog(null, "A Name is required");
-      View.goToView("OrganizationSignUpView.fxml", event);
+    //regex looks for a string space string, meaning users must enter a first and last name
+    if (!(ownerName.length() > 0) || !ownerName.matches("^([a-z]|[A-Z])+\\s([a-z]|[A-Z])+$")) {
+      View.showAlertMessage("A First space Last name is requried");
+    } else if (!(organizationName.length() > 0)) {
+      View.showAlertMessage("A Name is required");
     } else if (!(age > 0) || !(age < 150)) {
-      JOptionPane.showMessageDialog(null, "Right now only ages 1 - 149 are accepted");
-      View.goToView("OrganizationSignUpView.fxml", event);
+      View.showAlertMessage("Right now only ages 1 - 149 are accepted");
     }
 
-    // regex looks for empty spaces entered
-    else if (!(email.length() > 0) || email.matches("^ *$")) {
-      JOptionPane.showMessageDialog(null, "A Email is required");
-      View.goToView("OrganizationSignUpView.fxml", event);
+    // regex looks for a email in the format of anything@anything.anything
+    else if (!(email.length() > 0) || !email.matches("^.+[@].+[.].+$")) {
+      View.showAlertMessage("A Email is required");
+    } else if (!(phoneNumber.length() > 0)) {
+      View.showAlertMessage("A userName is required");
     }
 
-    // regex looks for empty spaces entered
-    else if (!(phoneNumber.length() > 0) || phoneNumber.matches("^ *$")) {
-      JOptionPane.showMessageDialog(null, "A userName is required");
-      View.goToView("OrganizationSignUpView.fxml", event);
-    }
-
-    // regex looks for empty spaces entered
-    else if (!(passWord.length() > 0) || passWord.matches("^ *$")) {
-      JOptionPane.showMessageDialog(null, "A Password is required");
-      View.goToView("OrganizationSignUpView.fxml", event);
-    }
-    //            //For testing the outputs manually
-    //            System.out.println("Start Manual output Test for Organization Sign Up input");
-    //            System.out.println("Organization Name: " + organizationName);
-    //            System.out.println("Owner Name: " + ownerName);
-    //            System.out.println("Owner Age: " + age);
-    //            System.out.println("phoneNumber: " + phoneNumber);
-    //            System.out.println("email: " + email);
-    //            System.out.println("passWord: " + passWord);
-    //            System.out.println("finished manual input testing");
-
-    int uniqeID = HealthHubController.getUniqueID();
-    OwnerModel newOwner =
-            new OwnerModel(
-                    ownerName,
-                    age,
-                    email,
-                    phoneNumber,
-                    0,
-                    0,
-                    organizationName,
-                    uniqeID,
-                    null,
-                    null,
-                    "test-user",
-                    "healthhub1",
-                    "Test-General-Database",
-                    "");
-
-    // add owner
-    int successCodeAddOwner = HealthHubController.addManager(uniqeID, newOwner.toJson());
-
-    // add orgianziaiton
-    JSONObject jsonOrganization = new JSONObject();
-    jsonOrganization.put("name", organizationName);
-
-    int successCodeAddOrganization = HealthHubController.createOrganization(organizationName, jsonOrganization);
-
-    // check returned success codes
-    if (successCodeAddOwner == 403) {
-      JOptionPane.showMessageDialog(null, "ERROR: Email " + email);
-      View.goToView("OrganizationSignUpView.fxml", event);
-
-    } else if (successCodeAddOwner == 500 || successCodeAddOrganization == 500) {
-      JOptionPane.showMessageDialog(null, "ERROR: Server Error, check terminal for error codes");
-      System.out.println("Error code add owner: " + successCodeAddOwner);
-      System.out.println("Error code add Organziation " + successCodeAddOrganization);
-      View.goToView("OrganizationSignUpView.fxml", event);
-
-    } else if (successCodeAddOwner == 200 && successCodeAddOrganization == 200) {
-      System.out.println("Added Owner + org successfully");
-      View.goToViewWithUniqueID(
-              "../../Staff/OwnerViews/OwnerMainView.fxml", event, uniqeID, "Owner");
-
+    // min length of 6, Regex looks for any spaces in the password that is one string, no spaces w/ special characters,characters,numbers
+    else if (!(passWord.length() > 5) || !passWord.matches("^(\\w|\\D|\\d|\\W)*$")) {
+      View.showAlertMessage("A Password of at least length 6 is required");
     } else {
-      JOptionPane.showMessageDialog(
-              null, "ERROR: Sorry a unknown error occurred, check terminal for error codes");
-      System.out.println("Error code add owner: " + successCodeAddOwner);
-      System.out.println("Error code add Organziation " + successCodeAddOrganization);
-      View.goToView("OrganizationSignUpView.fxml", event);
+
+      int uniqeID = HealthHubController.getUniqueID();
+      OwnerModel newOwner =
+              new OwnerModel(
+                      ownerName,
+                      passWord,
+                      age,
+                      email,
+                      phoneNumber,
+                      0,
+                      0,
+                      organizationName,
+                      uniqeID,
+                      null,
+                      null,
+                      "test-user",
+                      "healthhub1",
+                      "Test-General-Database",
+                      "Instructor-Table");
+
+      // add owner
+      int successCodeAddOwner = HealthHubController.addManager(uniqeID, newOwner.toJson());
+
+      // add orgianziaiton
+      JSONObject jsonOrganization = new JSONObject();
+      jsonOrganization.put("name", organizationName);
+
+      int successCodeAddOrganization =
+              HealthHubController.createOrganization(organizationName, jsonOrganization);
+
+      // check returned success codes
+      if (successCodeAddOwner == 403) {
+        View.showAlertMessage("ERROR: Email " + email);
+
+      } else if (successCodeAddOwner == 500 || successCodeAddOrganization == 500) {
+        View.showAlertMessage("ERROR: Server Error, check terminal for error codes");
+        System.out.println("Error code add owner: " + successCodeAddOwner);
+        System.out.println("Error code add Organziation " + successCodeAddOrganization);
+
+      } else if (successCodeAddOwner == 200 && successCodeAddOrganization == 200) {
+        System.out.println("Added Owner + org successfully");
+        View.goToViewWithUniqueID(
+                "../../staff/OwnerViews/ownerMainView.fxml", event, uniqeID, "Owner");
+
+      } else {
+        View.showAlertMessage(
+                "ERROR: Sorry a unknown error occurred, check terminal for error codes\n "
+                        + "Error code add owner: " + successCodeAddOwner +
+                        "\nError code add Organziation " + successCodeAddOrganization);
+        View.goToView("OrganizationSignUpView.fxml", event);
+      }
     }
   }
 }

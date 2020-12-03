@@ -23,6 +23,7 @@ public class ManagerModelControllerTest {
   ManagerModel model =
       new ManagerModel(
           "Steff",
+          "steff1",
           33,
           "steff@usask.ca",
           "306-888-8888",

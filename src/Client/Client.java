@@ -1,9 +1,9 @@
 package Client;
 
+import API.ExerciseItem;
 import API.FoodItem;
 import com.google.gson.Gson;
 import javafx.scene.image.Image;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -14,32 +14,31 @@ public class Client implements ClientInterface {
   private int goalWeight, goalCals, calories;
   private ArrayList<String> allergies, comment;
   private Image profilePicture;
-  private ArrayList<FoodItem> breakfastFoods;
-  private ArrayList<FoodItem> lunchFoods;
-  private ArrayList<FoodItem> dinnerFoods;
-  private ArrayList<FoodItem> snackFoods;
+  private ArrayList<FoodItem> breakfastFoods, lunchFoods, dinnerFoods, snackFoods;
+  private ArrayList<ExerciseItem> exercises;
 
   public Client(
-      String name,
-      String email,
-      String password,
-      String instructor,
-      String organization,
-      int id,
-      int age,
-      int height,
-      int weight,
-      String phoneNumber, // we have this listed as a int, kept throwing errors for being to long
-      int goalWeight,
-      int goalCals,
-      int calories,
-      ArrayList<String> allergies,
-      ArrayList<String> comment,
-      Image profilePicture,
-      ArrayList<FoodItem> breakfastFoods,
-      ArrayList<FoodItem> lunchFoods,
-      ArrayList<FoodItem> dinnerFoods,
-      ArrayList<FoodItem> snackFoods) {
+          String name,
+          String email,
+          String password,
+          String instructor,
+          String organization,
+          int id,
+          int age,
+          int height,
+          int weight,
+          String phoneNumber, // we have this listed as a int, kept throwing errors for being to long
+          int goalWeight,
+          int goalCals,
+          int calories,
+          ArrayList<String> allergies,
+          ArrayList<String> comment,
+          Image profilePicture,
+          ArrayList<FoodItem> breakfastFoods,
+          ArrayList<FoodItem> lunchFoods,
+          ArrayList<FoodItem> dinnerFoods,
+          ArrayList<FoodItem> snackFoods,
+          ArrayList<ExerciseItem> exerciseItems) {
     this.name = name;
     this.email = email;
     this.password = password;
@@ -60,6 +59,7 @@ public class Client implements ClientInterface {
     this.lunchFoods = lunchFoods;
     this.dinnerFoods = dinnerFoods;
     this.snackFoods = snackFoods;
+    this.exercises = exerciseItems;
   }
 
   public Client (JSONObject clientJSON){
@@ -310,7 +310,22 @@ public class Client implements ClientInterface {
     }
   }
 
-  public JSONObject toJSON(){
+  @Override
+  public ArrayList<ExerciseItem> getExercises() {
+    return this.exercises;
+  }
+
+  @Override
+  public void setExercises(ArrayList<ExerciseItem> exercises) {
+    this.exercises = exercises;
+  }
+
+  @Override
+  public void addExercise(ExerciseItem exerciseItem) {
+    this.exercises.add(exerciseItem);
+  }
+
+  public JSONObject toJSON() {
     Gson json = new Gson();
     JSONObject jsonObject = new JSONObject();
     jsonObject.put("name", getName());
@@ -359,8 +374,16 @@ public class Client implements ClientInterface {
       jsonObject.put("snackFoods", "");
     } else {
       jsonObject.put(
-          "snackFoods",
-          getSnackFoods().toString().substring(1, getSnackFoods().toString().length() - 1));
+              "snackFoods",
+              getSnackFoods().toString().substring(1, getSnackFoods().toString().length() - 1));
+    }
+
+    if (getExercises() == null) {
+      jsonObject.put("exercises", "");
+    } else {
+      jsonObject.put(
+              "exercises",
+              getExercises().toString().substring(1, getExercises().toString().length() - 1));
     }
 
     return jsonObject;
@@ -389,53 +412,66 @@ public class Client implements ClientInterface {
 
     // Converts String to array list of food items.
     if (!clientJson.get("breakfastFoods").toString().equals("")) {
-      String list[] = String.valueOf(clientJson.get("breakfastFoods")).split("/");
+      String[] list = String.valueOf(clientJson.get("breakfastFoods")).split("/");
       ArrayList<FoodItem> breakfastFoods = new ArrayList<>();
       for (String item : list) {
-        String foodInfo[] = item.split(";");
+        String[] foodInfo = item.split(";");
         FoodItem food =
-            new FoodItem(
-                foodInfo[0], Double.parseDouble(foodInfo[2]), Integer.parseInt(foodInfo[1]));
+                new FoodItem(
+                        foodInfo[0], Double.parseDouble(foodInfo[2]), Integer.parseInt(foodInfo[1]));
         breakfastFoods.add(food);
       }
       this.setBreakfastFoods(breakfastFoods);
     }
 
     if (!clientJson.get("lunchFoods").toString().equals("")) {
-      String list[] = String.valueOf(clientJson.get("lunchFoods")).split("/");
+      String[] list = String.valueOf(clientJson.get("lunchFoods")).split("/");
       ArrayList<FoodItem> lunchFoods = new ArrayList<>();
       for (String item : list) {
-        String foodInfo[] = item.split(";");
+        String[] foodInfo = item.split(";");
         FoodItem food =
-            new FoodItem(
-                foodInfo[0], Double.parseDouble(foodInfo[2]), Integer.parseInt(foodInfo[1]));
+                new FoodItem(
+                        foodInfo[0], Double.parseDouble(foodInfo[2]), Integer.parseInt(foodInfo[1]));
         lunchFoods.add(food);
       }
       setLunchFoods(lunchFoods);
     }
     if (!clientJson.get("dinnerFoods").toString().equals("")) {
-      String list[] = String.valueOf(clientJson.get("dinnerFoods")).split("/");
+      String[] list = String.valueOf(clientJson.get("dinnerFoods")).split("/");
       ArrayList<FoodItem> dinnerFoods = new ArrayList<>();
       for (String item : list) {
-        String foodInfo[] = item.split(";");
+        String[] foodInfo = item.split(";");
         FoodItem food =
-            new FoodItem(
-                foodInfo[0], Double.parseDouble(foodInfo[2]), Integer.parseInt(foodInfo[1]));
+                new FoodItem(
+                        foodInfo[0], Double.parseDouble(foodInfo[2]), Integer.parseInt(foodInfo[1]));
         dinnerFoods.add(food);
       }
       setDinnerFoods(dinnerFoods);
     }
     if (!clientJson.get("snackFoods").toString().equals("")) {
-      String list[] = String.valueOf(clientJson.get("snackFoods")).split("/");
+      String[] list = String.valueOf(clientJson.get("snackFoods")).split("/");
       ArrayList<FoodItem> snackFoods = new ArrayList<>();
       for (String item : list) {
-        String foodInfo[] = item.split(";");
+        String[] foodInfo = item.split(";");
         FoodItem food =
-            new FoodItem(
-                foodInfo[0], Double.parseDouble(foodInfo[2]), Integer.parseInt(foodInfo[1]));
+                new FoodItem(
+                        foodInfo[0], Double.parseDouble(foodInfo[2]), Integer.parseInt(foodInfo[1]));
         snackFoods.add(food);
       }
       setSnackFoods(snackFoods);
     }
+
+    if (!clientJson.get("exercises").toString().equals("")) {
+      String[] list = String.valueOf(clientJson.get("exercises")).split("/");
+      ArrayList<ExerciseItem> exerciseList = new ArrayList<>();
+      for (String item : list) {
+        String[] exerciseInfo = item.split(";");
+        ExerciseItem exerciseItem =
+                new ExerciseItem(
+                        exerciseInfo[0], Integer.parseInt(exerciseInfo[1]), Integer.parseInt(exerciseInfo[2]));
+        exerciseList.add(exerciseItem);
+      }
+      setSnackFoods(snackFoods);
     }
+  }
 }

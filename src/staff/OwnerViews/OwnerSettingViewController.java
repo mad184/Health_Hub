@@ -90,14 +90,14 @@ public class OwnerSettingViewController {
     }
 
     // Goes to main view scene when back button is pushed
-    public void onBackButtonPressed(ActionEvent event) throws IOException {
+    public void onBackButtonPressed(ActionEvent event) throws IOException, EmptyQueryException {
         // Loads Scene for main view
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ownerMainView.fxml"));
         Parent root = loader.load();
 
         // Gets main view controller and passes client to it
         OwnerMainViewController viewController = loader.getController();
-        viewController.setupScene(controller);
+        viewController.setupScene(controller.getId());
 
         Scene viewScene = new Scene(root);
         // Gets stage information

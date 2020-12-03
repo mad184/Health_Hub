@@ -1,5 +1,6 @@
 package staff.OwnerViews;
 
+import database.EmptyQueryException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,27 +9,53 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import org.json.JSONObject;
 import staff.Controllers.InstructorController;
 import staff.Controllers.OwnerController;
+import staff.Models.OwnerModel;
+import staff.StaffToDB;
 
 import java.io.IOException;
 
 public class OwnerMainViewController {
 
   OwnerController controller;
+  final StaffToDB db = new StaffToDB();
 
   // Label for Instructor name
-  @FXML private Label nameLabel = new Label();
+  @FXML
+  private Label nameLabel = new Label();
 
   // Label for most recent client recommendations
-  @FXML private Label recommendationLabel = new Label();
+  @FXML
+  private Label recommendationLabel = new Label();
 
   // Label for most recent client comments
-  @FXML private Label commentLabel = new Label();
+  @FXML
+  private Label commentLabel = new Label();
 
-  public void setupScene(OwnerController owner) {
+  public void setupScene(int uniqueIDfromHealthHub) throws EmptyQueryException {
+    OwnerModel newOwnerModel = new OwnerModel(
+            "",
+            "",
+            0,
+            "",
+            "",
+            0,
+            0,
+            "",
+            uniqueIDfromHealthHub,
+            null,
+            null,
+            "test-user",
+            "healthhub1",
+            "Test-General-Database",
+            "Instructor-Table");
+
+    JSONObject ownerFromDB = db.getManager(uniqueIDfromHealthHub);
+
     // Sets controller for the view
-    controller = owner;
+    this.controller = new OwnerController(newOwnerModel);
 
     // Changes name label to clients name
     nameLabel.setText(controller.getName());

@@ -7,8 +7,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import staff.InstructorViews.InstructorMainViewController;
+import staff.ManagerViews.ManagerMainViewController;
 import staff.OwnerViews.OwnerMainViewController;
 
 import javax.swing.JOptionPane;
@@ -32,12 +34,6 @@ public class View {
         stage.show();
     }
 
-    public static void goToView(String fxmlFileName, ActionEvent event, Parent root) throws IOException {
-        Scene newScene = new Scene(root);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(newScene);
-        stage.show();
-    }
 
     public static void goToViewWithUniqueID(String fxmlFileName, ActionEvent event, int UniqueIDCode, String userType) throws EmptyQueryException, IOException {
         try {
@@ -48,16 +44,16 @@ public class View {
             if (userType.equals("Owner")) {
                 // Gets main view controller and passes client to it
                 OwnerMainViewController viewController = loader.getController();
-                //            viewController.setupScene(UniqueIDCode);
+                viewController.setupScene(UniqueIDCode);
 
             } else if (userType.equals("Instructor")) {
                 // Gets main view controller and passes client to it
                 InstructorMainViewController viewController = loader.getController();
-                //            viewController.setupScene(UniqueIDCode);
+                viewController.setupScene(UniqueIDCode);
             } else if (userType.equals("Manager")) {
                 // Gets main view controller and passes client to it
-                InstructorMainViewController viewController = loader.getController();
-                //            viewController.setupScene(UniqueIDCode);
+                ManagerMainViewController viewController = loader.getController();
+                viewController.setupScene(UniqueIDCode);
             }
             //assume its a client if others aren't met (least security measures required)
             else {
@@ -78,5 +74,11 @@ public class View {
             JOptionPane.showMessageDialog(null, "Error: EmptyQueryExeption From view.java");
             View.goToView("LoginView.fxml", event);
         }
+    }
+
+    public static void showAlertMessage(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

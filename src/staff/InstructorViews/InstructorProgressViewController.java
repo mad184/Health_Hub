@@ -1,5 +1,6 @@
 package staff.InstructorViews;
 
+import database.EmptyQueryException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -49,14 +50,14 @@ public class InstructorProgressViewController {
   }
 
   // Goes to main view scene when back button is pushed
-  public void onBackButtonPressed(ActionEvent event) throws IOException {
+  public void onBackButtonPressed(ActionEvent event) throws IOException, EmptyQueryException {
     // Loads Scene for main view
     FXMLLoader loader = new FXMLLoader(getClass().getResource("instructorMainView.fxml"));
     Parent root = loader.load();
 
     // Gets main view controller and passes client to it
     InstructorMainViewController MainViewController = loader.getController();
-    MainViewController.setupScene(controller);
+    MainViewController.setupScene(controller.getId());
 
     Scene viewScene = new Scene(root);
     // Gets stage information

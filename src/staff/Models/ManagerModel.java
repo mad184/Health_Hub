@@ -28,6 +28,7 @@ public class ManagerModel extends StaffModel implements ManagerInterface {
    */
   public ManagerModel(
       String name,
+      String userPassword,
       int age,
       String email,
       String phoneNumber,
@@ -43,6 +44,7 @@ public class ManagerModel extends StaffModel implements ManagerInterface {
       {
     super(
         name,
+        userPassword,
         age,
         email,
         phoneNumber,
@@ -127,11 +129,12 @@ public class ManagerModel extends StaffModel implements ManagerInterface {
   public Gson fromJson(JSONObject jsonObject) {
     Gson ObjectClass = super.fromJson(jsonObject);
     String[] ListArray = String.valueOf(jsonObject.get("Instructors")).split(" ");
-
-    for (String item : ListArray) {
-      String[] InstructorInfo = item.split(",");
-      UserID userClient = new UserID(Integer.parseInt(InstructorInfo[0]), InstructorInfo[1]);
-      addInstructor(userClient);
+    if (ListArray[0].length() > 2) {
+      for (String item : ListArray) {
+        String[] InstructorInfo = item.split(",");
+        UserID userClient = new UserID(Integer.parseInt(InstructorInfo[0]), InstructorInfo[1]);
+        addInstructor(userClient);
+      }
     }
     return ObjectClass;
   }

@@ -54,4 +54,15 @@ public class SignUpOptionsPageController {
     public void onOrganizationButtonPushed(ActionEvent event) throws IOException {
         View.goToView("OrganizationSignUpView.fxml", event);
     }
+
+    /**
+     * Switches view to the corresponding view based on an action event
+     *
+     * @param event: ActionEvent when the button is clicked
+     * @throws IOException: for gotoView()
+     */
+    @FXML
+    public void onManagerButtonPushed(ActionEvent event) throws IOException {
+        View.goToView("ManagerSignUpView.fxml", event);
+    }
 }
