@@ -142,4 +142,9 @@ public class APITest {
     System.out.println(APISearcher.findExerciseSearchMatches(" press ").toString());
   }
 
+  @Test
+  void incorrectExerciseSearch() throws UnirestException {
+    System.out.println(APISearcher.findExerciseSearchMatches("1").toString());
+  }
+
 }
