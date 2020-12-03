@@ -20,7 +20,7 @@
                   <Label text="Instructor found" textFill="#ddd9d9" underline="true" />
                   <VBox alignment="BASELINE_CENTER" prefHeight="317.0" prefWidth="470.0">
                      <children>
-                        <Label id="resultInstrucor" fx:id="secondResultName" alignment="CENTER" prefHeight="33.0" prefWidth="311.0" textFill="#ddd9d9">
+                        <Label fx:id="resultInstructor"  alignment="CENTER" prefHeight="33.0" prefWidth="311.0" textFill="#ddd9d9" >
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -40,7 +40,7 @@
             </VBox>
          </children>
       </HBox>
-      <TextField fx:id="searchBar" alignment="CENTER" layoutX="135.0" layoutY="21.0" prefHeight="34.0" prefWidth="285.0" promptText="Search for instructors by email" style="-fx-border-color: #9643A9 #9643A9 #9643A9 #9643A9; -fx-border-radius: 10; -fx-background-radius: 10; -fx-background-color: #ffffff;">
+      <TextField fx:id="InstructorSearchBar" alignment="CENTER" layoutX="135.0" layoutY="21.0" prefHeight="34.0" prefWidth="285.0" promptText="Search for instructors by email" style="-fx-border-color: #9643A9 #9643A9 #9643A9 #9643A9; -fx-border-radius: 10; -fx-background-radius: 10; -fx-background-color: #ffffff;">
          <font>
             <Font size="15.0" />
          </font>
