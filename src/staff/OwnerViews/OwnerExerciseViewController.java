@@ -6,8 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import staff.Controllers.InstructorController;
-import staff.Controllers.ManagerController;
+
 import staff.Controllers.OwnerController;
 
 import java.io.IOException;

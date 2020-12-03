@@ -25,9 +25,8 @@ public class ManagerMainViewController {
   // Label for most recent client comments
   @FXML private Label commentLabel = new Label();
 
-  public void setupScene(ManagerController managerController) {
-    // Sets client to client controller for scene
-    controller = managerController;
+  public void setupScene(ManagerController managerID) {
+    controller = managerID;
 
     // Changes name label to clients name
     nameLabel.setText(controller.getName());

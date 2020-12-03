@@ -85,10 +85,10 @@ class ClientToDatabase {
     assertEquals(100, clientController1.getClientSnackFoods().get(0).getCalories());
   }
 
-  @Test
-  void removeClientFromDB(){
-    testDB.removeClient(clientController1.getClientID());
-  }
+  //@Test
+  //void removeClientFromDB(){
+   // testDB.removeClient(clientController1.getClientID());
+  //}
   }
 
 

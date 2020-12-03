@@ -1,5 +1,6 @@
 package staff.InstructorViews;
 
+import database.EmptyQueryException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,10 +12,12 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 import staff.Controllers.InstructorController;
+import staff.StaffToDB;
 
 public class InstructorMainViewController {
 
   InstructorController controller;
+
 
   // Label for Instructor name
   @FXML private Label nameLabel = new Label();
@@ -25,10 +28,10 @@ public class InstructorMainViewController {
   // Label for most recent client comments
   @FXML private Label commentLabel = new Label();
 
-  public void setupScene(InstructorController instructorController) {
+  public void setupScene(InstructorController instructorID) {
     // Sets client to client controller for scene
-    controller = instructorController;
-
+    //controller.model.DB.getInstructor(instructorID);
+    this.controller = instructorID;
     // Changes name label to clients name
     nameLabel.setText(controller.getName());
 

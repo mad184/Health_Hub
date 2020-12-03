@@ -1,11 +1,16 @@
 package staff.InstructorViews;
 
+import API.FoodItem;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import staff.Controllers.InstructorController;
@@ -13,14 +18,24 @@ import staff.InstructorViews.FoodSearchView.FoodSearchViewController;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class InstructorNutrientController implements Initializable {
 
     private InstructorController controller;
-
+    //VBoxes that display all food items
+    @FXML VBox breakfastVBox = new VBox();
+    @FXML VBox lunchVBox = new VBox();
+    @FXML VBox dinnerVBox = new VBox();
+    @FXML VBox snackVBox = new VBox();
+    
     public void setupScene(InstructorController controller) {
         this.controller = controller;
+        updateBreakfastVBox();
+        updateLunchVBox();
+        updateDinnerVBox();
+        updateSnackVBox();
     }
 
     // Goes to main view scene when back button is pushed
@@ -51,14 +66,87 @@ public class InstructorNutrientController implements Initializable {
         // setup scene
         viewController.setupScene(controller);
 
-        // Create popup window/stage and make it a sub-window of the main stage
-        final Stage foodSearchStage = new Stage();
-        foodSearchStage.initModality(Modality.APPLICATION_MODAL);
-        foodSearchStage.initOwner((Stage) ((Node) event.getSource()).getScene().getWindow());
+        Scene viewScene = new Scene(root);
+        // Gets stage information
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(viewScene);
+        window.show();
+    }
 
-        Scene foodSearchScene = new Scene(root, 400, 267);
-        foodSearchStage.setScene(foodSearchScene);
-        foodSearchStage.show();
+    /**
+     * Updates breakfast items in v box
+     */
+    public void updateBreakfastVBox(){
+        if (controller.getBreakfastFoods() != null) {
+            ArrayList<FoodItem> bfList = (ArrayList<FoodItem>) controller.getBreakfastFoods();
+            for (int i = 0; i < bfList.size(); i++){
+                Label foodLabel = new Label(
+                        bfList.get(i).getFoodName() +
+                                "\n\tCalories: " +
+                                bfList.get(i).getCalories() +
+                                "\n\tServing size: " +
+                                bfList.get(i).getServingAmount());
+                foodLabel.setTextFill(Color.web("#ddd9d9"));
+                breakfastVBox.getChildren().add(foodLabel);
+            }
+        }
+    }
+
+    /**
+     * Updates lunch items in v box
+     */
+    public void updateLunchVBox(){
+        if (controller.getLunchFoods() != null) {
+            ArrayList<FoodItem> bfList = (ArrayList<FoodItem>) controller.getLunchFoods();
+            for (int i = 0; i < bfList.size(); i++){
+                Label foodLabel = new Label(
+                        bfList.get(i).getFoodName() +
+                                "\n\tCalories: " +
+                                bfList.get(i).getCalories() +
+                                "\n\tServing size: " +
+                                bfList.get(i).getServingAmount());
+                foodLabel.setTextFill(Color.web("#ddd9d9"));
+                lunchVBox.getChildren().add(foodLabel);
+            }
+        }
+    }
+
+    /**
+     * Updates dinner items in v box
+     */
+    public void updateDinnerVBox(){
+        if (controller.getDinnerFoods() != null) {
+            ArrayList<FoodItem> bfList = (ArrayList<FoodItem>) controller.getDinnerFoods();
+            for (int i = 0; i < bfList.size(); i++){
+                Label foodLabel = new Label(
+                        bfList.get(i).getFoodName() +
+                                "\n\tCalories: " +
+                                bfList.get(i).getCalories() +
+                                "\n\tServing size: " +
+                                bfList.get(i).getServingAmount());
+                foodLabel.setTextFill(Color.web("#ddd9d9"));
+                dinnerVBox.getChildren().add(foodLabel);
+            }
+        }
+    }
+
+    /**
+     * Updates snack items in v box
+     */
+    public void updateSnackVBox(){
+        if (controller.getSnackFoods() != null) {
+            ArrayList<FoodItem> bfList = (ArrayList<FoodItem>) controller.getSnackFoods();
+            for (int i = 0; i < bfList.size(); i++){
+                Label foodLabel = new Label(
+                        bfList.get(i).getFoodName() +
+                                "\n\tCalories: " +
+                                bfList.get(i).getCalories() +
+                                "\n\tServing size: " +
+                                bfList.get(i).getServingAmount());
+                foodLabel.setTextFill(Color.web("#ddd9d9"));
+                snackVBox.getChildren().add(foodLabel);
+            }
+        }
     }
 
 

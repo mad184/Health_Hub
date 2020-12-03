@@ -16,7 +16,7 @@
       <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#onBackButtonPressed" prefHeight="33.0" prefWidth="57.0" style="-fx-border-color: #9643A9 #9643A9; -fx-border-radius: 10; -fx-background-color: #2A0033; -fx-background-radius: 10;" text="Back" textFill="#ddd9d9" />
       <HBox alignment="TOP_CENTER" layoutY="48.0" prefHeight="303.0" prefWidth="600.0" spacing="10.0">
          <children>
-            <VBox alignment="TOP_CENTER" prefHeight="351.0" prefWidth="150.0">
+            <VBox fx:id="breakfastVBox" alignment="TOP_CENTER" prefHeight="351.0" prefWidth="150.0">
                <children>
                   <Label text="Breakfast" textFill="#c9c1c1">
                      <font>
@@ -26,7 +26,7 @@
                   <VBox alignment="TOP_CENTER" prefHeight="4.0" prefWidth="138.0" />
                </children>
             </VBox>
-            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="150.0">
+            <VBox fx:id="lunchVBox" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="150.0">
                <children>
                   <Label text="Lunch" textFill="#c9c1c1">
                      <font>
@@ -36,7 +36,7 @@
                   <VBox prefHeight="6.0" prefWidth="138.0" />
                </children>
             </VBox>
-            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="150.0">
+            <VBox fx:id="dinnerVBox" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="150.0">
                <children>
                   <Label text="Dinner" textFill="#c9c1c1">
                      <font>
@@ -46,7 +46,7 @@
                   <VBox prefHeight="9.0" prefWidth="138.0" />
                </children>
             </VBox>
-            <VBox alignment="TOP_CENTER" prefHeight="299.0" prefWidth="138.0">
+            <VBox fx:id="snackVBox" alignment="TOP_CENTER" prefHeight="299.0" prefWidth="138.0">
                <children>
                   <Label text="Snacks" textFill="#c9c1c1">
                      <font>

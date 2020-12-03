@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -23,7 +24,7 @@ import java.util.List;
 @TestMethodOrder(OrderAnnotation.class)
 public class WriterUnitTest {
 
-    // Creadential related fields
+  // Creadential related fields
   private static final String realUserName = "test-user";
   private static final String realPassWord = "healthhub1";
   private static final String dbName = "Test-General-Database";
@@ -68,6 +69,11 @@ public class WriterUnitTest {
           realCon.removeInstructor(5);
           realCon.removeInstructor(6);
           realCon.removeInstructor(7);
+
+          realCon.removeOrganization("HololiveJP");
+          realCon.removeOrganization("HololiveEN");
+          realCon.removeOrganization("HololiveID");
+          realCon.removeOrganization("HololiveCN");
         });
   }
 
@@ -107,6 +113,7 @@ public class WriterUnitTest {
           realCon.removeClient(1);
           realCon.removeManager(1);
           realCon.removeInstructor(1);
+          realCon.removeOrganization("HololiveJP");
         });
   }
 
@@ -121,6 +128,7 @@ public class WriterUnitTest {
           realCon.createClient(1, null);
           realCon.createManager(1, null);
           realCon.createInstructor(1, null);
+          realCon.createOrganization("HololiveJP", null);
         });
   }
 
@@ -130,7 +138,8 @@ public class WriterUnitTest {
 
     // JSONObject with String key - String value
     JSONObject testStrStr = new JSONObject();
-    testStrStr.append("Data", "Client/ManagerView/Instructor Data");
+    testStrStr.append("Data", "Client/Manager/Instructor Data");
+    testStrStr.append("OrganizationData", "Hololive Organization Data");
 
     // Test Creation of data
     Assertions.assertDoesNotThrow(
@@ -138,6 +147,7 @@ public class WriterUnitTest {
           realCon.createClient(1, testStrStr);
           realCon.createManager(1, testStrStr);
           realCon.createInstructor(1, testStrStr);
+          realCon.createOrganization("HololiveJP", testStrStr);
         });
   }
 
@@ -145,12 +155,15 @@ public class WriterUnitTest {
   @Order(5)
   void testCreationDuplicate() {
     JSONObject test_add = new JSONObject();
-    test_add.append("Data", "Client/ManagerView/Instructor Data");
+    test_add.append("Data", "Client/Manager/Instructor Data");
+    test_add.append("OrganizationData", "Hololive Organization Data");
 
     // Test Creation of duplicated data
     Assertions.assertThrows(MongoWriteException.class, () -> realCon.createClient(1, test_add));
     Assertions.assertThrows(MongoWriteException.class, () -> realCon.createManager(1, test_add));
     Assertions.assertThrows(MongoWriteException.class, () -> realCon.createInstructor(1, test_add));
+    Assertions.assertThrows(
+        MongoWriteException.class, () -> realCon.createOrganization("HololiveJP", test_add));
   }
 
   @Test
@@ -173,6 +186,7 @@ public class WriterUnitTest {
           realCon.createClient(2, testStrJarr);
           realCon.createInstructor(2, testStrJarr);
           realCon.createManager(2, testStrJarr);
+          realCon.createOrganization("HololiveCN", testStrJarr);
         });
   }
 
@@ -194,6 +208,7 @@ public class WriterUnitTest {
           realCon.createClient(3, testStrJArrNull);
           realCon.createInstructor(3, testStrJArrNull);
           realCon.createManager(3, testStrJArrNull);
+          realCon.createOrganization("HololiveCN", testStrJArrNull);
         });
   }
 
@@ -213,6 +228,7 @@ public class WriterUnitTest {
           realCon.createClient(4, testStrBool);
           realCon.createInstructor(4, testStrBool);
           realCon.createManager(4, testStrBool);
+          realCon.createOrganization("HololiveID", testStrBool);
         });
   }
 
@@ -237,6 +253,7 @@ public class WriterUnitTest {
           realCon.createClient(5, testStrBool);
           realCon.createInstructor(5, testStrBool);
           realCon.createManager(5, testStrBool);
+          realCon.createOrganization("HololiveEN", testStrBool);
         });
   }
 
@@ -261,6 +278,7 @@ public class WriterUnitTest {
           realCon.createClient(6, testJavaArray);
           realCon.createInstructor(6, testJavaArray);
           realCon.createManager(6, testJavaArray);
+          realCon.createOrganization("HololiveEN", testJavaArray);
         });
   }
 
@@ -291,6 +309,7 @@ public class WriterUnitTest {
           realCon.createClient(7, testStrList);
           realCon.createInstructor(7, testStrList);
           realCon.createManager(7, testStrList);
+          realCon.createOrganization("HololiveEN", testStrList);
         });
   }
 
@@ -300,7 +319,7 @@ public class WriterUnitTest {
 
     // JSONObject with String key - String value
     JSONObject testStrStr = new JSONObject();
-    testStrStr.append("UpdatedData", "Updated Client/ManagerView/Instructor Data");
+    testStrStr.append("UpdatedData", "Updated Client/Manager/Instructor Data");
 
     // Test Update of data
     Assertions.assertDoesNotThrow(
@@ -308,6 +327,7 @@ public class WriterUnitTest {
           realCon.updateClient(1, testStrStr);
           realCon.updateManager(1, testStrStr);
           realCon.updateInstructor(1, testStrStr);
+          realCon.updateOrganization("HololiveJP", testStrStr);
         });
   }
 
@@ -331,6 +351,7 @@ public class WriterUnitTest {
           realCon.updateClient(2, testStrJarr);
           realCon.updateInstructor(2, testStrJarr);
           realCon.updateManager(2, testStrJarr);
+          realCon.updateOrganization("HololiveCN", testStrJarr);
         });
   }
 
@@ -352,6 +373,7 @@ public class WriterUnitTest {
           realCon.updateClient(3, testStrJArrNull);
           realCon.updateInstructor(3, testStrJArrNull);
           realCon.updateManager(3, testStrJArrNull);
+          realCon.updateOrganization("HololiveID", testStrJArrNull);
         });
   }
 
@@ -371,6 +393,7 @@ public class WriterUnitTest {
           realCon.updateClient(4, testStrBool);
           realCon.updateInstructor(4, testStrBool);
           realCon.updateManager(4, testStrBool);
+          realCon.updateOrganization("HololiveID", testStrBool);
         });
   }
 
@@ -385,6 +408,7 @@ public class WriterUnitTest {
           realCon.updateClient(1, null);
           realCon.updateManager(1, null);
           realCon.updateInstructor(1, null);
+          realCon.updateOrganization("HololiveJP", null);
         });
   }
 
@@ -401,6 +425,7 @@ public class WriterUnitTest {
           realCon.updateClient(1, emptyUpdate);
           realCon.updateManager(1, emptyUpdate);
           realCon.updateInstructor(1, emptyUpdate);
+          realCon.updateOrganization("HololiveJP", emptyUpdate);
         });
   }
 
@@ -408,7 +433,7 @@ public class WriterUnitTest {
   @Order(17)
   void testDneUpdate() {
     JSONObject testUpdate = new JSONObject();
-    testUpdate.append("Another Data", "Another Client/ManagerView/Instructor Data");
+    testUpdate.append("Another Data", "Another Client/Manager/Instructor Data");
 
     // Test of updating a client that does not exist
     Assertions.assertThrows(
@@ -417,7 +442,22 @@ public class WriterUnitTest {
           realCon.updateClient(50, testUpdate);
           realCon.updateManager(51, testUpdate);
           realCon.updateInstructor(52, testUpdate);
+          realCon.updateOrganization("HololivePH", testUpdate);
         });
+  }
+
+  // Test if initializing and setting the next ID throws exception
+  @Test
+  @Order(18)
+  void testSetUniqueId(){
+      realCon.deleteData(0,"CounterCollection");
+
+      Assertions.assertDoesNotThrow(()->{
+          realCon.initializeUniqueId();
+          realCon.setNextUniqueId();
+      });
+
+      realCon.deleteData(0,"CounterCollection");
   }
 
   @AfterAll
@@ -439,6 +479,10 @@ public class WriterUnitTest {
           realCon.removeInstructor(3);
           realCon.removeInstructor(4);
           realCon.removeInstructor(5);
+          realCon.removeOrganization("HololiveJP");
+          realCon.removeOrganization("HololiveEN");
+          realCon.removeOrganization("HololiveID");
+          realCon.removeOrganization("HololiveCN");
         });
   }
 }

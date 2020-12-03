@@ -12,7 +12,7 @@ public class APIManager {
 
   public ArrayList<FoodItem> searchForFoodItem(String searchString) throws UnirestException {
     // Getting all food search hits as a json array
-    JSONArray foodArray = getJsonFromAPI(searchString).getJSONArray("hits");
+    JSONArray foodArray = getJsonFromAPI(searchString).getJSONArray("branded");
 
     return topThreeResults(foodArray);
   }
@@ -25,14 +25,6 @@ public class APIManager {
    * @throws UnirestException exception
    */
   private JSONObject getJsonFromAPI(String searchString) throws UnirestException {
-    // Url of host
-    String host = "https://nutritionix-api.p.rapidapi.com/";
-    String charset = "UTF-8";
-
-    // Headers for request
-    String xRapidApiHost = "nutritionix-api.p.rapidapi.com";
-    String xRapidApiKey = "f8a969fa5emshcd412181335267dp1da0d3jsneb9267e2126e";
-
     // Search Params
     String search = searchString;
     search = search.replace(" ", "%20");
@@ -40,9 +32,9 @@ public class APIManager {
 
     // Get Http response from api host
     HttpResponse<String> response =
-        Unirest.get("https://nutritionix-api.p.rapidapi.com/v1_1/search/" + search + params)
-            .header("x-rapidapi-key", "f8a969fa5emshcd412181335267dp1da0d3jsneb9267e2126e")
-            .header("x-rapidapi-host", "nutritionix-api.p.rapidapi.com")
+        Unirest.get("https://trackapi.nutritionix.com/v2/search/instant?query=" + search)
+            .header("x-app-id", "c8b5e85e")
+            .header("x-app-key", "c41950348293545fed04adf9a45020b9")
             .asString();
     JSONObject jsonResponse = new JSONObject(response.getBody());
 
@@ -58,9 +50,9 @@ public class APIManager {
    */
   private ArrayList<FoodItem> topThreeResults(JSONArray jsonArray) {
     ArrayList<FoodItem> results = new ArrayList<>();
-    results.add(jsonFieldsToFoodItem(jsonArray.getJSONObject(2).getJSONObject("fields")));
-    results.add(jsonFieldsToFoodItem(jsonArray.getJSONObject(1).getJSONObject("fields")));
-    results.add(jsonFieldsToFoodItem(jsonArray.getJSONObject(0).getJSONObject("fields")));
+    results.add(jsonFieldsToFoodItem(jsonArray.getJSONObject(2)));
+    results.add(jsonFieldsToFoodItem(jsonArray.getJSONObject(1)));
+    results.add(jsonFieldsToFoodItem(jsonArray.getJSONObject(0)));
     return results;
   }
 
@@ -72,8 +64,8 @@ public class APIManager {
    */
   private FoodItem jsonFieldsToFoodItem(JSONObject json) {
     return new FoodItem(
-        json.getString("item_name"),
-            json.getInt("nf_serving_size_qty"),
+        json.getString("food_name"),
+            json.getInt("serving_qty"),
         json.getInt("nf_calories"));
   }
 }

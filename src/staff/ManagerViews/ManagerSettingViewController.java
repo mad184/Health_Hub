@@ -1,5 +1,6 @@
 package staff.ManagerViews;
 
+import database.Dbms;
 import database.EmptyQueryException;
 import database.JsonObjectException;
 import javafx.event.ActionEvent;
@@ -34,9 +35,11 @@ public class ManagerSettingViewController {
 
     // Controller for Instructor
     private ManagerController controller = new ManagerController(null);
+    private Dbms db = null;
 
     public void setupScene(ManagerController instructor) {
         controller = instructor;
+        db = controller.getDbms();
         nameLabel.setText(controller.getName());
         ageLabel.setText(String.valueOf(controller.getAge()));
         heightLabel.setText(String.valueOf(controller.getHeight()) + "cm");
@@ -49,7 +52,7 @@ public class ManagerSettingViewController {
         String input = nameInput.getEditor().getText();
         controller.setName(input);
         nameLabel.setText(controller.getName());
-        controller.model.db.updateInstructor(controller.getId(), controller.model.toJson());
+        db.updateInstructor(controller.getId(), controller.model.toJson());
     }
 
     public void onAgePressed(ActionEvent event) throws JsonObjectException, EmptyQueryException {
@@ -57,7 +60,7 @@ public class ManagerSettingViewController {
         String input = ageInput.getEditor().getText();
         controller.setAge(Integer.parseInt(input));
         ageLabel.setText(input);
-        controller.model.db.updateInstructor(controller.getId(), controller.model.toJson());
+        db.updateInstructor(controller.getId(), controller.model.toJson());
     }
 
     public void onHeightPressed(ActionEvent event) throws JsonObjectException, EmptyQueryException {
@@ -65,7 +68,7 @@ public class ManagerSettingViewController {
         String input = heightInput.getEditor().getText();
         controller.setHeight(Integer.parseInt(input));
         heightLabel.setText(input);
-        controller.model.db.updateInstructor(controller.getId(), controller.model.toJson());
+        db.updateInstructor(controller.getId(), controller.model.toJson());
     }
 
     public void onWeightGoalPressed(ActionEvent event)
@@ -74,7 +77,7 @@ public class ManagerSettingViewController {
         String input = weightGoalInput.getEditor().getText();
         controller.setWeight(Integer.parseInt(input));
         weightGoalLabel.setText(input);
-        controller.model.db.updateInstructor(controller.getId(), controller.model.toJson());
+        db.updateInstructor(controller.getId(), controller.model.toJson());
     }
 
     public void onCalorieGoalPressed(ActionEvent event)
@@ -83,7 +86,7 @@ public class ManagerSettingViewController {
         String input = calorieGoalInput.getEditor().getText();
         controller.setGoalCal(Integer.parseInt(input));
         calGoalLabel.setText(input);
-        controller.model.db.updateInstructor(controller.getId(), controller.model.toJson());
+        db.updateInstructor(controller.getId(), controller.model.toJson());
     }
 
     // Goes to main view scene when back button is pushed

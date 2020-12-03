@@ -1,48 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.*?>
-<AnchorPane prefHeight="267.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.ClientView.FoodSearchView.FoodSearchViewController">
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="staff.InstructorViews.FoodSearchView.FoodSearchViewController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2a0033" height="268.0" stroke="BLACK" strokeType="INSIDE" width="400.0" />
-      <TextField fx:id="searchBar" alignment="CENTER" layoutX="116.0" layoutY="8.0" promptText="Search for food" style="-fx-border-color: #9643A9 #9643A9 #9643A9 #9643A9; -fx-border-radius: 10; -fx-background-radius: 10; -fx-background-color: #ffffff;">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2a0033" height="401.0" stroke="BLACK" strokeType="INSIDE" width="600.0" />
+      <TextField fx:id="searchBar" alignment="CENTER" layoutX="192.0" layoutY="11.0" prefHeight="33.0" prefWidth="217.0" promptText="Search for food" style="-fx-border-color: #9643A9 #9643A9 #9643A9 #9643A9; -fx-border-radius: 10; -fx-background-radius: 10; -fx-background-color: #ffffff;">
          <font>
             <Font size="15.0" />
          </font>
       </TextField>
-      <HBox layoutY="58.0" prefHeight="210.0" prefWidth="400.0">
+      <HBox layoutY="80.0" prefHeight="321.0" prefWidth="600.0">
          <children>
             <VBox alignment="TOP_CENTER" prefHeight="210.0" prefWidth="310.0" spacing="5.0">
                <children>
-                  <Label fx:id="topResultName" alignment="CENTER" prefHeight="33.0" prefWidth="275.0" textFill="#ddd9d9">
+                  <Label fx:id="topResultName" alignment="CENTER" prefHeight="33.0" prefWidth="311.0" textFill="#ddd9d9">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="secondResultName" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="33.0" prefWidth="262.0" textFill="#ddd9d9">
+                  <Label fx:id="secondResultName" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="33.0" prefWidth="311.0" textFill="#ddd9d9">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="thirdResultName" alignment="CENTER" layoutX="10.0" layoutY="27.0" prefHeight="33.0" prefWidth="263.0" textFill="#ddd9d9">
+                  <Label fx:id="thirdResultName" alignment="CENTER" layoutX="10.0" layoutY="27.0" prefHeight="33.0" prefWidth="311.0" textFill="#ddd9d9">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
                </children>
             </VBox>
-            <VBox alignment="TOP_CENTER" prefHeight="168.0" prefWidth="133.0" spacing="5.0">
+            <VBox alignment="TOP_CENTER" prefHeight="343.0" prefWidth="183.0" spacing="5.0">
                <children>
-                  <Label fx:id="topResultCals" alignment="CENTER" prefHeight="33.0" prefWidth="85.0" textFill="#ddd9d9">
+                  <Label fx:id="topResultCals" alignment="CENTER" prefHeight="33.0" prefWidth="196.0" textFill="#ddd9d9">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="secondResultCals" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="33.0" prefWidth="102.0" textFill="#ddd9d9" />
-                  <Label fx:id="thirdResultCals" alignment="CENTER" layoutX="10.0" layoutY="27.0" prefHeight="33.0" prefWidth="115.0" textFill="#ddd9d9">
+                  <Label fx:id="secondResultCals" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="33.0" prefWidth="196.0" textFill="#ddd9d9" />
+                  <Label fx:id="thirdResultCals" alignment="CENTER" layoutX="10.0" layoutY="27.0" prefHeight="33.0" prefWidth="196.0" textFill="#ddd9d9">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -61,8 +66,8 @@
             </VBox>
          </children>
       </HBox>
-      <Button layoutX="321.0" layoutY="10.0" mnemonicParsing="false" onAction="#onSearchButtonPressed" style="-fx-background-color: #2a0033;" text="Search" textFill="#ddd9d9" />
-      <Label layoutX="116.0" layoutY="43.0" text="Results" textFill="#ddd9d9" underline="true" />
-      <Label layoutX="276.0" layoutY="43.0" text="Calories" textFill="#ddd9d9" underline="true" />
+      <Button layoutX="430.0" layoutY="14.0" mnemonicParsing="false" onAction="#onSearchButtonPressed" prefHeight="27.0" prefWidth="62.0" style="-fx-background-color: #2a0033;" text="Search" textFill="#ddd9d9" />
+      <Label layoutX="139.0" layoutY="52.0" text="Results" textFill="#ddd9d9" underline="true" />
+      <Label layoutX="385.0" layoutY="52.0" text="Calories" textFill="#ddd9d9" underline="true" />
    </children>
 </AnchorPane>

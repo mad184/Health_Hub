@@ -27,7 +27,7 @@ public class OwnerMainViewController {
   @FXML private Label commentLabel = new Label();
 
   public void setupScene(OwnerController owner) {
-    // Sets client to client controller for scene
+    // Sets controller for the view
     controller = owner;
 
     // Changes name label to clients name

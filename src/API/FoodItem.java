@@ -40,6 +40,6 @@ public class FoodItem {
 
     @Override
     public String toString() {
-        return foodName + "," + calories + "," + servingAmount;
+        return foodName + ";" + calories + ";" + servingAmount + "/";
     }
 }

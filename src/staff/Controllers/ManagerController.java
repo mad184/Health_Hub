@@ -1,5 +1,8 @@
 package staff.Controllers;
 
+import API.FoodItem;
+import com.google.gson.Gson;
+import database.Dbms;
 import database.EmptyQueryException;
 import org.json.JSONObject;
 import staff.Interfaces.ManagerInterface;
@@ -7,6 +10,7 @@ import staff.Interfaces.StaffInterface;
 import staff.Models.ManagerModel;
 import staff.UserID;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ManagerController implements ManagerInterface, StaffInterface {
@@ -88,6 +92,16 @@ public class ManagerController implements ManagerInterface, StaffInterface {
   }
 
   @Override
+  public JSONObject toJson() {
+    return model.toJson();
+  }
+
+  @Override
+  public Gson fromJson(JSONObject staff) {
+    return model.fromJson(staff);
+  }
+
+  @Override
   public void setName(String name) {
     model.setName(name);
   }
@@ -130,5 +144,41 @@ public class ManagerController implements ManagerInterface, StaffInterface {
   @Override
   public void setOrganization(String orgName) {
     model.setOrganization(orgName);
+  }
+
+  public ArrayList<FoodItem> getBreakfastFoods() {
+    return model.getBreakfastFoods();
+  }
+
+  public ArrayList<FoodItem> getLunchFoods() {
+    return model.getLunchFoods();
+  }
+
+  public ArrayList<FoodItem> getDinnerFoods() {
+    return model.getDinnerFoods();
+  }
+
+  public ArrayList<FoodItem> getSnackFoods() {
+    return model.getSnackFoods();
+  }
+
+  public void addBreakfastFood(FoodItem food) {
+    model.addBreakfastFood(food);
+  }
+
+  public void addLunchFood(FoodItem food) {
+    model.addLunchFood(food);
+  }
+
+  public void addDinnerFood(FoodItem food) {
+    model.addDinnerFood(food);
+  }
+
+  public void addSnackFood(FoodItem food) {
+    model.addSnackFood(food);
+  }
+
+  public Dbms getDbms() {
+    return model.getDbms();
   }
 }

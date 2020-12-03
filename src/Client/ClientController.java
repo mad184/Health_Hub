@@ -1,7 +1,6 @@
 package Client;
 
 import API.FoodItem;
-import com.google.gson.Gson;
 import javafx.scene.image.Image;
 import org.json.JSONObject;
 

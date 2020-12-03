@@ -1,7 +1,9 @@
 package Client.ClientView;
 
+import Client.Client;
 import Client.ClientController;
 import Client.ClientToDB;
+import database.EmptyQueryException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +19,7 @@ import java.util.ArrayList;
 public class ClientMainViewController {
 
   // test client for gui testing purposes
-  public ClientController clientController = new ClientController(null);
+  public ClientController clientController;
   // Client information
 
   // DB object (Currently setup to test db)
@@ -33,9 +35,9 @@ public class ClientMainViewController {
   // Label for most recent client comments
   @FXML private Label commentLabel = new Label();
 
-  public void setupScene(ClientController client) {
+  public void setupScene(int clientID) throws EmptyQueryException {
     // Sets client to client controller for scene
-    clientController = client;
+    clientController = new ClientController(new Client(DB.getClient(clientID)));
 
     // Changes name label to clients name
     nameLabel.setText(clientController.getClientName());
@@ -45,7 +47,7 @@ public class ClientMainViewController {
 
     // Add comment to client for testing
     ArrayList<String> comment = new ArrayList<String>();
-    comment.add("Get up lazy fuck");
+    comment.add("If you got time to sit, you have time to squat");
 
     // Sets clients comments label to none if there are no comments, else sets to first comment
     clientController.setClientComment(comment);
