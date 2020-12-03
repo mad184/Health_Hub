@@ -39,7 +39,19 @@ public class ManagerInstructorsListController {
    * @param event The "+" button being pushed
    */
   public void onAddInstructorButtonPressed(ActionEvent event) throws IOException {
-    // TODO: implement so its possible to add a new client
+      // Loads Scene for main view
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("managerAddInstructorView.fxml"));
+      Parent root = loader.load();
+
+      // Gets main view controller and passes client to it
+      ManagerAddInstructorController managerAddInstructorController = loader.getController();
+      managerAddInstructorController.setupScene(controller);
+
+      Scene viewScene = new Scene(root);
+      // Gets stage information
+      Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+      window.setScene(viewScene);
+      window.show();
   }
 
   public void onBackButtonPressed(ActionEvent event) throws IOException, EmptyQueryException {
