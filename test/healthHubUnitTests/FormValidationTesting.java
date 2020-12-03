@@ -11,14 +11,14 @@ public class FormValidationTesting {
      * - ClientSignUpController x 1
      * - InstructorSignUpController x 1
      * - ManagerSignUpController x 1
-     * - OrganizationSignUpConrtoller x1
+     * - OrganizationSignUpConrtoller x2
      *
      * @param name string
      * @return false if input is wrong
      */
     public boolean testName(String name) {
         //regex looks for a string space string, meaning users must enter a first and last name
-        return (!(name.length() > 0) || !name.matches("^([a-z]|[A-Z])+\\s([a-z]|[A-Z])+$"));
+        return (!(name.length() > 0) || name.matches("^\\s+$"));
     }
 
     /**
@@ -84,11 +84,12 @@ public class FormValidationTesting {
         assertFalse(testName("D C"));
         assertFalse(testName("D Crosson"));
         assertFalse(testName("larry Stevenson"));
-        assertTrue(testName("Mark le de Vu"));
+        assertFalse(testName("Mark le de Vu"));
+        assertFalse(testName("Larry"));
+        assertFalse(testName("StevingtonBarry"));
         assertTrue(testName("  "));
         assertTrue(testName(""));
-        assertTrue(testName("Larry"));
-        assertTrue(testName("StevingtonBarry"));
+
 
     }
 
