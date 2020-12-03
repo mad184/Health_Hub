@@ -70,7 +70,7 @@
             </padding>
         </Pane>
       <Accordion layoutX="147.0" layoutY="290.0" />
-      <Button alignment="CENTER" layoutX="233.0" layoutY="315.0" mnemonicParsing="false" onAction="#onProgressButtonPushed" prefHeight="70.0" prefWidth="154.0" style="-fx-background-color: #2A0033; -fx-border-color: #9643A9; -fx-border-radius: 10;" text="Instructors" textFill="#ddd9d9">
+      <Button alignment="CENTER" layoutX="233.0" layoutY="315.0" mnemonicParsing="false" onAction="#onInstructorsButtonPushed" prefHeight="70.0" prefWidth="154.0" style="-fx-background-color: #2A0033; -fx-border-color: #9643A9; -fx-border-radius: 10;" text="Instructors" textFill="#ddd9d9">
          <font>
             <Font size="16.0" />
          </font>
