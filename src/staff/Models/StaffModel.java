@@ -424,7 +424,7 @@ public class StaffModel implements StaffInterface {
     json.put("height", this.height);
     json.put("weight", this.weight);
     json.put("organization", this.organization);
-    json.put("id", this.id);
+    json.put("_id", this.id);
 
     // Converts Array Lists toString
     if (getBreakfastFoods() == null) {
@@ -467,7 +467,7 @@ public class StaffModel implements StaffInterface {
     setName(String.valueOf(json.get("name")));
     setUserPassword(ObjectClass.fromJson(String.valueOf(json.get("password")), String.class));
     setAge(ObjectClass.fromJson(String.valueOf(json.get("age")), int.class));
-    setID(ObjectClass.fromJson(String.valueOf(json.get("id")), int.class));
+    setID(ObjectClass.fromJson(String.valueOf(json.get("_id")), int.class));
     setEmail(ObjectClass.fromJson(String.valueOf(json.get("email")), String.class));
     setPhoneNumber(ObjectClass.fromJson(String.valueOf(json.get("phoneNumber")), String.class));
     setHeight(ObjectClass.fromJson(String.valueOf(json.get("height")), int.class));
