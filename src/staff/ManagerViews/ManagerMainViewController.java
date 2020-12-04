@@ -15,6 +15,7 @@ import staff.Models.ManagerModel;
 import staff.StaffToDB;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class ManagerMainViewController {
 
@@ -45,11 +46,11 @@ public class ManagerMainViewController {
             0,
             "none",
             managerID,
-            null,
+            new ArrayList<>(),
             "test-user",
             "healthhub1",
             "Test-General-Database",
-            "Manager-Table");
+            "ManagerCollection");
 
     ManagerController managerController = new ManagerController(newManager);
 
