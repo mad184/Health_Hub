@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import staff.Controllers.ManagerController;
+import staff.UserID;
 
 import java.io.IOException;
 
@@ -24,12 +25,28 @@ public class ManagerInstructorsListController {
 
   public void setupScene(ManagerController controller) {
     this.controller = controller;
+    onLoadInstructorList();
   }
 
   /** Method called by the setupScene that will load the instructors in the view if there is any */
   public void onLoadInstructorList() {
-    if (!controller.getInstructors().isEmpty()) {
-      // TODO: add instructors to the labels so far we can do a fix number, fox Example 4
+    if (controller.getInstructors() != null) {
+        int counter = 0;
+        for(UserID instructor : controller.getInstructors()){
+            if (counter == 0){
+                firstInstructor.setText("Name: "+instructor.getName() + " Id: "+instructor.getId());
+            }
+            if (counter == 1){
+                secondInstructor.setText("Name: "+instructor.getName() + " Id: "+instructor.getId());
+            }
+            if (counter == 2){
+                thirdInstructor.setText("Name: "+instructor.getName() + " Id: "+instructor.getId());
+            }
+            if (counter == 3){
+                fourthInstructor.setText("Name: "+instructor.getName() + " Id: "+instructor.getId());
+            }
+            counter ++;
+        }
     }
   }
 
