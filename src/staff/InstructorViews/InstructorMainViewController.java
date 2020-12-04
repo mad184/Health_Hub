@@ -46,7 +46,7 @@ public class InstructorMainViewController {
                     0,
                     "none",
                     _id,
-                    null,
+
                     "test-user",
                     "healthhub1",
                     "Test-General-Database",

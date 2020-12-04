@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
@@ -16,14 +17,21 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <ComboBox fx:id="clientSelectComboBox" layoutX="171.0" layoutY="131.0" prefHeight="25.0" prefWidth="258.0" promptText="Client Name" />
-      <Button fx:id="inviteClientButton" layoutX="449.0" layoutY="307.0" mnemonicParsing="false" onAction="#onInviteButtonPressed" prefHeight="25.0" prefWidth="71.0" text="Invite" />
-      <TextField fx:id="inviteEmailField" layoutX="172.0" layoutY="307.0" prefHeight="25.0" prefWidth="258.0" promptText="Client Email" />
-      <Button fx:id="clientViewButton" layoutX="449.0" layoutY="131.0" mnemonicParsing="false" onAction="#onViewClientButtonPressed" prefHeight="25.0" prefWidth="71.0" text="View" />
+      <ComboBox fx:id="clientSelectComboBox" layoutX="171.0" layoutY="106.0" prefHeight="25.0" prefWidth="258.0" promptText="Client Name" />
+      <Button fx:id="inviteClientButton" layoutX="449.0" layoutY="320.0" mnemonicParsing="false" onAction="#onInviteButtonPressed" prefHeight="25.0" prefWidth="71.0" text="Invite" />
+      <TextField fx:id="inviteEmailField" layoutX="172.0" layoutY="320.0" prefHeight="25.0" prefWidth="258.0" promptText="New Client Email" />
+      <Button fx:id="clientViewButton" layoutX="449.0" layoutY="106.0" mnemonicParsing="false" onAction="#onViewClientButtonPressed" prefHeight="25.0" prefWidth="71.0" text="View" />
       <Button fx:id="backButton" layoutX="36.0" layoutY="36.0" mnemonicParsing="false" onAction="#onBackButtonPressed" prefHeight="35.0" prefWidth="71.0" style="-fx-background-color: transparent; -fx-border-color: #cc9191; -fx-border-radius: 10;" text="Back" textAlignment="CENTER" textFill="#ddd9d9" />
-      <Label layoutX="172.0" layoutY="173.0" text="Current Calories:" textFill="#ddd9d9" />
-      <Label layoutX="172.0" layoutY="200.0" text="Calorie Goal:" textFill="#ddd9d9" />
-      <Label fx:id="currentCalories" layoutX="272.0" layoutY="173.0" textFill="#ddd9d9" />
-      <Label fx:id="goalCalories" layoutX="251.0" layoutY="200.0" textFill="#ddd9d9" />
+      <Label layoutX="171.0" layoutY="148.0" text="Current Calories:" textFill="#ddd9d9" />
+      <Label layoutX="172.0" layoutY="173.0" text="Calorie Goal:" textFill="#ddd9d9" />
+      <Label fx:id="currentCalories" layoutX="265.0" layoutY="148.0" prefHeight="17.0" prefWidth="50.0" textFill="#ddd9d9" />
+      <Label fx:id="goalCalories" layoutX="251.0" layoutY="173.0" prefHeight="17.0" prefWidth="50.0" textFill="#ddd9d9" />
+      <TextArea fx:id="commentField" layoutX="172.0" layoutY="203.0" prefHeight="54.0" prefWidth="258.0" promptText="Add comment..." />
+      <Button fx:id="commentSubmit" layoutX="449.0" layoutY="205.0" mnemonicParsing="false" onAction="#onSubmitButtonPressed" prefHeight="25.0" prefWidth="71.0" text="Submit" />
+      <Label layoutX="259.0" layoutY="284.0" text="Add Client" textFill="#ddd9d9">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
