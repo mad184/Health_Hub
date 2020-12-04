@@ -16,6 +16,7 @@ import staff.Models.OwnerModel;
 import staff.StaffToDB;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class OwnerMainViewController {
 
@@ -23,19 +24,17 @@ public class OwnerMainViewController {
   final StaffToDB db = new StaffToDB();
 
   // Label for Instructor name
-  @FXML
-  private Label nameLabel = new Label();
+  @FXML private Label nameLabel = new Label();
 
   // Label for most recent client recommendations
-  @FXML
-  private Label recommendationLabel = new Label();
+  @FXML private Label recommendationLabel = new Label();
 
   // Label for most recent client comments
-  @FXML
-  private Label commentLabel = new Label();
+  @FXML private Label commentLabel = new Label();
 
   public void setupScene(int uniqueIDfromHealthHub) throws EmptyQueryException {
-    OwnerModel newOwnerModel = new OwnerModel(
+    OwnerModel newOwnerModel =
+        new OwnerModel(
             "",
             "",
             0,
@@ -45,8 +44,8 @@ public class OwnerMainViewController {
             0,
             "",
             uniqueIDfromHealthHub,
-            null,
-            null,
+            new ArrayList<>(),
+            new ArrayList<>(),
             "test-user",
             "healthhub1",
             "Test-General-Database",
@@ -54,6 +53,9 @@ public class OwnerMainViewController {
 
     JSONObject ownerFromDB = db.getManager(uniqueIDfromHealthHub);
 
+    OwnerController newOwnerController = new OwnerController(newOwnerModel);
+
+    newOwnerController.fromJson(ownerFromDB);
     // Sets controller for the view
     this.controller = new OwnerController(newOwnerModel);
 
@@ -156,22 +158,30 @@ public class OwnerMainViewController {
   }
 
   /**
-   *
    * @param event
    * @throws IOException
    */
-  public void onInstructorsButtonPushed(ActionEvent event) throws IOException{
+  public void onInstructorsButtonPushed(ActionEvent event) throws IOException {
+    // Loads Scene for profile view
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("OwnerInstructorListView.fxml"));
+    Parent root = loader.load();
 
+    // Gets profile view controller and passes client to it
+    OwnerInstructorListController ownerInstructorListController = loader.getController();
+    ownerInstructorListController.setupScene(controller);
+
+    Scene viewScene = new Scene(root);
+    // Gets stage information
+    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    window.setScene(viewScene);
+    window.show();
   }
 
   /**
-   *
    * @param event
    * @throws IOException
    */
-  public void onManagersButtonPushed(ActionEvent event) throws IOException{
-
-  }
+  public void onManagersButtonPushed(ActionEvent event) throws IOException {}
 
   /**
    * Goes to settings page when settings button is pressed
