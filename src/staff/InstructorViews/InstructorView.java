@@ -24,7 +24,6 @@ public class InstructorView extends Application {
                   160,
                   "Average Joes",
                   2,
-                  new ArrayList<UserID>(),
           "Remington",
                   "Instructor1",
                   "Dev-Remington-Db",

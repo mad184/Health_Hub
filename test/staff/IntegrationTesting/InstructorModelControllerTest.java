@@ -30,7 +30,6 @@ public class InstructorModelControllerTest {
           160,
           "Average Joes",
           1,
-          new ArrayList<>(),
           "Marcos",
           "Manager1",
           "Dev-Marcos-Db",
