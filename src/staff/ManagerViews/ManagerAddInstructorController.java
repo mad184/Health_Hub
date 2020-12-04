@@ -70,9 +70,8 @@ public class ManagerAddInstructorController {
         if (!resultInstructor.getText().isEmpty()){
             UserID newInstructor = new UserID((Integer) instructorToBeAdded.get("_id"), String.valueOf(instructorToBeAdded.get("name")));
             controller.addInstructor(newInstructor);
-            JSONObject managerJSON = controller.toJson();
-            int uniqueIde = controller.getId();
-            // TODO: db.updateManager(uniqueIde, managerJSON);
+            controller.toJson();
+            db.updateManager(controller.getId(), controller.toJson());
             onBackButtonPressed(event);
         }
     }
