@@ -19,22 +19,22 @@
                   <Label text="your Instructors" textFill="#ddd9d9" underline="true" />
                   <VBox alignment="TOP_CENTER" prefHeight="302.0" prefWidth="270.0">
                      <children>
-                        <Label id="firstInstructor" fx:id="topResultName" alignment="CENTER" prefHeight="33.0" prefWidth="311.0" textFill="#ddd9d9">
+                        <Label fx:id="firstInstructor" alignment="CENTER" prefHeight="33.0" prefWidth="311.0" textFill="#ddd9d9">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label id="secondInstructor" fx:id="topResultName1" alignment="CENTER" prefHeight="33.0" prefWidth="311.0" textFill="#ddd9d9">
+                        <Label fx:id="secondInstructor" alignment="CENTER" prefHeight="33.0" prefWidth="311.0" textFill="#ddd9d9">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label id="thirdInstructor" fx:id="topResultName11" alignment="CENTER" prefHeight="33.0" prefWidth="311.0" textFill="#ddd9d9">
+                        <Label fx:id="thirdInstructor" alignment="CENTER" prefHeight="33.0" prefWidth="311.0" textFill="#ddd9d9">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label id="fourthInstructor" fx:id="topResultName12" alignment="CENTER" prefHeight="33.0" prefWidth="311.0" textFill="#ddd9d9">
+                        <Label fx:id="fourthInstructor" alignment="CENTER" prefHeight="33.0" prefWidth="311.0" textFill="#ddd9d9">
                            <font>
                               <Font size="14.0" />
                            </font>
