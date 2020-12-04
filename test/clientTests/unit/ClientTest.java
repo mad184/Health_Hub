@@ -10,7 +10,8 @@ import org.skyscreamer.jsonassert.JSONAssert;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class ClientTest {
   Client client1 =
@@ -35,7 +36,8 @@ class ClientTest {
               new ArrayList<FoodItem>(),
               new ArrayList<FoodItem>(),
               new ArrayList<FoodItem>(),
-              new ArrayList<ExerciseItem>());
+              new ArrayList<ExerciseItem>(),
+              null);
 
   ClientController clientController1 = new ClientController(client1);
 

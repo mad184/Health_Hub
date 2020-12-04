@@ -92,6 +92,7 @@ public class ClientSignUpViewController {
                     null,
                     null,
                     null,
+                    null,
                     null);
 
             //Add client to the database, we will either get back a error code or a uniuqe id
