@@ -118,7 +118,13 @@ public class ManagerModel extends StaffModel implements ManagerInterface {
   public JSONObject toJson() throws JSONException {
     JSONObject json = super.toJson();
 
-    json.put("Instructors", this.instructors.toString().substring(1, this.instructors.toString().length() - 1));
+    if (this.instructors != null) {
+      json.put(
+          "Instructors",
+          this.instructors.toString().substring(1, this.instructors.toString().length() - 1));
+    } else {
+      json.put("Instructors", "");
+    }
     return json;
   }
 
@@ -136,8 +142,7 @@ public class ManagerModel extends StaffModel implements ManagerInterface {
       ArrayList<UserID> instructorList = new ArrayList<>();
       for (String item : list) {
         String[] instructorInfo = item.split(";");
-        UserID exerciseItem =
-                new UserID (Integer.parseInt(instructorInfo[1]), instructorInfo[0]);
+        UserID exerciseItem = new UserID(Integer.parseInt(instructorInfo[1]), instructorInfo[0]);
         instructorList.add(exerciseItem);
       }
       this.instructors = instructorList;
