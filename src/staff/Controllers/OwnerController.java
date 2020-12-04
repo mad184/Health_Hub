@@ -22,6 +22,21 @@ public class OwnerController implements OwnerInterface, StaffInterface {
   }
 
   @Override
+  public List<UserID> getInstructors() {
+    return model.getInstructors();
+  }
+
+  @Override
+  public void addInstructor(UserID instructor) {
+    model.addInstructor(instructor);
+  }
+
+  @Override
+  public void removeInstructor(UserID instructor) {
+    model.removeInstructor(instructor);
+  }
+
+  @Override
   public List<UserID> getManagers() {
     return model.getManagers();
   }
