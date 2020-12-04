@@ -1,5 +1,6 @@
 package staff.Models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import database.EmptyQueryException;
@@ -116,7 +117,8 @@ public class ManagerModel extends StaffModel implements ManagerInterface {
   @Override
   public JSONObject toJson() throws JSONException {
     JSONObject json = super.toJson();
-    json.put("Instructors", this.instructors);
+
+    json.put("Instructors", this.instructors.toString().substring(1, this.instructors.toString().length() - 1));
     return json;
   }
 
@@ -128,13 +130,17 @@ public class ManagerModel extends StaffModel implements ManagerInterface {
    */
   public Gson fromJson(JSONObject jsonObject) {
     Gson ObjectClass = super.fromJson(jsonObject);
-    String[] ListArray = String.valueOf(jsonObject.get("Instructors")).split(" ");
-    if (ListArray[0].length() > 2) {
-      for (String item : ListArray) {
-        String[] InstructorInfo = item.split(",");
-        UserID userClient = new UserID(Integer.parseInt(InstructorInfo[0]), InstructorInfo[1]);
-        addInstructor(userClient);
+
+    if (!jsonObject.get("Instructors").toString().equals("")) {
+      String[] list = String.valueOf(jsonObject.get("Instructors")).split(",");
+      ArrayList<UserID> instructorList = new ArrayList<>();
+      for (String item : list) {
+        String[] instructorInfo = item.split(";");
+        UserID exerciseItem =
+                new UserID (Integer.parseInt(instructorInfo[1]), instructorInfo[0]);
+        instructorList.add(exerciseItem);
       }
+      this.instructors = instructorList;
     }
     return ObjectClass;
   }
