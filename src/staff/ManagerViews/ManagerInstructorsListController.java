@@ -1,26 +1,31 @@
 package staff.ManagerViews;
 
 import database.EmptyQueryException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
+import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 import staff.Controllers.ManagerController;
 import staff.UserID;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class ManagerInstructorsListController {
 
-  @FXML Label firstInstructor = new Label();
-  @FXML Label secondInstructor = new Label();
-  @FXML Label thirdInstructor = new Label();
-  @FXML Label fourthInstructor = new Label();
+  @FXML ComboBox<String> instructorSelectComboBox = new ComboBox<>();
+  @FXML ComboBox<String> instructorDisplayComboBox = new ComboBox<>();
 
+
+  private ObservableList<String> instructorList;
+  private ObservableList<String> displayInstructorList;
+  private ArrayList<UserID> instructor;
   private ManagerController controller;
 
   public void setupScene(ManagerController controller) {
@@ -30,23 +35,26 @@ public class ManagerInstructorsListController {
 
   /** Method called by the setupScene that will load the instructors in the view if there is any */
   public void onLoadInstructorList() {
-    if (controller.getInstructors() != null) {
-        int counter = 0;
-        for(UserID instructor : controller.getInstructors()){
-            if (counter == 0){
-                firstInstructor.setText("Name: "+instructor.getName() + " Id: "+instructor.getId());
+    if (controller.getInstructors() != null && !controller.getInstructors().isEmpty()){
+
+        instructor = (ArrayList<UserID>) controller.getInstructors();
+        ArrayList<String> instructorNames = new ArrayList<>();
+        ArrayList<String> instructorDisplayNames = new ArrayList<>();
+        if (instructor != null) {
+            for (UserID instructorUser : instructor) {
+                instructorNames.add(instructorUser.getName());
+                instructorDisplayNames.add(instructorUser.getName() + " -- ID: " +instructorUser.getId());
+
             }
-            if (counter == 1){
-                secondInstructor.setText("Name: "+instructor.getName() + " Id: "+instructor.getId());
-            }
-            if (counter == 2){
-                thirdInstructor.setText("Name: "+instructor.getName() + " Id: "+instructor.getId());
-            }
-            if (counter == 3){
-                fourthInstructor.setText("Name: "+instructor.getName() + " Id: "+instructor.getId());
-            }
-            counter ++;
         }
+        //Show the Instructors in the system to remove it
+        instructorList = FXCollections.observableList(instructorNames);
+        this.instructorSelectComboBox.setValue("");
+        this.instructorSelectComboBox.setItems(instructorList);
+        //Show the Instructors in the system
+        displayInstructorList = FXCollections.observableList(instructorDisplayNames);
+        this.instructorDisplayComboBox.setValue("");
+        this.instructorDisplayComboBox.setItems(displayInstructorList);
     }
   }
 
@@ -69,6 +77,9 @@ public class ManagerInstructorsListController {
       Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
       window.setScene(viewScene);
       window.show();
+  }
+
+  public void onRemoveButtonPressed(ActionEvent event) throws IOException {
   }
 
   public void onBackButtonPressed(ActionEvent event) throws IOException, EmptyQueryException {
