@@ -156,6 +156,24 @@ public class OwnerMainViewController {
   }
 
   /**
+   *
+   * @param event
+   * @throws IOException
+   */
+  public void onInstructorsButtonPushed(ActionEvent event) throws IOException{
+
+  }
+
+  /**
+   *
+   * @param event
+   * @throws IOException
+   */
+  public void onManagersButtonPushed(ActionEvent event) throws IOException{
+
+  }
+
+  /**
    * Goes to settings page when settings button is pressed
    *
    * @param event Event of setting button pressed
