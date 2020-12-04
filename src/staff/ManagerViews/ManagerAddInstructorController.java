@@ -3,6 +3,7 @@ package staff.ManagerViews;
 
 
 import database.EmptyQueryException;
+import database.JsonObjectException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +17,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import staff.Controllers.ManagerController;
 import staff.StaffToDB;
+import staff.UserID;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,13 +35,15 @@ public class ManagerAddInstructorController {
 
     private ManagerController controller;
 
+    JSONObject instructorToBeAdded;
+
     /**
      *
      * @param controller
      */
     public void setupScene(ManagerController controller) {
         this.controller = controller;
-        db = new StaffToDB();
+        this.db = new StaffToDB();
     }
 
     /**
@@ -53,6 +57,7 @@ public class ManagerAddInstructorController {
             for (int i = 0 ; i < instructorsJson.length()-1; i++){
                 JSONObject JsonInstructor = instructorsJson.getJSONObject(i);
                 if (String.valueOf(JsonInstructor.get("email")).equals(InstructorSearchBar.getText())){
+                    instructorToBeAdded = JsonInstructor;
                     resultInstructor.setText("Name: "+String.valueOf(JsonInstructor.get("name")) +" ID: " +
                             String.valueOf(JsonInstructor.get("_id")) + " Email: " +String.valueOf(JsonInstructor.get("email")));
                 }
@@ -61,8 +66,15 @@ public class ManagerAddInstructorController {
         }
     }
 
-    public void onAddButton(ActionEvent event) throws IOException{
-        //TODO: implement teh action of adding the instructor
+    public void onAddButton(ActionEvent event) throws IOException, EmptyQueryException, JsonObjectException {
+        if (!resultInstructor.getText().isEmpty()){
+            UserID newInstructor = new UserID((Integer) instructorToBeAdded.get("_id"), String.valueOf(instructorToBeAdded.get("name")));
+            controller.addInstructor(newInstructor);
+            JSONObject managerJSON = controller.toJson();
+            int uniqueIde = controller.getId();
+            // TODO: db.updateManager(uniqueIde, managerJSON);
+            onBackButtonPressed(event);
+        }
     }
 
     public void onBackButtonPressed(ActionEvent event) throws IOException, EmptyQueryException {
