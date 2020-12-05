@@ -422,6 +422,8 @@ public class StaffModel implements StaffInterface {
     json.put("weight", this.weight);
     json.put("organization", this.organization);
     json.put("_id", this.id);
+    json.put("goalCal", this.calorieGoal);
+    json.put("calories", this.calories);
 
     // Converts Array Lists toString
     if (getBreakfastFoods() == null) {
@@ -470,6 +472,8 @@ public class StaffModel implements StaffInterface {
     setHeight(ObjectClass.fromJson(String.valueOf(json.get("height")), int.class));
     setWeight(ObjectClass.fromJson(String.valueOf(json.get("weight")), int.class));
     setOrganization(String.valueOf(json.get("organization")));
+    setGoalCal(ObjectClass.fromJson(String.valueOf(json.get("goalCal")), Integer.class));
+    setCalories(ObjectClass.fromJson(String.valueOf(json.get("calories")), Integer.class));
 
     // Converts String to array list of food items.
     if (!json.get("breakfastFoods").toString().equals("")) {
