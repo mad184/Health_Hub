@@ -64,9 +64,10 @@
       </HBox>
       <Pane layoutX="52.0" layoutY="200.0" prefHeight="80.0" prefWidth="502.0" style="-fx-border-radius: 10; -fx-background-color: #9643A9 #9643A9 #9643A9 #9643A9 #9643A9 #9643A9 #9643A9 #9643A9; -fx-border-color: #ddd9d9; -fx-background-radius: 10;">
          <children>
-            <Label fx:id="nameLabel1" layoutX="14.0" layoutY="14.0" prefHeight="16.0" prefWidth="97.0" text="Reccomendations:" textFill="#ddd9d9">
+            <Label fx:id="nameLabel1" layoutX="14.0" layoutY="14.0" prefHeight="16.0" prefWidth="97.0"
+                   text="Recommendations:" textFill="#ddd9d9">
                <font>
-                  <Font size="12.0" />
+                  <Font size="12.0"/>
                </font>
             </Label>
             <Label fx:id="recommendationLabel" alignment="CENTER" layoutX="1.0" layoutY="32.0" prefHeight="17.0" prefWidth="502.0" text="Reccomendation" textFill="#ddd9d9" />
