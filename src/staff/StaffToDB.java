@@ -112,4 +112,14 @@ public class StaffToDB {
   public JSONArray getAllClients() {
     return DB.getAllClients();
   }
+
+  /**
+   * method to return all the managers in the Db
+   *
+   * @return JSONArray of the objects
+   */
+  public JSONArray getAllManagers() {
+    return DB.getAllManagers();
+  }
+
 }
