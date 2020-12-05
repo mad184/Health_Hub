@@ -21,20 +21,27 @@ import java.util.ArrayList;
 
 public class FoodSearchViewController {
   // APIManager Object for food search
-  APIManager foodSearch = new APIManager();
+  private final APIManager apiManager = new APIManager();
 
   // TextField
-  @FXML TextField searchBar = new TextField();
+  private @FXML
+  final TextField searchBar = new TextField();
 
   // Labels for search Results names
-  @FXML Label topResultName = new Label();
-  @FXML Label secondResultName = new Label();
-  @FXML Label thirdResultName = new Label();
+  private @FXML
+  final Label topResultName = new Label();
+  private @FXML
+  final Label secondResultName = new Label();
+  private @FXML
+  final Label thirdResultName = new Label();
 
   // Labels for search Results calories
-  @FXML Label topResultCals = new Label();
-  @FXML Label secondResultCals = new Label();
-  @FXML Label thirdResultCals = new Label();
+  private @FXML
+  final Label topResultCals = new Label();
+  private @FXML
+  final Label secondResultCals = new Label();
+  private @FXML
+  final Label thirdResultCals = new Label();
 
   // Controller to hold client information
   private ClientController clientController = new ClientController(null);
@@ -58,7 +65,7 @@ public class FoodSearchViewController {
    * @throws UnirestException exception
    */
   public void onSearchButtonPressed(ActionEvent event) throws UnirestException {
-    results = foodSearch.searchForFoodItem(searchBar.getText());
+    results = apiManager.searchForFoodItem(searchBar.getText());
     topResultName.setText(results.get(0).getFoodName());
     topResultCals.setText(String.valueOf(results.get(0).getCalories()));
     secondResultName.setText(results.get(1).getFoodName());

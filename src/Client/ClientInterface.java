@@ -107,6 +107,12 @@ public interface ClientInterface {
 
   void addExercise(ExerciseItem exerciseItem);
 
+  ArrayList<Integer> getInvites();
+
+  void setInvites(ArrayList<Integer> invites);
+
+  void addInvite(int instructorID);
+
   JSONObject toJSON();
 
   void jsonToClient(JSONObject clientJson);

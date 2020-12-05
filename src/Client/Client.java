@@ -16,6 +16,7 @@ public class Client implements ClientInterface {
   private Image profilePicture;
   private ArrayList<FoodItem> breakfastFoods, lunchFoods, dinnerFoods, snackFoods;
   private ArrayList<ExerciseItem> exercises;
+  private ArrayList<Integer> invites;
 
   public Client(
           String name,
@@ -38,7 +39,8 @@ public class Client implements ClientInterface {
           ArrayList<FoodItem> lunchFoods,
           ArrayList<FoodItem> dinnerFoods,
           ArrayList<FoodItem> snackFoods,
-          ArrayList<ExerciseItem> exerciseItems) {
+          ArrayList<ExerciseItem> exerciseItems,
+          ArrayList<Integer> invites) {
     this.name = name;
     this.email = email;
     this.password = password;
@@ -60,6 +62,7 @@ public class Client implements ClientInterface {
     this.dinnerFoods = dinnerFoods;
     this.snackFoods = snackFoods;
     this.exercises = exerciseItems;
+    this.invites = invites;
   }
 
   public Client (JSONObject clientJSON){
@@ -280,7 +283,7 @@ public class Client implements ClientInterface {
   @Override
   public void addLunchFood(FoodItem foodItem) {
     if (this.lunchFoods == null) {
-      ArrayList<FoodItem> list = new ArrayList<FoodItem>();
+      ArrayList<FoodItem> list = new ArrayList<>();
       list.add(foodItem);
       this.lunchFoods = list;
     } else {
@@ -291,7 +294,7 @@ public class Client implements ClientInterface {
   @Override
   public void addDinnerFood(FoodItem foodItem) {
     if (this.dinnerFoods == null) {
-      ArrayList<FoodItem> list = new ArrayList<FoodItem>();
+      ArrayList<FoodItem> list = new ArrayList<>();
       list.add(foodItem);
       this.dinnerFoods = list;
     } else {
@@ -302,7 +305,7 @@ public class Client implements ClientInterface {
   @Override
   public void addSnackFood(FoodItem foodItem) {
     if (this.snackFoods == null) {
-      ArrayList<FoodItem> list = new ArrayList<FoodItem>();
+      ArrayList<FoodItem> list = new ArrayList<>();
       list.add(foodItem);
       this.snackFoods = list;
     } else {
@@ -322,8 +325,36 @@ public class Client implements ClientInterface {
 
   @Override
   public void addExercise(ExerciseItem exerciseItem) {
-    this.exercises.add(exerciseItem);
+    if (this.exercises == null) {
+      ArrayList<ExerciseItem> list = new ArrayList<>();
+      list.add(exerciseItem);
+      this.exercises = list;
+    } else {
+      this.exercises.add(exerciseItem);
+    }
   }
+
+  @Override
+  public ArrayList<Integer> getInvites() {
+    return this.invites;
+  }
+
+  @Override
+  public void setInvites(ArrayList<Integer> invites) {
+    this.invites = invites;
+  }
+
+  @Override
+  public void addInvite(int instructorID) {
+    if (this.invites == null) {
+      ArrayList<Integer> list = new ArrayList<>();
+      list.add(instructorID);
+      this.invites = list;
+    } else {
+      this.invites.add(instructorID);
+    }
+  }
+
 
   public JSONObject toJSON() {
     Gson json = new Gson();
@@ -344,6 +375,7 @@ public class Client implements ClientInterface {
     jsonObject.put("allergies", getAllergies());
     jsonObject.put("comment", getComment());
     jsonObject.put("profilePicture", getProfilePicture());
+    jsonObject.put("invites", getInvites());
 
     // Converts Array Lists toString
     if (getBreakfastFoods() == null) {
@@ -405,10 +437,9 @@ public class Client implements ClientInterface {
     setCalGoal(json.fromJson(String.valueOf(clientJson.get("goalCals")), Integer.class));
     setCalories(json.fromJson(String.valueOf(clientJson.get("calories")), Integer.class));
     setAllergies(json.fromJson(String.valueOf(clientJson.get("allergies")), ArrayList.class));
+    setInvites(json.fromJson(String.valueOf(clientJson.get("invites")), ArrayList.class));
     //setComment(json.fromJson(String.valueOf(clientJson.get("comment")), ArrayList.class));
 
-    // setClientProfilePicture(json.fromJson(String.valueOf(clientJson.get("profilePicture")),
-    // Image.class))
 
     // Converts String to array list of food items.
     if (!clientJson.get("breakfastFoods").toString().equals("")) {
@@ -471,7 +502,9 @@ public class Client implements ClientInterface {
                         exerciseInfo[0], Integer.parseInt(exerciseInfo[1]), Integer.parseInt(exerciseInfo[2]));
         exerciseList.add(exerciseItem);
       }
-      setSnackFoods(snackFoods);
+      setExercises(exerciseList);
     }
+
+
   }
 }

@@ -2,7 +2,6 @@ package Client;
 
 import API.ExerciseItem;
 import API.FoodItem;
-import javafx.scene.image.Image;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -166,14 +165,6 @@ public class ClientController {
     model.setComment(comment);
   }
 
-  public Image getClientProfilePicture() {
-    return model.getProfilePicture();
-  }
-
-  public void setClientProfilePicture(Image picture) {
-    model.setProfilePicture(picture);
-  }
-
   public ArrayList<FoodItem> getClientBreakfastFoods() {
     return model.getBreakfastFoods();
   }
@@ -211,6 +202,18 @@ public class ClientController {
     model.addSnackFood(foodItem);
   }
 
+  //Invite array methods
+  public ArrayList<Integer> getInvites() {
+    return model.getInvites();
+  }
+
+  public void setInvites(ArrayList<Integer> invites) {
+    model.setInvites(invites);
+  }
+
+  public void addInvite(int instructorID) {
+    model.addInvite(instructorID);
+  }
 
   // JSONObject conversion methods
   public JSONObject clientToJson() {

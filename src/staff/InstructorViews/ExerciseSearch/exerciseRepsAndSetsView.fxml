@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/11.0.1"
+            fx:controller="staff.InstructorViews.ExerciseSearch.ExerciseRepsAndSetsViewController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2a0033" height="400.0" stroke="BLACK" strokeType="INSIDE"
+                 width="600.0"/>
+      <TextField fx:id="repsInput" layoutX="362.0" layoutY="173.0" prefHeight="27.0" prefWidth="65.0"
+                 style="-fx-border-color: #9643A9 ##9643A9; -fx-border-radius: 10; -fx-background-color: #ffffff; -fx-background-radius: 10;"/>
+      <Label layoutX="192.0" layoutY="156.0" text="Sets:" textFill="#ddd9d9">
+         <font>
+            <Font size="15.0"/>
+         </font>
+      </Label>
+      <Label layoutX="377.0" layoutY="156.0" text="Reps:" textFill="#ddd9d9">
+         <font>
+            <Font size="15.0"/>
+         </font>
+      </Label>
+      <Button layoutX="255.0" layoutY="276.0" mnemonicParsing="false" onAction="#addExerciseButtonPushed"
+              style="-fx-background-color: #2a0033; -fx-border-color: #9643A9 #9643A9; -fx-background-radius: 10; -fx-border-radius: 10;"
+              text="Add Exercise" textFill="#ddd9d9"/>
+      <Label layoutX="94.0" layoutY="45.0" text="Please input amount of sets and reps" textFill="#ddd9d9">
+         <font>
+            <Font size="27.0"/>
+         </font>
+      </Label>
+      <TextField fx:id="setsInput" layoutX="176.0" layoutY="173.0" prefHeight="27.0" prefWidth="65.0"
+                 style="-fx-border-color: #9643A9 ##9643A9; -fx-border-radius: 10; -fx-background-color: #ffffff; -fx-background-radius: 10;"/>
+   </children>
+</AnchorPane>

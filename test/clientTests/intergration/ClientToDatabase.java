@@ -36,7 +36,8 @@ class ClientToDatabase {
               new ArrayList<FoodItem>(),
               new ArrayList<FoodItem>(),
               new ArrayList<FoodItem>(),
-              new ArrayList<ExerciseItem>());
+              new ArrayList<ExerciseItem>(),
+              null);
 
   ClientController clientController1 = new ClientController(client1);
 

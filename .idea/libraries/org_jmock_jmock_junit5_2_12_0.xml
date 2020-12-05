@@ -2,47 +2,47 @@
   <library name="org.jmock:jmock-junit5:2.12.0" type="repository">
     <properties maven-id="org.jmock:jmock-junit5:2.12.0" />
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/lib/jmock-junit5-2.12.0.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/junit-jupiter-api-5.4.2.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/apiguardian-api-1.0.0.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/opentest4j-1.1.1.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/junit-platform-commons-1.4.2.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/junit-platform-launcher-1.4.0.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/junit-platform-engine-1.4.0.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/jmock-2.12.0.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/jmock-testjar-2.12.0.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/annotations-3.0.1.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/jcip-annotations-1.0.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/jsr305-3.0.1.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/hamcrest-2.1.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/hamcrest-library-2.1.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/hamcrest-core-2.1.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/asm-7.1.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/bsh-2.0b6.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/jmock-imposters-2.12.0.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/byte-buddy-1.9.12.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/objenesis-3.0.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/jmock/jmock-junit5/2.12.0/jmock-junit5-2.12.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter-api/5.4.2/junit-jupiter-api-5.4.2.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/apiguardian/apiguardian-api/1.0.0/apiguardian-api-1.0.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opentest4j/opentest4j/1.1.1/opentest4j-1.1.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-commons/1.4.2/junit-platform-commons-1.4.2.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-launcher/1.4.0/junit-platform-launcher-1.4.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-engine/1.4.0/junit-platform-engine-1.4.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/jmock/jmock/2.12.0/jmock-2.12.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/jmock/jmock-testjar/2.12.0/jmock-testjar-2.12.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/google/code/findbugs/annotations/3.0.1/annotations-3.0.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/net/jcip/jcip-annotations/1.0/jcip-annotations-1.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/google/code/findbugs/jsr305/3.0.1/jsr305-3.0.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/hamcrest/hamcrest/2.1/hamcrest-2.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/hamcrest/hamcrest-library/2.1/hamcrest-library-2.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/hamcrest/hamcrest-core/2.1/hamcrest-core-2.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/ow2/asm/asm/7.1/asm-7.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache-extras/beanshell/bsh/2.0b6/bsh-2.0b6.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/jmock/jmock-imposters/2.12.0/jmock-imposters-2.12.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/net/bytebuddy/byte-buddy/1.9.12/byte-buddy-1.9.12.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/objenesis/objenesis/3.0.1/objenesis-3.0.1.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$PROJECT_DIR$/lib/jmock-junit5-2.12.0-javadoc.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/junit-jupiter-api-5.4.2-javadoc.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/apiguardian-api-1.0.0-javadoc.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/opentest4j-1.1.1-javadoc.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/junit-platform-commons-1.4.2-javadoc.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/junit-platform-launcher-1.4.0-javadoc.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/junit-platform-engine-1.4.0-javadoc.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/jmock-2.12.0-javadoc.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/jmock-testjar-2.12.0-javadoc.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/annotations-3.0.1-javadoc.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/jsr305-3.0.1-javadoc.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/hamcrest-2.1-javadoc.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/hamcrest-library-2.1-javadoc.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/hamcrest-core-2.1-javadoc.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/asm-7.1-javadoc.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/bsh-2.0b6-javadoc.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/jmock-imposters-2.12.0-javadoc.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/byte-buddy-1.9.12-javadoc.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/objenesis-3.0.1-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/jmock/jmock-junit5/2.12.0/jmock-junit5-2.12.0-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter-api/5.4.2/junit-jupiter-api-5.4.2-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/apiguardian/apiguardian-api/1.0.0/apiguardian-api-1.0.0-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opentest4j/opentest4j/1.1.1/opentest4j-1.1.1-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-commons/1.4.2/junit-platform-commons-1.4.2-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-launcher/1.4.0/junit-platform-launcher-1.4.0-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-engine/1.4.0/junit-platform-engine-1.4.0-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/jmock/jmock/2.12.0/jmock-2.12.0-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/jmock/jmock-testjar/2.12.0/jmock-testjar-2.12.0-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/google/code/findbugs/annotations/3.0.1/annotations-3.0.1-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/google/code/findbugs/jsr305/3.0.1/jsr305-3.0.1-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/hamcrest/hamcrest/2.1/hamcrest-2.1-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/hamcrest/hamcrest-library/2.1/hamcrest-library-2.1-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/hamcrest/hamcrest-core/2.1/hamcrest-core-2.1-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/ow2/asm/asm/7.1/asm-7.1-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache-extras/beanshell/bsh/2.0b6/bsh-2.0b6-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/jmock/jmock-imposters/2.12.0/jmock-imposters-2.12.0-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/net/bytebuddy/byte-buddy/1.9.12/byte-buddy-1.9.12-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/objenesis/objenesis/3.0.1/objenesis-3.0.1-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES />
   </library>
