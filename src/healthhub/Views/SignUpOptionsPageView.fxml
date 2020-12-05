@@ -27,6 +27,6 @@
         <Button layoutX="230.0" layoutY="155.0" mnemonicParsing="false" onAction="#onManagerButtonPushed"
                 prefHeight="33.0" prefWidth="140.0"
                 style="-fx-border-color: #9643A9; -fx-border-radius: 10;                  -fx-background-color: #2A0033; -fx-background-radius: 10;"
-                text="I am a Mnager" textFill="#ddd9d9"/>
+                text="I am a Manager" textFill="#ddd9d9"/>
     </children>
 </AnchorPane>
