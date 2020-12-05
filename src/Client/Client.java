@@ -438,7 +438,7 @@ public class Client implements ClientInterface {
     setCalories(json.fromJson(String.valueOf(clientJson.get("calories")), Integer.class));
     setAllergies(json.fromJson(String.valueOf(clientJson.get("allergies")), ArrayList.class));
     setInvites(json.fromJson(String.valueOf(clientJson.get("invites")), ArrayList.class));
-    //setComment(json.fromJson(String.valueOf(clientJson.get("comment")), ArrayList.class));
+    setComment(json.fromJson(String.valueOf(clientJson.get("comment")), ArrayList.class));
 
 
     // Converts String to array list of food items.

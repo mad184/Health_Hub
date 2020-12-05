@@ -14,7 +14,6 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class ClientMainViewController {
 
@@ -27,13 +26,16 @@ public class ClientMainViewController {
 
   // UI
   // Label for client name
-  @FXML private Label nameLabel = new Label();
+  @FXML
+  private final Label nameLabel = new Label();
 
   // Label for most recent client recommendations
-  @FXML private Label recommendationLabel = new Label();
+  @FXML
+  private final Label recommendationLabel = new Label();
 
   // Label for most recent client comments
-  @FXML private Label commentLabel = new Label();
+  @FXML
+  private final Label commentLabel = new Label();
 
   public void setupScene(int clientID) throws EmptyQueryException {
     // Sets client to client controller for scene
@@ -45,12 +47,7 @@ public class ClientMainViewController {
     // Changes recommendation label to client's recommendations
     recommendationLabel.setText("None");
 
-    // Add comment to client for testing
-    ArrayList<String> comment = new ArrayList<String>();
-    comment.add("If you got time to sit, you have time to squat");
-
     // Sets clients comments label to none if there are no comments, else sets to first comment
-    clientController.setClientComment(comment);
     if (clientController.getClientComment() == null) {
       commentLabel.setText("None");
     } else {
