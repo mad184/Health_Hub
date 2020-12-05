@@ -181,7 +181,21 @@ public class OwnerMainViewController {
    * @param event
    * @throws IOException
    */
-  public void onManagersButtonPushed(ActionEvent event) throws IOException {}
+  public void onManagersButtonPushed(ActionEvent event) throws IOException {
+    // Loads Scene for profile view
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("ownerManagerListView.fxml"));
+    Parent root = loader.load();
+
+    // Gets profile view controller and passes client to it
+    OwnerManagerListController ownerManagerListController = loader.getController();
+    ownerManagerListController.setupScene(controller);
+
+    Scene viewScene = new Scene(root);
+    // Gets stage information
+    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    window.setScene(viewScene);
+    window.show();
+  }
 
   /**
    * Goes to settings page when settings button is pressed
