@@ -19,22 +19,22 @@
             <children>
                 <VBox prefHeight="322.0" prefWidth="368.0" spacing="15.0">
                     <children>
-                        <Label contentDisplay="CENTER" prefHeight="27.0" prefWidth="355.0" text="Your instructor list" textAlignment="CENTER" textFill="#ddd9d9">
+                        <Label contentDisplay="CENTER" prefHeight="27.0" prefWidth="355.0" text="Your manager list" textAlignment="CENTER" textFill="#ddd9d9">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <ComboBox fx:id="managerDisplayComboBox" prefHeight="25.0" prefWidth="258.0" promptText="Instructor list" />
+                        <ComboBox fx:id="managerDisplayComboBox" prefHeight="25.0" prefWidth="258.0" promptText="Manager list" />
                         <VBox alignment="TOP_CENTER" prefHeight="302.0" prefWidth="383.0" spacing="5.0">
                             <children>
-                                <Label prefHeight="27.0" prefWidth="364.0" text="remove Instructor" textFill="#ddd9d9">
+                                <Label prefHeight="27.0" prefWidth="364.0" text="remove Manager" textFill="#ddd9d9">
                                     <font>
                                         <Font size="18.0" />
                                     </font>
                                 </Label>
                                 <HBox alignment="BASELINE_LEFT" prefHeight="124.0" prefWidth="356.0" spacing="20.0">
                                     <children>
-                                        <ComboBox fx:id="managerSelectComboBox" prefHeight="25.0" prefWidth="258.0" promptText="Instructor Name" />
+                                        <ComboBox fx:id="managerSelectComboBox" prefHeight="25.0" prefWidth="258.0" promptText="Manager Name" />
                                         <Button fx:id="removeManagerButton" mnemonicParsing="false" onAction="#onRemoveButtonPressed" prefHeight="25.0" prefWidth="71.0" text="Remove" />
                                     </children>
                                 </HBox>
@@ -56,7 +56,7 @@
                         <Cursor fx:constant="DEFAULT" />
                     </cursor>
                     <children>
-                        <Label text="Add Instructor" textFill="#ddd9d9">
+                        <Label text="Add Manager" textFill="#ddd9d9">
                             <font>
                                 <Font size="18.0" />
                             </font>
@@ -70,7 +70,7 @@
                 </VBox>
             </children>
         </HBox>
-        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="156.0" layoutY="15.0" prefHeight="34.0" prefWidth="331.0" text="Halth Hub - Instructors management" textAlignment="CENTER" textFill="#ddd9d9">
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="156.0" layoutY="15.0" prefHeight="34.0" prefWidth="331.0" text="Halth Hub - Managers management" textAlignment="CENTER" textFill="#ddd9d9">
             <font>
                 <Font name="System Bold" size="18.0" />
             </font>
