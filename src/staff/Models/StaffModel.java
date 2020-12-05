@@ -1,14 +1,14 @@
 package staff.Models;
 
+import API.ExerciseItem;
 import API.FoodItem;
+import com.google.gson.Gson;
+import database.Dbms;
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.google.gson.Gson;
 import staff.Interfaces.StaffInterface;
-import database.Dbms;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /** Storage class for Staff users. */
 public class StaffModel implements StaffInterface {
@@ -28,6 +28,7 @@ public class StaffModel implements StaffInterface {
   private ArrayList<FoodItem> lunchFoods;
   private ArrayList<FoodItem> dinnerFoods;
   private ArrayList<FoodItem> snackFoods;
+  private ArrayList<ExerciseItem> exercises;
 
   /**
    * Constructs a new StaffModel object.
@@ -72,6 +73,7 @@ public class StaffModel implements StaffInterface {
     this.lunchFoods = new ArrayList<>();
     this.dinnerFoods = new ArrayList<>();
     this.snackFoods = new ArrayList<>();
+    this.exercises = new ArrayList<>();
   }
 
   /**
@@ -410,6 +412,34 @@ public class StaffModel implements StaffInterface {
   }
 
   /**
+   * gets exercise array list
+   *
+   * @return array list belonging to staff user
+   */
+  public ArrayList<ExerciseItem> getExercises() {
+    return this.exercises;
+  }
+
+
+  /**
+   * Sets exercises for staff user
+   *
+   * @param exercises ArrayList of ExerciseItems
+   */
+  public void setExercises(ArrayList<ExerciseItem> exercises) {
+    this.exercises = exercises;
+  }
+
+  /**
+   * Adds Exercise item to exercises ArrayList
+   *
+   * @param exerciseItem Exercise Item to be added
+   */
+  public void addExercise(ExerciseItem exerciseItem) {
+    this.exercises.add(exerciseItem);
+  }
+
+  /**
    * Converts the staff member into a json representation
    *
    * @return json representation of a staff member
@@ -458,6 +488,14 @@ public class StaffModel implements StaffInterface {
               "snackFoods",
               getSnackFoods().toString().substring(1, getSnackFoods().toString().length() - 1));
     }
+
+    if (getExercises() == null) {
+      json.put("exercises", "");
+    } else {
+      json.put(
+              "exercises",
+              getExercises().toString().substring(1, getExercises().toString().length() - 1));
+    }
     System.out.println(json.toString());
     return json;
   }
@@ -476,10 +514,10 @@ public class StaffModel implements StaffInterface {
 
     // Converts String to array list of food items.
     if (!json.get("breakfastFoods").toString().equals("")) {
-      String list[] = String.valueOf(json.get("breakfastFoods")).split("/");
+      String[] list = String.valueOf(json.get("breakfastFoods")).split("/");
       ArrayList<FoodItem> breakfastFoods = new ArrayList<>();
       for (String item : list) {
-        String foodInfo[] = item.split(";");
+        String[] foodInfo = item.split(";");
         FoodItem food =
                 new FoodItem(
                         foodInfo[0], Double.parseDouble(foodInfo[2]), Integer.parseInt(foodInfo[1]));
@@ -489,10 +527,10 @@ public class StaffModel implements StaffInterface {
     }
 
     if (!json.get("lunchFoods").toString().equals("")) {
-      String list[] = String.valueOf(json.get("lunchFoods")).split("/");
+      String[] list = String.valueOf(json.get("lunchFoods")).split("/");
       ArrayList<FoodItem> lunchFoods = new ArrayList<>();
       for (String item : list) {
-        String foodInfo[] = item.split(";");
+        String[] foodInfo = item.split(";");
         FoodItem food =
                 new FoodItem(
                         foodInfo[0], Double.parseDouble(foodInfo[2]), Integer.parseInt(foodInfo[1]));
@@ -501,10 +539,10 @@ public class StaffModel implements StaffInterface {
       setLunchFoods(lunchFoods);
     }
     if (!json.get("dinnerFoods").toString().equals("")) {
-      String list[] = String.valueOf(json.get("dinnerFoods")).split("/");
+      String[] list = String.valueOf(json.get("dinnerFoods")).split("/");
       ArrayList<FoodItem> dinnerFoods = new ArrayList<>();
       for (String item : list) {
-        String foodInfo[] = item.split(";");
+        String[] foodInfo = item.split(";");
         FoodItem food =
                 new FoodItem(
                         foodInfo[0], Double.parseDouble(foodInfo[2]), Integer.parseInt(foodInfo[1]));
@@ -513,16 +551,29 @@ public class StaffModel implements StaffInterface {
       setDinnerFoods(dinnerFoods);
     }
     if (!json.get("snackFoods").toString().equals("")) {
-      String list[] = String.valueOf(json.get("snackFoods")).split("/");
+      String[] list = String.valueOf(json.get("snackFoods")).split("/");
       ArrayList<FoodItem> snackFoods = new ArrayList<>();
       for (String item : list) {
-        String foodInfo[] = item.split(";");
+        String[] foodInfo = item.split(";");
         FoodItem food =
                 new FoodItem(
                         foodInfo[0], Double.parseDouble(foodInfo[2]), Integer.parseInt(foodInfo[1]));
         snackFoods.add(food);
       }
       setSnackFoods(snackFoods);
+    }
+
+    if (!json.get("exercises").toString().equals("")) {
+      String[] list = String.valueOf(json.get("exercises")).split("/");
+      ArrayList<ExerciseItem> exerciseList = new ArrayList<>();
+      for (String item : list) {
+        String[] exerciseInfo = item.split(";");
+        ExerciseItem exerciseItem =
+                new ExerciseItem(
+                        exerciseInfo[0], Integer.parseInt(exerciseInfo[1]), Integer.parseInt(exerciseInfo[2]));
+        exerciseList.add(exerciseItem);
+      }
+      setExercises(exerciseList);
     }
     return ObjectClass;
   }

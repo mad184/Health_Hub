@@ -56,9 +56,9 @@ public class OrganizationSignUpController {
     }
 
     //regex looks for a string space string, meaning users must enter a first and last name
-    if (!(ownerName.length() > 0) || !ownerName.matches("^([a-z]|[A-Z])+\\s([a-z]|[A-Z])+$")) {
-      View.showAlertMessage("A First space Last name is requried");
-    } else if (!(organizationName.length() > 0)) {
+    if (!(ownerName.length() > 0) || ownerName.matches("^\\s+$")) {
+      View.showAlertMessage("Name could not be read");
+    } else if (!(organizationName.length() > 0) || organizationName.matches("^\\s+$")) {
       View.showAlertMessage("A Name is required");
     } else if (!(age > 0) || !(age < 150)) {
       View.showAlertMessage("Right now only ages 1 - 149 are accepted");
@@ -72,7 +72,7 @@ public class OrganizationSignUpController {
     }
 
     // min length of 6, Regex looks for any spaces in the password that is one string, no spaces w/ special characters,characters,numbers
-    else if (!(passWord.length() > 5) || !passWord.matches("^(\\w|\\D|\\d|\\W)*$")) {
+    else if (!(passWord.length() > 5) || !passWord.matches("^(\\w|\\D|\\d|\\W)*$") || passWord.matches("^\\s*$")) {
       View.showAlertMessage("A Password of at least length 6 is required");
     } else {
 

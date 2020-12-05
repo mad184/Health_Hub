@@ -32,12 +32,21 @@ public class ClientExerciseViewController implements Initializable {
 
   public ClientController clientController = new ClientController(null);
 
+  /**
+   * Setups of controller for scene
+   *
+   * @param client controller for client info
+   */
   public void setupScene(ClientController client) {
     clientController = client;
     updateVBox();
   }
 
-  // Goes to main view scene when back button is pushed
+  /**
+   * Goes back to main view
+   *
+   * @param event of back button being pushed
+   */
   public void onBackButtonPressed(ActionEvent event) throws IOException, EmptyQueryException {
     // Loads Scene for main view
     FXMLLoader loader = new FXMLLoader(getClass().getResource("clientMainView.fxml"));
@@ -54,7 +63,12 @@ public class ClientExerciseViewController implements Initializable {
     window.show();
   }
 
-  public void exerciseSearch(ActionEvent event) throws IOException, EmptyQueryException {
+  /**
+   * Goes to exerciseSearchView
+   *
+   * @param event of add exercise button being pushed
+   */
+  public void exerciseSearch(ActionEvent event) throws IOException {
     // Load food search scene
     FXMLLoader loader =
             new FXMLLoader(getClass().getResource("ExerciseSearch/exerciseSearchView.fxml"));

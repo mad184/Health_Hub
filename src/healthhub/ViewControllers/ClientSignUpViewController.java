@@ -8,6 +8,7 @@ import healthhub.Views.View;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+
 import java.io.IOException;
 
 public class ClientSignUpViewController {
@@ -29,8 +30,8 @@ public class ClientSignUpViewController {
 
 
     /**
-     * This method take the text box entry from the ClientSignUpView, verifys it and then sends it to the healthHub
-     * Controller to be added to the database, Then switches the view to the clinets view
+     * This method take the text box entry from the ClientSignUpView, verify it and then sends it to the healthHub
+     * Controller to be added to the database, Then switches the view to the clients view
      *
      * @param event: The ActionEvent associated with the button clicked action
      * @throws IOException: For the FXMLLoader .load() function
@@ -51,8 +52,8 @@ public class ClientSignUpViewController {
         }
 
         //regex looks for a string space string, meaning users must enter a first and last name
-        if (!(name.length() > 0) || !name.matches("^([a-z]|[A-Z])+\\s([a-z]|[A-Z])+$")) {
-            View.showAlertMessage("A first space last name is requried");
+        if (!(name.length() > 0) || name.matches("^\\s+$")) {
+            View.showAlertMessage("Name could not be read");
         } else if (!(age > 0) || !(age < 150)) {
             View.showAlertMessage("Right now only ages 1 - 149 are accepted");
         }
@@ -65,11 +66,9 @@ public class ClientSignUpViewController {
         }
 
         // min length of 6, Regex looks for any spaces in the password that is one string, no spaces w/ special characters,characters,numbers
-        else if (!(passWord.length() > 5) || !passWord.matches("^(\\w|\\D|\\d|\\W)*$")) {
+        else if (!(passWord.length() > 5) || !passWord.matches("^(\\w|\\D|\\d|\\W)*$") || passWord.matches("^\\s*$")) {
             View.showAlertMessage("A password of at at least 6 characters without spaces is required");
-        }
-
-        else {
+        } else {
             int clientUniqueID = HealthHubController.getUniqueID();
 
             Client newClient = new Client(
@@ -86,6 +85,7 @@ public class ClientSignUpViewController {
                     0,
                     0,
                     0,
+                    null,
                     null,
                     null,
                     null,

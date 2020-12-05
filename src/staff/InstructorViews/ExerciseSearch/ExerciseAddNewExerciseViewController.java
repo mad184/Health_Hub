@@ -1,0 +1,115 @@
+package staff.InstructorViews.ExerciseSearch;
+
+import API.ExerciseItem;
+import Client.ClientToDB;
+import database.EmptyQueryException;
+import database.JsonObjectException;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import staff.Controllers.InstructorController;
+import staff.InstructorViews.InstructorExerciseViewController;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class ExerciseAddNewExerciseViewController implements Initializable {
+
+    //Connection to database object
+    ClientToDB DB = new ClientToDB();
+
+    //Exercise info textFields
+    @FXML
+    TextField exerciseNameInput = new TextField();
+    @FXML
+    TextField setInput = new TextField();
+    @FXML
+    TextField repInput = new TextField();
+
+    private InstructorController controller = new InstructorController(null);
+
+    /**
+     * Sets up controller for scene
+     *
+     * @param controller controller with client info
+     */
+    public void setupScene(InstructorController controller) {
+        this.controller = controller;
+    }
+
+
+    /**
+     * Goes back to main view
+     *
+     * @param event of back button being pushed
+     */
+    public void onBackButtonPressed(ActionEvent event) throws IOException, EmptyQueryException {
+        // Loads Scene for main view
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("exerciseSearchView.fxml"));
+        Parent root = loader.load();
+
+        // Gets main view controller and passes client to it
+        ExerciseSearchViewController viewController = loader.getController();
+        viewController.setupScene(controller);
+
+        Scene viewScene = new Scene(root);
+        // Gets stage information
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(viewScene);
+        window.show();
+    }
+
+    /**
+     * Adds exercise to client, updates database, goes back to main exercise view
+     *
+     * @param event of add exercise button being pushed
+     * @throws EmptyQueryException thrown if updateClient() cannot find client in database
+     */
+    public void onExerciseButtonPushed(ActionEvent event) throws JsonObjectException, EmptyQueryException, IOException {
+        //Creates new exercise Item
+        ExerciseItem exerciseItem = new ExerciseItem(
+                exerciseNameInput.getText(),
+                Integer.parseInt(setInput.getText()),
+                Integer.parseInt(repInput.getText()));
+
+        //Adds Exercise to client
+        controller.addExercises(exerciseItem);
+
+        //Updates client in database
+        DB.updateClient(controller.getId(), controller.toJson());
+
+        //Goes back to main exercise view
+        goToExerciseView(event);
+    }
+
+    /**
+     * Goes to main exercise view
+     *
+     * @param event event of add exercise view button being pushed
+     */
+    public void goToExerciseView(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../instructorExerciseView.fxml"));
+        Parent root = loader.load();
+
+        // Gets main view controller and passes client to it
+        InstructorExerciseViewController viewController = loader.getController();
+        viewController.setupScene(controller);
+
+        Scene viewScene = new Scene(root);
+        // Gets stage information
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(viewScene);
+        window.show();
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+    }
+}
