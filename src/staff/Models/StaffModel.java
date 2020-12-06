@@ -52,10 +52,10 @@ public class StaffModel implements StaffInterface {
       int weight,
       String organization,
       int id,
-      String username,  // For connection to Dbms
-      String password,  // For connection to Dbms
-      String dbName,    // For connection to Dbms
-      String tableName  // For connection to Dbms
+      String username, // For connection to Dbms
+      String password, // For connection to Dbms
+      String dbName, // For connection to Dbms
+      String tableName // For connection to Dbms
       ) {
     this.name = name;
     this.userPassword = userPassword;
@@ -81,12 +81,9 @@ public class StaffModel implements StaffInterface {
    *
    * @param staff: json representation of a StaffModel object
    * @return a StaffModel object
-   *
-  public static StaffModel fromJson(json staff) {
-    Gson converter = new Gson();
-    System.out.println(String.valueOf(staff));
-    return converter.fromJson(String.valueOf(staff), StaffModel.class);
-  }
+   *     <p>public static StaffModel fromJson(json staff) { Gson converter = new Gson();
+   *     System.out.println(String.valueOf(staff)); return converter.fromJson(String.valueOf(staff),
+   *     StaffModel.class); }
    */
 
   /**
@@ -179,12 +176,12 @@ public class StaffModel implements StaffInterface {
     return this.organization;
   }
 
-    @Override
-    public String getUserPassword() {
-        return this.userPassword;
-    }
+  @Override
+  public String getUserPassword() {
+    return this.userPassword;
+  }
 
-    /**
+  /**
    * Gets the database ID of the staff member.
    *
    * @return database ID
@@ -196,16 +193,15 @@ public class StaffModel implements StaffInterface {
 
   @Override
   public int setID(int _id) {
-      return this.id = _id;
+    return this.id = _id;
   }
 
-    @Override
-    public void setUserPassword(String password) {
-        this.userPassword = password;
-    }
+  @Override
+  public void setUserPassword(String password) {
+    this.userPassword = password;
+  }
 
-
-    /**
+  /**
    * Sets the name of the staff member
    *
    * @param name: Name of the Staff member
@@ -297,6 +293,7 @@ public class StaffModel implements StaffInterface {
 
   /**
    * Setter for the Database connection.
+   *
    * @param db: Database
    */
   private void setDbms(Dbms db) {
@@ -454,39 +451,41 @@ public class StaffModel implements StaffInterface {
     json.put("height", this.height);
     json.put("weight", this.weight);
     json.put("organization", this.organization);
-    json.put("id", this.id);
+    json.put("_id", this.id);
+    json.put("goalCal", this.calorieGoal);
+    json.put("calories", this.calories);
 
     // Converts Array Lists toString
     if (getBreakfastFoods() == null) {
       json.put("breakfastFoods", "");
     } else {
       json.put(
-              "breakfastFoods",
-              getBreakfastFoods().toString().substring(1, getBreakfastFoods().toString().length() - 1));
+          "breakfastFoods",
+          getBreakfastFoods().toString().substring(1, getBreakfastFoods().toString().length() - 1));
     }
 
     if (getLunchFoods() == null) {
       json.put("lunchFoods", "");
     } else {
       json.put(
-              "lunchFoods",
-              getLunchFoods().toString().substring(1, getLunchFoods().toString().length() - 1));
+          "lunchFoods",
+          getLunchFoods().toString().substring(1, getLunchFoods().toString().length() - 1));
     }
 
     if (getDinnerFoods() == null) {
       json.put("dinnerFoods", "");
     } else {
       json.put(
-              "dinnerFoods",
-              getDinnerFoods().toString().substring(1, getDinnerFoods().toString().length() - 1));
+          "dinnerFoods",
+          getDinnerFoods().toString().substring(1, getDinnerFoods().toString().length() - 1));
     }
 
     if (getSnackFoods() == null) {
       json.put("snackFoods", "");
     } else {
       json.put(
-              "snackFoods",
-              getSnackFoods().toString().substring(1, getSnackFoods().toString().length() - 1));
+          "snackFoods",
+          getSnackFoods().toString().substring(1, getSnackFoods().toString().length() - 1));
     }
 
     if (getExercises() == null) {
@@ -500,17 +499,19 @@ public class StaffModel implements StaffInterface {
     return json;
   }
 
-  public Gson fromJson(JSONObject json){
+  public Gson fromJson(JSONObject json) {
     Gson ObjectClass = new Gson();
     setName(String.valueOf(json.get("name")));
     setUserPassword(ObjectClass.fromJson(String.valueOf(json.get("password")), String.class));
     setAge(ObjectClass.fromJson(String.valueOf(json.get("age")), int.class));
-    setID(ObjectClass.fromJson(String.valueOf(json.get("id")), int.class));
+    setID(ObjectClass.fromJson(String.valueOf(json.get("_id")), int.class));
     setEmail(ObjectClass.fromJson(String.valueOf(json.get("email")), String.class));
     setPhoneNumber(ObjectClass.fromJson(String.valueOf(json.get("phoneNumber")), String.class));
     setHeight(ObjectClass.fromJson(String.valueOf(json.get("height")), int.class));
     setWeight(ObjectClass.fromJson(String.valueOf(json.get("weight")), int.class));
     setOrganization(String.valueOf(json.get("organization")));
+    setGoalCal(ObjectClass.fromJson(String.valueOf(json.get("goalCal")), Integer.class));
+    setCalories(ObjectClass.fromJson(String.valueOf(json.get("calories")), Integer.class));
 
     // Converts String to array list of food items.
     if (!json.get("breakfastFoods").toString().equals("")) {
@@ -519,8 +520,8 @@ public class StaffModel implements StaffInterface {
       for (String item : list) {
         String[] foodInfo = item.split(";");
         FoodItem food =
-                new FoodItem(
-                        foodInfo[0], Double.parseDouble(foodInfo[2]), Integer.parseInt(foodInfo[1]));
+            new FoodItem(
+                foodInfo[0], Double.parseDouble(foodInfo[2]), Integer.parseInt(foodInfo[1]));
         breakfastFoods.add(food);
       }
       this.setBreakfastFoods(breakfastFoods);
@@ -532,8 +533,8 @@ public class StaffModel implements StaffInterface {
       for (String item : list) {
         String[] foodInfo = item.split(";");
         FoodItem food =
-                new FoodItem(
-                        foodInfo[0], Double.parseDouble(foodInfo[2]), Integer.parseInt(foodInfo[1]));
+            new FoodItem(
+                foodInfo[0], Double.parseDouble(foodInfo[2]), Integer.parseInt(foodInfo[1]));
         lunchFoods.add(food);
       }
       setLunchFoods(lunchFoods);
@@ -544,8 +545,8 @@ public class StaffModel implements StaffInterface {
       for (String item : list) {
         String[] foodInfo = item.split(";");
         FoodItem food =
-                new FoodItem(
-                        foodInfo[0], Double.parseDouble(foodInfo[2]), Integer.parseInt(foodInfo[1]));
+            new FoodItem(
+                foodInfo[0], Double.parseDouble(foodInfo[2]), Integer.parseInt(foodInfo[1]));
         dinnerFoods.add(food);
       }
       setDinnerFoods(dinnerFoods);
@@ -556,8 +557,8 @@ public class StaffModel implements StaffInterface {
       for (String item : list) {
         String[] foodInfo = item.split(";");
         FoodItem food =
-                new FoodItem(
-                        foodInfo[0], Double.parseDouble(foodInfo[2]), Integer.parseInt(foodInfo[1]));
+            new FoodItem(
+                foodInfo[0], Double.parseDouble(foodInfo[2]), Integer.parseInt(foodInfo[1]));
         snackFoods.add(food);
       }
       setSnackFoods(snackFoods);

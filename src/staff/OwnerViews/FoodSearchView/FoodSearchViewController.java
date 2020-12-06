@@ -129,7 +129,7 @@ public class FoodSearchViewController {
    */
   public void onBackButtonPressed(ActionEvent event) throws IOException, EmptyQueryException {
     // Loads Scene for main view
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("../ownerNutrientView"));
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("../ownerNutrientView.fxml"));
     Parent root = loader.load();
 
     // Gets main view controller and passes client to it

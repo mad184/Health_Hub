@@ -26,7 +26,6 @@ public class InstructorModelTest {
           160,
           "Average Joes",
           1,
-          new ArrayList<UserID>(),
           "JhonWick",
           "Jhon123",
           "Dev-Marcos-Db",

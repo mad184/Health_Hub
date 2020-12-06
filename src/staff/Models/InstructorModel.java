@@ -26,7 +26,6 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
    * @param weight : Weight of the staff member (lbs)
    * @param organization : Organization the staff member is affiliated with
    * @param id : Database ID of the staff member
-   * @param clients : Client list for the Instructor
    */
   public InstructorModel(
       String name,
@@ -38,7 +37,6 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
       int weight,
       String organization,
       int id,
-      List<UserID> clients,
       String username,
       String password,
       String dbName,
@@ -57,7 +55,7 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
         password,
         dbName,
         tableName);
-    this.clients = clients;
+    this.clients = new ArrayList<>();
   }
 
   /**
