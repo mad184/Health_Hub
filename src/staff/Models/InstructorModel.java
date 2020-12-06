@@ -1,7 +1,10 @@
 package staff.Models;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import database.EmptyQueryException;
+import database.JsonObjectException;
 import org.json.JSONException;
 import org.json.JSONObject;
 import com.google.gson.Gson;
@@ -23,10 +26,10 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
    * @param weight : Weight of the staff member (lbs)
    * @param organization : Organization the staff member is affiliated with
    * @param id : Database ID of the staff member
-   * @param clients : Client list for the Instructor
    */
   public InstructorModel(
       String name,
+      String userPassword,
       int age,
       String email,
       String phoneNumber,
@@ -34,13 +37,13 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
       int weight,
       String organization,
       int id,
-      List<UserID> clients,
       String username,
       String password,
       String dbName,
       String tableName) {
     super(
         name,
+        userPassword,
         age,
         email,
         phoneNumber,
@@ -52,7 +55,7 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
         password,
         dbName,
         tableName);
-    this.clients = clients;
+    this.clients = new ArrayList<>();
   }
 
   /**
@@ -60,11 +63,9 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
    *
    * @param instructor: JSONObject of the instructor
    * @return InstructorModel object
+   *     <p>public static InstructorModel fromJson(JSONObject instructor) { Gson converter = new
+   *     Gson(); return converter.fromJson(String.valueOf(instructor), InstructorModel.class); }
    */
-  public static InstructorModel fromJson(JSONObject instructor) {
-    Gson converter = new Gson();
-    return converter.fromJson(String.valueOf(instructor), InstructorModel.class);
-  }
 
   /**
    * Gets the Client list for the Instructor.
@@ -103,12 +104,14 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
    * @param comment: The comment itself
    */
   @Override
-  public void addComment(UserID client, String comment) throws JSONException {
+  public void addComment(UserID client, String comment)
+      throws JSONException, JsonObjectException, EmptyQueryException {
     JSONObject clientJson = this.getClientInfo(client);
-    List<String> comments = (List<String>) clientJson.get("Comments");  // TODO: Verify with client package
+    List<String> comments =
+        (List<String>) clientJson.get("Comments"); // TODO: Verify with client package
     comments.add(comment);
     clientJson.put("Comments", comments);
-    this.db.updateClientInfo(client.getId(), clientJson);
+    this.db.updateClient(client.getId(), clientJson);
   }
 
   /**
@@ -118,12 +121,14 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
    * @param comment: The comment itself
    */
   @Override
-  public void removeComment(UserID client, String comment) throws JSONException {
+  public void removeComment(UserID client, String comment)
+      throws JSONException, JsonObjectException, EmptyQueryException {
     JSONObject clientJson = this.getClientInfo(client);
-    List<String> comments = (List<String>) clientJson.get("Comments");  // TODO: Verify with client package
+    List<String> comments =
+        (List<String>) clientJson.get("Comments"); // TODO: Verify with client package
     comments.remove(comment);
     clientJson.put("Comments", comments);
-    this.db.updateClientInfo(client.getId(), clientJson);
+    this.db.updateClient(client.getId(), clientJson);
   }
 
   /**
@@ -133,7 +138,7 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
    * @return Client object
    */
   @Override
-  public JSONObject getClientInfo(UserID client) {
+  public JSONObject getClientInfo(UserID client) throws EmptyQueryException {
     return this.db.readClientData(client.getId());
   }
 
@@ -142,9 +147,38 @@ public class InstructorModel extends StaffModel implements InstructorInterface {
    *
    * @return JSONObject representation of an Instructor
    */
+  @Override
   public JSONObject toJson() throws JSONException {
     JSONObject json = super.toJson();
-    json.put("Clients", this.clients);
+    ArrayList<String> clientList = new ArrayList<>();
+    if (this.clients != null) {
+      for (UserID user : this.clients) {
+        clientList.add(user.toString());
+      }
+    }
+    json.put("Clients", clientList);
     return json;
+  }
+
+  /**
+   * A method that sets a JSONObject back to InstructorModel Class
+   *
+   * @param jsonObject InstructorModel class in JSONObject
+   * @return InstructorModel Class
+   */
+  public Gson fromJson(JSONObject jsonObject) {
+    Gson ObjectClass = super.fromJson(jsonObject);
+    String[] ListArray = String.valueOf(jsonObject.get("Clients")).split(",");
+    if (ListArray[0].length() > 2) {
+      for (String item : ListArray) {
+        String stripped = item.replace("\"", "");
+        String bare = stripped.replace("[", "");
+        String done = bare.replace("]", "");
+        String[] clientInfo = done.split(";");
+        UserID userClient = new UserID(Integer.parseInt(clientInfo[1]), clientInfo[0]);
+        addClient(userClient);
+      }
+    }
+    return ObjectClass;
   }
 }

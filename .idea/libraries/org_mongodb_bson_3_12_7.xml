@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="org.mongodb:bson:3.12.7" type="repository">
+    <properties maven-id="org.mongodb:bson:3.12.7" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/mongodb/bson/3.12.7/bson-3.12.7.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/mongodb/bson/3.12.7/bson-3.12.7-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES />
+  </library>
+</component>

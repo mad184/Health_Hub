@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="staff.InstructorViews.InstructorSettingViewController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2a0033" height="400.0" stroke="BLACK" strokeType="INSIDE" width="600.0" />
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#onBackButtonPressed" prefHeight="33.0" prefWidth="57.0" style="-fx-border-color: #9643A9 #9643A9; -fx-border-radius: 10; -fx-background-color: #2A0033; -fx-background-radius: 10;" text="Back" textFill="#ddd9d9" />
+      <Label layoutX="236.0" layoutY="39.0" text="Name:" textFill="#c9c1c1">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="246.0" layoutY="68.0" text="Age:" textFill="#c9c1c1">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="233.0" layoutY="96.0" text="Height:" textFill="#c9c1c1">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="198.0" layoutY="124.0" text="Weight Goal:" textFill="#c9c1c1">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="167.0" layoutY="152.0" text="Daily Calorie Goal:" textFill="#c9c1c1">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="nameLabel" alignment="CENTER" layoutX="285.0" layoutY="39.0" onMouseClicked="#onNamePressed" text="nameLabel" textFill="#ddd9d9" />
+      <Label fx:id="ageLabel" alignment="CENTER" layoutX="285.0" layoutY="68.0" prefHeight="17.0" prefWidth="61.0" text="ageLabel" textFill="#ddd9d9" />
+      <Label fx:id="heightLabel" alignment="CENTER" layoutX="285.0" layoutY="96.0" prefHeight="17.0" prefWidth="61.0" text="heightLabel" textFill="#ddd9d9" />
+      <Label fx:id="weightGoalLabel" alignment="CENTER" layoutX="285.0" layoutY="124.0" prefHeight="17.0" prefWidth="61.0" text="weightGoalLabel" textFill="#ddd9d9" />
+      <Label fx:id="calorieGoalLabel" alignment="CENTER" layoutX="285.0" layoutY="152.0" prefHeight="17.0" prefWidth="57.0" text="calGoalLabel" textFill="#ddd9d9" />
+      <Button layoutX="285.0" layoutY="35.0" mnemonicParsing="false" onAction="#onNamePressed" prefHeight="18.0" prefWidth="61.0" style="-fx-background-color: #ffffff00#ffffff00;" text="nameEditButton" textFill="TRANSPARENT" />
+      <Button layoutX="285.0" layoutY="63.0" mnemonicParsing="false" onAction="#onAgePressed" prefHeight="27.0" prefWidth="61.0" style="-fx-background-color: #ffffff00#ffffff00;" text="ageEditButton" textFill="TRANSPARENT" />
+      <Button layoutX="285.0" layoutY="91.0" mnemonicParsing="false" onAction="#onHeightPressed" prefHeight="27.0" prefWidth="61.0" style="-fx-background-color: #ffffff00#ffffff00;" text="heightEditButton" textFill="TRANSPARENT" />
+      <Button layoutX="285.0" layoutY="119.0" mnemonicParsing="false" onAction="#onWeightGoalPressed" prefHeight="27.0" prefWidth="61.0" style="-fx-background-color: #ffffff00#ffffff00;" text="weightGoalEditButton" textFill="TRANSPARENT" />
+      <Button layoutX="285.0" layoutY="147.0" mnemonicParsing="false" onAction="#onCalorieGoalPressed" prefHeight="27.0" prefWidth="61.0" style="-fx-background-color: #ffffff00#ffffff00;" text="calGoalEditButton" textFill="TRANSPARENT" />
+   </children>
+</AnchorPane>

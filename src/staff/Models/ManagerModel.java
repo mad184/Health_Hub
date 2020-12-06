@@ -1,14 +1,16 @@
 package staff.Models;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import database.EmptyQueryException;
 import org.json.JSONException;
 import org.json.JSONObject;
 import com.google.gson.Gson;
 import staff.Interfaces.ManagerInterface;
 import staff.UserID;
 
-/** Storage class for Manager users. */
+/** Storage class for ManagerView users. */
 public class ManagerModel extends StaffModel implements ManagerInterface {
   private List<UserID> instructors;
 
@@ -27,6 +29,7 @@ public class ManagerModel extends StaffModel implements ManagerInterface {
    */
   public ManagerModel(
       String name,
+      String userPassword,
       int age,
       String email,
       String phoneNumber,
@@ -35,12 +38,25 @@ public class ManagerModel extends StaffModel implements ManagerInterface {
       String organization,
       int id,
       List<UserID> instructors,
-      String username,  // For connection to Dbms
-      String password,  // For connection to Dbms
-      String dbName,    // For connection to Dbms
+      String username, // For connection to Dbms
+      String password, // For connection to Dbms
+      String dbName, // For connection to Dbms
       String tableName) // For connection to Dbms)
-       {
-    super(name, age, email, phoneNumber, height, weight, organization, id, username, password, dbName, tableName);
+      {
+    super(
+        name,
+        userPassword,
+        age,
+        email,
+        phoneNumber,
+        height,
+        weight,
+        organization,
+        id,
+        username,
+        password,
+        dbName,
+        tableName);
     this.instructors = instructors;
   }
 
@@ -49,14 +65,12 @@ public class ManagerModel extends StaffModel implements ManagerInterface {
    *
    * @param manager: JSONObject of the manager
    * @return ManagerModel object
+   *     <p>public static ManagerModel fromJson(JSONObject manager) { Gson converter = new Gson();
+   *     return converter.fromJson(String.valueOf(manager), ManagerModel.class); }
    */
-  public static ManagerModel fromJson(JSONObject manager) {
-    Gson converter = new Gson();
-    return converter.fromJson(String.valueOf(manager), ManagerModel.class);
-  }
 
   /**
-   * Gets the Instructor list (as UserIDs) for the Manager
+   * Gets the Instructor list (as UserIDs) for the ManagerView
    *
    * @return List of UserIDs for Instructors
    */
@@ -91,19 +105,48 @@ public class ManagerModel extends StaffModel implements ManagerInterface {
    * @param instructor : UserID of the Instructor
    */
   @Override
-  public JSONObject getInstructorInfo(UserID instructor) {
+  public JSONObject getInstructorInfo(UserID instructor) throws EmptyQueryException {
     return this.db.readInstructorData(instructor.getId());
   }
 
   /**
    * Converts the ManagerModel to a JSON representation.
    *
-   * @return JSON representation of a Manager
+   * @return JSON representation of a ManagerView
    */
-
+  @Override
   public JSONObject toJson() throws JSONException {
     JSONObject json = super.toJson();
-    json.put("Clients", this.instructors);
+
+    if (this.instructors != null) {
+      json.put(
+          "Instructors",
+          this.instructors.toString().substring(1, this.instructors.toString().length() - 1));
+    } else {
+      json.put("Instructors", "");
+    }
     return json;
+  }
+
+  /**
+   * A method that sets a JSONObject back to ManagerModel Class
+   *
+   * @param jsonObject ManagerModel class in JSONObject
+   * @return ManagerModel Class
+   */
+  public Gson fromJson(JSONObject jsonObject) {
+    Gson ObjectClass = super.fromJson(jsonObject);
+
+    if (!jsonObject.get("Instructors").toString().equals("")) {
+      String[] list = String.valueOf(jsonObject.get("Instructors")).split(",");
+      ArrayList<UserID> instructorList = new ArrayList<>();
+      for (String item : list) {
+        String[] instructorInfo = item.split(";");
+        UserID exerciseItem = new UserID(Integer.parseInt(instructorInfo[1]), instructorInfo[0]);
+        instructorList.add(exerciseItem);
+      }
+      this.instructors = instructorList;
+    }
+    return ObjectClass;
   }
 }

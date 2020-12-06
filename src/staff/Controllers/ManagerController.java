@@ -1,16 +1,26 @@
 package staff.Controllers;
 
+import API.ExerciseItem;
+import API.FoodItem;
+import com.google.gson.Gson;
+import database.Dbms;
+import database.EmptyQueryException;
 import org.json.JSONObject;
 import staff.Interfaces.ManagerInterface;
 import staff.Interfaces.StaffInterface;
 import staff.Models.ManagerModel;
 import staff.UserID;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ManagerController implements ManagerInterface, StaffInterface {
 
-  private ManagerModel model;
+  public ManagerModel model;
+
+  public ManagerController(ManagerModel model) {
+    this.model = model;
+  }
 
   @Override
   public List<UserID> getInstructors() {
@@ -23,7 +33,7 @@ public class ManagerController implements ManagerInterface, StaffInterface {
   }
 
   @Override
-  public JSONObject getInstructorInfo(UserID instructor) {
+  public JSONObject getInstructorInfo(UserID instructor) throws EmptyQueryException {
     return model.getInstructorInfo(instructor);
   }
 
@@ -63,13 +73,48 @@ public class ManagerController implements ManagerInterface, StaffInterface {
   }
 
   @Override
+  public int getCalories() {
+    return model.getCalories();
+  }
+
+  @Override
+  public int getCaloriesGoal() {
+    return model.getCaloriesGoal();
+  }
+
+  @Override
   public String getOrganization() {
     return model.getOrganization();
   }
 
   @Override
+  public String getUserPassword() {
+    return model.getUserPassword();
+  }
+
+  @Override
   public int getId() {
     return model.getId();
+  }
+
+  @Override
+  public int setID(int _id) {
+    return this.model.setID(_id);
+  }
+
+  @Override
+  public void setUserPassword(String password) {
+    model.setUserPassword(password);
+  }
+
+  @Override
+  public JSONObject toJson() {
+    return model.toJson();
+  }
+
+  @Override
+  public Gson fromJson(JSONObject staff) {
+    return model.fromJson(staff);
   }
 
   @Override
@@ -103,7 +148,65 @@ public class ManagerController implements ManagerInterface, StaffInterface {
   }
 
   @Override
+  public void setCalories(int calories) {
+    model.setCalories(calories);
+  }
+
+  @Override
+  public void setGoalCal(int goalCal) {
+    model.setGoalCal(goalCal);
+  }
+
+  @Override
   public void setOrganization(String orgName) {
     model.setOrganization(orgName);
+  }
+
+  public ArrayList<FoodItem> getBreakfastFoods() {
+    return model.getBreakfastFoods();
+  }
+
+  public ArrayList<FoodItem> getLunchFoods() {
+    return model.getLunchFoods();
+  }
+
+  public ArrayList<FoodItem> getDinnerFoods() {
+    return model.getDinnerFoods();
+  }
+
+  public ArrayList<FoodItem> getSnackFoods() {
+    return model.getSnackFoods();
+  }
+
+  public void addBreakfastFood(FoodItem food) {
+    model.addBreakfastFood(food);
+  }
+
+  public void addLunchFood(FoodItem food) {
+    model.addLunchFood(food);
+  }
+
+  public void addDinnerFood(FoodItem food) {
+    model.addDinnerFood(food);
+  }
+
+  public void addSnackFood(FoodItem food) {
+    model.addSnackFood(food);
+  }
+
+  public ArrayList<ExerciseItem> getExercises() {
+    return model.getExercises();
+  }
+
+  public void setExercises(ArrayList<ExerciseItem> exercises) {
+    model.setExercises(exercises);
+  }
+
+  public void addExercises(ExerciseItem exerciseItem) {
+    model.addExercise(exerciseItem);
+  }
+
+  public Dbms getDbms() {
+    return model.getDbms();
   }
 }

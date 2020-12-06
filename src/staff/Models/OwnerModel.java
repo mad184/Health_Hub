@@ -1,7 +1,9 @@
 package staff.Models;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import database.EmptyQueryException;
 import org.json.JSONException;
 import org.json.JSONObject;
 import com.google.gson.Gson;
@@ -27,6 +29,7 @@ public class OwnerModel extends ManagerModel implements OwnerInterface {
    */
   public OwnerModel(
       String name,
+      String userPassword,
       int age,
       String email,
       String phoneNumber,
@@ -35,8 +38,26 @@ public class OwnerModel extends ManagerModel implements OwnerInterface {
       String organization,
       int id,
       List<UserID> instructors,
-      List<UserID> managers) {
-    super(name, age, email, phoneNumber, height, weight, organization, id, instructors);
+      List<UserID> managers,
+      String username,
+      String password,
+      String dbName,
+      String tableName) {
+    super(
+        name,
+        userPassword,
+        age,
+        email,
+        phoneNumber,
+        height,
+        weight,
+        organization,
+        id,
+        instructors,
+        username,
+        password,
+        dbName,
+        tableName);
     this.managers = managers;
   }
 
@@ -45,11 +66,9 @@ public class OwnerModel extends ManagerModel implements OwnerInterface {
    *
    * @param owner: JSONObject representation of an Owner.
    * @return OwnerModel object
+   *     <p>public static OwnerModel fromJson(JSONObject owner) { Gson converter = new Gson();
+   *     return converter.fromJson(String.valueOf(owner), OwnerModel.class); }
    */
-  public static OwnerModel fromJson(JSONObject owner) {
-    Gson converter = new Gson();
-    return converter.fromJson(String.valueOf(owner), OwnerModel.class);
-  }
 
   /**
    * Gets the list of Managers (UserIDs) for the Owner.
@@ -62,9 +81,9 @@ public class OwnerModel extends ManagerModel implements OwnerInterface {
   }
 
   /**
-   * Adds a Manager (UserID) to the Manager list.
+   * Adds a ManagerView (UserID) to the ManagerView list.
    *
-   * @param manager: UserID of the new Manager
+   * @param manager: UserID of the new ManagerView
    */
   @Override
   public void addManager(UserID manager) {
@@ -72,9 +91,9 @@ public class OwnerModel extends ManagerModel implements OwnerInterface {
   }
 
   /**
-   * Removes a Manager (UserID) from the Manager list.
+   * Removes a ManagerView (UserID) from the ManagerView list.
    *
-   * @param manager: UserID of the Manager
+   * @param manager: UserID of the ManagerView
    */
   @Override
   public void removeManager(UserID manager) {
@@ -86,20 +105,53 @@ public class OwnerModel extends ManagerModel implements OwnerInterface {
    *
    * @return JSONObject representation of an OwnerModel
    */
+  @Override
   public JSONObject toJson() throws JSONException {
     JSONObject json = super.toJson();
-    json.put("Managers", this.managers);
+
+    if (this.managers != null) {
+      json.put(
+              "Managers",
+              this.managers.toString().substring(1, this.managers.toString().length() - 1));
+    }
+    else {
+      json.put(
+              "Managers", "");
+    }
     return json;
   }
 
   /**
-   * Gets the information about a Manager from the database.
+   * A method that sets a JSONObject back to OwnerModel Class
    *
-   * @param manager: UserID of the Manager
-   * @return JSONObject representation of the Manager
+   * @param jsonObject Owner class in JSONObject
+   * @return OwnerModel Class
+   */
+  public Gson fromJson(JSONObject jsonObject) {
+    Gson ObjectClass = super.fromJson(jsonObject);
+
+    if (!jsonObject.get("Managers").toString().equals("")) {
+      String[] list = String.valueOf(jsonObject.get("Managers")).split(",");
+      ArrayList<UserID> managersList = new ArrayList<>();
+      for (String item : list) {
+        String[] managerInfo = item.split(";");
+        UserID exerciseItem =
+                new UserID (Integer.parseInt(managerInfo[1]), managerInfo[0]);
+        managersList.add(exerciseItem);
+      }
+      this.managers = managersList;
+    }
+    return ObjectClass;
+  }
+
+  /**
+   * Gets the information about a ManagerView from the database.
+   *
+   * @param manager: UserID of the ManagerView
+   * @return JSONObject representation of the ManagerView
    */
   @Override
-  public JSONObject getManagerInfo(UserID manager) {
-    return this.db.readManagerInfo(manager.getId());
+  public JSONObject getManagerInfo(UserID manager) throws EmptyQueryException {
+    return this.db.readManagerData(manager.getId());
   }
 }

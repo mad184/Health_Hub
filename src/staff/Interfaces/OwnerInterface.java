@@ -1,5 +1,7 @@
 package staff.Interfaces;
 
+import com.google.gson.Gson;
+import database.EmptyQueryException;
 import org.json.JSONObject;
 import staff.UserID;
 
@@ -9,31 +11,61 @@ import java.util.List;
 public interface OwnerInterface {
 
   /**
+   * Gets the list of instructors in the organization
+   *
+   * @return List of UserID of Instructors
+   */
+  List<UserID> getInstructors();
+
+  /**
+   * Add a new instructor to the organization
+   *
+   * @param instructor A instructor to be added
+   */
+  void addInstructor(UserID instructor);
+
+  /**
+   * Remove an instructor from the organization
+   * @param instructor instructor to be removed
+   */
+  void removeInstructor(UserID instructor);
+
+  /**
    * Gets the list of all Managers in the organization.
    *
    * @return List of UserIDs of the Managers
    */
-  public List<UserID> getManagers();
+  List<UserID> getManagers();
 
   /**
-   * Adds a Manager to the organization.
+   * Adds a ManagerView to the organization.
    *
-   * @param manager: UserID of the new Manager
+   * @param manager: UserID of the new ManagerView
    */
-  public void addManager(UserID manager);
+  void addManager(UserID manager);
 
   /**
-   * Removes a Manager from the organization.
+   * Removes a ManagerView from the organization.
    *
-   * @param manager: UserID of the Manager
+   * @param manager: UserID of the ManagerView
    */
-  public void removeManager(UserID manager);
+  void removeManager(UserID manager);
 
   /**
-   * Gets the information about a Manager from the database.
+   * Gets the information about a ManagerView from the database.
    *
-   * @param manager: UserID of the Manager
-   * @return JSONObject representation of the Manager
+   * @param manager: UserID of the ManagerView
+   * @return JSONObject representation of the ManagerView
    */
-  public JSONObject getManagerInfo(UserID manager);
+  JSONObject getManagerInfo(UserID manager) throws EmptyQueryException;
+
+  /**
+   * Get a JSONObject from the class
+   *
+   * @return Class JSONObject
+   */
+  JSONObject toJson();
+
+  /** Get a JSONObject and set it back to a class - Instructor, Manager or owner */
+  Gson fromJson(JSONObject staff);
 }
