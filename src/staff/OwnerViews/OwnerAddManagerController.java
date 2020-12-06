@@ -56,6 +56,9 @@ public class OwnerAddManagerController {
                   + String.valueOf(JsonManager.get("_id"))
                   + " Email: "
                   + String.valueOf(JsonManager.get("email")));
+          break;
+        } else {
+          resultManager.setText("No Match");
         }
       }
     }

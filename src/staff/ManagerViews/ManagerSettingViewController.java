@@ -56,7 +56,7 @@ public class ManagerSettingViewController {
     String input = nameInput.getEditor().getText();
     controller.setName(input);
     nameLabel.setText(controller.getName());
-    db.updateInstructor(controller.getId(), controller.model.toJson());
+    db.updateManager(controller.getId(), controller.model.toJson());
   }
 
   public void onAgePressed(ActionEvent event) throws JsonObjectException, EmptyQueryException {
@@ -64,7 +64,7 @@ public class ManagerSettingViewController {
     String input = ageInput.getEditor().getText();
     controller.setAge(Integer.parseInt(input));
     ageLabel.setText(input);
-    db.updateInstructor(controller.getId(), controller.model.toJson());
+    db.updateManager(controller.getId(), controller.model.toJson());
   }
 
   public void onHeightPressed(ActionEvent event) throws JsonObjectException, EmptyQueryException {
@@ -72,7 +72,7 @@ public class ManagerSettingViewController {
     String input = heightInput.getEditor().getText();
     controller.setHeight(Integer.parseInt(input));
     heightLabel.setText(input);
-    db.updateInstructor(controller.getId(), controller.model.toJson());
+    db.updateManager(controller.getId(), controller.model.toJson());
   }
 
   public void onWeightGoalPressed(ActionEvent event)
@@ -81,7 +81,7 @@ public class ManagerSettingViewController {
     String input = weightGoalInput.getEditor().getText();
     controller.setWeight(Integer.parseInt(input));
     weightGoalLabel.setText(input);
-    db.updateInstructor(controller.getId(), controller.model.toJson());
+    db.updateManager(controller.getId(), controller.model.toJson());
   }
 
   public void onCalorieGoalPressed(ActionEvent event)
@@ -90,7 +90,7 @@ public class ManagerSettingViewController {
     String input = calorieGoalInput.getEditor().getText();
     controller.setGoalCal(Integer.parseInt(input));
     calGoalLabel.setText(input);
-    db.updateInstructor(controller.getId(), controller.model.toJson());
+    db.updateManager(controller.getId(), controller.model.toJson());
   }
 
   // Goes to main view scene when back button is pushed

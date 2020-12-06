@@ -51,9 +51,11 @@ public class OwnerAddInstructorController {
                   + String.valueOf(JsonInstructor.get("_id"))
                   + " Email: "
                   + String.valueOf(JsonInstructor.get("email")));
+          break;
+        } else {
+          resultInstructor.setText("No Match");
         }
       }
-      // TODO: Maybe add a pop up sail that the search view is empty
     }
   }
 

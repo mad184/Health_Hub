@@ -57,9 +57,11 @@ public class ManagerAddInstructorController {
                   + String.valueOf(JsonInstructor.get("_id"))
                   + " Email: "
                   + String.valueOf(JsonInstructor.get("email")));
+          break;
+        } else {
+          resultInstructor.setText("No match");
         }
       }
-      // TODO: Maybe add a pop up sail that the search view is empty
     }
   }
 
