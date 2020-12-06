@@ -9,7 +9,6 @@ import database.JsonObjectException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -17,10 +16,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
-public class ExerciseAddNewExerciseViewController implements Initializable {
+public class ExerciseAddNewExerciseViewController {
 
     //Connection to database object
     ClientToDB DB = new ClientToDB();
@@ -107,9 +104,5 @@ public class ExerciseAddNewExerciseViewController implements Initializable {
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(viewScene);
         window.show();
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
     }
 }

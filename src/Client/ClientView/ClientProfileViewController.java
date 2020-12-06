@@ -4,7 +4,6 @@ import Client.ClientController;
 import database.EmptyQueryException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,14 +11,12 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
-public class ClientProfileViewController implements Initializable {
+public class ClientProfileViewController {
 
   public ClientController clientController = new ClientController(null);
-  private Label nameLabel = new Label();
-  private Label ageLabel = new Label();
+  private final Label nameLabel = new Label();
+  private final Label ageLabel = new Label();
 
   public void setupScene(ClientController client) {
     clientController = client;
@@ -41,7 +38,4 @@ public class ClientProfileViewController implements Initializable {
     window.setScene(viewScene);
     window.show();
   }
-
-  @Override
-  public void initialize(URL url, ResourceBundle resourceBundle) {}
 }
