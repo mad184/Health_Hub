@@ -86,7 +86,6 @@ public class InstructorSignUpController {
                             0,
                             organization,
                             uniqueId,
-                            null,
                             "test-user",
                             "healthhub1",
                             "Test-General-Database",

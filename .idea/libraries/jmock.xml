@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="jmock">
+    <CLASSES />
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../../../../../../../Program Files (x86)/JMock/jmock-library-jmock2/jmock/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../../../../../../../Program Files (x86)/JMock/jmock-library-jmock2/jmock/src/test/java" />
+    </SOURCES>
+  </library>
+</component>

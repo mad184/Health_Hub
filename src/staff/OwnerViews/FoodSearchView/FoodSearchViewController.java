@@ -3,6 +3,7 @@ package staff.OwnerViews.FoodSearchView;
 import API.APIManager;
 import API.FoodItem;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import database.EmptyQueryException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,8 +13,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import staff.Controllers.InstructorController;
 import staff.Controllers.OwnerController;
+import staff.OwnerViews.OwnerNutrientViewController;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,11 +39,12 @@ public class FoodSearchViewController {
   // Controller to hold client information
   private OwnerController controller = new OwnerController(null);
 
-  //Array list initialized for results
+  // Array list initialized for results
   ArrayList<FoodItem> results = new ArrayList<>();
 
   /**
    * Setups scene
+   *
    * @param owner OwnerController for owner
    */
   public void setupScene(OwnerController owner) {
@@ -51,6 +53,7 @@ public class FoodSearchViewController {
 
   /**
    * Searches for food with inputted string
+   *
    * @param event event of search button being pressed
    * @throws UnirestException exception
    */
@@ -66,6 +69,7 @@ public class FoodSearchViewController {
 
   /**
    * Changes scene to foodTypeSelectView scene
+   *
    * @param event of add button being clicked
    * @param food food to be added to owner
    */
@@ -87,25 +91,55 @@ public class FoodSearchViewController {
 
   /**
    * Goes to food type select view to add food to owner
+   *
    * @param event first result add button clicked
    */
   public void topResultAddButton(ActionEvent event) throws IOException {
-    changeScene(event, results.get(0));
+    if (results.size() != 0) {
+      changeScene(event, results.get(0));
+    }
   }
 
   /**
    * Goes to food type select view to add food to owner
+   *
    * @param event second result add button clicked
    */
   public void secondResultAddButton(ActionEvent event) throws IOException {
-    changeScene(event, results.get(1));
+    if (results.size() != 0) {
+      changeScene(event, results.get(1));
+    }
   }
 
   /**
    * Goes to food type select view to add food to owner
+   *
    * @param event third result add button clicked
    */
   public void thirdResultAddButton(ActionEvent event) throws IOException {
-    changeScene(event, results.get(2));
+    if (results.size() != 0) {
+      changeScene(event, results.get(2));
+    }
+  }
+
+  /**
+   * Add a back button so owner can navigate back to OwnerNutrientView
+   *
+   * @param event the back button being clicked
+   */
+  public void onBackButtonPressed(ActionEvent event) throws IOException, EmptyQueryException {
+    // Loads Scene for main view
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("../ownerNutrientView.fxml"));
+    Parent root = loader.load();
+
+    // Gets main view controller and passes client to it
+    OwnerNutrientViewController ownerNutrientViewController = loader.getController();
+    ownerNutrientViewController.setupScene(controller);
+
+    Scene viewScene = new Scene(root);
+    // Gets stage information
+    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    window.setScene(viewScene);
+    window.show();
   }
 }

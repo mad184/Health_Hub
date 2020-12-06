@@ -46,7 +46,7 @@ public class InstructorMainViewController {
                     0,
                     "none",
                     _id,
-                    null,
+
                     "test-user",
                     "healthhub1",
                     "Test-General-Database",
@@ -170,6 +170,28 @@ public class InstructorMainViewController {
 
     // Gets Setting view controller and passes client to it
     InstructorSettingViewController ViewController = loader.getController();
+    ViewController.setupScene(controller);
+
+    Scene viewScene = new Scene(root);
+    // Gets stage information
+    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    window.setScene(viewScene);
+    window.show();
+  }
+
+  /**
+   * Goes to client page when client button is pressed
+   *
+   * @param event Event of client button pressed
+   * @throws IOException throws exception
+   */
+  public void onClientButtonPushed(ActionEvent event) throws IOException {
+    // Loads Scene for settings view
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("instructorClientView.fxml"));
+    Parent root = loader.load();
+
+    // Gets Setting view controller and passes client to it
+    InstructorClientViewController ViewController = loader.getController();
     ViewController.setupScene(controller);
 
     Scene viewScene = new Scene(root);

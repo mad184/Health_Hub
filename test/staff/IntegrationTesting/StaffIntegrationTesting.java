@@ -36,7 +36,6 @@ public class StaffIntegrationTesting {
           160,
           "Average Joes",
           1,
-          new ArrayList<>(),
               "test-user",
               "healthhub1",
               "Test-General-Database",

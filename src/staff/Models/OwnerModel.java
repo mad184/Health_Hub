@@ -1,5 +1,6 @@
 package staff.Models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import database.EmptyQueryException;
@@ -107,7 +108,16 @@ public class OwnerModel extends ManagerModel implements OwnerInterface {
   @Override
   public JSONObject toJson() throws JSONException {
     JSONObject json = super.toJson();
-    json.put("Managers", this.managers);
+
+    if (this.managers != null) {
+      json.put(
+              "Managers",
+              this.managers.toString().substring(1, this.managers.toString().length() - 1));
+    }
+    else {
+      json.put(
+              "Managers", "");
+    }
     return json;
   }
 
@@ -119,12 +129,17 @@ public class OwnerModel extends ManagerModel implements OwnerInterface {
    */
   public Gson fromJson(JSONObject jsonObject) {
     Gson ObjectClass = super.fromJson(jsonObject);
-    String[] ListArray = String.valueOf(jsonObject.get("Managers")).split(" ");
 
-    for (String item : ListArray) {
-      String[] ManagerInfo = item.split(",");
-      UserID userClient = new UserID(Integer.parseInt(ManagerInfo[0]), ManagerInfo[1]);
-      addManager(userClient);
+    if (!jsonObject.get("Managers").toString().equals("")) {
+      String[] list = String.valueOf(jsonObject.get("Managers")).split(",");
+      ArrayList<UserID> managersList = new ArrayList<>();
+      for (String item : list) {
+        String[] managerInfo = item.split(";");
+        UserID exerciseItem =
+                new UserID (Integer.parseInt(managerInfo[1]), managerInfo[0]);
+        managersList.add(exerciseItem);
+      }
+      this.managers = managersList;
     }
     return ObjectClass;
   }

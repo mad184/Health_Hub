@@ -11,6 +11,26 @@ import java.util.List;
 public interface OwnerInterface {
 
   /**
+   * Gets the list of instructors in the organization
+   *
+   * @return List of UserID of Instructors
+   */
+  List<UserID> getInstructors();
+
+  /**
+   * Add a new instructor to the organization
+   *
+   * @param instructor A instructor to be added
+   */
+  void addInstructor(UserID instructor);
+
+  /**
+   * Remove an instructor from the organization
+   * @param instructor instructor to be removed
+   */
+  void removeInstructor(UserID instructor);
+
+  /**
    * Gets the list of all Managers in the organization.
    *
    * @return List of UserIDs of the Managers
@@ -38,7 +58,6 @@ public interface OwnerInterface {
    * @return JSONObject representation of the ManagerView
    */
   JSONObject getManagerInfo(UserID manager) throws EmptyQueryException;
-
 
   /**
    * Get a JSONObject from the class
