@@ -495,7 +495,6 @@ public class StaffModel implements StaffInterface {
               "exercises",
               getExercises().toString().substring(1, getExercises().toString().length() - 1));
     }
-    System.out.println(json.toString());
     return json;
   }
 
