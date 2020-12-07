@@ -4,9 +4,7 @@
     <CLASSES>
       <root url="jar://$MAVEN_REPOSITORY$/org/mongodb/bson/3.12.7/bson-3.12.7.jar!/" />
     </CLASSES>
-    <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/org/mongodb/bson/3.12.7/bson-3.12.7-javadoc.jar!/" />
-    </JAVADOC>
+    <JAVADOC />
     <SOURCES />
   </library>
 </component>
