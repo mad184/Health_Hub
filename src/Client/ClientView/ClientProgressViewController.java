@@ -1,5 +1,6 @@
 package Client.ClientView;
 
+import Client.Client;
 import Client.ClientController;
 import database.EmptyQueryException;
 import javafx.event.ActionEvent;
@@ -12,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.stage.Stage;
 
+
 import java.io.IOException;
 
 public class ClientProgressViewController {
@@ -20,20 +22,16 @@ public class ClientProgressViewController {
   public ClientController clientController = new ClientController(null);
 
   // Label with percentage calories out of goal calories eaten so far
-  @FXML
-  private final Label progressLabel = new Label();
+  @FXML private Label progressLabel = new Label();
 
   // Label for calorie intake
-  @FXML
-  private final Label calorieLabel = new Label();
+  @FXML private Label calorieLabel = new Label();
 
   // Label for calorie goal
-  @FXML
-  private final Label calorieGoalLabel = new Label();
+  @FXML private Label calorieGoalLabel = new Label();
 
   // Progress bar for daily calorie intake progress
-  @FXML
-  private final ProgressBar pBar = new ProgressBar();
+  @FXML private ProgressBar pBar = new ProgressBar();
 
   public void setupScene(ClientController client) {
     //Set controller to use current information for client
