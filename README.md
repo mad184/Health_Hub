@@ -31,6 +31,6 @@ but more on the test code
 #### How to execute the test cases?
 
 1. Open the test folder within your IDE
-2. Run the Tests within specific packages
+2. Run the Tests within specific packages/ You can just run the whole Test Cases
 
 
