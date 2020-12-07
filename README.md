@@ -29,7 +29,8 @@
              (path to lib folder in javafx 15 you download)
              --add-modules
              javafx.controls,javafx.fxml
-    
+9. You can now run the project using the green arrow beside run config
+    i. If intellij says it cannot run or find main class go to file and click restart and invalidate.    
 
 ## Testing Instructions
 
