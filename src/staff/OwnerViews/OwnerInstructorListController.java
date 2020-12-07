@@ -109,7 +109,7 @@ public class OwnerInstructorListController {
    */
   public void onBackButtonPressed(ActionEvent event) throws IOException, EmptyQueryException {
     // Loads Scene for main view
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("OwnerMainView.fxml"));
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("ownerMainView.fxml"));
     Parent root = loader.load();
 
     // Gets main view controller and passes client to it

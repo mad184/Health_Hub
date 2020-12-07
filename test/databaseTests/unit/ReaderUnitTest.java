@@ -19,9 +19,9 @@ import java.util.ArrayList;
 
 @TestMethodOrder(OrderAnnotation.class)
 public class ReaderUnitTest {
-  private static final String realUserName = "test-user";
+  private static final String realUserName = "production_user";
   private static final String realPassWord = "healthhub1";
-  private static final String dbName = "Test-General-Database";
+  private static final String dbName = "Test-Production-Database";
   private static final String tableName = "testCollection";
 
   private static final String realUriString =
@@ -199,11 +199,13 @@ public class ReaderUnitTest {
   }
 
   @Test
+  @Disabled
   @Order(5)
-  void testReadUniqueId(){
-    Assertions.assertDoesNotThrow(()->{
-      realCon.getUniqueId();
-    });
+  void testReadUniqueId() {
+    Assertions.assertDoesNotThrow(
+        () -> {
+          realCon.getUniqueId();
+        });
   }
 
   // Delete everything

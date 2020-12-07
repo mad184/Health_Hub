@@ -11,7 +11,6 @@ import org.json.JSONObject;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -25,9 +24,9 @@ import java.util.List;
 public class WriterUnitTest {
 
   // Creadential related fields
-  private static final String realUserName = "test-user";
+  private static final String realUserName = "production_user";
   private static final String realPassWord = "healthhub1";
-  private static final String dbName = "Test-General-Database";
+  private static final String dbName = "Test-Production-Database";
   private static final String tableName = "testCollection";
   private static final String realUriString =
       "mongodb+srv://"
@@ -449,15 +448,16 @@ public class WriterUnitTest {
   // Test if initializing and setting the next ID throws exception
   @Test
   @Order(18)
-  void testSetUniqueId(){
-      realCon.deleteData(0,"CounterCollection");
+  void testSetUniqueId() {
+    realCon.deleteData(0, "CounterCollection");
 
-      Assertions.assertDoesNotThrow(()->{
+    Assertions.assertDoesNotThrow(
+        () -> {
           realCon.initializeUniqueId();
           realCon.setNextUniqueId();
-      });
+        });
 
-      realCon.deleteData(0,"CounterCollection");
+    realCon.deleteData(0, "CounterCollection");
   }
 
   @AfterAll

@@ -1,4 +1,4 @@
-package clientTests.intergration;
+package clientTests.integration;
 
 import API.ExerciseItem;
 import API.FoodItem;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class ClientToDatabase {
+public class ClientToDatabase {
   Client client1 =
       new Client(
           "dustin",
@@ -25,25 +25,26 @@ class ClientToDatabase {
           29,
           177,
           182,
-              "306-111-1111",
-              170,
-              3000,
-              2000,
-              null,
-              null,
-              null,
-              new ArrayList<FoodItem>(),
-              new ArrayList<FoodItem>(),
-              new ArrayList<FoodItem>(),
-              new ArrayList<FoodItem>(),
-              new ArrayList<ExerciseItem>(),
-              null);
+          "306-111-1111",
+          170,
+          3000,
+          2000,
+          null,
+          null,
+          null,
+          new ArrayList<FoodItem>(),
+          new ArrayList<FoodItem>(),
+          new ArrayList<FoodItem>(),
+          new ArrayList<FoodItem>(),
+          new ArrayList<ExerciseItem>(),
+          null);
 
   ClientController clientController1 = new ClientController(client1);
 
-  Dbms testDB = new Dbms("Justyn", "Staff1", "Test-Justyn-Db", "testCollection");
+  Dbms testDB =
+      new Dbms("production_user", "healthhub1", "Test-Production-Database", "testCollection");
 
-  //Tests adding Client to database
+  // Tests adding Client to database
   @Test
   void addClientToDB() throws EmptyQueryException {
     clientController1.addClientBreakfastFood(new FoodItem("Donut", 1.0, 100));
@@ -85,11 +86,4 @@ class ClientToDatabase {
     assertEquals(100, clientController1.getClientDinnerFoods().get(0).getCalories());
     assertEquals(100, clientController1.getClientSnackFoods().get(0).getCalories());
   }
-
-  //@Test
-  //void removeClientFromDB(){
-   // testDB.removeClient(clientController1.getClientID());
-  //}
-  }
-
-
+}

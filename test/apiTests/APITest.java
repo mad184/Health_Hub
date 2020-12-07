@@ -20,15 +20,15 @@ public class APITest {
             + " ,Calories: "
             + results.get(0).getCalories()
             + "\n"
-                + "Second result: "
-                + results.get(1).getFoodName()
-                + " ,Calories: "
-                + results.get(1).getCalories()
-                + "\n"
-                + "Third result: "
-                + results.get(2).getFoodName()
-                + " ,Calories: "
-                + results.get(2).getCalories());
+            + "Second result: "
+            + results.get(1).getFoodName()
+            + " ,Calories: "
+            + results.get(1).getCalories()
+            + "\n"
+            + "Third result: "
+            + results.get(2).getFoodName()
+            + " ,Calories: "
+            + results.get(2).getCalories());
   }
 
   @Test

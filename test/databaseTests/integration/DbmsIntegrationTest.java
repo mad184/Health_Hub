@@ -24,9 +24,9 @@ import java.util.Random;
 @TestMethodOrder(OrderAnnotation.class)
 public class DbmsIntegrationTest {
 
-  private static final String realUserName = "test-user";
+  private static final String realUserName = "production_user";
   private static final String realPassWord = "healthhub1";
-  private static final String dbName = "Test-General-Database";
+  private static final String dbName = "Test-Production-Database";
   private static final String tableName = "testCollection";
   private static JSONArray expectedFullData = new JSONArray();
 

@@ -1,26 +1,36 @@
 # Group 1
 
-Thursday Tutorial
+## Testing Instructions
 
-Brody Zak  
-Justyn Pollard  
-Remington Rohel  
-Marcos Da Silva  
-Dustin Crosson  
-Kenneth Andal 
+**Note:** Testing for specific package can be done individually. However, I recommend
+executing the test in an orderly fashion as that is the way I have tested the test suite to
+guarantee work
 
-How to Run Test Cases:
-Run Using Intellij IDEA and JUnit 5;
-if running MileStone 3 test cases for the first time:
-1. download files from Client Branch in git lab (Client.java, ClientInterface.java, ClientTest.java)
-2. open a plain java project
-3. Add the Files following files to a package name Clinet: Client.java, ClientInterface.java, ClientTest.java to client package
-4. open file ClientTest.java
-5. File -> Project Structure -> Libraries -> New Project Library (+ button) -> from Maven
-6. junit:junit:4.12 (add to textbox)
-7. apply
-8. New Project Library (+ button)-> from Maven
-9. org.junit.jupiter:junit-jupiter:5.4.2 (add to textbox)
-10. okay
-11. press run button
-12. Look for output in terminal
+#### Here is the recommended order of test to execute
+1. databaseTests: Unit
+2. databaseTests: integration
+3. healthhubTests: integration
+4. healthHubUnitTests: FormValidationTesting
+5. clientTests: unit
+6. staff: UserIDTest
+7. staff: StaffModelTest
+8. staff: IntegrationTesting
+9. apiTests: APITest
+
+**IMPORTANT Note:** 
+
+* It has been tested that all unit testing were passing. I am just worried that since the
+test suite is not thoroughly tested, it might cause an environment issue when another test case execute.
+* There are few issues with the tests. The client DOES NOT PERFORM POSTDELETE. Therefore,
+it not recommended to run it. The issue was not about the actual code but more on the test Code
+* Staff Integration Testing has some disabled test case due to an issue on the test code.
+The StaffIntegrationTesting was illegally connected to the production database which may cause
+issue when the actual user is using the application. Again, it is not an issue on the dev code
+but more on the test code
+
+#### How to execute the test cases?
+
+1. Open the test folder within your IDE
+2. Run the Tests within specific packages
+
+

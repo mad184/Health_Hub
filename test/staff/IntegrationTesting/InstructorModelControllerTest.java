@@ -30,10 +30,10 @@ public class InstructorModelControllerTest {
           160,
           "Average Joes",
           1,
-          "Marcos",
-          "Manager1",
-          "Dev-Marcos-Db",
-          "Instructors");
+          "production_user",
+          "healthhub1",
+          "Test-Production-Database",
+          "testCollection");
 
   InstructorController controller = new InstructorController(model);
 
@@ -115,7 +115,7 @@ public class InstructorModelControllerTest {
   }
 
   @Test
-  void testToJason(){
+  void testToJason() {
     controller.addClient(client_1);
     controller.addClient(client_2);
     JSONObject JsonInstructor = controller.toJson();
@@ -123,6 +123,5 @@ public class InstructorModelControllerTest {
     controller.setName("Not the right name");
     controller.fromJson(JsonInstructor);
     assertEquals(controller.getName(), "John");
-
   }
 }

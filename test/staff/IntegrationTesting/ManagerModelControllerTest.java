@@ -32,10 +32,10 @@ public class ManagerModelControllerTest {
           "One Organization",
           3,
           new ArrayList<>(),
-          "Marcos",
-          "Manager1",
-          "Dev-Marcos-Db",
-          "Instructors");
+          "production_user",
+          "healthhub1",
+          "Test-Production-Database",
+          "testCollection");
 
   ManagerController controller = new ManagerController(model);
 
