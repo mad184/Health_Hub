@@ -2,6 +2,7 @@ package Client.ClientView;
 
 import Client.ClientController;
 import Client.ClientToDB;
+import database.Dbms;
 import database.EmptyQueryException;
 import database.JsonObjectException;
 import javafx.event.ActionEvent;
@@ -46,9 +47,9 @@ public class ClientSettingsViewController {
     clientController = client;
     nameLabel.setText(clientController.getClientName());
     ageLabel.setText(String.valueOf(clientController.getClientAge()));
-    heightLabel.setText(clientController.getClientHeight() + "cm");
-    weightGoalLabel.setText(clientController.getClientWeightGoal() + "Kg");
-    calorieGoalLabel.setText(clientController.getClientCalGoal() + "Kcal");
+    heightLabel.setText(String.valueOf(clientController.getClientHeight()) + "cm");
+    weightGoalLabel.setText(String.valueOf(clientController.getClientWeightGoal()) + "Kg");
+    calorieGoalLabel.setText(String.valueOf(clientController.getClientCalGoal()) + "Kcal");
   }
 
   public void onNamePressed(ActionEvent event) throws JsonObjectException, EmptyQueryException {
