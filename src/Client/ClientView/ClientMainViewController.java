@@ -48,7 +48,7 @@ public class ClientMainViewController {
     recommendationLabel.setText("None");
 
     // Sets clients comments label to none if there are no comments, else sets to first comment
-    if (clientController.getClientComment() == null) {
+    if (clientController.getClientComment().isEmpty()) {
       commentLabel.setText("None");
     } else {
       commentLabel.setText(clientController.getClientComment().get(0));
