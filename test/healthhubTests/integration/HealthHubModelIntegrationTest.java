@@ -2,7 +2,6 @@ package healthhubTests.integration;
 
 import database.EmptyQueryException;
 import healthhub.HealthHubModel;
-import org.json.JSONArray;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Order;
@@ -16,7 +15,7 @@ import org.json.JSONObject;
 public class HealthHubModelIntegrationTest {
 
   private static HealthHubModel testHHM =
-      new HealthHubModel("test-user", "healthhub1", "Test-General-Database");
+      new HealthHubModel("production_user", "healthhub1", "Test-Production-Database");
 
   // Test if creating the client will not result to any of the error codes
   @Test
