@@ -1,13 +1,15 @@
 # Group 1
 
-Thursday Tutorial
-
 Brody Zak  
 Justyn Pollard  
 Remington Rohel  
 Marcos Da Silva  
 Dustin Crosson  
 Kenneth Andal 
+
+How to launch program:
+1. Launch intellij and create project from VCS using: git
+2. 
 
 How to Run Test Cases:
 Run Using Intellij IDEA and JUnit 5;
