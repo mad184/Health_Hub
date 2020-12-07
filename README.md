@@ -23,14 +23,17 @@
  7. Once this is done you'll want to download javafx 15 sdk from https://gluonhq.com/products/javafx/
     Make sure to download version 15.0.1 and for your operating system
  8. You'll now want to setup the run config, start by going to the run config setup in the upper right corner
-        i. Set main class to healthub.views.LoginView
+        i. Set main class to healthub.views.LoginView\
         ii. under vm options enter
              --module-path
              (path to lib folder in javafx 15 you download)
              --add-modules
              javafx.controls,javafx.fxml
+        iii. Make sure module it declared as the project
+        iv. Make sure sdk is 15
 9. You can now run the project using the green arrow beside run config
-    i. If intellij says it cannot run or find main class go to file and click restart and invalidate.    
+    i. If intellij says it cannot run or find main class go to file and click restart and invalidate.
+    ii. May need to resetup run config after doing this    
 
 ## Testing Instructions
 
