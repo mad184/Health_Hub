@@ -9,7 +9,7 @@ import org.json.JSONObject;
 
 public class StaffToDB {
 
-  Dbms DB = new Dbms("test-user", "healthhub1", "Test-General-Database", "testCollection");
+  Dbms DB = new Dbms("production_user", "healthhub1", "production-database", "testCollection");
 
   /**
    * Creates instructor in database from json object
