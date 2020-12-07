@@ -29,10 +29,10 @@ public class OwnerModelControllerTest {
           8,
           new ArrayList<>(),
           new ArrayList<>(),
-          "Marcos",
-          "Manager1",
-          "Dev-Marcos-Db",
-          "Instructors");
+          "production_user",
+          "healthhub1",
+          "Test-Production-Database",
+          "testCollection");
 
   OwnerController controller = new OwnerController(model);
 
