@@ -21,27 +21,20 @@ import java.util.ArrayList;
 
 public class FoodSearchViewController {
   // APIManager Object for food search
-  private final APIManager apiManager = new APIManager();
+  private APIManager apiManager = new APIManager();
 
   // TextField
-  private @FXML
-  final TextField searchBar = new TextField();
+  private @FXML TextField searchBar = new TextField();
 
   // Labels for search Results names
-  private @FXML
-  final Label topResultName = new Label();
-  private @FXML
-  final Label secondResultName = new Label();
-  private @FXML
-  final Label thirdResultName = new Label();
+  private @FXML Label topResultName = new Label();
+  private @FXML Label secondResultName = new Label();
+  private @FXML Label thirdResultName = new Label();
 
   // Labels for search Results calories
-  private @FXML
-  final Label topResultCals = new Label();
-  private @FXML
-  final Label secondResultCals = new Label();
-  private @FXML
-  final Label thirdResultCals = new Label();
+  private @FXML Label topResultCals = new Label();
+  private @FXML Label secondResultCals = new Label();
+  private @FXML Label thirdResultCals = new Label();
 
   // Controller to hold client information
   private ClientController clientController = new ClientController(null);

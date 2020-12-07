@@ -27,15 +27,15 @@ public class ClientMainViewController {
   // UI
   // Label for client name
   @FXML
-  private final Label nameLabel = new Label();
+  private Label nameLabel = new Label();
 
   // Label for most recent client recommendations
   @FXML
-  private final Label recommendationLabel = new Label();
+  private Label recommendationLabel = new Label();
 
   // Label for most recent client comments
   @FXML
-  private final Label commentLabel = new Label();
+  private Label commentLabel = new Label();
 
   public void setupScene(int clientID) throws EmptyQueryException {
     // Sets client to client controller for scene
