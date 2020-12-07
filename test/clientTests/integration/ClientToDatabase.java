@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class ClientToDatabase {
+public class ClientToDatabase {
   Client client1 =
       new Client(
           "dustin",
