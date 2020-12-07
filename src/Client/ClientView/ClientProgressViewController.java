@@ -21,19 +21,19 @@ public class ClientProgressViewController {
 
   // Label with percentage calories out of goal calories eaten so far
   @FXML
-  private final Label progressLabel = new Label();
+  private Label progressLabel = new Label();
 
   // Label for calorie intake
   @FXML
-  private final Label calorieLabel = new Label();
+  private Label calorieLabel = new Label();
 
   // Label for calorie goal
   @FXML
-  private final Label calorieGoalLabel = new Label();
+  private Label calorieGoalLabel = new Label();
 
   // Progress bar for daily calorie intake progress
   @FXML
-  private final ProgressBar pBar = new ProgressBar();
+  private ProgressBar pBar = new ProgressBar();
 
   public void setupScene(ClientController client) {
     //Set controller to use current information for client
