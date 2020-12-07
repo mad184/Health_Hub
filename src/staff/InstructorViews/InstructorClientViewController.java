@@ -123,10 +123,13 @@ public class InstructorClientViewController {
     System.out.println("You have invited a client");
     String email = this.inviteEmailField.getText();
     for (Object client : allClients) {
-      System.out.println(client);
       String possibleEmail = ((JSONObject) client).getString("email");
       if (email.equals(possibleEmail)) {
-        ArrayList<Integer> invites = (ArrayList<Integer>) ((JSONObject) client).get("invites");
+        ArrayList<Integer> invites = new ArrayList<>();
+        JSONArray invitesJson = (JSONArray) ((JSONObject) client).get("invites");
+        for (int i = 0; i < invitesJson.length(); i++) {
+          invites.add(invitesJson.getInt(i));
+        }
         invites.add(controller.getId());
         ((JSONObject) client).put("invites", invites);
         Dbms dbms = controller.getDbms();
