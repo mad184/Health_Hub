@@ -2,6 +2,7 @@ package staff.IntegrationTesting;
 
 import database.EmptyQueryException;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Disabled;
 import staff.Controllers.InstructorController;
 import staff.Controllers.ManagerController;
 import staff.Models.InstructorModel;
@@ -96,6 +97,7 @@ public class StaffIntegrationTesting {
   }
 
   @Test
+  @Disabled
   void testAddInstructorToDb() throws EmptyQueryException {
     // REMOVE FROM DB PLEASE
     assertNotNull(instructorController.toJson());
@@ -104,6 +106,7 @@ public class StaffIntegrationTesting {
   }
 
   @Test
+  @Disabled
   void testAddManagerToDb() throws EmptyQueryException {
     assertNotNull(managerModel.toJson());
     dbAccess.createManager(managerController.getId(), managerController.toJson());
