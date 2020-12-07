@@ -41,7 +41,8 @@ class ClientToDatabase {
 
   ClientController clientController1 = new ClientController(client1);
 
-  Dbms testDB = new Dbms("production_user", "healthhub1", "Test-Production-Database", "testCollection");
+  Dbms testDB =
+      new Dbms("production_user", "healthhub1", "Test-Production-Database", "testCollection");
 
   // Tests adding Client to database
   @Test
