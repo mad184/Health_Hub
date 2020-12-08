@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.ClientView.ClientProgressViewController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2a0033" height="400.0" stroke="BLACK" strokeType="INSIDE" width="600.0" />
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#onBackButtonPressed" prefHeight="33.0" prefWidth="57.0" style="-fx-border-color: #9643A9 #9643A9; -fx-border-radius: 10; -fx-background-color: #2A0033; -fx-background-radius: 10;" text="Back" textFill="#ddd9d9" />
+      <ProgressBar fx:id="pBar" layoutX="206.0" layoutY="121.0" prefWidth="200.0" progress="0.0" style="-fx-accent: #2a0033#2a0033; -fx-border-color: #9643A9 #9643A9 #9643A9 #9643A9;" />
+      <Label fx:id="progressLabel" alignment="CENTER" layoutX="205.0" layoutY="123.0" prefHeight="17.0" prefWidth="193.0" text="progressLabel" textAlignment="CENTER" textFill="#9643a9" />
+      <Label layoutX="241.0" layoutY="58.0" text="Daily Calorie Progress" textFill="#c9c1c1">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="244.0" layoutY="12.0" text="Progress" textFill="#c9c1c1">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <Label layoutX="202.0" layoutY="79.0" text="Todays Calorie Intake:" textFill="#c9c1c1">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="calorieLabel" layoutX="337.0" layoutY="79.0" text="calorieLabel" textFill="#ddd9d9" />
+      <Label layoutX="214.0" layoutY="97.0" text="Daily Calorie Goal:" textFill="#c9c1c1">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="calorieGoalLabel" layoutX="334.0" layoutY="98.0" text="goalCalLabel" textFill="#ddd9d9" />
+   </children>
+</AnchorPane>
